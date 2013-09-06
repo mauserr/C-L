@@ -1,8 +1,13 @@
 <?php 
+//**************************************
+//* Class: index.php 
+//* Classe de índice 
+//* Licensa:
+//**************************************
 
 session_start(); 
 include("funcoes_genericas.php"); 
-chkUser("index.php");        // Cenario: controle de acesso 
+Check_User("index.php");        // Cenario: controle de acesso 
 
 ?> 
 

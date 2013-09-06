@@ -3,19 +3,12 @@ include_once("bd.inc");
 include_once("bd_class.php");
 include_once("seguranca.php");
 
-
-/*
-if (!(class_exists("PGDB"))) {
-    include("bd_class.php");
-}
-*/
-
-/* chkUser(): checa se o usuário acessando foi autenticado (presença da variável de sessão
+/* check_User(): checa se o usuário acessando foi autenticado (presença da variável de sessão
 $id_usuario_corrente). Caso ele já tenha sido autenticado, continua-se com a execução do
 script. Caso contrário, abre-se uma janela de logon. */
-if (!(function_exists("chkUser"))) 
+if (!(function_exists("check_User"))) 
 {
-    function chkUser($url)
+    function check_User($url)
     {
         if (!(session_is_registered("id_usuario_corrente"))) 
         {
