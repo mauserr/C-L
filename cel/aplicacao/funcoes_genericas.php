@@ -107,11 +107,11 @@ if (!(function_exists("inclui_lexico")))
 # Verifica se este usuario ja possui um projeto com esse nome. (1.2)
 # Caso nao possua, insere os valores na tabela PROJETO. (1.3)
 # Devolve o id_cprojeto. (1.4)
-#
 ###################################################################
-if (!(function_exists("inclui_projeto"))) 
+
+if (!(function_exists("include_project"))) 
 {
-    function inclui_projeto($nome, $descricao)
+    function include_project($nome, $descricao)
     {
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         //verifica se usuario ja existe
