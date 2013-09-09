@@ -3,9 +3,9 @@ include_once("bd.inc");
 include_once("bd_class.php");
 include_once("seguranca.php");
 
-/* check_User(): checa se o usuário acessando foi autenticado (presença da variável de sessão
-$id_usuario_corrente). Caso ele já tenha sido autenticado, continua-se com a execução do
-script. Caso contrário, abre-se uma janela de logon. */
+/* check_User(): checa se o usuï¿½rio acessando foi autenticado (presenï¿½a da variï¿½vel de sessï¿½o
+$id_usuario_corrente). Caso ele jï¿½ tenha sido autenticado, continua-se com a execuï¿½ï¿½o do
+script. Caso contrï¿½rio, abre-se uma janela de logon. */
 if (!(function_exists("check_User"))) 
 {
     function check_User($url)
@@ -34,12 +34,14 @@ if (!(function_exists("check_User")))
 # Devolve o id_cenario. (1.4)
 #
 ###################################################################
+
 if (!(function_exists("inclui_cenario"))) 
 {
     function inclui_cenario($id_projeto, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios)
     {
-        //global $r;      // Conexao com a base de dados
-        $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        //Variavel $connect que faz conexao com a base de dados
+        $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        
         $data = date("Y-m-d");
         
         $q = "INSERT INTO cenario (id_projeto,data, titulo, objetivo, contexto, atores, recursos, excecao, episodios) 
@@ -47,16 +49,19 @@ if (!(function_exists("inclui_cenario")))
 		'".prepara_dado($contexto)."', '".prepara_dado($atores)."', '".prepara_dado($recursos)."',
 		'".prepara_dado($excecao)."', '".prepara_dado($episodios)."')";
 			  
-		mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+	mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        
         $q = "SELECT max(id_cenario) FROM cenario";
+        
         $qrr = mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $result = mysql_fetch_row($qrr);
         return $result[0];
     }
 }
+
 ###################################################################
 # Insere um lexico no banco de dados.
-# Recebe o id_projeto, nome, noção, impacto e os sinonimos. (1.1)
+# Recebe o id_projeto, nome, noï¿½ï¿½o, impacto e os sinonimos. (1.1)
 # Insere os valores do lexico na tabela LEXICO. (1.2)
 # Insere todos os sinonimos na tabela SINONIMO. (1.3)
 # Devolve o id_lexico. (1.4)
@@ -66,7 +71,7 @@ if (!(function_exists("inclui_lexico")))
 {
     function inclui_lexico($id_projeto, $nome, $nocao, $impacto, $sinonimos, $classificacao)
     {
-        $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $data = date("Y-m-d");
      
                 
@@ -77,7 +82,7 @@ if (!(function_exists("inclui_lexico")))
 		mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
         //sinonimo
-        $newLexId = mysql_insert_id($r);
+        $newLexId = mysql_insert_id($connect);
         
         
         if( ! is_array($sinonimos) )
@@ -87,7 +92,7 @@ if (!(function_exists("inclui_lexico")))
         {
        		$q = "INSERT INTO sinonimo (id_lexico, nome, id_projeto)
                 VALUES ($newLexId, '" . prepara_dado(strtolower($novoSin)) . "', $id_projeto)";
-            mysql_query($q, $r) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+            mysql_query($q, $connect) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         }
         
         $q = "SELECT max(id_lexico) FROM lexico";
@@ -108,7 +113,7 @@ if (!(function_exists("inclui_projeto")))
 {
     function inclui_projeto($nome, $descricao)
     {
-        $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         //verifica se usuario ja existe
         $qv = "SELECT * FROM projeto WHERE nome = '$nome'";
         $qvr = mysql_query($qv) or die("Erro ao enviar a query de select<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -197,7 +202,7 @@ if (!(function_exists("simple_query")))
 {
     funcTion simple_query($field, $table, $where)
     {
-        $r = bd_connect() or die("Erro ao conectar ao SGBD");
+        $connect = bd_connect() or die("Erro ao conectar ao SGBD");
         $q = "SELECT $field FROM $table WHERE $where";
         $qrr = mysql_query($q) or die("Erro ao enviar a query");
         $result = mysql_fetch_row($qrr);
@@ -210,7 +215,7 @@ if (!(function_exists("simple_query")))
 // precisam ser tomados (relativos ao requisito 'navegacao circular'):
 //
 // 1. Incluir o novo cenario na base de dados;
-// 2. Para todos os cenarios daquele projeto, exceto o recém inserido:
+// 2. Para todos os cenarios daquele projeto, exceto o recï¿½m inserido:
 //      2.1. Procurar em contexto e episodios
 //           por ocorrencias do titulo do cenario incluido;
 //      2.2. Para os campos em que forem encontradas ocorrencias:
@@ -230,7 +235,7 @@ if (!(function_exists("adicionar_cenario")))
     function adicionar_cenario($id_projeto, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios)
     {
         // Conecta ao SGBD
-        $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         // Inclui o cenario na base de dados (sem transformar os campos, sem criar os relacionamentos)
         $id_incluido = inclui_cenario($id_projeto, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios);
         
@@ -243,7 +248,7 @@ if (!(function_exists("adicionar_cenario")))
         
         ### PREENCHIMENTO DAS TABELAS LEXTOLEX E CENTOCEN PARA MONTAGEM DO MENU LATERAL
         
-        // Verifica ocorrências do titulo do cenario incluido no contexto 
+        // Verifica ocorrï¿½ncias do titulo do cenario incluido no contexto 
         // e nos episodios de todos os outros cenarios e adiciona os relacionamentos,
         // caso possua, na tabela centocen
         
@@ -338,7 +343,7 @@ if (!(function_exists("adicionar_cenario")))
         {
             
             $qrr = mysql_query($qlc) or die("Erro ao enviar a query de busca<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-            // verifica sinonimos dos outros lexicos no cenario incluído
+            // verifica sinonimos dos outros lexicos no cenario incluï¿½do
             while ($result = mysql_fetch_array($qrr)) 
             {    
             
@@ -394,7 +399,7 @@ if (!(function_exists("adicionar_lexico")))
 {
     function adicionar_lexico($id_projeto, $nome, $nocao, $impacto, $sinonimos, $classificacao)
     {
-        $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
         $id_incluido = inclui_lexico($id_projeto, $nome, $nocao, $impacto, $sinonimos, $classificacao); // (1)
         
@@ -634,7 +639,7 @@ if (!(function_exists("alteraCenario")))
         // monta_relacoes($id_projeto);
         
         // Conecta ao SGBD
-        $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
         $q = "SELECT id_cenario, titulo, contexto, episodios
               FROM cenario
@@ -731,7 +736,7 @@ if (!(function_exists("alteraCenario")))
             
             $qrr = mysql_query($qlc) or die("Erro ao enviar a query de busca<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
             while ($result = mysql_fetch_array($qrr)) 
-            {    // verifica sinonimos dos lexicos no cenario incluído
+            {    // verifica sinonimos dos lexicos no cenario incluï¿½do
             
 			$nomeSinonimoEscapado = escapa_metacaracteres( $nomesSinonimos[$i] );
             $regex = "/(\s|\b)(" . $nomeSinonimoEscapado . ")(\s|\b)/i";
@@ -815,7 +820,7 @@ if (!(function_exists("alteraLexico")))
 		tipo = '$classificacao' 
 		where id_lexico = $id_lexico");
         
-        $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
  	    # Fim altera lexico escolhido
  	    
@@ -823,7 +828,7 @@ if (!(function_exists("alteraLexico")))
  	    
  	    ########
  	    
- 	    # Verifica se há alguma ocorrencia do titulo do lexico nos cenarios existentes no banco
+ 	    # Verifica se hï¿½ alguma ocorrencia do titulo do lexico nos cenarios existentes no banco
        
         $qr = "SELECT id_cenario, titulo, objetivo, contexto, atores, recursos, excecao, episodios
               FROM cenario
@@ -857,7 +862,7 @@ if (!(function_exists("alteraLexico")))
         
         ########
  	    
- 	    # Verifica se há alguma ocorrencia de algum dos sinonimos do lexico nos cenarios existentes no banco
+ 	    # Verifica se hï¿½ alguma ocorrencia de algum dos sinonimos do lexico nos cenarios existentes no banco
        
         //&sininonimos = sinonimos do novo lexico
         $count = count($sinonimos);
@@ -1023,7 +1028,7 @@ if (!(function_exists("alteraLexico")))
          	$q = "INSERT INTO sinonimo (id_lexico, nome, id_projeto)
                 VALUES ($id_lexico, '" . prepara_dado(strtolower($novoSin)) . "', $id_projeto)";
             
-            mysql_query($q, $r) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+            mysql_query($q, $connect) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         }
      
 		# Fim - cadastro de sinonimos        
@@ -1063,7 +1068,7 @@ if (!(function_exists("removeConceito"))) {
         //print("<br>SELECT * FROM cenario WHERE id_projeto = $id_projeto");
         /*  $sql->execute ("SELECT * FROM cenario WHERE id_projeto = $id_projeto AND id_cenario != $tituloCenario");
         if ($sql->getntuples() == 0){
-        echo "<BR> Projeto não possui cenarios." ;
+        echo "<BR> Projeto nï¿½o possui cenarios." ;
         }else{*/
         $qr = "SELECT * FROM conceito WHERE id_projeto = $id_projeto AND id_conceito != $id_conceito";
         //echo($qr)."          ";
@@ -1078,9 +1083,9 @@ if (!(function_exists("removeConceito"))) {
             $nomeAnterior = $result['nome'] ;
             $descricaoAnterior = $result['descricao'] ;
             $namespaceAnterior = $result['namespace'] ;
-            #echo        "/<a title=\"Cenário\" href=\"main.php?t='c'&id=$id_cenario>($tituloCenario)<\/a>/mi"  ;
-            #$episodiosAnterior = "<a title=\"Cenário\" href=\"main.php?t=c&id=38\">robin</a>" ;
-            /*"'<a title=\"Cenário\" href=\"main.php?t=c&id=38\">robin<\/a>'si" ; */
+            #echo        "/<a title=\"Cenï¿½rio\" href=\"main.php?t='c'&id=$id_cenario>($tituloCenario)<\/a>/mi"  ;
+            #$episodiosAnterior = "<a title=\"Cenï¿½rio\" href=\"main.php?t=c&id=38\">robin</a>" ;
+            /*"'<a title=\"Cenï¿½rio\" href=\"main.php?t=c&id=38\">robin<\/a>'si" ; */
             $tiratag = "'<[\/\!]*?[^<>]*?>'si" ;
             //$tiratagreplace = "";
             //$tituloCenario = preg_replace($tiratag,$tiratagreplace,$tituloCenario);
@@ -1143,7 +1148,7 @@ function checarLexicoExistente($projeto, $nome)
 {
     $naoexiste = false;
     
-    $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+    $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
     $q = "SELECT * FROM lexico WHERE id_projeto = $projeto AND nome = '$nome' ";
     $qr = mysql_query($q) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
     $resultArray = mysql_fetch_array($qr);
@@ -1179,7 +1184,7 @@ function checarSinonimo($projeto, $listSinonimo)
 {
     $naoexiste = true;
     
-    $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+    $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
     
     foreach($listSinonimo as $sinonimo){
         
@@ -1221,7 +1226,7 @@ function checarCenarioExistente($projeto, $titulo)
 {
     $naoexiste = false;
     
-    $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+    $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
     $q = "SELECT * FROM cenario WHERE id_projeto = $projeto AND titulo = '$titulo' ";
     $qr = mysql_query($q) or die("Erro ao enviar a query de select no cenario<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
     $resultArray = mysql_fetch_array($qr);
@@ -1240,7 +1245,7 @@ function checarCenarioExistente($projeto, $titulo)
 # Para inserir um novo cenario ela deve receber os campos do novo
 # cenario.
 # Ao final ela manda um e-mail para o gerente do projeto
-# referente a este cenario caso o criador não seja o gerente.
+# referente a este cenario caso o criador nï¿½o seja o gerente.
 # Arquivos que utilizam essa funcao:
 # add_cenario.php
 ###################################################################
@@ -1271,7 +1276,7 @@ if (!(function_exists("inserirPedidoAdicionarCenario"))) {
                 $select->execute("SELECT * FROM usuario WHERE id_usuario = $id");
                 $record = $select->gofirst();
                 $mailGerente = $record['email'];
-                mail("$mailGerente", "Pedido de Inclusão Cenário", "O usuario do sistema $nome\nPede para inserir o cenario $titulo \nObrigado!","From: $nome\r\n"."Reply-To: $email\r\n");
+                mail("$mailGerente", "Pedido de Inclusï¿½o Cenï¿½rio", "O usuario do sistema $nome\nPede para inserir o cenario $titulo \nObrigado!","From: $nome\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
             }
         }
@@ -1286,7 +1291,7 @@ if (!(function_exists("inserirPedidoAdicionarCenario"))) {
 # Para alterar um cenario ela deve receber os campos do cenario
 # jah modificados.(1.1)
 # Ao final ela manda um e-mail para o gerentes do projeto
-# referente a este cenario caso o criador não seja o gerente.(2.1)
+# referente a este cenario caso o criador nï¿½o seja o gerente.(2.1)
 # Arquivos que utilizam essa funcao:
 # alt_cenario.php
 ###################################################################
@@ -1317,7 +1322,7 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
                 $select->execute("SELECT * FROM usuario WHERE id_usuario = $id");
                 $record = $select->gofirst();
                 $mailGerente = $record['email'];
-                mail("$mailGerente", "Pedido de Alteração Cenário", "O usuario do sistema $nome\nPede para alterar o cenario $titulo \nObrigado!","From: $nome\r\n"."Reply-To: $email\r\n");
+                mail("$mailGerente", "Pedido de Alteraï¿½ï¿½o Cenï¿½rio", "O usuario do sistema $nome\nPede para alterar o cenario $titulo \nObrigado!","From: $nome\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
             }
         }
@@ -1367,7 +1372,7 @@ if (!(function_exists("inserirPedidoRemoverCenario"))) {
 	            $select->execute("SELECT * FROM usuario WHERE id_usuario = $id");
 	            $record = $select->gofirst();
 	            $mailGerente = $record['email'];
-	            mail("$mailGerente", "Pedido de Remover Cenário", "O usuario do sistema $nome\nPede para remover o cenario $id_cenario \nObrigado!", "From: $nome\r\n" . "Reply-To: $email\r\n");
+	            mail("$mailGerente", "Pedido de Remover Cenï¿½rio", "O usuario do sistema $nome\nPede para remover o cenario $id_cenario \nObrigado!", "From: $nome\r\n" . "Reply-To: $email\r\n");
 	            $record2 = $select2->gonext();
 	        }
 		}else{
@@ -1381,7 +1386,7 @@ if (!(function_exists("inserirPedidoRemoverCenario"))) {
 # Para inserir um novo lexico ela deve receber os campos do novo
 # lexicos.
 # Ao final ela manda um e-mail para o gerente do projeto
-# referente a este lexico caso o criador não seja o gerente.
+# referente a este lexico caso o criador nï¿½o seja o gerente.
 # Arquivos que utilizam essa funcao:
 # add_lexico.php
 ###################################################################
@@ -1432,7 +1437,7 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
                     $select->execute("SELECT * FROM usuario WHERE id_usuario = $id") ;
                     $record = $select->gofirst ();
                     $mailGerente = $record['email'] ;
-                    mail("$mailGerente", "Pedido de Inclusão de Léxico", "O usuario do sistema $nome2\nPede para inserir o lexico $nome \nObrigado!","From: $nome2\r\n"."Reply-To: $email\r\n");
+                    mail("$mailGerente", "Pedido de Inclusï¿½o de Lï¿½xico", "O usuario do sistema $nome2\nPede para inserir o lexico $nome \nObrigado!","From: $nome2\r\n"."Reply-To: $email\r\n");
                     $record2 = $select2->gonext();
                     
                     
@@ -1451,7 +1456,7 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
 # Para alterar um lexico ela deve receber os campos do lexicos
 # jah modificados.(1.1)
 # Ao final ela manda um e-mail para o gerente do projeto
-# referente a este lexico caso o criador não seja o gerente.(2.1)
+# referente a este lexico caso o criador nï¿½o seja o gerente.(2.1)
 # Arquivos que utilizam essa funcao:
 # alt_lexico.php
 ###################################################################
@@ -1498,7 +1503,7 @@ if (!(function_exists("inserirPedidoAlterarLexico"))) {
                     $select->execute("SELECT * FROM usuario WHERE id_usuario = $id") ;
                     $record = $select->gofirst ();
                     $mailGerente = $record['email'] ;
-                    mail("$mailGerente", "Pedido de Alterar Léxico", "O usuario do sistema $nome2\nPede para alterar o lexico $nome \nObrigado!","From: $nome2\r\n"."Reply-To: $email\r\n");
+                    mail("$mailGerente", "Pedido de Alterar Lï¿½xico", "O usuario do sistema $nome2\nPede para alterar o lexico $nome \nObrigado!","From: $nome2\r\n"."Reply-To: $email\r\n");
                     $record2 = $select2->gonext();
                 }
             }
@@ -1552,7 +1557,7 @@ if (!(function_exists("inserirPedidoRemoverLexico"))) {
 	                $select->execute("SELECT * FROM usuario WHERE id_usuario = $id") ;
 	                $record = $select->gofirst ();
 	                $mailGerente = $record['email'] ;
-	                mail("$mailGerente", "Pedido de Remover Léxico", "O usuario do sistema $nome2\nPede para remover o lexico $id_lexico \nObrigado!","From: $nome\r\n"."Reply-To: $email\r\n");
+	                mail("$mailGerente", "Pedido de Remover Lï¿½xico", "O usuario do sistema $nome2\nPede para remover o lexico $id_lexico \nObrigado!","From: $nome\r\n"."Reply-To: $email\r\n");
 	                $record2 = $select2->gonext();
 	            }
 	        }
@@ -1567,7 +1572,7 @@ if (!(function_exists("inserirPedidoRemoverLexico"))) {
 # Para alterar um conceito ela deve receber os campos do conceito
 # jah modificados.(1.1)
 # Ao final ela manda um e-mail para o gerentes do projeto
-# referente a este cenario caso o criador não seja o gerente.(2.1)
+# referente a este cenario caso o criador nï¿½o seja o gerente.(2.1)
 # Arquivos que utilizam essa funcao:
 # alt_cenario.php
 ###################################################################
@@ -1598,7 +1603,7 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
                 $select->execute("SELECT * FROM usuario WHERE id_usuario = $id");
                 $record = $select->gofirst();
                 $mailGerente = $record['email'];
-                mail("$mailGerente", "Pedido de Alteração Conceito", "O usuario do sistema $nomeUsuario\nPede para alterar o conceito $nome \nObrigado!","From: $nomeUsuario\r\n"."Reply-To: $email\r\n");
+                mail("$mailGerente", "Pedido de Alteraï¿½ï¿½o Conceito", "O usuario do sistema $nomeUsuario\nPede para alterar o conceito $nome \nObrigado!","From: $nomeUsuario\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
             }
         }
@@ -1922,14 +1927,11 @@ if (!(function_exists("formataData"))) {
 }
 
 
-
-
-
 // Retorna TRUE ssse $id_usuario eh admin de $id_projeto
 if (!(function_exists("is_admin"))) {
     function is_admin($id_usuario, $id_projeto)
     {
-        $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $q = "SELECT *
               FROM participa
               WHERE id_usuario = $id_usuario
@@ -1944,7 +1946,7 @@ if (!(function_exists("is_admin"))) {
 if (!(function_exists("check_proj_perm"))) {
     function check_proj_perm($id_usuario, $id_projeto)
     {
-        $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $q = "SELECT *
               FROM participa
               WHERE id_usuario = $id_usuario
@@ -1953,6 +1955,8 @@ if (!(function_exists("check_proj_perm"))) {
         return (1 == mysql_num_rows($qrr));
     }
 }
+
+
 ###################################################################
 # Verifica se um determinado usuario e gerente de um determinado
 # projeto
@@ -1961,9 +1965,11 @@ if (!(function_exists("check_proj_perm"))) {
 # Se o resultArray for nao nulo: devolvemos TRUE(1);(1.3)
 # Se o resultArray for nulo: devolvemos False(0);(1.4)
 ###################################################################
+
 function verificaGerente($id_usuario, $id_projeto)
 {
     $ret = 0;
+    
     $q = "SELECT * FROM participa WHERE gerente = 1 AND id_usuario = $id_usuario AND id_projeto = $id_projeto";
     $qr = mysql_query($q) or die("Erro ao enviar a query de select no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
     $resultArray = mysql_fetch_array($qr);
@@ -1972,16 +1978,17 @@ function verificaGerente($id_usuario, $id_projeto)
         
         $ret = 1;
     }
-    return $ret;
-    
+    return $ret;    
 }
+
+
 
 ###################################################################
 # Remove um determinado projeto da base de dados
 # Recebe o id do projeto. (1.1)
 # Apaga os valores da tabela pedidocen que possuam o id do projeto enviado (1.2)
 # Apaga os valores da tabela pedidolex que possuam o id do projeto enviado (1.3)
-# Faz um SELECT para saber quais léxico pertencem ao projeto de id_projeto (1.4)
+# Faz um SELECT para saber quais lï¿½xico pertencem ao projeto de id_projeto (1.4)
 # Apaga os valores da tabela lextolex que possuam possuam lexico do projeto (1.5)
 # Apaga os valores da tabela centolex que possuam possuam lexico do projeto (1.6)
 # Apaga os valores da tabela sinonimo que possuam possuam o id do projeto (1.7)
@@ -1995,9 +2002,11 @@ function verificaGerente($id_usuario, $id_projeto)
 # Apaga os valores da tabela projeto que possuam o id do projeto enviado (2.5)
 #
 ###################################################################
+
 function removeProjeto($id_projeto)
 {
-    $r = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+    
+    $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
     
     //Remove os pedidos de cenario
     $qv = "Delete FROM pedidocen WHERE id_projeto = '$id_projeto' ";
@@ -2046,7 +2055,6 @@ function removeProjeto($id_projeto)
         
         $qv = "Delete FROM centolex WHERE id_cenario = '$id_cenario'";
         $deletaLextoLe = mysql_query($qv) or die("Erro ao apagar pedidos do centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        
         
     }
     
