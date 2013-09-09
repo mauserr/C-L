@@ -12,60 +12,69 @@ include("funcoes_genericas.php");
 include("httprequest.inc");
 include_once("bd.inc");
 
-check_User("index.php");        // Checa se o usuario foi autenticado
+check_User("index.php");        
 
 if ( !isset( $sucesso ) )
 {
-    $sucesso = "n" ;
+	$sucesso = "n" ;
 }
 
 // Conecta ao SGBD
 $r = bd_connect() or die("Erro ao conectar ao SGBD");
 
 if (isset($submit)) {
-    $ret = checarCenarioExistente($_SESSION['id_projeto_corrente'],$titulo);
-    ?>  <!-- ADICIONEI ISTO PARA TESTES -->
-        <!--
+	$ret = checarCenarioExistente($_SESSION['id_projeto_corrente'],$titulo);
+	?>
+<!-- ADICIONEI ISTO PARA TESTES -->
+<!--
            RET = <?=$ret?> => RET = <?PHP $ret? print("TRUE") : print("FALSE") ; ?><BR>
        $sucesso        = <?=$sucesso?><BR>
        _GET["sucesso"] = <?=$_GET["sucesso"]?><BR>   
         -->
-    <?PHP
-    if ($ret == true)
-    {    
-            print("<!-- Tentando Inserir Cenario --><BR>");
+<?PHP
+if ($ret == true)
+{
+	print("<!-- Tentando Inserir Cenario --><BR>");
 
-        /* Substitui todas as ocorrencias de ">" e "<" por " " */
-        $titulo     = str_replace( ">" , " " , str_replace ( "<" , " " , $titulo     ) ) ;
-        $objetivo   = str_replace( ">" , " " , str_replace ( "<" , " " , $objetivo   ) ) ;
-        $contexto   = str_replace( ">" , " " , str_replace ( "<" , " " , $contexto   ) ) ;
-        $atores     = str_replace( ">" , " " , str_replace ( "<" , " " , $atores     ) ) ;
-        $recursos   = str_replace( ">" , " " , str_replace ( "<" , " " , $recursos   ) ) ;
-        $excecao    = str_replace( ">" , " " , str_replace ( "<" , " " , $excecao    ) ) ;
-        $episodios  = str_replace( ">" , " " , str_replace ( "<" , " " , $episodios  ) ) ;
-        inserirPedidoAdicionarCenario($_SESSION['id_projeto_corrente'],       
-                                      $titulo,
-                                      $objetivo,
-                                      $contexto,
-                                      $atores,
-                                      $recursos,
-                                      $excecao,
-                                      $episodios,
-                                      $_SESSION['id_usuario_corrente']);
-            print("<!-- Cenario Inserido Com Sucesso! --><BR>");
-     }
-     else
-     { 
-    ?>
-    <html><head><title>Projeto</title></head><body bgcolor="#FFFFFF">
-        <p style="color: red; font-weight: bold; text-align: center">Este cenário já existe!</p>
-        <br>
-        <br>
-            <center><a href="JavaScript:window.history.go(-1)">Voltar</a></center>
-    </body></html>
-    <?php
-        return;   
-     }
+	/* Substitui todas as ocorrencias de ">" e "<" por " " */
+	$titulo     = str_replace( ">" , " " , str_replace ( "<" , " " , $titulo     ) ) ;
+	$objetivo   = str_replace( ">" , " " , str_replace ( "<" , " " , $objetivo   ) ) ;
+	$contexto   = str_replace( ">" , " " , str_replace ( "<" , " " , $contexto   ) ) ;
+	$atores     = str_replace( ">" , " " , str_replace ( "<" , " " , $atores     ) ) ;
+	$recursos   = str_replace( ">" , " " , str_replace ( "<" , " " , $recursos   ) ) ;
+	$excecao    = str_replace( ">" , " " , str_replace ( "<" , " " , $excecao    ) ) ;
+	$episodios  = str_replace( ">" , " " , str_replace ( "<" , " " , $episodios  ) ) ;
+	inserirPedidoAdicionarCenario($_SESSION['id_projeto_corrente'],
+			$titulo,
+			$objetivo,
+			$contexto,
+			$atores,
+			$recursos,
+			$excecao,
+			$episodios,
+			$_SESSION['id_usuario_corrente']);
+	print("<!-- Cenario Inserido Com Sucesso! --><BR>");
+}
+else
+{
+	?>
+<html>
+<head>
+<title>Projeto</title>
+</head>
+<body bgcolor="#FFFFFF">
+	<p style="color: red; font-weight: bold; text-align: center">Este
+		cenário já existe!</p>
+	<br>
+	<br>
+	<center>
+		<a href="JavaScript:window.history.go(-1)">Voltar</a>
+	</center>
+</body>
+</html>
+<?php
+return;
+}
 ?>
 
 <script language="javascript1.2">
@@ -83,15 +92,15 @@ location.href = "add_cenario.php?id_projeto=<?=$id_projeto?>&sucesso=s";
 <?php
 
 } else {    // Script chamado atraves do menu superior
-    $nome_projeto = simple_query("nome", "projeto", "id_projeto = " . $_SESSION['id_projeto_corrente']);
-?>
+	$nome_projeto = simple_query("nome", "projeto", "id_projeto = " . $_SESSION['id_projeto_corrente']);
+	?>
 
 <html>
-    <head>
-        <title>Adicionar Cenário</title>
-    </head>
-    <body>
-<script language="JavaScript">
+<head>
+<title>Adicionar Cenário</title>
+</head>
+<body>
+	<script language="JavaScript">
 <!--
 function TestarBranco(form)
 {
@@ -154,56 +163,70 @@ contexto   = form.contexto.value;
 
 </SCRIPT>
 
-        <h4>Adicionar Cenário</h4>
-        <br>
-<?php
-           if ( $sucesso == "s" )
-           {
-?>
-              <p style="color: blue; font-weight: bold; text-align: center">Cenário inserido com sucesso!</p>
-<?php    
-           }
-?>    
-        <form action="" method="post">
-        <table>
-            <tr>
-                <td>Projeto:</td>
-                <td><input disabled size="51" type="text" value="<?=$nome_projeto?>"></td>
-            </tr>
-                <td>Título:</td>
-                <td><input size="51" name="titulo" type="text" value=""></td>                
-            <tr>
-                <td>Objetivo:</td>
-                <td><textarea cols="51" name="objetivo" rows="3" WRAP="SOFT"></textarea></td>
-            </tr>
-            <tr>
-                <td>Contexto:</td>
-                <td><textarea cols="51" name="contexto" rows="3" WRAP="SOFT"></textarea></td>
-            </tr>
-            <tr>
-                <td>Atores:</td>
-                <td><textarea cols="51" name="atores" rows="3" WRAP="SOFT"></textarea></td>
-            </tr>
-            <tr>
-                <td>Recursos:</td>
-                <td><textarea cols="51" name="recursos" rows="3" WRAP="SOFT"></textarea></td>
-            </tr>
-            <tr>
-                <td>Exceção:</td>
-                <td><textarea cols="51" name="excecao" rows="3" WRAP="SOFT"></textarea></td>
-            </tr>
-            <tr>
-                <td>Episódios:</td>
-                <td><textarea cols="51" name="episodios" rows="5" WRAP="SOFT"></textarea></td>
-            </tr>
-            <tr>
-                <td align="center" colspan="2" height="60"><input name="submit" type="submit" onClick="return TestarBranco(this.form);" value="Adicionar Cenário"></td>
-            </tr>
-        </table>
-        </form>
-        <center><a href="javascript:self.close();">Fechar</a></center>
-        <br><i><a href="showSource.php?file=add_cenario.php">Veja o código fonte!</a></i>
-    </body>
+	<h4>Adicionar Cenário</h4>
+	<br>
+	<?php
+	if ( $sucesso == "s" )
+	{
+		?>
+	<p style="color: blue; font-weight: bold; text-align: center">Cenário
+		inserido com sucesso!</p>
+	<?php    
+	}
+	?>
+	<form action="" method="post">
+		<table>
+			<tr>
+				<td>Projeto:</td>
+				<td><input disabled size="51" type="text" value="<?=$nome_projeto?>">
+				</td>
+			</tr>
+			<td>Título:</td>
+			<td><input size="51" name="titulo" type="text" value=""></td>
+			<tr>
+				<td>Objetivo:</td>
+				<td><textarea cols="51" name="objetivo" rows="3" WRAP="SOFT"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>Contexto:</td>
+				<td><textarea cols="51" name="contexto" rows="3" WRAP="SOFT"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>Atores:</td>
+				<td><textarea cols="51" name="atores" rows="3" WRAP="SOFT"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>Recursos:</td>
+				<td><textarea cols="51" name="recursos" rows="3" WRAP="SOFT"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>Exceção:</td>
+				<td><textarea cols="51" name="excecao" rows="3" WRAP="SOFT"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>Episódios:</td>
+				<td><textarea cols="51" name="episodios" rows="5" WRAP="SOFT"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" colspan="2" height="60"><input name="submit"
+					type="submit" onClick="return TestarBranco(this.form);"
+					value="Adicionar Cenário"></td>
+			</tr>
+		</table>
+	</form>
+	<center>
+		<a href="javascript:self.close();">Fechar</a>
+	</center>
+	<br>
+	<i><a href="showSource.php?file=add_cenario.php">Veja o código fonte!</a>
+	</i>
+</body>
 </html>
 
 <?php
