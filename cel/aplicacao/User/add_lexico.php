@@ -1,272 +1,258 @@
 <?php
-
 include("funcoes_genericas.php");
 include("httprequest.inc");
-include_once("bd.inc") ;
+include_once("bd.inc");
 
-// add_lexico.php: Este script cadastra um novo termo no lexico do projeto.
-//                 É passada, atraves da URL, uma variavel $id_projeto, que
-//                 indica em que projeto deve ser inserido o novo termo.
+// add_lexico.php: This script registers a new term in the lexicon of the project.
+//                 It last through the URL, a variable $ id_project, that
+//                 indicates that the project should be inserted the new term.
 
 session_start();
 
-if ( !isset( $sucesso ) )
-{
-	$sucesso = 'n' ;
+if (!isset($sucess)) {
+    $sucess = 'n';
 }
 
-// Checa se o usuário foi autenticado
 check_User("index.php");
 
-// Conecta ao SGBD
-$connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
-//Script chamado através do submit do formulário
+$connect_db = db_connect() or die("Error connecting to the SGBD");
+
+
 if (isset($submit)) {
 
-	$ret = checarLexicoExistente($_SESSION['id_projeto_corrente'],$nome);
-	if( !isset($listSinonimo))
-		$listSinonimo = array();
+    $ret = checkExistingLexical($_SESSION['current_id_project'], $name);
+    if (!isset($synonymList))
+        $synonymList = array();
 
-	$retSinonimo = checarSinonimo($_SESSION['id_projeto_corrente'], $listSinonimo);
+    $retSinonimo = checkSynonym($_SESSION['current_id_project'], $synonymList);
 
-	if ( ($ret == true) AND ($retSin == true ) )
-	{
-		$id_usuario_corrente = $_SESSION['id_usuario_corrente'];
-		inserirPedidoAdicionarLexico($id_projeto,$nome,$nocao,$impacto,$id_usuario_corrente, $listSinonimo, $classificacao) ;
-	}
-	else
-	{
-		?>
-<html>
-<head>
-<title>Projeto</title>
-</head>
-<body bgcolor="#FFFFFF">
-	<p style="color: red; font-weight: bold; text-align: center">Este
-		símbolo ou sinônimo já existe!</p>
-	<br>
-	<br>
-	<center>
-		<a href="JavaScript:window.history.go(-1)">Voltar</a>
-	</center>
-</body>
-</html>
-<?php
-return;
-
-	}
-	$ipValor = CELConfig_ReadVar("HTTPD_ip") ;
-	?>
-
-<script language="javascript1.2">
-
-opener.parent.frames['code'].location.reload();
-opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['id_projeto_corrente']?>');
-location.href = "add_lexico.php?id_projeto=<?=$id_projeto?>&sucesso=s"; 
-
-</script>
-<?php
-
-// Script chamado através do menu superior
-
-} else {
-	$q = "SELECT nome FROM projeto WHERE id_projeto = $id_projeto";
-	$qrr = mysql_query($q) or die("Erro ao executar a query");
-	$result = mysql_fetch_array($qrr);
-	$nome_projeto = $result['nome'];
-	?>
-
-<html>
-<head>
-<title>Adicionar Léxico</title>
-</head>
-<body>
-	<script language="JavaScript">
-<!--
-function TestarBranco(form)
-{
-nome  = form.nome.value;
-nocao = form.nocao.value;
-
-  if( nome == "" )
-    { 
-	  alert (" Por favor, forneça o NOME do léxico.\n O campo NOME é de preenchimento obrigatório.");
-      form.nome.focus();
-      return false;
-    }else{
-		padrao = /[\\\/\?"<>:|]/;
-		nOK = padrao.exec(nome);
-		if (nOK)
-		{
-			window.alert ("O nome do léxico não pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
-			form.nome.focus();
-			return false;
-		} 
-	}
-    
-   if( nocao == "" )
-    { alert (" Por favor, forneça a NOÇÃO do léxico.\n O campo NOÇÃO é de preenchimento obrigatório.");
-      form.nocao.focus();
-      return false;
+    if (($ret == true) AND ($retSin == true )) {
+        $current_id_user = $_SESSION['current_id_user'];
+        insertRequestAddLexicon($id_project, $name, $notion, $impact, $current_id_usuario, $synonymList, $classification);
+    } else {
+        ?>
+        <html>
+            <head>
+                <title>Project</title>
+            </head>
+            <body bgcolor="#FFFFFF">
+                <p style="color: red; font-weight: bold; text-align: center">This symbol or synonym already exists</p>
+                <br>
+                <br>
+            <center>
+                <a href="JavaScript:window.history.go(-1)">Back</a>
+            </center>
+        </body>
+        </html>
+        <?php
+        return;
     }
+    $ipValue = CELConfig_ReadVar("HTTPD_ip");
+    ?>
 
-}
-function addSinonimo()
-{
-listSinonimo = document.forms[0].elements['listSinonimo[]']; 
+    <script language="javascript1.2">
 
-if(document.forms[0].sinonimo.value == "")
-	return;
+        opener.parent.frames['code'].location.reload();
+        opener.parent.frames['text'].location.replace('main.php?id_project=<?= $_SESSION['current_id_project'] ?>');
+        location.href = "add_lexicon.php?id_project=<?= $id_project ?>&sucess=s"; 
 
-sinonimo = document.forms[0].sinonimo.value;
-padrao = /[\\\/\?"<>:|]/;
-nOK = padrao.exec(sinonimo);
-if (nOK)
-{
-	window.alert ("O sinônimo do léxico não pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
-	document.forms[0].sinonimo.focus();
-	return;
-} 
-	
-listSinonimo.options[listSinonimo.length] = new Option(document.forms[0].sinonimo.value, document.forms[0].sinonimo.value);
+    </script>
+    <?php
+// Script chamado atravï¿½s do menu superior
+} else {
+    $query_sql = "SELECT nome FROM projeto WHERE id_projeto = $id_project";
+    $query_result_sql = mysql_query($query_sql) or die("error while performing the query");
+    $result = mysql_fetch_array($query_result_sql);
+    $project_name = $result['name'];
+    ?>
 
-document.forms[0].sinonimo.value = "";
+    <html>
+        <head>
+            <title>Add Lexicon</title>
+        </head>
+        <body>
+            <script language="JavaScript">
+                <!--
+                function TestEmpty(form)
+                {
+                    name  = form.name.value;
+                    notion = form.notion.value;
 
-document.forms[0].sinonimo.focus();
+                    if( name == "" )
+                    { 
+                        alert (" Please, provide the NAME of the lexicon.\n The field NAME must be full.");
+                        form.name.focus();
+                        return false;
+                    }else{
+                        pattern = /[\\\/\?"<>:|]/;
+                        nOK = pattern.exec(name);
+                        if (nOK)
+                        {
+                            window.alert ("The Lexicon name can't contain none of the following characters:  / \\ : ? \" < > |");
+                            form.nome.focus();
+                            return false;
+                        } 
+                    }
+        
+                    if( notion == "" )
+                    { alert (" Please, provide the NAME of the lexicon.\n The field NAME must be full.");
+                        form.nocao.focus();
+                        return false;
+                    }
 
-}
+                }
+                function addSynonym()
+                {
+                    synonymList = document.forms[0].elements['synonymList[]']; 
 
-function delSinonimo()
-{
-listSinonimo = document.forms[0].elements['listSinonimo[]']; 
+                    if(document.forms[0].synonym.value == "")
+                        return;
 
-if(listSinonimo.selectedIndex == -1)
-return;
-else
-listSinonimo.options[listSinonimo.selectedIndex] = null;
+                    synonym = document.forms[0].synonym.value;
+                    pattern = /[\\\/\?"<>:|]/;
+                    nOK = pattern.exec(synonym);
+                    if (nOK)
+                    {
+                        window.alert ("The Lexicon Synonym can't contain none of the following characters:  / \\ : ? \" < > |");
+                        document.forms[0].synonym.focus();
+                        return;
+                    } 
+    	
+                    synonymList.options[synonymList.length] = new Option(document.forms[0].synonym.value, document.forms[0].synonym.value);
 
-delSinonimo();
-}
+                    document.forms[0].synonym.value = "";
 
-function doSubmit()
-{
-listSinonimo = document.forms[0].elements['listSinonimo[]']; 
+                    document.forms[0].synonym.focus();
 
-for(var i = 0; i < listSinonimo.length; i++) 
-listSinonimo.options[i].selected = true;
+                }
 
-return true;
-}
+                function deleteSynonym()
+                {
+                    synonymList = document.forms[0].elements['synonymList[]']; 
 
-//-->
+                    if(synonymList.selectedIndex == -1)
+                        return;
+                    else
+                        synonymList.options[synonymList.selectedIndex] = null;
 
-<?php
+                    deleteSynonym();
+                }
 
-//Cenários -  Incluir Léxico 
+                function doSubmit()
+                {
+                    synonymList = document.forms[0].elements['synonymList[]']; 
 
-//Objetivo:    Permitir ao usuário a inclusão de uma nova palavra do léxico
-//Contexto:    Usuário deseja incluir uma nova palavra no léxico.
-//                     Pré-Condição: Login, palavra do léxico ainda não cadastrada
-//Atores:         Usuário, Sistema
-//Recursos:    Dados a serem cadastrados
-//Episódios:    O sistema fornecerá para o usuário uma tela com os seguintes campos de texto:
-//               - Entrada Léxico.
-//               - Noção.   Restrição: Caixa de texto com pelo menos 5 linhas de escrita visíveis
-//               - Impacto. Restrição: Caixa de texto com pelo menos 5 linhas de escrita visíveis
-//              Botão para confirmar a inclusão da nova entrada do léxico
-//              Restrições: Depois de clicar no botão de confirmação, o sistema verifica se todos
-//              os campos foram preenchidos. 
-//Exceção:    Se todos os campos não foram preenchidos, retorna para o usuário uma mensagem
-//              avisando que todos os campos devem ser preenchidos e um botão de voltar para a pagina anterior.
+                    for(var i = 0; i < synonymList.length; i++) 
+                        synonymList.options[i].selected = true;
 
-?>
+                    return true;
+                }
 
-</SCRIPT>
+                //-->
 
-	<h4>Adicionar Símbolo</h4>
-	<br>
-	<?php
-	if ( $sucesso == "s" )
-	{
-		?>
-	<p style="color: blue; font-weight: bold; text-align: center">Símbolo
-		inserido com sucesso!</p>
-	<?php    
-	}
-	?>
-	<form action="?id_projeto=<?=$id_projeto?>" method="post"
-		onSubmit="return(doSubmit());">
-		<table>
-			<tr>
-				<td>Projeto:</td>
-				<td><input disabled size="48" type="text" value="<?=$nome_projeto?>">
-				</td>
-			</tr>
-			<tr>
-				<td>Nome:</td>
-				<td><input size="48" name="nome" type="text" value=""></td>
-			</tr>
-			<tr valign="top">
-				<td>Sinônimos:</td>
-				<td width="0%"><input name="sinonimo" size="15" type="text"
-					maxlength="50"> &nbsp;&nbsp;&nbsp;&nbsp;<input type="button"
-					value="Adicionar" onclick="addSinonimo()"> &nbsp;&nbsp;<input
-					type="button" value="Remover" onclick="delSinonimo()">&nbsp;</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td width="100%"><left> <select multiple name="listSinonimo[]"
-						style="width: 400px;" size="5"></select></left> <br>
-				</td>
-			
-			
-			<tr>
-			</tr>
-			</tr>
-			<tr>
-				<td>Noção:</td>
-				<td><textarea cols="51" name="nocao" rows="3" WRAP="SOFT"></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td>Impacto:</td>
-				<td><textarea cols="51" name="impacto" rows="3" WRAP="SOFT"></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td>Classificaçao:</td>
-				<td><SELECT id='classificacao' name='classificacao' size=1
-					width="300">
-						<OPTION value='sujeito' selected>Sujeito</OPTION>
-						<OPTION value='objeto'>Objeto</OPTION>
-						<OPTION value='verbo'>Verbo</OPTION>
-						<OPTION value='estado'>Estado</OPTION>
-				</SELECT>
-				</td>
-			</tr>
-			<tr>
-				<td align="center" colspan="2" height="60"><input name="submit"
-					type="submit" onClick="return TestarBranco(this.form);"
-					value="Adicionar Símbolo"><BR> <BR> </script> <!--            <A HREF="RegrasLAL.html" TARGET="new">Ver Regras do LAL</A><BR>   -->
-					<A HREF="#"
-					OnClick="javascript:open( 'RegrasLAL.html' , '_blank' , 'dependent,height=380,width=520,titlebar' );">
-						Veja as regras do <i>LAL</i>
-				</A>
-				</td>
-			</tr>
-		</table>
-	</form>
-	<center>
-		<a href="javascript:self.close();">Fechar</a>
-	</center>
-	<br>
-	<i><a href="showSource.php?file=add_lexico.php">Veja o código fonte!</a>
-	</i>
-</body>
+    <?php
+//Scenario -  Insert Lexicon
+//Objective:    Allow the user to include a new word of the lexicon
+//Context:      User wishes include a new word of the lexicon.
+//              Pre-Condition: Login, lexicon word still not registered
+//Actors:       User, System
+//Resources:    Data to be registered
+//Episodes:     The System should provides to the user a window with the following text fields:
+//               - Lexicon Entrance.
+//               - Notion.   Restriction: Text box with at least 5 written visible lines.
+//               - Impact. Restriction: Text box with at least 5 written visible lines.
+//              Button to confirm the inclusion of the new lexicon entrance
+//              Restrictions: After pressing the confirmation button, the system veryfies all
+//              the fields were filled. 
+//Exception:    if all the fields were not filled, returns to the user a message.
+//              warning that all the fields must be filled and one button must go back to the last page.
+    ?>
 
-</html>
+            </SCRIPT>
 
-<?php
+            <h4>Add symbol</h4>
+            <br>
+    <?php
+    if ($sucess == "s") {
+        ?>
+                <p style="color: blue; font-weight: bold; text-align: center">Symbol
+                    inserted with success!</p>
+        <?php
+    }
+    ?>
+            <form action="?id_project=<?= $id_project ?>" method="post"
+                  onSubmit="return(doSubmit());">
+                <table>
+                    <tr>
+                        <td>Project:</td>
+                        <td><input disabled size="48" type="text" value="<?= $name_project ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Name:</td>
+                        <td><input size="48" name="name" type="text" value=""></td>
+                    </tr>
+                    <tr valign="top">
+                        <td>Synonyms:</td>
+                        <td width="0%"><input name="synonym" size="15" type="text"
+                                              maxlength="50"> &nbsp;&nbsp;&nbsp;&nbsp;<input type="button"
+                                              value="Add" onclick="addSynonym()"> &nbsp;&nbsp;<input
+                                              type="button" value="Remove" onclick="deleteSynonym()">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td width="100%"><left> <select multiple name="synonymList[]"
+                                                    style="width: 400px;" size="5"></select></left> <br>
+                    </td>
+
+
+                    <tr>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>Notion:</td>
+                        <td><textarea cols="51" name="notion" rows="3" WRAP="SOFT"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Impact:</td>
+                        <td><textarea cols="51" name="impact" rows="3" WRAP="SOFT"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Classification:</td>
+                        <td><SELECT id='classification' name='classification' size=1
+                                    width="300">
+                                <OPTION value='subject' selected>Subject</OPTION>
+                                <OPTION value='object'>Object</OPTION>
+                                <OPTION value='verb'>Verb</OPTION>
+                                <OPTION value='state'>State</OPTION>
+                            </SELECT>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2" height="60"><input name="submit"
+                                                                          type="submit" onClick="return TestEmpty(this.form);"
+                            value="Add symbol"><BR> <BR> </script> <!--            <A HREF="RegrasLAL.html" TARGET="new">See rules of the LAL</A><BR>   -->
+                            <A HREF="#"
+                               OnClick="javascript:open( 'RegrasLAL.html' , '_blank' , 'dependent,height=380,width=520,titlebar' );">
+                                See the rules of <i>LAL</i>
+                            </A>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        <center>
+            <a href="javascript:self.close();">Close</a>
+        </center>
+        <br>
+        <i><a href="showSource.php?file=add_lexico.php">See the code font!</a>
+        </i>
+    </body>
+
+    </html>
+
+    <?php
 }
 ?>
