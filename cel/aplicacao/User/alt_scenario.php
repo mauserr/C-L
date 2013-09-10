@@ -6,6 +6,7 @@
 //	and will do alteration in all text boxes(without the title). At the end of the main screen
 //	return for the top screen and close the tree. The form is altered and closed.
 //	Called by file: main.php
+
 session_start();
 include("funcoes_genericas.php");
 include("httprequest.inc");
@@ -26,6 +27,7 @@ check_User("index.php");
 //              filled your fields: Objective, Contex, Actors, Resource and Episodes.
 //				The fields of Project and Title can't be edited. 
 //				A Fild of justification will be shown for the user to write a justification of the alteration.
+
 $connect_bd = bd_connect() or die("Erro ao conectar ao SGBD");
 
 if (isset($submit)) {
