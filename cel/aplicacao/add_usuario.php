@@ -58,8 +58,8 @@ if (isset($submit)) {   // Se chamado pelo botao de submit
 
 			$connect_bd = bd_connect() or die("Erro ao conectar ao SGBD");
 			$query_sql = "SELECT id_usuario FROM usuario WHERE login = '$login'";
-			$result_query = mysql_query($query_sql) or die("Erro ao enviar a query");
-			if (mysql_num_rows($result_query)) {        // Se ja existe algum usuario com este login
+			$query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query");
+			if (mysql_num_rows($query_result_sql)) {        // Se ja existe algum usuario com este login
 				//                $p_style = "color: red; font-weight: bold";
 				//                $p_text = "Login já existente no sistema. Favor escolher outro login.";
 				//                recarrega("?p_style=$p_style&p_text=$p_text&nome=$nome&email=$email&senha=$senha&senha_conf=$senha_conf&novo=$novo");
