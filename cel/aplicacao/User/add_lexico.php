@@ -81,7 +81,7 @@ if (isset($submit)) {
 
                     if( name == "" )
                     { 
-                        alert (" Please, provide the NAME of the lexicon.\n The field NAME must be full.");
+                        alert (" Please, provide the NAME of the lexicon.\n The field NAME is mandatory filing.");
                         form.name.focus();
                         return false;
                     }else{
