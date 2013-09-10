@@ -14,10 +14,10 @@ include_once("bd.inc");
 
 check_User("index.php");
 
-// scenario -    Alter scenario
+//Scenario -    Change scenario
 
-//Objective:	Permitir a alteração de um cenário por um usuário
-//Context:	    The user want to alter a scenario registered previously
+//Objective:	Allows a user to change a scenario
+//Context:      The user want to alter a scenario registered previously
 //              Pre condition: Login, Scnenario registered in the system
 //Atores:	    User
 //Recursos:	    System, registered data
@@ -51,7 +51,7 @@ opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION[
 
 </script>
 
-<h4>Operação efetuada com sucesso!</h4>
+<h4>Operaï¿½ï¿½o efetuada com sucesso!</h4>
 
 <script language="javascript1.3">
 
@@ -72,10 +72,10 @@ self.close();
 
 <html>
 <head>
-<title>Alterar Cenário</title>
+<title>Alterar Cenï¿½rio</title>
 </head>
 <body>
-	<h4>Alterar Cenário</h4>
+	<h4>Alterar Cenï¿½rio</h4>
 	<br>
 	<form action="?id_projeto=<?=$id_project?>" method="post">
 		<table>
@@ -86,7 +86,7 @@ self.close();
 			</tr>
 			<input type="hidden" name="id_cenario"
 				value="<?=$result['id_cenario']?>">
-			<td>Título:</td>
+			<td>Tï¿½tulo:</td>
 			<? $result['titulo'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['titulo']); ?>
 			<input type="hidden" name="titulo" value="<?=$result['titulo']?>">
 			<td><input disabled maxlength="128" name="titulo2" size="48"
@@ -123,7 +123,7 @@ self.close();
 					</textarea></td>
 			</tr>
 			<tr>
-				<td>Exceção:</td>
+				<td>Exceï¿½ï¿½o:</td>
 				<? $result['excecao'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['excecao']); ?>
 
 				<td><textarea name="excecao" cols="48" rows="3">
@@ -131,7 +131,7 @@ self.close();
 					</textarea></td>
 			</tr>
 			<tr>
-				<td>Episódios:</td>
+				<td>Episï¿½dios:</td>
 				<? $result['episodios'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['episodios']); ?>
 				<td><textarea cols="48" name="episodios" rows="5">
 						<?=$result['episodios']?>
@@ -143,13 +143,13 @@ self.close();
 			</tr>
 
 			<tr>
-				<td colspan="2"><b><small>Essa justificativa é necessária apenas
-							para aqueles usuários que não são administradores.</small> </b></td>
+				<td colspan="2"><b><small>Essa justificativa ï¿½ necessï¿½ria apenas
+							para aqueles usuï¿½rios que nï¿½o sï¿½o administradores.</small> </b></td>
 			</tr>
 
 			<tr>
 				<td align="center" colspan="2" height="60"><input name="submit"
-					type="submit" value="Alterar Cenário" onClick="updateOpener()"></td>
+					type="submit" value="Alterar Cenï¿½rio" onClick="updateOpener()"></td>
 			</tr>
 		</table>
 	</form>
@@ -157,7 +157,7 @@ self.close();
 		<a href="javascript:self.close();">Fechar</a>
 	</center>
 	<br>
-	<i><a href="showSource.php?file=alt_cenario.php">Veja o código fonte!</a>
+	<i><a href="showSource.php?file=alt_cenario.php">Veja o cï¿½digo fonte!</a>
 	</i>
 </body>
 </html>
