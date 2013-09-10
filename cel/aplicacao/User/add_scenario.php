@@ -84,7 +84,7 @@ else
 </head>
 <body bgcolor="#FFFFFF">
 	<p style="color: red; font-weight: bold; text-align: center">Este
-		cenário já existe!</p>
+		cenï¿½rio jï¿½ existe!</p>
 	<br>
 	<br>
 	<center>
@@ -117,7 +117,7 @@ location.href = "add_cenario.php?id_projeto=<?=$id_projeto?>&sucesso=s";
 
 <html>
 <head>
-<title>Adicionar Cenário</title>
+<title>Adicionar Cenï¿½rio</title>
 </head>
 <body>
 	<script language="JavaScript">
@@ -130,27 +130,27 @@ context   = form.context.value;
 
   if ((title == ""))
     { 
-		alert ("Por favor, digite o titulo do cenário.")
+		alert ("Por favor, digite o titulo do cenï¿½rio.")
 		form.title.focus()
 		return false;
 	}else{
-		pattern = /[\\\/\?<>:|]/";
+		pattern = "/[\\\/\?<>:|]/";
 		OK = padrao.exec(title);
 		if (OK)
 		{
-			window.alert ("O título do cenário não pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
+			window.alert ("O tï¿½tulo do cenï¿½rio nï¿½o pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
 			form.title.focus();
 			return false;
 		} 
 	}
       
   if ((objective == ""))
-    { alert ("Por favor, digite o objetivo do cenário.")
+    { alert ("Por favor, digite o objetivo do cenï¿½rio.")
       form.objective.focus()
       return false;}    
       
    if ((context == ""))
-    { alert ("Por favor, digite o contexto do cenário.")
+    { alert ("Por favor, digite o contexto do cenï¿½rio.")
       form.context.focus()
       return false;}        
 }
@@ -162,13 +162,13 @@ context   = form.context.value;
 
 </SCRIPT>
 
-	<h4>Adicionar Cenário</h4>
+	<h4>Adicionar Cenï¿½rio</h4>
 	<br>
 	<?php
 	if ( $sucess == "s" )
 	{
 		?>
-	<p style="color: blue; font-weight: bold; text-align: center">Cenário
+	<p style="color: blue; font-weight: bold; text-align: center">Cenï¿½rio
 		inserido com sucesso!</p>
 	<?php    
 	}
@@ -180,7 +180,7 @@ context   = form.context.value;
 				<td><input disabled size="51" type="text" value="<?=$project_name?>">
 				</td>
 			</tr>
-			<td>Título:</td>
+			<td>Tï¿½tulo:</td>
 			<td><input size="51" name="titulo" type="text" value=""></td>
 			<tr>
 				<td>Objetivo:</td>
@@ -203,19 +203,19 @@ context   = form.context.value;
 				</td>
 			</tr>
 			<tr>
-				<td>Exceção:</td>
+				<td>Exceï¿½ï¿½o:</td>
 				<td><textarea cols="51" name="excecao" rows="3" WRAP="SOFT"></textarea>
 				</td>
 			</tr>
 			<tr>
-				<td>Episódios:</td>
+				<td>Episï¿½dios:</td>
 				<td><textarea cols="51" name="episodios" rows="5" WRAP="SOFT"></textarea>
 				</td>
 			</tr>
 			<tr>
 				<td align="center" colspan="2" height="60"><input name="submit"
 					type="submit" onClick="return TestarBranco(this.form);"
-					value="Adicionar Cenário"></td>
+					value="Adicionar Cenï¿½rio"></td>
 			</tr>
 		</table>
 	</form>
@@ -223,7 +223,7 @@ context   = form.context.value;
 		<a href="javascript:self.close();">Fechar</a>
 	</center>
 	<br>
-	<i><a href="showSource.php?file=add_cenario.php">Veja o código fonte!</a>
+	<i><a href="showSource.php?file=add_cenario.php">Veja o cï¿½digo fonte!</a>
 	</i>
 </body>
 </html>
