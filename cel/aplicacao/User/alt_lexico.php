@@ -47,7 +47,7 @@ if (isset($submit)) {
             <script language="javascript1.3">
 
                 opener.parent.frames['code'].location.reload();
-                opener.parent.frames['text'].location.replace('main.php?id_projeto=<?= $_SESSION['current_id_project'] ?>');
+                opener.parent.frames['text'].location.replace('main.php?id_project=<?= $_SESSION['current_id_project'] ?>');
 
             </script>
 
@@ -66,65 +66,65 @@ if (isset($submit)) {
     $query_result_sql = mysql_query($q) or die("Error performing query");
     $result = mysql_fetch_array($qrr);
 
-    //sinonimos
+    //synonym
     // $DB = new PGDB () ;
     // $selectSin = new QUERY ($DB) ;
     // $selectSin->execute("SELECT nome FROM sinonimo WHERE id_lexico = $id_lexico");
-    $qSin = "SELECT nome FROM sinonimo WHERE id_lexico = $id_lexico";
-    $qrrSin = mysql_query($qSin) or die("Erro ao executar a query");
-    //$resultSin = mysql_fetch_array($qrrSin);
+    $query_sin = "SELECT nome FROM sinonimo WHERE id_lexico = $id_lexico";
+    $query_result_sql_sin = mysql_query($query_sin) or die("Error performing query");
+    //$resultSin = mysql_fetch_array($query_resulat_Sin);
     ?>
         <html>
             <head>
-                <title>Alterar L�xico</title>
+                <title>Alter Lexicon</title>
             </head>
             <body>
                 <script language="JavaScript">
                     <!--
-                    function TestarBranco(form)
+                    function TestEmpty(form)
                     {
-                        nocao = form.nocao.value;
+                        notion = form.notion.value;
     	
-                        if( nocao == "" )
-                        { alert (" Por favor, forne�a a NO��O do l�xico.\n O campo NO��O � de preenchimento obrigat�rio.");
-                            form.nocao.focus();
+                        if( notion == "" )
+                        { alert ("Please, provide the NAME of the lexicon.\n The field NAME is mandatory filing.");
+                            form.notion.focus();
                             return false;
                         }
 
                     }
-                    function addSinonimo()
+                    function addSynonym()
                     {
-                        listSinonimo = document.forms[0].elements['listSinonimo[]']; 
+                        synonymList = document.forms[0].elements['synonymList[]']; 
     	
-                        if(document.forms[0].sinonimo.value == "")
+                        if(document.forms[0].synonym.value == "")
                             return;
     	
-                        listSinonimo.options[listSinonimo.length] = new Option(document.forms[0].sinonimo.value, document.forms[0].sinonimo.value);
+                        synonymList.options[synonymList.length] = new Option(document.forms[0].synonym.value, document.forms[0].synonym.value);
     	
-                        document.forms[0].sinonimo.value = "";
+                        document.forms[0].synonym.value = "";
     	
-                        document.forms[0].sinonimo.focus();
+                        document.forms[0].synonym.focus();
 
                     }
 
-                    function delSinonimo()
+                    function deleteSynonym()
                     {
-                        listSinonimo = document.forms[0].elements['listSinonimo[]']; 
+                        synonymList = document.forms[0].elements['synonymList[]']; 
     	
-                        if(listSinonimo.selectedIndex == -1)
+                        if(synonymList.selectedIndex == -1)
                             return;
                         else
-                            listSinonimo.options[listSinonimo.selectedIndex] = null;
+                            synonymList.options[synonymList.selectedIndex] = null;
     	
-                        delSinonimo();
+                        deleteSynonym();
                     }
 
                     function doSubmit()
                     {
-                        listSinonimo = document.forms[0].elements['listSinonimo[]']; 
+                        synonymList = document.forms[0].elements['synonymList[]']; 
     	
-                        for(var i = 0; i < listSinonimo.length; i++) 
-                            listSinonimo.options[i].selected = true;
+                        for(var i = 0; i < synonymList.length; i++) 
+                            synonymList.options[i].selected = true;
     	
                         return true;
                     }
@@ -135,45 +135,44 @@ if (isset($submit)) {
 
 
     <?php
-    //Cen�rios -  Alterar L�xico 
-    //Objetivo:	Permitir a altera��o de uma entrada do dicion�rio l�xico por um usu�rio	
-    //Contexto:	Usu�rio deseja alterar um l�xico previamente cadastrado
-    //              Pr�-Condi��o: Login, l�xico cadastrado no sistema
-    //Atores:	Usu�rio
-    //Recursos:	Sistema, dados cadastrados
-    //Epis�dios:	O sistema fornecer� para o usu�rio a mesma tela de INCLUIR L�XICO,
-    //              por�m com os seguintes dados do l�xico a ser alterado preenchidos
-    //              e edit�veis nos seus respectivos campos: No��o e Impacto.
-    //              Os campos Projeto e Nome estar�o preenchidos, mas n�o edit�veis.
-    //              Ser� exibido um campo Justificativa para o usu�rio colocar uma
-    //              justificativa para a altera��o feita.	
+    //Scenario -  Alter L�xicon
+    //Objective:  Allow the user to change an entry in the lexicon	
+    //Context:	  User want to change a lexicon previously registered
+    //            Pre-Condition: Login, lexicon word registered
+    //Actor:	  User
+    //Resources:  System, registered data
+    //Episodes:	  The System offers the User the same screen previously displayed include
+    //            lexical. The screen contains the following data from the lexical to be
+    //            changed: NOTION and IMPACT. The field PROJECT and NAME are already filled,
+    //            but they can't be edited. Displays a field JUSTIFICATION for User write
+    //            the justification fot the change made.	
     ?>
 
                 </SCRIPT>
 
-                <h4>Alterar S�mbolo</h4>
+                <h4>Alter Symbol</h4>
                 <br>
-                <form action="?id_projeto=<?= $id_projeto ?>" method="post" onSubmit="return(doSubmit());">
+                <form action="?id_project=<?= $id_project ?>" method="post" onSubmit="return(doSubmit());">
                     <table>
                         <input type="hidden" name="id_lexico" value="<?= $result['id_lexico'] ?>">
 
                         <tr>
-                            <td>Projeto:</td>
-                            <td><input disabled size="48" type="text" value="<?= $nome_projeto ?>"></td>
+                            <td>Project:</td>
+                            <td><input disabled size="48" type="text" value="<?= $name_project?>"></td>
                         </tr>
                         <tr>
-                            <td>Nome:</td>
-                            <td><input disabled maxlength="64" name="nome_visivel" size="48" type="text" value="<?= $result['nome']; ?>">
-                                <input type="hidden"  maxlength="64" name="nome" size="48" type="text" value="<?= $result['nome']; ?>">
+                            <td>Name:</td>
+                            <td><input disabled maxlength="64" name="nome_visivel" size="48" type="text" value="<?= $result['name']; ?>">
+                                <input type="hidden"  maxlength="64" name="nome" size="48" type="text" value="<?= $result['name']; ?>">
                             </td>
                         </tr>
 
                         <tr valign="top">
-                            <td>Sin�nimos:</td>
+                            <td>Synonym:</td>
                             <td width="0%">
-                                <input name="sinonimo" size="15" type="text" maxlength="50">             
-                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Adicionar" onclick="addSinonimo()">
-                                &nbsp;&nbsp;<input type="button" value="Remover" onclick="delSinonimo()">&nbsp;
+                                <input name="synonym" size="15" type="text" maxlength="50">             
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Add" onclick="addSynonym()">
+                                &nbsp;&nbsp;<input type="button" value="Remove" onclick="deleteSynonym()">&nbsp;
                             </td>
                         </tr>
 
@@ -181,10 +180,10 @@ if (isset($submit)) {
                             <td>
                             </td>   
                             <td width="100%">
-                        <left><select multiple name="listSinonimo[]"  style="width: 400px;"  size="5"><?php
-    while ($rowSin = mysql_fetch_array($qrrSin)) {
+                        <left><select multiple name="synonymList[]"  style="width: 400px;"  size="5"><?php
+    while ($rowSin = mysql_fetch_array($query_result_sql_sin)) {
         ?>
-                                    <option value="<?= $rowSin["nome"] ?>"><?= $rowSin["nome"] ?></option>
+                                    <option value="<?= $rowSin["name"] ?>"><?= $rowSin["name"] ?></option>
         <?php
     }
     ?>
@@ -193,41 +192,41 @@ if (isset($submit)) {
                                     </tr>
 
                                     <tr>
-                                        <td>No��o:</td>
+                                        <td>Notion:</td>
                                         <td>
-                                            <textarea name="nocao" cols="48" rows="3" ><?= $result['nocao']; ?></textarea>
+                                            <textarea name="notion" cols="48" rows="3" ><?= $result['notion']; ?></textarea>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Impacto:</td>
+                                        <td>Impact:</td>
                                         <td>
-                                            <textarea name="impacto" cols="48" rows="3"><?= $result['impacto']; ?></textarea>
+                                            <textarea name="impact" cols="48" rows="3"><?= $result['impact']; ?></textarea>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Classifica�ao:</td>
+                                        <td>Classification:</td>
                                         <td>
-                                            <SELECT id='classificacao' name='classificacao' size=1 width="300">
-                                                <OPTION value='sujeito' <?php if ($result['tipo'] == 'sujeito') echo "selected" ?>>Sujeito</OPTION>
-                                                <OPTION value='objeto' <?php if ($result['tipo'] == 'objeto') echo "selected" ?>>Objeto</OPTION>
-                                                <OPTION value='verbo' <?php if ($result['tipo'] == 'verbo') echo "selected" ?>>Verbo</OPTION>
-                                                <OPTION value='estado' <?php if ($result['tipo'] == 'estado') echo "selected" ?>>Estado</OPTION>
+                                            <SELECT id='classification' name='classification' size=1 width="300">
+                                                <OPTION value='subject' <?php if ($result['type'] == 'subject') echo "selected" ?>>Subjectd</OPTION>
+                                                <OPTION value='object' <?php if ($result['type'] == 'object') echo "selected" ?>>Object</OPTION>
+                                                <OPTION value='verb' <?php if ($result['type'] == 'verb') echo "selected" ?>>Verb</OPTION>
+                                                <OPTION value='estate' <?php if ($result['type'] == 'estate') echo "selected" ?>>Estate</OPTION>
                                             </SELECT>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Justificativa para a altera&ccedil;&atilde;o:</td>
-                                        <td><textarea name="justificativa" cols="48" rows="6"></textarea></td>
+                                        <td>Justification for alteration:</td>
+                                        <td><textarea name="justification" cols="48" rows="6"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td align="center" colspan="2" height="60">
-                                            <input name="submit" type="submit" onClick="return TestarBranco(this.form);" value="Alterar S�mbolo">
+                                            <input name="submit" type="submit" onClick="return TestEmpty(this.form);" value="Alter Symbol">
                                         </td>
                                     </tr>
                                     </table>
                                     </form>
-                                    <center><a href="javascript:self.close();">Fechar</a></center>
-                                    <br><i><a href="showSource.php?file=alt_lexico.php">Veja o c�digo fonte!</a></i>
+                                    <center><a href="javascript:self.close();">Close</a></center>
+                                    <br><i><a href="showSource.php?file=alt_lexico.php">See the code font!</a></i>
                                     </body>
                                     </html>
 
