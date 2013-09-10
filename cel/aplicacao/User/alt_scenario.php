@@ -1,11 +1,12 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 
-// alt_cenario.php: Este script faz um pedido de alteracao de um cenario do projeto.
-// O usuario recebe um form com o cenario corrente (ou seja com seus campos preenchidos)
-// e podera fazer	alteracoes em todos os campos menos no titulo.Ao final a tela principal
-// retorna para a tela de inicio e a arvore e fechada.O form de alteracao tb e fechado.
-// Arquivo chamador: main.php
+// alt_cenario.php: This script makes a request of alterarion of one scenario of project.
+//  The user receives a form of current scenario (with empty text box).
+//	and will do alteration in all text boxes(without the title). At the end of the main screen
+//	return for the top screen and close the tree. The form is altered and closed.
+//	Called by file: main.php
+
 session_start();
 include("funcoes_genericas.php");
 include("httprequest.inc");
@@ -13,21 +14,34 @@ include_once("bd.inc");
 
 check_User("index.php");
 
-// Conecta ao SGBD
-$r = bd_connect() or die("Erro ao conectar ao SGBD");
+// scenario -    Alter scenario
 
-if (isset($submit)) {       // Script chamado atraves do submit do formulario
-	inserirPedidoAlterarCenario($_SESSION['id_projeto_corrente'],
-			$id_cenario,
-			$titulo,
-			$objetivo,
-			$contexto,
-			$atores,
-			$recursos,
-			$excecao,
-			$episodios,
-			$justificativa,
-			$_SESSION['id_usuario_corrente']);
+//Objective:	Permitir a alteração de um cenário por um usuário
+//Context:	    The user want to alter a scenario registered previously
+//              Pre condition: Login, Scnenario registered in the system
+//Atores:	    User
+//Recursos:	    System, registered data
+//Exception:    The scenario name is altered to a existing scenario name
+//Episodes:		The system will provide for an user the same screen of INCLUDE SCENARIO
+//				however with the following data scenario to be altered and
+//              filled your fields: Objective, Contex, Actors, Resource and Episodes.
+//				The fields of Project and Title can't be edited. 
+//				A Fild of justification will be shown for the user to write a justification of the alteration.
+
+$connect_bd = bd_connect() or die("Erro ao conectar ao SGBD");
+
+if (isset($submit)) {
+	insertRequestAddScenario($_SESSION['current_id_project'],
+			$id_scenario,
+			$title,
+			$objective,
+			$contex,
+			$actors,
+			$resource,
+			$exception,
+			$episodes,
+			$justification,
+			$_SESSION['current_id_user']);
 	?>
 
 <script language="javascript1.3">
@@ -48,26 +62,11 @@ self.close();
 <?php
 } else { // Script chamado atraves do link no cenario corrente
 
-	$nome_projeto = simple_query("nome", "projeto", "id_projeto = " . $_SESSION['id_projeto_corrente']);
+	$project_name = simple_query("nome", "projeto", "id_projeto = " . $_SESSION['id_projeto_corrente']);
 
-	$q = "SELECT * FROM cenario WHERE id_cenario = $id_cenario";
-	$qrr = mysql_query($q) or die("Erro ao executar a query");
-	$result = mysql_fetch_array($qrr);
-
-	// Cenário -    Alterar Cenário
-
-	//Objetivo:	    Permitir a alteração de um cenário por um usuário
-	//Contexto:	    Usuário deseja alterar cenário previamente cadastrado
-	//              Pré-Condição: Login, Cenário cadastrado no sistema
-	//Atores:	    Usuário
-	//Recursos:	    Sistema, dados cadastrados
-	//Excessões:    O nome do cenário sendo alterado é modificado para o nome de um cenário já existente.
-	//Episódios:	O sistema fornecerá para o usuário a mesma tela de INCLUIR CENÁRIO,
-	//              porém com os seguintes dados do cenário a ser alterado preenchidos
-	//              e editáveis nos seus respectivos campos: Objetivo, Contexto, Atores, Recursos e Episódios.
-	//              Os campos Projeto e Título estarão preenchidos, mas não editáveis.
-	//              Será exibido um campo Justificativa para o usuário colocar uma
-	//              justificativa para a alteração feita.
+	$query_sql = "SELECT * FROM cenario WHERE id_cenario = $id_scenario";
+	$query_confirm_sql = mysql_query($query_sql) or die("Erro ao executar a query");
+	$result = mysql_fetch_array($query_confirm_sql);
 
 	?>
 
@@ -78,11 +77,11 @@ self.close();
 <body>
 	<h4>Alterar Cenário</h4>
 	<br>
-	<form action="?id_projeto=<?=$id_projeto?>" method="post">
+	<form action="?id_projeto=<?=$id_project?>" method="post">
 		<table>
 			<tr>
 				<td>Projeto:</td>
-				<td><input disabled size="48" type="text" value="<?=$nome_projeto?>">
+				<td><input disabled size="48" type="text" value="<?=$project_name?>">
 				</td>
 			</tr>
 			<input type="hidden" name="id_cenario"
