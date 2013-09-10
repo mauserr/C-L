@@ -1,6 +1,10 @@
 
 package gui;
 
+import dao.AlunoDAO;
+import javax.swing.JOptionPane;
+import modelo.Aluno;
+
 public class AlunoGui extends javax.swing.JFrame {
 
     public AlunoGui() {
@@ -174,8 +178,7 @@ public class AlunoGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-       
+   
         Aluno alunos = new Aluno();
 
         alunos.setNome(jTextField1.getText());
