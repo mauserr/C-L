@@ -1,12 +1,16 @@
 <?php
-
+/*************************************************************
+ * File: zera_tipos.php
+ * purpose: create a Mysql query that update LexicoÂ´s type
+ * 
+ ************************************************************/
         include 'bd.inc';
 
 	$link = bd_connect();
 
 	
-	$query = "update lexico set tipo =  NULL;";
-	$result = mysql_query($query) or die("A consulta à BD falhou : " . mysql_error());
+	$query_Mysql = "update lexico set tipo =  NULL;";
+	$result_Mysql = mysql_query($query_Mysql) or die("A consulta ï¿½ BD falhou : " . mysql_error());
 	
 	mysql_close($link);
 
