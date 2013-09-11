@@ -54,23 +54,6 @@ self.close();
 
 <?php
 
-// Cen�rio - Verificar pedidos de altera��o de conceitos
-
-//Objetivo:	Permitir ao administrador gerenciar os pedidos de altera��o de conceitos.
-//Contexto:	Gerente deseja visualizar os pedidos de altera��o de conceitos.
-//              Pr�-Condi��o: Login, projeto cadastrado.
-//Atores:	Administrador
-//Recursos:	Sistema, banco de dados.
-//Epis�dios: O administrador clica na op��o de Verificar pedidos de altera��o de cen�rios.
-//           Restri��o: Somente o Administrador do projeto pode ter essa fun��o vis�vel.
-//           O sistema fornece para o administrador uma tela onde poder� visualizar o hist�rico
-//           de todas as altera��es pendentes ou n�o para os cen�rios.
-//           Para novos pedidos de inclus�o ou altera��o de cen�rios,
-//           o sistema permite que o administrador opte por Aprovar ou Remover.
-//           Para os pedidos de inclus�o ou altera��o j� aprovados,
-//           o sistema somente habilita a op��o remover para o administrador.
-//           Para efetivar as sele��es de aprova��o e remo��o, basta clicar em Processar.
-
                 $DB = new PGDB () ;
                 $select = new QUERY ($DB) ;
                 $select2 = new QUERY ($DB) ;
