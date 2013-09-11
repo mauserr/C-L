@@ -54,26 +54,26 @@ if (isset($submit)) {
             <h4>Operating successfully executed!</h4>
 
             <script language="javascript1.3">
-     
+         
                 self.close();
 
             </script>
 
-    <?php
-} else {        
-    $project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
-    $query = "SELECT * FROM lexico WHERE id_lexico = $id_lexico";
-    $query_result_sql = mysql_query($q) or die(" Erro ao executar a consulta");
-    $result = mysql_fetch_array($qrr);
+            <?php
+        } else {
+            $project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
+            $query = "SELECT * FROM lexico WHERE id_lexico = $id_lexico";
+            $query_result_sql = mysql_query($q) or die(" Erro ao executar a consulta");
+            $result = mysql_fetch_array($qrr);
 
-    //synonym
-    // $DB = new PGDB () ;
-    // $selectSin = new QUERY ($DB) ;
-    // $selectSin->execute("SELECT nome FROM sinonimo WHERE id_lexico = $id_lexico");
-    $query_sin = "SELECT nome FROM sinonimo WHERE id_lexico = $id_lexico";
-    $query_result_sql_sin = mysql_query($query_sin) or die(" Erro ao executar a consulta");
-    //$resultSin = mysql_fetch_array($query_resulat_Sin);
-    ?>
+            //synonym
+            // $DB = new PGDB () ;
+            // $selectSin = new QUERY ($DB) ;
+            // $selectSin->execute("SELECT nome FROM sinonimo WHERE id_lexico = $id_lexico");
+            $query_sin = "SELECT nome FROM sinonimo WHERE id_lexico = $id_lexico";
+            $query_result_sql_sin = mysql_query($query_sin) or die(" Erro ao executar a consulta");
+            //$resultSin = mysql_fetch_array($query_resulat_Sin);
+            ?>
         <html>
             <head>
                 <title>Alterar Lexico</title>
@@ -84,7 +84,7 @@ if (isset($submit)) {
                     function TestEmpty(form)
                     {
                         notion = form.notion.value;
-    	
+        	
                         if( notion == "" )
                         { alert (" Por favor, forneca o NOME do lexico.\n O campo NOME é obrigatorio.");
                             form.notion.focus();
@@ -95,14 +95,14 @@ if (isset($submit)) {
                     function addSynonym()
                     {
                         synonymList = document.forms[0].elements['synonymList[]']; 
-    	
+        	
                         if(document.forms[0].synonym.value == "")
                             return;
-    	
+        	
                         synonymList.options[synonymList.length] = new Option(document.forms[0].synonym.value, document.forms[0].synonym.value);
-    	
+        	
                         document.forms[0].synonym.value = "";
-    	
+        	
                         document.forms[0].synonym.focus();
 
                     }
@@ -110,22 +110,22 @@ if (isset($submit)) {
                     function deleteSynonym()
                     {
                         synonymList = document.forms[0].elements['synonymList[]']; 
-    	
+        	
                         if(synonymList.selectedIndex == -1)
                             return;
                         else
                             synonymList.options[synonymList.selectedIndex] = null;
-    	
+        	
                         deleteSynonym();
                     }
 
                     function doSubmit()
                     {
                         synonymList = document.forms[0].elements['synonymList[]']; 
-    	
+        	
                         for(var i = 0; i < synonymList.length; i++) 
                             synonymList.options[i].selected = true;
-    	
+        	
                         return true;
                     }
 
@@ -135,17 +135,17 @@ if (isset($submit)) {
 
 
     <?php
-    //Scenario -  Alter L�xicon
-    //Objective:  Allow the user to change an entry in the lexicon	
-    //Context:	  User want to change a lexicon previously registered
-    //            Pre-Condition: Login, lexicon word registered
-    //Actor:	  User
-    //Resources:  System, registered data
-    //Episodes:	  The System offers the User the same screen previously displayed include
-    //            lexical. The screen contains the following data from the lexical to be
-    //            changed: NOTION and IMPACT. The field PROJECT and NAME are already filled,
-    //            but they can't be edited. Displays a field JUSTIFICATION for User write
-    //            the justification fot the change made.	
+//Scenario -  Alter L�xicon
+//Objective:  Allow the user to change an entry in the lexicon	
+//Context:	  User want to change a lexicon previously registered
+//            Pre-Condition: Login, lexicon word registered
+//Actor:	  User
+//Resources:  System, registered data
+//Episodes:	  The System offers the User the same screen previously displayed include
+//            lexical. The screen contains the following data from the lexical to be
+//            changed: NOTION and IMPACT. The field PROJECT and NAME are already filled,
+//            but they can't be edited. Displays a field JUSTIFICATION for User write
+//            the justification fot the change made.	
     ?>
 
                 </SCRIPT>
@@ -158,7 +158,7 @@ if (isset($submit)) {
 
                         <tr>
                             <td>Projeto:</td>
-                            <td><input disabled size="48" type="text" value="<?= $name_project?>"></td>
+                            <td><input disabled size="48" type="text" value="<?= $name_project ?>"></td>
                         </tr>
                         <tr>
                             <td>Nome:</td>
@@ -184,9 +184,9 @@ if (isset($submit)) {
     while ($rowSin = mysql_fetch_array($query_result_sql_sin)) {
         ?>
                                     <option value="<?= $rowSin["name"] ?>"><?= $rowSin["name"] ?></option>
-        <?php
-    }
-    ?>
+                                    <?php
+                                }
+                                ?>
                                 <select></left><br> 
                                     </td>
                                     </tr>
@@ -230,6 +230,6 @@ if (isset($submit)) {
                                     </body>
                                     </html>
 
-    <?php
-}
-?>
+                                    <?php
+                                }
+                                ?>
