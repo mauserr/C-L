@@ -5,18 +5,16 @@ include_once("bd.inc");
 
 $r = bd_connect() or die("Erro ao conectar ao SGBD");
 
-// Cenário - Alterar cadastro
+// Scenario - Alter Registration
 //
-//Objetivo:	 Permitir ao usuário realizar alteração nos seus dados cadastrais	
-//Contexto:	 Sistema aberto, Usuário ter acessado ao sistema e logado 
-//           Usuário deseja alterar seus dados cadastrais 
-//           Pré-Condição: Usuário ter acessado ao sistema	
-//Atores:	 Usuário, Sistema.	
-//Recursos:	 Interface	
-//Episódios: O sistema fornecerá para o usuário uma tela com os seguintes campos de texto,
-//           preenchidos com os dados do usuário,  para serem alterados:
-//           nome, email, login, senha e confirmação da senha; e um botão de atualizar
-//           as informações fornecidas
+//Objective:   Allow user to make alteration in his registered data	
+//Context:     User want to change your data registered previously
+//             Pre-Condition: User has accessed the system	
+//Actor:       User, System.	
+//Resources:   Interface	
+//Episodes:    The system displays a screen for the User with the following fields completed:
+//             nome, email, login, senha e confirmacao da senha; the User can change them.
+//             he clicks on a button "Atualizar"
 
 $id_usuario = $_SESSION['id_usuario_corrente'];
 
@@ -35,7 +33,7 @@ $qrr = mysql_query($q) or die("Erro ao executar a query");
 ?>
 <html>
     <head>
-        <title>Alterar dados de Usuário</title>
+        <title>Alterar dados de Usuï¿½rio</title>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     </head>
 
@@ -87,7 +85,7 @@ function checkEmail(email) {
      {
         return (true)
      }
-   alert("Atenção: o E-mail digitado não é válido.")
+   alert("Atenï¿½ï¿½o: o E-mail digitado nï¿½o ï¿½ vï¿½lido.")
    email.focus();
    email.select();
    return (false)
@@ -114,13 +112,13 @@ function checkEmail(email) {
                 <td>Senha:</td><td><input name="senha" maxlength="32" size="16" type="password" value=""></td>
 			</tr>
 			<tr>
-				<td>Senha (confirmação):</td><td><input name="senha_conf" maxlength="32" size="16" type="password" value=""></td>
+				<td>Senha (confirmaï¿½ï¿½o):</td><td><input name="senha_conf" maxlength="32" size="16" type="password" value=""></td>
             </tr>
             <tr>
                 <td align="center" colspan="4" height="40" valign="bottom"><input name="submit" onClick="return TestarBranco(this.form);" type="submit" value="Atualizar"></td>
             </tr>
         </table>
         </form>
-        <br><i><a href="showSource.php?file=Call_UpdUser.php">Veja o código fonte!</a></i>
+        <br><i><a href="showSource.php?file=Call_UpdUser.php">Veja o cï¿½digo fonte!</a></i>
      </body>
 </html>
