@@ -62,7 +62,7 @@ if (isset($submit)) {
 // Script chamado atrav�s do menu superior
 } else {
     $query_sql = "SELECT nome FROM projeto WHERE id_projeto = $id_project";
-    $query_result_sql = mysql_query($query_sql) or die("erro ao executar a consulta");
+    $query_result_sql = mysql_query($query_sql) or die(" Erro ao executar a consulta");
     $result = mysql_fetch_array($query_result_sql);
     $project_name = $result['name'];
     ?>
@@ -94,7 +94,7 @@ if (isset($submit)) {
                             return false;
                         } 
                     }
-        
+            
                     if( notion == "" )
                     { alert (" Por favor, forneca o NOME do lexico.\n O campo NOME deve ser preenchido.");
                         form.nocao.focus();
@@ -118,7 +118,7 @@ if (isset($submit)) {
                         document.forms[0].synonym.focus();
                         return;
                     } 
-    	
+        	
                     synonymList.options[synonymList.length] = new Option(document.forms[0].synonym.value, document.forms[0].synonym.value);
 
                     document.forms[0].synonym.value = "";
@@ -173,14 +173,14 @@ if (isset($submit)) {
 
             <h4>Adicionar Simbolo</h4>
             <br>
-    <?php
-    if ($sucess == "s") {
-        ?>
+            <?php
+            if ($sucess == "s") {
+                ?>
                 <p style="color: blue; font-weight: bold; text-align: center">Simbolo
                     inserido com sucesso!</p>
-        <?php
-    }
-    ?>
+                <?php
+            }
+            ?>
             <form action="?id_project=<?= $id_project ?>" method="post"
                   onSubmit="return(doSubmit());">
                 <table>

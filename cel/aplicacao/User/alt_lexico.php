@@ -16,7 +16,7 @@ include_once("bd.inc");
 check_User("index.php");
 
 
-$r = bd_connect() or die("Error connecting to the SGBD");
+$r = bd_connect() or die("Erro ao conectar ao SGBD");
 
 if (isset($submit)) {
 
@@ -63,7 +63,7 @@ if (isset($submit)) {
 } else {        
     $project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
     $query = "SELECT * FROM lexico WHERE id_lexico = $id_lexico";
-    $query_result_sql = mysql_query($q) or die("Error performing query");
+    $query_result_sql = mysql_query($q) or die(" Erro ao executar a consulta");
     $result = mysql_fetch_array($qrr);
 
     //synonym
@@ -71,12 +71,12 @@ if (isset($submit)) {
     // $selectSin = new QUERY ($DB) ;
     // $selectSin->execute("SELECT nome FROM sinonimo WHERE id_lexico = $id_lexico");
     $query_sin = "SELECT nome FROM sinonimo WHERE id_lexico = $id_lexico";
-    $query_result_sql_sin = mysql_query($query_sin) or die("Error performing query");
+    $query_result_sql_sin = mysql_query($query_sin) or die(" Erro ao executar a consulta");
     //$resultSin = mysql_fetch_array($query_resulat_Sin);
     ?>
         <html>
             <head>
-                <title>Alter Lexicon</title>
+                <title>Alterar Lexico</title>
             </head>
             <body>
                 <script language="JavaScript">
@@ -86,7 +86,7 @@ if (isset($submit)) {
                         notion = form.notion.value;
     	
                         if( notion == "" )
-                        { alert ("Please, provide the NAME of the lexicon.\n The field NAME is mandatory filing.");
+                        { alert (" Por favor, forneca o NOME do lexico.\n O campo NOME é obrigatorio.");
                             form.notion.focus();
                             return false;
                         }
@@ -150,25 +150,25 @@ if (isset($submit)) {
 
                 </SCRIPT>
 
-                <h4>Alter Symbol</h4>
+                <h4>Alterar Simbolo</h4>
                 <br>
                 <form action="?id_project=<?= $id_project ?>" method="post" onSubmit="return(doSubmit());">
                     <table>
                         <input type="hidden" name="id_lexico" value="<?= $result['id_lexico'] ?>">
 
                         <tr>
-                            <td>Project:</td>
+                            <td>Projeto:</td>
                             <td><input disabled size="48" type="text" value="<?= $name_project?>"></td>
                         </tr>
                         <tr>
-                            <td>Name:</td>
+                            <td>Nome:</td>
                             <td><input disabled maxlength="64" name="nome_visivel" size="48" type="text" value="<?= $result['name']; ?>">
                                 <input type="hidden"  maxlength="64" name="nome" size="48" type="text" value="<?= $result['name']; ?>">
                             </td>
                         </tr>
 
                         <tr valign="top">
-                            <td>Synonym:</td>
+                            <td>Sinonimo:</td>
                             <td width="0%">
                                 <input name="synonym" size="15" type="text" maxlength="50">             
                                 &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Add" onclick="addSynonym()">
@@ -192,30 +192,30 @@ if (isset($submit)) {
                                     </tr>
 
                                     <tr>
-                                        <td>Notion:</td>
+                                        <td>Nocao:</td>
                                         <td>
                                             <textarea name="notion" cols="48" rows="3" ><?= $result['notion']; ?></textarea>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Impact:</td>
+                                        <td>Impacto:</td>
                                         <td>
                                             <textarea name="impact" cols="48" rows="3"><?= $result['impact']; ?></textarea>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Classification:</td>
+                                        <td>Classificacao:</td>
                                         <td>
                                             <SELECT id='classification' name='classification' size=1 width="300">
-                                                <OPTION value='subject' <?php if ($result['type'] == 'subject') echo "selected" ?>>Subjectd</OPTION>
-                                                <OPTION value='object' <?php if ($result['type'] == 'object') echo "selected" ?>>Object</OPTION>
-                                                <OPTION value='verb' <?php if ($result['type'] == 'verb') echo "selected" ?>>Verb</OPTION>
-                                                <OPTION value='estate' <?php if ($result['type'] == 'estate') echo "selected" ?>>Estate</OPTION>
+                                                <OPTION value='subject' <?php if ($result['type'] == 'subject') echo "selected" ?>>Sujeito</OPTION>
+                                                <OPTION value='object' <?php if ($result['type'] == 'object') echo "selected" ?>>Objeto</OPTION>
+                                                <OPTION value='verb' <?php if ($result['type'] == 'verb') echo "selected" ?>>Verbo</OPTION>
+                                                <OPTION value='estate' <?php if ($result['type'] == 'estate') echo "selected" ?>>Estado</OPTION>
                                             </SELECT>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Justification for alteration:</td>
+                                        <td>Justificacao para a alteracao:</td>
                                         <td><textarea name="justification" cols="48" rows="6"></textarea></td>
                                     </tr>
                                     <tr>
@@ -225,8 +225,8 @@ if (isset($submit)) {
                                     </tr>
                                     </table>
                                     </form>
-                                    <center><a href="javascript:self.close();">Close</a></center>
-                                    <br><i><a href="showSource.php?file=alt_lexico.php">See the code font!</a></i>
+                                    <center><a href="javascript:self.close();">Fechar</a></center>
+                                    <br><i><a href="showSource.php?file=alt_lexico.php">Olhe o codigo fonte!</a></i>
                                     </body>
                                     </html>
 
