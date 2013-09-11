@@ -12,7 +12,7 @@ include("funcoes_genericas.php");
 <body>
 
 <?php
-$bd_recupera = bd_connect() or die("Erro ao conectar ao SGBD");
+$connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 
 //Scenario -  Choose Project
 //Objective:  Allow the Administrator to choose a project.
@@ -35,11 +35,12 @@ $query_result_sql = mysql_query($q) or die("Erro ao enviar a query de busca");
         $version = $result[2];
         $XML = $result[3];
 
-        $querySearchNameProject = "SELECT * FROM projeto WHERE id_projeto = '$id_project'";
-        $querySearch = mysql_query($querySearchNameProject) or die("Erro ao enviar a query de busca de projeto");
-        $resultName = mysql_fetch_row($querySearch);
-        $name_project = $resultName[1];
+        $query_search_name_project = "SELECT * FROM projeto WHERE id_projeto = '$id_project'";
+        $query_search = mysql_query($query_search_name_project) or die("Erro ao enviar a query de busca de projeto");
+        $result_name = mysql_fetch_row($query_search);
+        $name_project = $result_name[1];
         ?>
+        
         <table border='0'>
 
             <tr>
@@ -50,13 +51,11 @@ $query_result_sql = mysql_query($q) or die("Erro ao enviar a query de busca");
 
             </tr>
 
-
         </table>
 
     <?php
 }
 ?>
-
 
 </body>
 
