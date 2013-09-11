@@ -4,7 +4,7 @@ include("httprequest.inc");
 include_once("bd.inc");
 
 // add_lexico.php: This script registers a new term in the lexicon of the project.
-//                 It last through the URL, a variable $ id_project, that
+//                 It last through the URL, a variable $id_project, that
 //                 indicates that the project should be inserted the new term.
 
 session_start();
@@ -16,7 +16,7 @@ if (!isset($sucess)) {
 check_User("index.php");
 
 
-$connect_db = db_connect() or die("Error connecting to the SGBD");
+$connect_db = db_connect() or die("Erro ao conectar ao SGBD");
 
 
 if (isset($submit)) {
@@ -34,14 +34,14 @@ if (isset($submit)) {
         ?>
         <html>
             <head>
-                <title>Project</title>
+                <title>Projeto</title>
             </head>
             <body bgcolor="#FFFFFF">
-                <p style="color: red; font-weight: bold; text-align: center">This symbol or synonym already exists</p>
+                <p style="color: red; font-weight: bold; text-align: center">Este simbolo ou sinonimo ja existe!</p>
                 <br>
                 <br>
             <center>
-                <a href="JavaScript:window.history.go(-1)">Back</a>
+                <a href="JavaScript:window.history.go(-1)">Voltar</a>
             </center>
         </body>
         </html>
@@ -62,14 +62,14 @@ if (isset($submit)) {
 // Script chamado atrav�s do menu superior
 } else {
     $query_sql = "SELECT nome FROM projeto WHERE id_projeto = $id_project";
-    $query_result_sql = mysql_query($query_sql) or die("error while performing the query");
+    $query_result_sql = mysql_query($query_sql) or die("erro ao executar a consulta");
     $result = mysql_fetch_array($query_result_sql);
     $project_name = $result['name'];
     ?>
 
     <html>
         <head>
-            <title>Add Lexicon</title>
+            <title>Adicionar Lexico</title>
         </head>
         <body>
             <script language="JavaScript">
@@ -81,7 +81,7 @@ if (isset($submit)) {
 
                     if( name == "" )
                     { 
-                        alert (" Please, provide the NAME of the lexicon.\n The field NAME is mandatory filing.");
+                        alert (" Por favor, forneca o NOME do lexico.\n O campo NOME é obrigatorio.");
                         form.name.focus();
                         return false;
                     }else{
@@ -89,14 +89,14 @@ if (isset($submit)) {
                         nOK = pattern.exec(name);
                         if (nOK)
                         {
-                            window.alert ("The Lexicon name can't contain none of the following characters:  / \\ : ? \" < > |");
+                            window.alert (" O NOME do lexico não pode conter os seguintes caracteres:  / \\ : ? \" < > |");
                             form.nome.focus();
                             return false;
                         } 
                     }
         
                     if( notion == "" )
-                    { alert (" Please, provide the NAME of the lexicon.\n The field NAME must be full.");
+                    { alert (" Por favor, forneca o NOME do lexico.\n O campo NOME deve ser preenchido.");
                         form.nocao.focus();
                         return false;
                     }
@@ -114,7 +114,7 @@ if (isset($submit)) {
                     nOK = pattern.exec(synonym);
                     if (nOK)
                     {
-                        window.alert ("The Lexicon Synonym can't contain none of the following characters:  / \\ : ? \" < > |");
+                        window.alert ("O sinonimo do lexico não pode conter os seguintes caracteres:  / \\ : ? \" < > |");
                         document.forms[0].synonym.focus();
                         return;
                     } 
@@ -171,13 +171,13 @@ if (isset($submit)) {
 
             </SCRIPT>
 
-            <h4>Add symbol</h4>
+            <h4>Adicionar Simbolo</h4>
             <br>
     <?php
     if ($sucess == "s") {
         ?>
-                <p style="color: blue; font-weight: bold; text-align: center">Symbol
-                    inserted with success!</p>
+                <p style="color: blue; font-weight: bold; text-align: center">Simbolo
+                    inserido com sucesso!</p>
         <?php
     }
     ?>
@@ -185,12 +185,12 @@ if (isset($submit)) {
                   onSubmit="return(doSubmit());">
                 <table>
                     <tr>
-                        <td>Project:</td>
+                        <td>Projeto:</td>
                         <td><input disabled size="48" type="text" value="<?= $name_project ?>">
                         </td>
                     </tr>
                     <tr>
-                        <td>Name:</td>
+                        <td>Nome:</td>
                         <td><input size="48" name="name" type="text" value=""></td>
                     </tr>
                     <tr valign="top">
@@ -211,23 +211,23 @@ if (isset($submit)) {
                     </tr>
                     </tr>
                     <tr>
-                        <td>Notion:</td>
+                        <td>Nocao:</td>
                         <td><textarea cols="51" name="notion" rows="3" WRAP="SOFT"></textarea>
                         </td>
                     </tr>
                     <tr>
-                        <td>Impact:</td>
+                        <td>Impacto:</td>
                         <td><textarea cols="51" name="impact" rows="3" WRAP="SOFT"></textarea>
                         </td>
                     </tr>
                     <tr>
-                        <td>Classification:</td>
+                        <td>Classificacao:</td>
                         <td><SELECT id='classification' name='classification' size=1
                                     width="300">
-                                <OPTION value='subject' selected>Subject</OPTION>
-                                <OPTION value='object'>Object</OPTION>
-                                <OPTION value='verb'>Verb</OPTION>
-                                <OPTION value='state'>State</OPTION>
+                                <OPTION value='subject' selected>Sujeito</OPTION>
+                                <OPTION value='object'>Objeto</OPTION>
+                                <OPTION value='verb'>Verbo</OPTION>
+                                <OPTION value='state'>Estado</OPTION>
                             </SELECT>
                         </td>
                     </tr>
@@ -237,17 +237,17 @@ if (isset($submit)) {
                             value="Add symbol"><BR> <BR> </script> <!--            <A HREF="RegrasLAL.html" TARGET="new">See rules of the LAL</A><BR>   -->
                             <A HREF="#"
                                OnClick="javascript:open( 'RegrasLAL.html' , '_blank' , 'dependent,height=380,width=520,titlebar' );">
-                                See the rules of <i>LAL</i>
+                                Olhe as regras do <i>LAL</i>
                             </A>
                         </td>
                     </tr>
                 </table>
             </form>
         <center>
-            <a href="javascript:self.close();">Close</a>
+            <a href="javascript:self.close();">Fechar</a>
         </center>
         <br>
-        <i><a href="showSource.php?file=add_lexico.php">See the code font!</a>
+        <i><a href="showSource.php?file=add_lexico.php">Olhe o codigo fonte!</a>
         </i>
     </body>
 
