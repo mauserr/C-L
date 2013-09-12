@@ -12,7 +12,9 @@ session_start();
 include("funcoes_genericas.php");
 include("httprequest.inc");
 
-chkUser("index.php"); // Checa se o usuario foi autenticado
+
+chkUser("index.php");
+
 if (isset($submit)) {
     $DB = new PGDB ();
     $select = new QUERY($DB);
@@ -53,17 +55,17 @@ if (isset($submit)) {
 
     <?php
     
-// Scenario - Verufy the modification orders of concepts
+// Scenario - Verify the modification orders of concepts
 //Objective:  Allows the administrator to manage the modification orders of concepts.
 //Context:    Manager wants to see the modification orders of concepts.
 //Precondition: Login, registered project.
 //Actors:	Administrator
 //Resources:	System, database.
-//Episodes:     The administrator clicks on the option 'Verificar pedidos de alteração de cenários'.
+//Episodes:     The administrator clicks on the option 'Verificar pedidos de alteração de conceitos'.
 //Restrictions: Only the projects administrator can have this function visible.
 //           The system provides to the administrator a screen wherer he can see the history
-//           of all the pending modifications or not for the scenarios.
-//           For all the new inclusion and modification orders of scenarios,
+//           of all the pending modifications or not for the concepts.
+//           For all the new inclusion and modification orders of concepts,
 //           the system allows the administrator to aprove or remove.
 //           For all the inclusion and modification orders already aproved,
 //           the system only enables the option 'Remover' to the administrators.
