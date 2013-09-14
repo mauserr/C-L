@@ -2,9 +2,9 @@
 
 function existe_relacao($rel, $list){
     
-	foreach($list as $key=>$relacao){
+	foreach($list as $key=>$relation){
             
-		if( @$relacao->verbo == $rel ) {
+		if( @$relation->verbo == $rel ) {
                     
 			return $key;
                         
