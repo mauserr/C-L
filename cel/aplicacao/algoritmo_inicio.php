@@ -12,10 +12,9 @@
 
 	$list = verifica_tipo();
 
-	if( is_array($list) )
-	{
-		foreach( $list as $id )
-		{
+	if( is_array($list)){
+            
+		foreach( $list as $id ){
 			$lex = obter_lexico($id);
 			$aux[] = $lex["nome"];
 		}
@@ -45,8 +44,8 @@
 	$_SESSION["salvar"] = "FALSE";
 
 
-	if( $_POST["load"] == "FALSE" )
-	{
+	if( $_POST["load"] == "FALSE" ){
+            
 		converte_impactos();
 		$_SESSION["lista_de_conceitos"] = array();
 		$_SESSION["lista_de_relacoes" ] = array();
@@ -62,9 +61,8 @@
 		$_SESSION["index6"] = 0;
 		$_SESSION["index7"] = 0;
 
-	}
-	else
-	{
+	}else{
+            
 		$_SESSION["lista_de_relacoes"]  = get_lista_de_relacoes();
 		$_SESSION["lista_de_conceitos"] = get_lista_de_conceitos();
 		$_SESSION["lista_de_axiomas"]   = get_lista_de_axiomas();
@@ -74,20 +72,23 @@
 
 
 		$indices = get_indices();
-		if(count($indices) == 5)
-		{
-		$_SESSION["index1"] = $indices['index1']; //Sujeito
-		$_SESSION["index3"] = $indices['index3']; //Verbo
-		$_SESSION["index4"] = $indices['index4']; //Estado
-		$_SESSION["index5"] = $indices['index5']; //Organizacao
+		if(count($indices) == 5){
+                    
+		$_SESSION["index1"] = $indices['index1']; //Subject
+		$_SESSION["index3"] = $indices['index3']; //Verb
+		$_SESSION["index4"] = $indices['index4']; //State
+		$_SESSION["index5"] = $indices['index5']; //Organization
+		
+                
+                }else{
+                    
+			$_SESSION["index1"] = 0; //Subject
+			$_SESSION["index3"] = 0; //Verb
+			$_SESSION["index4"] = 0; //State
+			$_SESSION["index5"] = 0; //Organization
+                        
 		}
-		else
-		{
-			$_SESSION["index1"] = 0; //Sujeito
-			$_SESSION["index3"] = 0; //Verbo
-			$_SESSION["index4"] = 0; //Estado
-			$_SESSION["index5"] = 0; //Organizacao
-		}
+                
 		$_SESSION["index2"] = 0;
 		$_SESSION["index6"] = 0;
 		$_SESSION["index7"] = 0;

@@ -66,14 +66,16 @@ menu = new MTMenu();
 <?php   
 //Arvore de Conceitos 
 
-if( isset($_SESSION['lista_de_conceitos']))
+if( isset($_SESSION['lista_de_conceitos'])){
 	$arv = $_SESSION['lista_de_conceitos'];
-else 
+}else{ 
 	$arv = array();
+}
+
 //$arv = get_lista_de_conceitos();   
 
 
-/*    Níveis da arvore 
+/*    Nï¿½veis da arvore 
         conceito 
                 Verbo 
                     Predicado 
@@ -86,25 +88,26 @@ else
 */  
 
 
-// Conceitos 
-foreach($arv as $conc)   
-{   
+// Concepts 
+foreach($arv as $conc){   
+    
     echo "\nmenu.addItem(\"$conc->nome\");\n";   
     echo " var mC = null;\n";   
     echo " mC = new MTMenu();\n";   
     echo "menu.makeLastSubmenu(mC);\n";         
 
-    //Relações 
-    //Verbos 
-    foreach($conc->relacoes as $relacao)   
-    {   
+    //Relations 
+    //Verbs
+    foreach($conc->relacoes as $relacao) {  
+        
         echo " mC.addItem(\"$relacao->verbo\",\"\");\n";   
         echo " var mV = new MTMenu();\n"; 
  
         //Predicados 
-        foreach($relacao->predicados as $predicado) 
-        {
+        foreach($relacao->predicados as $predicado) {
+            
             echo " mV.addItem(\"$predicado\",\"blank.html\",\"enganaarvore\");\n";
+            
         } 
   
         echo " mC.makeLastSubmenu(mV);\n";    

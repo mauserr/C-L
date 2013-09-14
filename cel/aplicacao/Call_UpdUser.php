@@ -3,7 +3,7 @@ session_start();
 
 include_once("bd.inc");
 
-$r = bd_connect() or die("Erro ao conectar ao SGBD");
+$connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 
 // Scenario - Alter Registration
 //
@@ -19,21 +19,21 @@ $r = bd_connect() or die("Erro ao conectar ao SGBD");
 $id_usuario = $_SESSION['id_usuario_corrente'];
 
 
-$q = "SELECT * FROM usuario WHERE id_usuario='$id_usuario'";
+$query_select = "SELECT * FROM usuario WHERE id_usuario='$id_usuario'";
 
-$qrr = mysql_query($q) or die("Erro ao executar a query");
+$query_fecth = mysql_query($query_select) or die("Erro ao executar a query");
 
-  $row = mysql_fetch_row($qrr);
-  $nome  = $row[1];
+  $row = mysql_fetch_row($query_fecth);
+  $name  = $row[1];
   $email = $row[2];
   $login = $row[3];
-  $senha = $row[4];
+  $password = $row[4];
 
 
 ?>
 <html>
     <head>
-        <title>Alterar dados de Usu�rio</title>
+        <title>Alterar dados de Usuário</title>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     </head>
 
@@ -42,9 +42,9 @@ $qrr = mysql_query($q) or die("Erro ao executar a query");
 function TestarBranco(form)
 {
 login      = form.login.value;
-senha      = form.senha.value;
-senha_conf = form.senha_conf.value;
-nome       = form.nome.value;
+password      = form.senha.value;
+conf_password = form.senha_conf.value;
+name       = form.nome.value;
 email      = form.email.value;
 
   if (login == "")
@@ -58,17 +58,17 @@ email      = form.email.value;
       form.email.focus();
       return false;
    }
-  if (senha == "")
+  if (password == "")
     { alert ("Por favor, digite a sua senha.")
       form.senha.focus()
       return false;
     }
-    if (nome == "")
+    if (name == "")
     { alert ("Por favor, digite o seu nome.")
       form.nome.focus()
       return false;
     }
-   if ( senha != senha_conf )
+   if ( password != conf_password )
    {
       alert ( "A senha e a confirmacao nao sao as mesmas!")
       form.senha.focus();
@@ -100,7 +100,7 @@ function checkEmail(email) {
         <form action="updUser.php" method="post">
         <table>
             <tr>
-                <td>Nome:</td><td colspan="3"><input name="nome" maxlength="255" size="48" type="text" value="<?=$nome?>"></td>
+                <td>Nome:</td><td colspan="3"><input name="nome" maxlength="255" size="48" type="text" value="<?=$name?>"></td>
             </tr>
             <tr>
                 <td>E-mail:</td><td colspan="3"><input name="email" maxlength="64" size="48" type="text" value="<?=$email?>" OnBlur="checkEmail(this)"></td>
