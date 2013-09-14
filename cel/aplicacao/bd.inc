@@ -4,15 +4,15 @@ include_once "CELConfig/CELConfig.inc" ;
 
 function bd_connect()
 {
-      	$ipValor    = CELConfig_ReadVar("BD_ip") ;
+    $ipValor    = CELConfig_ReadVar("BD_ip") ;
 	$BDuser     = CELConfig_ReadVar("BD_user") ;
 	$BDpassword = CELConfig_ReadVar("BD_password") ;
 	$BDdatabase = CELConfig_ReadVar("BD_database") ;
 
-	$r = mysql_pconnect( $ipValor , "root" , "32183" ) or die( "Erro na conex�o ao BD : " . mysql_error() ) ;
+	$connect = mysql_pconnect( $ipValor , "root" , "" ) or die( "Erro na conex�o ao BD : " . mysql_error() ) ;
 	
-	if( $r && mysql_select_db($BDdatabase) )
-		return($r);
+	if( $connect && mysql_select_db($BDdatabase) )
+		return($connect);
         else
 		return(FALSE);
 }
