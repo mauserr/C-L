@@ -7,7 +7,7 @@ session_start();
 
 include("funcoes_genericas.php");
 include("httprequest.inc");
-chkUser("index.php");        // Checa se o usuario foi autenticado
+check_User("index.php");        // Checa se o usuario foi autenticado
 
 //Cenários -  Excluir Léxico 
 
