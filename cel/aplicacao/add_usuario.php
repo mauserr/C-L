@@ -127,8 +127,9 @@ if (isset($submit)) {
         // Resources:  Interface, Database
         // Episodes:  In case that the chosen login doesnt exists, the system registers the user
         //               as an administrator in the database
-        $id_usuario_corrente = simple_query("id_usuario", "usuario", "login = '$login'");
-        session_register("id_usuario_corrente");
+       // $id_usuario_corrente = simple_query("id_usuario", "usuario", "login = '$login'");
+       // session_register("id_usuario_corrente");
+        $_SESSION['id_usuario_corrente'] = simple_query("id_usuario", "usuario", "login = '$login'");
         ?>
 
         <script language="javascript1.3">
@@ -172,13 +173,13 @@ if (isset($submit)) {
 
         <?php
     }
-} else {    // Script chamado normalmente
+} else {   
     if (empty($p_style)) {
         $p_style = "color: green; font-weight: bold";
         $p_text = "Favor preencher os dados abaixo:";
     }
 
-    if ($primeira_vez) {
+    if (true) {
         $email = "";
         $login = "";
         $name = "";
@@ -189,7 +190,7 @@ if (isset($submit)) {
 
     <html>
         <head>
-            <title>Cadastro de Usu�rio</title>
+            <title>Cadastro de Usuário</title>
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
         </head>
         <body>
@@ -215,10 +216,10 @@ if (isset($submit)) {
                         {
                             return (true)
                         }
-                        alert("Aten��o: o E-mail digitado n�o � v�lido.")
+                        alert("Aten��o: o E-mail digitado não é válido.");
                         email.focus();
                         email.select();
-                        return (false)
+                        return (false);
                     }
                 }
 
@@ -278,7 +279,7 @@ if (isset($submit)) {
                 </table>
             </form>
             <br>
-            <i><a href="showSource.php?file=add_usuario.php">Veja o c�digo fonte!</a>
+            <i><a href="showSource.php?file=add_usuario.php">Veja o código fonte!</a>
             </i>
         </body>
     </html>
