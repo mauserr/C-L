@@ -6,7 +6,7 @@
 
 <script language="JavaScript">
 <!--
-function TestarBranco(form)
+function TestNull(form)
 { 
 login = form.login.value
 
@@ -31,19 +31,11 @@ login = form.login.value
 
 <?php
 
-// Cenário - Lembrar senha 
+// Scenario - Remember Password 
 
-//Objetivo:   Permitir o usuário cadastrado, que esqueceu sua senha,  receber  a mesma por email	
-//Contexto:   Sistema está aberto, Usuário esqueceu sua senha Usuário na tela de lembrança de 
-//             senha. 
-//            Pré-Condição: Usuário ter acessado ao sistema	
-//Atores:     Usuário, Sistema	
-//Recursos:   Banco de Dados	
-//Episódios:  O usuário acessa a tela de login do sistema. 
-//            O usuário clica no link “Esqueci senha” 
-//            O sistema apresenta uma mensagem na tela, pedindo ao usuário que digite o seu 
-//            login na caixa de texto. 
-//            O usuário digita o seu login e clica no botão Enviar. 
+//Objective: Allows a registered user that forgot his password to recieve an email with the passwrod	 
+//Actors:     User, System	
+
              	
 ?>
          
