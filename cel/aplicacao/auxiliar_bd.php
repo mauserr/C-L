@@ -194,12 +194,13 @@ $result = mysql_query($query) or die("A consulta � BD falhou : " . mysql_error
 function cadastra_impacto($id_lexicon, $impacto){
     
     
-	$id_project = $_SESSION['id_projeto'];
-	$query  = "insert into impacto (id_lexico, impacto) values ('$id_lexicon', '$impacto');";
-	$result = mysql_query($query) or die("A consulta � BD falhou : " . mysql_error() . __LINE__);
+	$id_project = $_SESSION['id_projeto']; 
+        
+	$query_insert_impact  = "insert into impacto (id_lexico, impacto) values ('$id_lexicon', '$impacto');";
+	$result = mysql_query($query_insert_impact) or die("A consulta � BD falhou : " . mysql_error() . __LINE__);
 	
-	$query  = "select * from impacto where impacto = '$impacto' and id_lexico = $id_lexicon;";
-	$result = mysql_query($query) or die("A consulta � BD falhou : " . mysql_error() . __LINE__);
+	$query_select_impact  = "select * from impacto where impacto = '$impacto' and id_lexico = $id_lexicon;";
+	$result = mysql_query($query_select_impact) or die("A consulta � BD falhou : " . mysql_error() . __LINE__);
 	
 	$line = mysql_fetch_array($result, MYSQL_ASSOC);
 	$id_impacto = $line['id_impacto'];
@@ -459,15 +460,16 @@ function salvar_algoritmo(){
                                     
 					$query_subconcepts  = "select id_conceito from conceito where nome = '$subconceito' and id_projeto='$id_project';";
 					$result_subconcepts = mysql_query($query_subconcepts) or die("A consulta � BD falhou : " . mysql_error() . __LINE__);
-                                        $line = mysql_fetch_array($result_subconcepts, MYSQL_BOTH);
+                                        $line_subconcepts = mysql_fetch_array($result_subconcepts, MYSQL_BOTH);
 					
-                                        $id_subconcept = $line['id_conceito'];
+                                        $id_subconcept = $line_subconcepts['id_conceito'];
 					
 					$name = $conc->nome;
-					$query  = "select id_conceito from conceito where nome = '$nome' and id_projeto='$id_project';";
-					$result = mysql_query($query) or die("A consulta � BD falhou : " . mysql_error() . __LINE__);
                                         
-					$line = mysql_fetch_array($result, MYSQL_BOTH);
+					$query_select_concept  = "select id_conceito from conceito where nome = '$nome' and id_projeto='$id_project';";
+					$result_select_concept = mysql_query($query_select_concept) or die("A consulta � BD falhou : " . mysql_error() . __LINE__);
+                                        
+					$line = mysql_fetch_array($result_select_concept, MYSQL_BOTH);
 					$id_concept = $line['id_conceito'];
 					
 					$query  = "insert into hierarquia (id_conceito,id_subconceito,id_projeto) values ('$id_concept', '$id_subconcept','$id_project');";
