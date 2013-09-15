@@ -1,7 +1,7 @@
 <?php
 include_once("bd.inc");
 include_once("bd_class.php");
-include_once("seguranca.php");
+include_once("security.php");
 
 /* check_User(): checa se o usu�rio acessando foi autenticado (presen�a da vari�vel de sess�o
 $id_usuario_corrente). Caso ele j� tenha sido autenticado, continua-se com a execu��o do

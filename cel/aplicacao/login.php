@@ -34,7 +34,7 @@ $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 /** @Episodio 9: Se o formul�rio tiver sido submetido ent�o verificar se o login e senha est�o corretos. **/
 if ( $submit == 'Entrar') 
 {        
-	$password_cript = md5($senha);
+	$password_cript = md5($password);
 	$query_select_sql = "SELECT id_user FROM user WHERE login='$login' AND password='$password_cript'";
     $query_result_sql = mysql_query($query_select_sql) or die("Erro ao executar a query");
   
@@ -54,7 +54,7 @@ if ( $submit == 'Entrar')
 	/** @Episodio 11: Se o login e senha estiverem corretos ent�o registrar sess�o para o usu�rio, fechar login.php e abrir aplica��o . **/
 	else {
 
-        $row = mysql_fetch_row($qrr);
+        $row = mysql_fetch_row($query_result_sql);
        // $id_usuario_corrente = $row[0];
 
         //session_register("id_usuario_corrente");
@@ -81,7 +81,7 @@ else {
 
 <?php
 
-	/** @Episodio 4: Se wrong = true ent�o mostrar a mensagem Login ou Senha incorreto . **/
+	/** @Episodio 4: Se wrong = true entao mostrar a mensagem Login ou Senha incorreto . **/
 	if ($wrong=="true") {
 		?>
 
