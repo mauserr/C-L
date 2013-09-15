@@ -14,8 +14,8 @@ session_start();
 include("funcoes_genericas.php");
 include("httprequest.inc");
 
- // Checks if the user was authenticated
-chkUser("index.php");
+
+check_User("index.php");
 
 if (isset($submit)) {
     
@@ -24,17 +24,17 @@ if (isset($submit)) {
     $update = new QUERY($DB);
     $delete = new QUERY($DB);
     
-    for ($count = 0; $count < sizeof($pedidos); $count++) {
+    for ($count = 0; $count < sizeof($request); $count++) {
         
-        $update->execute("update pedidocen set aprovado= 1 where id_pedido = $pedidos[$count]");
+        $update->execute("update request_scenario set aproved= 1 where id_request = $request[$count]");
         tratarPedidoCenario($pedidos[$count]);
         
     }
     
     
-    for ($count = 0; $count < sizeof($remover); $count++) {
+    for ($count = 0; $count < sizeof($remove); $count++) {
         
-        $delete->execute("delete from pedidocen where id_pedido = $remover[$count]");
+        $delete->execute("delete from request_scenario where id_request = $remove[$count]");
         
     }
     ?>
@@ -46,7 +46,7 @@ if (isset($submit)) {
 
     </script>
 
-    <h4>Operaï¿½ï¿½o efetuada com sucesso!</h4>
+    <h4>Operaçao efetuada com sucesso!</h4>
     <script language="javascript1.3">
 
         self.close();
@@ -57,7 +57,7 @@ if (isset($submit)) {
     ?>
     <html>
         <head>
-            <title>Pedidos de alteraï¿½ï¿½o dos Cenï¿½rios</title>
+            <title>Pedidos de alteraçaoo dos Cenáios</title>
         </head>
         <body>
             <h2>Pedidos de Alteraï¿½ï¿½o no Conjunto de Cenï¿½rios</h2>
@@ -101,14 +101,14 @@ if (isset($submit)) {
         
         while ($record != 'LAST_RECORD_REACHED') {
             
-            $id_user = $record['id_usuario'];
-            $id_order = $record['id_pedido'];
-            $order_type = $record['tipo_pedido'];
-            $aproved = $record['aprovado'];
-            $select2->execute("SELECT * FROM usuario WHERE id_usuario = $id_user");
+            $id_user = $record['id_user'];
+            $id_order = $record['id_request'];
+            $type_request = $record['type_request'];
+            $aproved = $record['aproved'];
+            $select2->execute("SELECT * FROM user WHERE id_user = $id_user");
             $user = $select2->gofirst();
             
-            if (strcasecmp($order_type, 'remover')) {
+            if (strcasecmp($type_request, 'remover')) {
                 
                 ?>
 

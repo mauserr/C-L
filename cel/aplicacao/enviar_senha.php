@@ -14,11 +14,11 @@ include("httprequest.inc");
 //           Se o login informado for cadastrado, sistema consulta no banco de dados qual 
 //           o email e senha do login informado.           
  
-$r = bd_connect() or die("Erro ao conectar ao SGBD");
+$connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
-$q = "SELECT * FROM usuario WHERE login='$login'";
+$query_select_sql = "SELECT * FROM user WHERE login='$login'";
 
-$qrr = mysql_query($q) or die("Erro ao executar a query");
+$qyery_result_sql = mysql_query($query_select_sql) or die("Erro ao executar a query");
 
 
 ?>
@@ -31,7 +31,7 @@ $qrr = mysql_query($q) or die("Erro ao executar a query");
 
 <body bgcolor="#FFFFFF">
 <?php
-if ( !mysql_num_rows($qrr) )
+if ( !mysql_num_rows($query_result_sql) )
 {
 
 ?>
@@ -42,10 +42,10 @@ if ( !mysql_num_rows($qrr) )
 else
 {
    $row = mysql_fetch_row($qrr);
-   $nome  = $row[1];
+   $name  = $row[1];
    $mail  = $row[2];
    $login = $row[3];
-   $senha = $row[4];
+   $password = $row[4];
    
 // Cenário - Lembrar senha 
 
@@ -69,9 +69,9 @@ else
    
    //Funcao que gera uma senha randomica de 6 caracteres
 
-	function gerarandonstring($n)
+	function createandonstring($n)
 	{	
-		$str = "ABCDEFGHIJKLMNOPQRSTUVXYWZabcdefghijklmnopqrstuvxywz0123456789";
+		$string = "ABCDEFGHIJKLMNOPQRSTUVXYWZabcdefghijklmnopqrstuvxywz0123456789";
 		$cod = "";
 		for($a = 0;$a < $n;$a++)
 		{		
@@ -79,21 +79,20 @@ else
 			$cod .= substr($str,$rand,1);
 		}	
 		return $cod;
-	}// Chamando a função: gerarandonstring([quantidadedecaracteres])echo gerarandonstring(20);
-  
-	// Gera uma nova senha randômica	
-   $nova_senha = gerarandonstring(6);
-   //Criptografa senha
-   $nova_senha_cript = md5($nova_senha);
+	}
+	
+   $new_password = createrandonstring(6);
+   
+   $new_password_cript = md5($new_password);
    
    // Substitui senha antiga pela nova senha no banco de dados
    
-   $qUp = "update usuario set senha = '$nova_senha_cript' where login = '$login'";
-   $qrrUp = mysql_query($qUp) or die("Erro ao executar a query de update na tabela usuario");
+   $query_update_sql = "update user set password = '$new_password_cript' where login = '$login'";
+   $query_resutl_upadate_sql = mysql_query($qUp) or die("Erro ao executar a query de update na tabela usuario");
    
-   $corpo_email = "Caro $nome,\n Como solicitado, estamos enviando sua nova senha para acesso ao sistema C&L.\n\n login: $login \n senha: $nova_senha \n\n Para evitar futuros transtornos altere sua senha o mais breve possível. \n Obrigado! \n Equipe de Suporte do C&L.";
+   $body_email = "Caro $name,\n Como solicitado, estamos enviando sua nova senha para acesso ao sistema C&L.\n\n login: $login \n senha: $new_password \n\n Para evitar futuros transtornos altere sua senha o mais breve possível. \n Obrigado! \n Equipe de Suporte do C&L.";
    $headers = "";
-   if(mail("$mail", "Nova senha do C&L" , "$corpo_email" , $headers))
+   if(mail("$mail", "Nova senha do C&L" , "$body_email" , $headers))
    { 	
    ?>
 		<p style="color: red; font-weight: bold; text-align: center">Uma nova senha foi criada e enviada para seu e-mail cadastrado.</p>
