@@ -1,7 +1,7 @@
 <?php
 include_once("bd.inc");
 include_once("bd_class.php");
-include_once("seguranca.php");
+include_once("security.php");
 
 /* check_User(): checa se o usu�rio acessando foi autenticado (presen�a da vari�vel de sess�o
 $id_usuario_corrente). Caso ele j� tenha sido autenticado, continua-se com a execu��o do
@@ -10,7 +10,7 @@ if (!(function_exists("check_User")))
 {
     function check_User($url)
     {
-        if(!(isset($_SESSION['id_usuario_corrente'])))
+        if(!(isset($_SESSION['current_id_usuario'])))
         {
 			?>
 			

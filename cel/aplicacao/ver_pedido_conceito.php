@@ -88,11 +88,11 @@ if (isset($submit)) {
         
         while ($record != 'LAST_RECORD_REACHED') {
             
-            $id_usuario = $record['id_usuario'];
-            $id_pedido = $record['id_pedido'];
+            $id_user = $record['id_usuario'];
+            $id_request = $record['id_pedido'];
             $order_type = $record['tipo_pedido'];
-            $aprovado = $record['aprovado'];
-            $select2->execute("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
+            $aproved = $record['aprovado'];
+            $select2->execute("SELECT * FROM user WHERE id_user = $id_user");
             $user = $select2->gofirst();
             
             if (strcasecmp($order_type, 'remover')) {

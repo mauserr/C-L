@@ -1,4 +1,10 @@
 <?php
+/*************************************************************
+ * File: updateUser.php
+ * purpose: Update user data
+ * 
+ ************************************************************/
+
 session_start();
 
 include("funcoes_genericas.php");
@@ -34,7 +40,7 @@ $connectDB = bd_connect() or die("Erro ao conectar ao SGBD");
 //Episodes:  The user modify the wanted data
 // 	     User clicks on the button 'Atualizar'
 
-$encrypt_password = md5($senha);
+$encrypt_password = md5($password);
 
 $update_query = "UPDATE usuario SET  nome ='$name' , login = '$login' , email = '$email' , senha = '$encrypt_password' WHERE  id_usuario='$id_user'";
 

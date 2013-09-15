@@ -1,5 +1,5 @@
 <?php
-include 'estruturas.php';
+include 'structures.php';
 include_once 'auxiliar_algoritmo.php';
 session_start();
 ?>

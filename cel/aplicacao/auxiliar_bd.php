@@ -1,6 +1,6 @@
 <?php
 
-include_once 'estruturas.php';
+include_once 'structures.php';
 include_once 'auxiliar_algoritmo.php';
 include_once 'bd.inc';
 
