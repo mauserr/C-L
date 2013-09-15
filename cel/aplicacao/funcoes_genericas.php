@@ -1625,8 +1625,8 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
 # Arquivos que utilizam essa funcao:
 # rmv_conceito.php
 ###################################################################
-if (!(function_exists("inserirPedidoRemoverConceito"))) {
-    function inserirPedidoRemoverConceito($id_projeto,$id_conceito,$id_usuario){
+if (!(function_exists("insertRequestRemoveConcept"))) {
+    function insertRequestRemoveConcept($id_projeto,$id_conceito,$id_usuario){
         $DB = new PGDB () ;
         $insere = new QUERY ($DB) ;
         $select = new QUERY ($DB) ;

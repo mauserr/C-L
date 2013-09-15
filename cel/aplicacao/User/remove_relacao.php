@@ -7,7 +7,7 @@ session_start();
 
 include("funcoes_genericas.php");
 include("httprequest.inc");
-chkUser("index.php");        // Checa se o usuario foi autenticado
+check_User("index.php");        
 
 inserirPedidoRemoverRelacao($_SESSION['id_projeto_corrente'], $id_relacao, $_SESSION['id_usuario_corrente']);
 

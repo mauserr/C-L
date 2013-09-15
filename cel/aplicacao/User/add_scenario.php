@@ -43,16 +43,19 @@ if ( !isset( $sucess ) )
 $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 
 if (isset($submit)) {
-	$ret = checkExistingScenario($_SESSION['current_id_project'],$title);
+	$confirm = checkExistingScenario($_SESSION['current_id_project'],$title);
 	?>
 <!-- ADICIONEI ISTO PARA TESTES -->
 <!--
-           RET = <?=$ret?> => RET = <?PHP $ret? print("TRUE") : print("FALSE") ; ?><BR>
+           RET = <?=$confirm?> => RET = <?PHP $confirm? print("TRUE") : print("FALSE") ; ?><BR>
         $sucesso        = <?=$sucess?><BR>
        _GET["sucesso"] = <?=$_GET["sucesso"]?><BR>   
         -->
 <?PHP
-if ($ret == true)
+
+assert ($confirm != NULL);
+
+if ($confirm == true)
 {
 	print("<!-- Tentando Inserir Cenario --><BR>");
 
@@ -63,6 +66,7 @@ if ($ret == true)
 	$resource   = str_replace( ">" , " " , str_replace ( "<" , " " , $recourse   ) ) ;
 	$exception    = str_replace( ">" , " " , str_replace ( "<" , " " , $exception    ) ) ;
 	$episodes  = str_replace( ">" , " " , str_replace ( "<" , " " , $episodes  ) ) ;
+	
 	
 	insertRequestAddScenario ($_SESSION['current_id_project'],
 			$title,
@@ -84,7 +88,7 @@ else
 </head>
 <body bgcolor="#FFFFFF">
 	<p style="color: red; font-weight: bold; text-align: center">Este
-		cenï¿½rio jï¿½ existe!</p>
+		cenário já existe!</p>
 	<br>
 	<br>
 	<center>
