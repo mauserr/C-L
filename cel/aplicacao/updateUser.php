@@ -1,4 +1,10 @@
 <?php
+/*************************************************************
+ * File: updateUser.php
+ * purpose: Update user data
+ * 
+ ************************************************************/
+
 session_start();
 
 include("funcoes_genericas.php");

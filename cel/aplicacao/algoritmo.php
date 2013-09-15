@@ -1,5 +1,5 @@
 <?php
-include 'estruturas.php';
+include 'structures.php';
 include_once 'auxiliar_algoritmo.php';
 session_start();
 ?>
@@ -70,7 +70,9 @@ session_start();
          */
 
         function translate_subject_object($subject_and_object_list, $concepts, $relations, $axioms) {
-
+            assert(is_string($axioms, $relations, $concepts));
+            assert(is_array($subject_and_object_list));
+            
             for (; $_SESSION["index1"] < count($subject_and_object_list); ++$_SESSION["index1"]) {
 
                 $subject = $subject_and_object_list[$_SESSION["index1"]];
@@ -299,6 +301,7 @@ session_start();
          */
 
         function translate_verbs($verbos, $relations) {
+            assert(is_string($verbos, $relations));
             for (; $_SESSION["index3"] < count($verbos); ++$_SESSION["index3"]) {
 
                 $verb = $verbos[$_SESSION["index3"]];
@@ -355,6 +358,7 @@ session_start();
          */
 
         function traduz_estados($estados, $concepts, $relations, $axioms) {
+            assert(is_string($estados, $concepts, $relations, $axioms));
             for (; $_SESSION["index4"] < count($estados); ++$_SESSION["index4"]) {
 
                 $estado = $estados[$_SESSION["index4"]];
