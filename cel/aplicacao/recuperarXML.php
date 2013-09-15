@@ -5,7 +5,7 @@ session_start();
 include("funcoes_genericas.php");
 include("httprequest.inc");
 
-chkUser("index.php");        // Checa se o usuario foi autenticado
+check_User("index.php");     
 
 $XML = "";
 
@@ -31,25 +31,30 @@ $XML = "";
 //                       por uma XSL para a exibição.
 
 $bd_recupera = bd_connect() or die("Erro ao conectar ao SGBD");
-if (isset($apaga))
+if (isset($erase))
 {
-	if ( $apaga )
+	if ( $erase )
 	{
-		$qApaga = "DELETE FROM publicacao WHERE id_projeto = '$id_projeto' AND versao = '$versao' ";
-		$qrrApaga = mysql_query($qApaga);	
+		$query_delete_sql = "DELETE FROM publicacao WHERE id_projeto = '$id_projeto' AND versao = '$versao' ";
+		$query_erase_result_sql = mysql_query($query_delete_sql);	
 	}
 }
-$q = "SELECT * FROM publicacao WHERE id_projeto = '$id_projeto'";
-$qrr = mysql_query($q) or die("Erro ao enviar a query");
+$query_select_sql = "SELECT * FROM publicacao WHERE id_projeto = '$id_projeto'";
+$query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query");
+
 ?>
+
 <h2>Recupera XML/XSL</h2><br>
+
 <?php
-while ( $result = mysql_fetch_row($qrr) )
+
+while ( $result = mysql_fetch_row($query_result_sql) )
 {
-   $data   = $result[1];
-   $versao = $result[2];
+   $date  = $result[1];
+   $version = $result[2];
    $XML    = $result[3];	
 ?>
+
 <table>
    <tr>
                 <th>Versão:</th><td><?=$versao?></td>
