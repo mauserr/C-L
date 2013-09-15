@@ -1667,8 +1667,9 @@ if (!(function_exists("insertRequestRemoveConcept"))) {
 # Arquivos que utilizam essa funcao:
 # rmv_relacao.php
 ###################################################################
-if (!(function_exists("inserirPedidoRemoverRelacao"))) {
-    function inserirPedidoRemoverRelacao($id_projeto,$id_relacao,$id_usuario){
+if (!(function_exists("insertRequestRemoveRelation"))) {
+    function insertRequestRemoveRelation($id_projeto,$id_relacao,$id_usuario){
+    
         $DB = new PGDB () ;
         $insere = new QUERY ($DB) ;
         $select = new QUERY ($DB) ;

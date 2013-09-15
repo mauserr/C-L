@@ -1,7 +1,7 @@
 <?php
 
-// rmv_relacao.php: Este script faz um pedido de remover uma relacao do projeto.
-// Arquivo chamador: main.php
+// remove_relacao.php: This script make a request to remove a relation
+
 
 session_start();
 
@@ -9,7 +9,7 @@ include("funcoes_genericas.php");
 include("httprequest.inc");
 check_User("index.php");        
 
-inserirPedidoRemoverRelacao($_SESSION['id_projeto_corrente'], $id_relacao, $_SESSION['id_usuario_corrente']);
+insertRequestRemoveRelation($_SESSION['id_projeto_corrente'], $id_relacao, $_SESSION['id_usuario_corrente']);
 
 ?>  
 
@@ -20,17 +20,12 @@ opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION[
 
 <?php
 
-// Cenário -  Excluir Conceito 
+// Scenario - Remove Relation
 
-//Objetivo:	Permitir ao Usuário Excluir um conceito que esteja ativo
+//Objective: Allows a user to remove a relation 
 //Contexto:	Usuário deseja excluir um conceito
 //              Pré-Condição: Login, cenário cadastrado no sistema
 //Atores:	Usuário, Sistema
-//Recursos:	Dados informados
-//Episódios:	O sistema fornecerá uma tela para o usuário justificar a necessidade daquela
-//              exclusão para que o administrador possa ler e aprovar ou não a mesma.
-//              Esta tela também conterá um botão para a confirmação da exclusão.
-//              Restrição: Depois de clicar no botão, o sistema verifica se todos os campos foram preenchidos 
 //Exceção:	Se todos os campos não foram preenchidos, retorna para o usuário uma mensagem
 //              avisando que todos os campos devem ser preenchidos e um botão de voltar para a pagina anterior.
 
