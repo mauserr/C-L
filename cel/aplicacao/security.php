@@ -1,7 +1,7 @@
 <?php
 
 // Removes the metacharacters of the PHP
-function escapa_metacaracteres ( $string )
+function escape_metacharacter ( $string )
 {
     
 	$string = ereg_replace("[][{}()*+?.\\^$|]", "\\\\0", $string);
@@ -9,7 +9,7 @@ function escapa_metacaracteres ( $string )
         
 }
 
-function prepara_dado( $string ) 
+function data_prepare( $string ) 
 {
 	//Removes the empty spaces in the beginning and ending of the string
         //
