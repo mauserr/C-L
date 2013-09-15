@@ -2003,7 +2003,7 @@ function verificaGerente($id_usuario, $id_projeto)
 #
 ###################################################################
 
-function removeProjeto($id_projeto)
+function removeProject($id_project)
 {
     
     $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
