@@ -24,7 +24,7 @@ check_User("index.php");
 //Exceção:	if all the fields weren't filled, return for the user the message
 //			warning that all fields must been filled and one button to return to the previous page
 
-insertRequestRemoveScenario($_SESSION['current_id_project'], $id_cenario, $_SESSION['current_id_user']);
+insertRequestRemoveScenario($_SESSION['current_id_project'], $id_scenario, $_SESSION['current_id_user']);
 
 ?>
 

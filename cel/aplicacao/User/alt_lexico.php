@@ -16,7 +16,7 @@ include_once("bd.inc");
 check_User("index.php");
 
 
-$r = bd_connect() or die("Erro ao conectar ao SGBD");
+$connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
 if (isset($submit)) {
 

@@ -1524,7 +1524,7 @@ if (!(function_exists("inserirPedidoAlterarLexico"))) {
 # rmv_lexico.php
 ###################################################################
 if (!(function_exists("inserirPedidoRemoverLexico"))) {
-    function inserirPedidoRemoverLexico($id_projeto,$id_lexico,$id_usuario){
+    function insertRequestRemoveLexicon($id_project,$id_lexicon,$id_user){
         $DB = new PGDB () ;
         $insere = new QUERY ($DB) ;
         $select = new QUERY ($DB) ;
