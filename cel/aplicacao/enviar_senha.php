@@ -2,17 +2,11 @@
 include("bd.inc");
 include("httprequest.inc");
 
-// Cenário - Lembrar senha 
-
-//Objetivo:	 Permitir o usuário cadastrado, que esqueceu sua senha,  receber  a mesma por email	
-//Contexto:	 Sistema está aberto, Usuário esqueceu sua senha Usuário na tela de lembrança de 
-//           senha. 
-//           Pré-Condição: Usuário ter acessado ao sistema	
-//Atores:	 Usuário, Sistema	
-//Recursos:	 Banco de Dados	
-//Episódios: O sistema verifica se o login informado é cadastrado no banco de dados.     
-//           Se o login informado for cadastrado, sistema consulta no banco de dados qual 
-//           o email e senha do login informado.           
+// Scenario - remenber password
+//Objetivo:	Allows an registered user, how forgot the password, receive that for email
+//Contexto:	 The system is open, the user forgot his password, user clicks on the button of forgot password  
+//Actors:	 User, system
+     
  
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
@@ -46,28 +40,7 @@ else
    $mail  = $row[2];
    $login = $row[3];
    $password = $row[4];
-   
-// Cenário - Lembrar senha 
 
-//Objetivo:	 Permitir o usuário cadastrado, que esqueceu sua senha,  receber  a mesma por email	
-//Contexto:	 Sistema está aberto, Usuário esqueceu sua senha Usuário na tela de lembrança de 
-//           senha. 
-//           Pré-Condição: Usuário ter acessado ao sistema	
-//Atores:	 Usuário, Sistema	
-//Recursos:	 Banco de Dados	
-//Episódios: Sistema envia a senha para o email cadastrado correspondente ao login que 
-//           foi informado pelo usuário.     
-//           Caso não exista nenhum login cadastrado igual ao informado pelo usuário, 
-//           sistema exibe mensagem de erro na tela dizendo que login é inexistente, e 
-//           exibe um botão voltar, que redireciona o usuário para a tela de login novamente.
-
-   //$Vemail = ini_set("SMTP","mail.gmail.com");  
-
-   //require("class.phpmailer.php");
-   // Seta o SMTP sem alterar o config
-   //ini_set("SMTP","mail.hotpop.com");
-   
-   //Funcao que gera uma senha randomica de 6 caracteres
 
 	function createandonstring($n)
 	{	
@@ -85,7 +58,6 @@ else
    
    $new_password_cript = md5($new_password);
    
-   // Substitui senha antiga pela nova senha no banco de dados
    
    $query_update_sql = "update user set password = '$new_password_cript' where login = '$login'";
    $query_resutl_upadate_sql = mysql_query($qUp) or die("Erro ao executar a query de update na tabela usuario");

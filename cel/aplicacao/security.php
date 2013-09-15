@@ -12,9 +12,7 @@ function escape_metacharacter ( $string )
 function data_prepare( $string ) 
 {
 	//Removes the empty spaces in the beginning and ending of the string
-        //
-	//$string = trim( $string );
-	
+
 	// Replaces the & by amp; (to avoid troubles generating the XML)	
 	$string = ereg_replace("&", "&amp;", $string);
 	

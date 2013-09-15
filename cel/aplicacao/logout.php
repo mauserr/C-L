@@ -5,23 +5,17 @@ include_once("CELConfig/CELConfig.inc");
 session_start();
 
 
-// Cenário - Realizar logout
+// Scenario - Do logout
 
-// Objetivo:  Permitir ao usuário realizar o logout, mantendo a integridade do que foi 
-//            realizado,  e retorna a tela de login	
-// Contexto:  Sistema aberto. Usuário ter acessado ao sistema. 
-//            Usuário deseja sair da aplicação e manter a integridade do que foi 
-//            realizado 
-//            Pré-Condição: Usuário ter acessado ao sistema	
-// Atores:	  Usuário, Sistema.	
-// Recursos:  Interface	
-// Episódios: O sistema fecha a sessão do usuário, mantendo a integridade do que foi realizado 
-//            O sistema retorna a interface de login, possibilitando o usuário se logar 
-//            novamente 	
+// Objective: Allows the user to do a logout, and return to the login screen
+// Context:   System opened. User has acess to the system.
+//            User wants to leave the aplication and keep the integrity
+// Atores:	  User, System.
 
-	session_destroy();
-	session_unset();
-	$ipValor = CELConfig_ReadVar("HTTPD_ip") ;
+
+session_destroy();
+session_unset();
+$ipValor = CELConfig_ReadVar("HTTPD_ip") ;
 ?>
 
 <html>
