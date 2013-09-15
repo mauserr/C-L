@@ -1,12 +1,11 @@
 <?php
 /*************************************************************
- * File: updateUser.php
- * purpose: Update user data
+ * File: teste_daml.php
+ * purpose: A single test to create a DAML file
  * 
  ************************************************************/
 
 include 'daml.php';
-//include 'auxiliar_daml.php';
 include 'auxiliar_bd.php';
 include_once("bd.inc");
 include_once("CELConfig/CELConfig.inc");
