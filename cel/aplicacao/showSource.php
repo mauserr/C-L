@@ -1,4 +1,10 @@
 <?php
+/*************************************************************
+ * File: showSource.php
+ * purpose: Call a function that show the project source code
+ * 
+ ************************************************************/
+
 $file = $HTTP_GET_VARS['file'];
 
 if(isset($HTTP_GET_VARS["file"])){
