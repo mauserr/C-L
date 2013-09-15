@@ -1,5 +1,9 @@
 <?php
-
+/*************************************************************
+ * File: structures.php
+ * purpose: define structures for lexic concepts.
+ * 
+ ************************************************************/
 $_SESSION["estruturas"] = 1;
 
 class conceito

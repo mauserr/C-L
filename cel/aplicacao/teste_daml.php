@@ -1,4 +1,9 @@
 <?php
+/*************************************************************
+ * File: updateUser.php
+ * purpose: Update user data
+ * 
+ ************************************************************/
 
 include 'daml.php';
 //include 'auxiliar_daml.php';
