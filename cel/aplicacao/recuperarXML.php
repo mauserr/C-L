@@ -19,16 +19,12 @@ $XML = "";
 
 <?php
 
-//Cenário -  Gerar Relatórios XML 
+//Scenario - generate XML report 
 
-//Objetivo:   Permitir ao administrador gerar relatórios em formato XML de um projeto,
-//             identificados por data.
-//Contexto:   Gerente deseja gerar um relatório para um dos projetos da qual é administrador.
-//              Pré-Condição: Login, projeto cadastrado.
-//Atores:     Administrador
-//Recursos:   Sistema, dados do relatório, dados cadastrados do projeto, banco de dados.
-//Episódios:  Restrição: Recuperar os dados em XML do Banco de dados e os transformar
-//                       por uma XSL para a exibição.
+//Objetivo: Allows the administrator generate a report of a project in XML format, identified by date 
+//Contexto: The manager wants to generate a repot for a project of his administration
+//Atores:     Administrator
+
 
 $bd_recupera = bd_connect() or die("Erro ao conectar ao SGBD");
 if (isset($erase))
