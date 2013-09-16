@@ -15,7 +15,7 @@
         Comentário: Este programa lista todos os arquivos DAML    gerados    em $_SESSION['diretorio'] 
     */ 
      
-    function extract_date ($name_fle ) 
+    function extract_date ($name_file ) 
     { 
         list($project, $rest) = split("__", $name_file);
         list($day, $month, $year, $hour, $minute, $second, $extension) = split('[_-.]', $rest); 

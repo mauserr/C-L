@@ -116,7 +116,7 @@ else {
             <p><a href="add_usuario.php?novo=true">Cadastrar-se</a>&nbsp;&nbsp;
 
 <?php 	    /** @Episodio 7: [LEMBRAR SENHA] **/ ?>
-            <a href="esqueciSenha.php">Esqueci senha</a></p>
+            <a href="forgot_password.php">Esqueci senha</a></p>
         </div>
         </form>
     </body>

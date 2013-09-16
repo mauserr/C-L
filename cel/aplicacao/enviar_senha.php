@@ -12,7 +12,7 @@ $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
 $query_select_sql = "SELECT * FROM user WHERE login='$login'";
 
-$qyery_result_sql = mysql_query($query_select_sql) or die("Erro ao executar a query");
+$query_result_sql = mysql_query($query_select_sql) or die("Erro ao executar a query");
 
 
 ?>
@@ -25,7 +25,7 @@ $qyery_result_sql = mysql_query($query_select_sql) or die("Erro ao executar a qu
 
 <body bgcolor="#FFFFFF">
 <?php
-if ( !mysql_num_rows($query_result_sql) )
+if (!mysql_num_rows($query_result_sql) )
 {
 
 ?>
@@ -35,14 +35,14 @@ if ( !mysql_num_rows($query_result_sql) )
 }
 else
 {
-   $row = mysql_fetch_row($qrr);
+   $row = mysql_fetch_row($query_result_sql);
    $name  = $row[1];
    $mail  = $row[2];
    $login = $row[3];
    $password = $row[4];
 
 
-	function createandonstring($n)
+	function createrandonstring($n)
 	{	
 		$string = "ABCDEFGHIJKLMNOPQRSTUVXYWZabcdefghijklmnopqrstuvxywz0123456789";
 		$cod = "";

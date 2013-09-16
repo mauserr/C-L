@@ -10,7 +10,7 @@ if (isset($_GET['id_projeto'])) {
 include("funcoes_genericas.php");
 include_once("bd.inc");
 
-chkUser("index.php");        // Checks if the user was authenticated 
+check_User("index.php");        // Checks if the user was authenticated 
 //$id_projeto = 2; 
 ?>  
 

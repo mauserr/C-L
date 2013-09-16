@@ -67,7 +67,7 @@ if ($confirm == true)
 	$exception    = str_replace( ">" , " " , str_replace ( "<" , " " , $exception    ) ) ;
 	$episodes  = str_replace( ">" , " " , str_replace ( "<" , " " , $episodes  ) ) ;
 	
-	
+
 	insertRequestAddScenario ($_SESSION['current_id_project'],
 			$title,
 			$objective,
