@@ -1222,7 +1222,7 @@ function checarSinonimo($projeto, $listSinonimo)
 # no projeto (1.2)
 # retorna true caso nao exista ou false caso exista (1.3)
 ###################################################################
-function checarCenarioExistente($projeto, $titulo)
+function checkExistingScenario($projeto, $titulo)
 {
     $naoexiste = false;
     

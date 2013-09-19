@@ -35,7 +35,7 @@ $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 if ( $submit == 'Entrar') 
 {        
 	$password_cript = md5($password);
-	$query_select_sql = "SELECT id_user FROM user WHERE login='$login' AND password='$password_cript'";
+	$query_select_sql = "SELECT id_user FROM user WHERE login='$login' AND password='$password'";
     $query_result_sql = mysql_query($query_select_sql) or die("Erro ao executar a query");
   
 	/** @Episodio 10: Se o login e/ou senha estiverem incorretos entï¿½o retornar a pï¿½gina de login com wrong=true na URL. **/
@@ -49,16 +49,17 @@ if ( $submit == 'Entrar')
 <?php
 
 		$wrong = $_get["wrong"];
+		
     } 
 
-	/** @Episodio 11: Se o login e senha estiverem corretos entï¿½o registrar sessï¿½o para o usuï¿½rio, fechar login.php e abrir aplicaï¿½ï¿½o . **/
+	/** @Episodio 11: Se o login e senha estiverem corretos entãoo registrar sessï¿½o para o usuï¿½rio, fechar login.php e abrir aplicaï¿½ï¿½o . **/
 	else {
 
         $row = mysql_fetch_row($query_result_sql);
        // $id_usuario_corrente = $row[0];
 
         //session_register("id_usuario_corrente");
-        $_SESSION['current_id_user'] = $row[0];
+        $_SESSION['id_usuario_corrente'] = $row[0];
 ?>
 		<script language="javascript1.3">
 			opener.document.location.replace('<?=$url?>');
@@ -107,7 +108,7 @@ else {
     <div align="center">
     <table cellpadding="5">
       <tr><td>Login:</td><td><input maxlength="32" name="login" size="24" type="text"></td></tr>
-      <tr><td>Senha:</td><td><input maxlength="32" name="senha" size="24" type="password"></td></tr>
+      <tr><td>Senha:</td><td><input maxlength="32" name="password" size="24" type="password"></td></tr>
       <tr><td height="10"></td></tr>
       <tr><td align="center" colspan="2"><input name="submit" type="submit" value="Entrar"></td></tr>
     </table>
@@ -123,7 +124,7 @@ else {
 
 <?php		/** @Episodio 8: [MOSTRAR O Cï¿½DIGO FONTE] **/ ?>
 
-	<i><a href="showSource.php?file=login.php">Veja o cï¿½digo fonte!</a></i>    
+	<i><a href="showSource.php?file=login.php">Veja o código fonte!</a></i>    
 </html>
 
 <?php

@@ -35,16 +35,25 @@ include_once("bd.inc");
 //             				    that all fields must be completed and a button to return to the previous page.
 check_User("index.php");
 
+$sucess = "";
 if ( !isset( $sucess ) )
 {
 	$sucess = "n" ;
 }
 
+$connect_bd = "";
 $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 
+$submit = "";
 if (isset($submit)) {
+	
+	
+	$title = "";
+	$confirm = "";
+	
 	$confirm = checkExistingScenario($_SESSION['current_id_project'],$title);
 	?>
+	
 <!-- ADICIONEI ISTO PARA TESTES -->
 <!--
            RET = <?=$confirm?> => RET = <?PHP $confirm? print("TRUE") : print("FALSE") ; ?><BR>
@@ -54,6 +63,13 @@ if (isset($submit)) {
 <?PHP
 
 assert ($confirm != NULL);
+
+$objective = "";
+$context = "";
+$authors = "";
+$resource = "";
+$exception = "";
+$episodes = "";
 
 if ($confirm == true)
 {
@@ -116,12 +132,13 @@ location.href = "add_cenario.php?id_projeto=<?=$id_projeto?>&sucesso=s";
 <?php
 
 } else {    // Script chamado atraves do menu superior
+	$project_name =  "";
 	$project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_projeto']);
 	?>
 
 <html>
 <head>
-<title>Adicionar Cenï¿½rio</title>
+<title>Adicionar Cenario</title>
 </head>
 <body>
 	<script language="JavaScript">
@@ -129,7 +146,7 @@ location.href = "add_cenario.php?id_projeto=<?=$id_projeto?>&sucesso=s";
 function TestEmpty(form)
 {
 title     = form.title.value;
-objective   = form.objective.value;
+objective = form.objective.value;
 context   = form.context.value;
 
   if ((title == ""))
@@ -166,7 +183,7 @@ context   = form.context.value;
 
 </SCRIPT>
 
-	<h4>Adicionar Cenï¿½rio</h4>
+	<h4>Adicionar Cenario</h4>
 	<br>
 	<?php
 	if ( $sucess == "s" )
@@ -184,7 +201,7 @@ context   = form.context.value;
 				<td><input disabled size="51" type="text" value="<?=$project_name?>">
 				</td>
 			</tr>
-			<td>Tï¿½tulo:</td>
+			<td>Titulo:</td>
 			<td><input size="51" name="titulo" type="text" value=""></td>
 			<tr>
 				<td>Objetivo:</td>
@@ -207,12 +224,12 @@ context   = form.context.value;
 				</td>
 			</tr>
 			<tr>
-				<td>Exceï¿½ï¿½o:</td>
+				<td>Exceçãoo:</td>
 				<td><textarea cols="51" name="excecao" rows="3" WRAP="SOFT"></textarea>
 				</td>
 			</tr>
 			<tr>
-				<td>Episï¿½dios:</td>
+				<td>Episodios:</td>
 				<td><textarea cols="51" name="episodios" rows="5" WRAP="SOFT"></textarea>
 				</td>
 			</tr>
@@ -227,7 +244,7 @@ context   = form.context.value;
 		<a href="javascript:self.close();">Fechar</a>
 	</center>
 	<br>
-	<i><a href="showSource.php?file=add_cenario.php">Veja o cï¿½digo fonte!</a>
+	<i><a href="showSource.php?file=add_scenario.php">Veja o código fonte!</a>
 	</i>
 </body>
 </html>
