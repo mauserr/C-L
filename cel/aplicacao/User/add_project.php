@@ -1,11 +1,12 @@
 <?php
 session_start();
 
-include("funcoes_genericas.php");
-include("httprequest.inc");
+//require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/funcoes_genericas.php'; 
+include("../funcoes_genericas.php");
+include("../httprequest.inc");
 
 // Access control scenario
-chkUser("index.php");
+check_User("index.php");
 
 
 /* * This script is used when a new project request occurs

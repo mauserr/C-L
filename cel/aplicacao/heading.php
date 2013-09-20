@@ -286,7 +286,7 @@ if (isset($id_projeto)) {    // Se o usuario ja tiver escolhido um projeto,
 //Recursos:    Sistema, dados do projeto, base de dados
 //Episódios:   O Usuário clica na opção “adicionar projeto” encontrada no menu superior.
 
-?> <a href="#" onClick="window.open('add_projeto.php', '_blank', 'dependent,height=313,width=550,resizable,scrollbars,titlebar');">Adicionar 
+?> <a href="#" onClick="window.open('User/add_project.php', '_blank', 'dependent,height=313,width=550,resizable,scrollbars,titlebar');">Adicionar 
               Projeto</a>&nbsp;&nbsp;&nbsp; <?php
 
 
