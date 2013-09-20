@@ -5,7 +5,7 @@ session_start();
 include("funcoes_genericas.php");
 
 
-chkUser("index.php");        // Cenario: controle de acesso
+check_User("index.php");        // Cenario: controle de acesso
 
 // Cenário - Usuário escolhe Projeto
 
@@ -223,19 +223,19 @@ function prjInfo(idprojeto) {
 $r = bd_connect() or die("Erro ao conectar ao SGBD");
 
 // define a consulta
-$q = "SELECT p.id_projeto, p.nome, pa.gerente
-      FROM usuario u, participa pa, projeto p
-      WHERE u.id_usuario = pa.id_usuario
-      AND pa.id_projeto = p.id_projeto
-      AND pa.id_usuario = " . $_SESSION["id_usuario_corrente"] . "
-      ORDER BY p.nome";
+$q = "SELECT p.id_project, p.name, pa.manager
+      FROM user u, participates pa, project p
+      WHERE u.id_user = pa.id_user
+      AND pa.id_project = p.id_project
+      AND pa.id_user = " . $_SESSION["id_usuario_corrente"] . "
+      ORDER BY p.name";
 
 // executa a consulta
 $qrr = mysql_query($q) or die("Erro ao executar query");
 
 while ($result = mysql_fetch_array($qrr)) {    // enquanto houver projetos
 ?>
-<option value="<?=$result['id_projeto']?>"><?=($result['gerente'] == 1) ? "*" : ""?>  <?=$result['nome']?></option>
+<option value="<?=$result['id_project']?>"><?=($result['manager'] == 1) ? "*" : ""?>  <?=$result['name']?></option>
 
 <?php
 }

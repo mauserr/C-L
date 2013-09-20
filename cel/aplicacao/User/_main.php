@@ -6,7 +6,7 @@
  ************************************************************/
 session_start();
 
-include("funcoes_genericas.php");
+require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/funcoes_genericas.php'; //("funcoes_genericas.php");
 
 check_User("index.php");        // Checa se o usuario foi autenticado
 
