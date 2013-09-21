@@ -19,7 +19,7 @@ $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 $id_usuario = $_SESSION['id_usuario_corrente'];
 
 
-$query_select = "SELECT * FROM usuario WHERE id_usuario='$id_usuario'";
+$query_select = "SELECT * FROM user WHERE id_user='$id_usuario'";
 
 $query_fecth = mysql_query($query_select) or die("Erro ao executar a query");
 

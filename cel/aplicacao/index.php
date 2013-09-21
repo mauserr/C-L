@@ -6,7 +6,7 @@
 //**************************************
 
 session_start(); 
-include("funcoes_genericas.php"); 
+include ("funcoes_genericas.php"); 
 Check_User("index.php");        // Cenario: controle de acesso 
 
 ?> 

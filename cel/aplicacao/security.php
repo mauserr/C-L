@@ -4,9 +4,9 @@
 function escape_metacharacter ( $string )
 {
     
-	$string = ereg_replace("[][{}()*+?.\\^$|]", "\\\\0", $string);
-	return $string;
-        
+	 $string = preg_replace("/[][{}()*+?.\\^$|]/i", "def", $string);
+	 
+     return $string;   
 }
 
 function data_prepare( $string ) 
@@ -14,7 +14,7 @@ function data_prepare( $string )
 	//Removes the empty spaces in the beginning and ending of the string
 
 	// Replaces the & by amp; (to avoid troubles generating the XML)	
-	$string = ereg_replace("&", "&amp;", $string);
+	$string  = preg_replace("/&/i", "/&amp;/", $string);
 	
         
 	// Removes the html an php tags from the string	

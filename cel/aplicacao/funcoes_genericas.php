@@ -46,9 +46,9 @@ if (!(function_exists("inclui_cenario")))
         $data = date("Y-m-d");
         
         $q = "INSERT INTO cenario (id_projeto,data, titulo, objetivo, contexto, atores, recursos, excecao, episodios) 
-		VALUES ($id_projeto,'$data', '".prepara_dado(strtolower($titulo))."', '".prepara_dado($objetivo)."',
-		'".prepara_dado($contexto)."', '".prepara_dado($atores)."', '".prepara_dado($recursos)."',
-		'".prepara_dado($excecao)."', '".prepara_dado($episodios)."')";
+		VALUES ($id_projeto,'$data', '".data_prepare(strtolower($titulo))."', '".data_prepare($objetivo)."',
+		'".data_prepare($contexto)."', '".data_prepare($atores)."', '".data_prepare($recursos)."',
+		'".data_prepare($excecao)."', '".data_prepare($episodios)."')";
 			  
 	mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
@@ -77,8 +77,8 @@ if (!(function_exists("inclui_lexico")))
      
                 
         $q = "INSERT INTO lexico (id_projeto, data, nome, nocao, impacto, tipo)
-              VALUES ($id_projeto, '$data', '" .prepara_dado(strtolower($nome)). "',
-			  '".prepara_dado($nocao)."', '".prepara_dado($impacto)."', '$classificacao')";
+              VALUES ($id_projeto, '$data', '" .data_prepare(strtolower($nome)). "',
+			  '".data_prepare($nocao)."', '".data_prepare($impacto)."', '$classificacao')";
 				
 		mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
@@ -92,7 +92,7 @@ if (!(function_exists("inclui_lexico")))
         foreach($sinonimos as $novoSin)
         {
        		$q = "INSERT INTO sinonimo (id_lexico, nome, id_projeto)
-                VALUES ($newLexId, '" . prepara_dado(strtolower($novoSin)) . "', $id_projeto)";
+                VALUES ($newLexId, '" . data_prepare(strtolower($novoSin)) . "', $id_projeto)";
             mysql_query($q, $connect) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         }
         
@@ -112,11 +112,11 @@ if (!(function_exists("inclui_lexico")))
 
 if (!(function_exists("include_project"))) 
 {
-    function include_project($nome, $descricao)
+    function include_project($name, $description)
     {
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         //verifica se usuario ja existe
-        $qv = "SELECT * FROM projeto WHERE nome = '$nome'";
+        $qv = "SELECT * FROM project WHERE name = '$name'";
         $qvr = mysql_query($qv) or die("Erro ao enviar a query de select<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
         //$result = mysql_fetch_row($qvr);
@@ -126,11 +126,11 @@ if (!(function_exists("include_project")))
         if ( $resultArray != false )
         {
             //verifica se o nome existente corresponde a um projeto que este usuario participa
-            $id_projeto_repetido = $resultArray['id_projeto'];
+            $id_projeto_repetido = $resultArray['id_project'];
             
             $id_usuario_corrente = $_SESSION['id_usuario_corrente'];
             
-            $qvu = "SELECT * FROM participa WHERE id_projeto = '$id_projeto_repetido' AND id_usuario = '$id_usuario_corrente' ";
+            $qvu = "SELECT * FROM participates WHERE id_project = '$id_projeto_repetido' AND id_user = '$id_usuario_corrente' ";
             
             $qvuv = mysql_query($qvu) or die("Erro ao enviar a query de SELECT no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
             
@@ -143,7 +143,7 @@ if (!(function_exists("include_project")))
             
         }
         
-        $q = "SELECT MAX(id_projeto) FROM projeto";
+        $q = "SELECT MAX(id_project) FROM project";
         $qrr = mysql_query($q) or die("Erro ao enviar a query de MAX ID<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $result = mysql_fetch_row($qrr);
         
@@ -155,10 +155,10 @@ if (!(function_exists("include_project")))
         {
             $result[0]++;
         }
-        $data = date("Y-m-d");
+        $date = date("Y-m-d");
         
-        $qr = "INSERT INTO projeto (id_projeto, nome, data_criacao, descricao)
-                  VALUES ($result[0],'".prepara_dado($nome)."','$data' , '".prepara_dado($descricao)."')";
+        $qr = "INSERT INTO project (id_project, name, date_creation, description)
+                  VALUES ($result[0],'".data_prepare($name)."','$date' , '".data_prepare($description)."')";
         
         mysql_query($qr) or die("Erro ao enviar a query INSERT<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
@@ -629,12 +629,12 @@ if (!(function_exists("alteraCenario")))
         # atualiza o cenario
         
         $sql4->execute ("update cenario set 
-		objetivo = '".prepara_dado($objetivo)."', 
-		contexto = '".prepara_dado($contexto)."', 
-		atores = '".prepara_dado($atores)."', 
-		recursos = '".prepara_dado($recursos)."', 
-		episodios = '".prepara_dado($episodios)."', 
-		excecao = '".prepara_dado($excecao)."' 
+		objetivo = '".data_prepare($objetivo)."', 
+		contexto = '".data_prepare($contexto)."', 
+		atores = '".data_prepare($atores)."', 
+		recursos = '".data_prepare($recursos)."', 
+		episodios = '".data_prepare($episodios)."', 
+		excecao = '".data_prepare($excecao)."' 
 		where id_cenario = $id_cenario ");
         
         // monta_relacoes($id_projeto);
@@ -816,8 +816,8 @@ if (!(function_exists("alteraLexico")))
         # Altera o lexico escolhido
                
         $delete->execute ("UPDATE lexico SET 
-		nocao = '".prepara_dado($nocao)."', 
-		impacto = '".prepara_dado($impacto)."', 
+		nocao = '".data_prepare($nocao)."', 
+		impacto = '".data_prepare($impacto)."', 
 		tipo = '$classificacao' 
 		where id_lexico = $id_lexico");
         
@@ -1027,7 +1027,7 @@ if (!(function_exists("alteraLexico")))
         foreach($sinonimos as $novoSin)
         {
          	$q = "INSERT INTO sinonimo (id_lexico, nome, id_projeto)
-                VALUES ($id_lexico, '" . prepara_dado(strtolower($novoSin)) . "', $id_projeto)";
+                VALUES ($id_lexico, '" . data_prepare(strtolower($novoSin)) . "', $id_projeto)";
             
             mysql_query($q, $connect) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         }
@@ -1421,7 +1421,7 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
             foreach($sinonimos as $sin)
 			{
 				$insere->execute("INSERT INTO sinonimo (id_pedidolex, nome, id_projeto) 
-				VALUES ($newId, '".prepara_dado(strtolower($sin))."', $id_projeto)");
+				VALUES ($newId, '".data_prepare(strtolower($sin))."', $id_projeto)");
             }
             //fim da insercao dos sinonimos
             
@@ -1485,7 +1485,7 @@ if (!(function_exists("inserirPedidoAlterarLexico"))) {
             foreach($sinonimos as $sin)
 			{
             	$insere->execute("INSERT INTO sinonimo (id_pedidolex,nome,id_projeto) 
-				VALUES ($newPedidoId,'".prepara_dado(strtolower($sin))."', $id_projeto)") ;
+				VALUES ($newPedidoId,'".data_prepare(strtolower($sin))."', $id_projeto)") ;
             }
             
             

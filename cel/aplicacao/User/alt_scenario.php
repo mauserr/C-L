@@ -32,15 +32,15 @@ $connect_bd = bd_connect() or die("Erro ao conectar ao SGBD");
 
 if (isset($submit)) {
 	insertRequestAddScenario($_SESSION['current_id_project'],
-			$id_scenario,
-			$title,
-			$objective,
-			$contex,
-			$actors,
-			$resource,
-			$exception,
-			$episodes,
-			$justification,
+			$id_scenario = '',
+			$title = '',
+			$objective = '',
+			$contex ='',
+			$actors = '',
+			$resource = '',
+			$exception = '',
+			$episodes = '',
+			$justification = '',
 			$_SESSION['current_id_user']);
 	?>
 
@@ -72,10 +72,10 @@ self.close();
 
 <html>
 <head>
-<title>Alterar Cenï¿½rio</title>
+<title>Alterar Cenário</title>
 </head>
 <body>
-	<h4>Alterar Cenï¿½rio</h4>
+	<h4>Alterar Cenário</h4>
 	<br>
 	<form action="?id_projeto=<?=$id_project?>" method="post">
 		<table>
@@ -86,7 +86,7 @@ self.close();
 			</tr>
 			<input type="hidden" name="id_cenario"
 				value="<?=$result['id_cenario']?>">
-			<td>Tï¿½tulo:</td>
+			<td>Título:</td>
 			<? $result['titulo'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['titulo']); ?>
 			<input type="hidden" name="titulo" value="<?=$result['titulo']?>">
 			<td><input disabled maxlength="128" name="titulo2" size="48"
@@ -157,7 +157,7 @@ self.close();
 		<a href="javascript:self.close();">Fechar</a>
 	</center>
 	<br>
-	<i><a href="showSource.php?file=alt_cenario.php">Veja o cï¿½digo fonte!</a>
+	<i><a href="showSource.php?file=alt_scenario.php">Veja o cï¿½digo fonte!</a>
 	</i>
 </body>
 </html>
