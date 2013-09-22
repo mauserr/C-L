@@ -22,7 +22,13 @@ $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
 // Script called thru the forms submit
 if (isset($submit)) {       
-    inserirPedidoAlterarConceito($_SESSION['id_projeto_corrente'], $id_conceito, $nome, $descricao, $namespace, $justificativa, $_SESSION['id_usuario_corrente']);
+    inserirPedidoAlterarConceito($_SESSION['id_projeto_corrente'], 
+            $id_conceito = '', 
+            $nome = '', 
+            $descricao = '', 
+            $namespace = '', 
+            $justificativa = '', 
+            $_SESSION['id_usuario_corrente']);
     ?>
 
     <script language="javascript1.3">
