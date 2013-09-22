@@ -9,7 +9,9 @@ include("funcoes_genericas.php");
 include("httprequest.inc");
 check_User("index.php");        
 
-insertRequestRemoveConcept($_SESSION['id_projeto_corrente'], $id_conceito, $_SESSION['id_usuario_corrente']);
+insertRequestRemoveConcept($_SESSION['id_projeto_corrente'], 
+        $id_conceito = '', 
+        $_SESSION['id_usuario_corrente']);
 
 ?>  
 
@@ -25,7 +27,7 @@ opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION[
 //Objetivo:	Allows a user to remove one active concept
 //Contexto:	User wants to remove a concept
 //Atores:	User, System
-//Exceção:  if all the fields weren't filled, return for the user a message
+//Exceï¿½ï¿½o:  if all the fields weren't filled, return for the user a message
 //			alerting that all the fields must been filled and a button to return to the previous page
 
 
@@ -33,7 +35,7 @@ opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION[
 
 </script>
 
-<h4>Operação efetuada com sucesso!</h4>
+<h4>Operaï¿½ï¿½o efetuada com sucesso!</h4>
 
 <script language="javascript1.3">
 

@@ -16,13 +16,14 @@ check_User("index.php");
 //Contexto:	User wants to remove a word from the lexicon
 //              Pre-condiction: Login, registered word on the lexicon 
 //Actors:	User, System
-//Exceção:  If all the fields were not filled, return to user a message alerting
+//Exceï¿½ï¿½o:  If all the fields were not filled, return to user a message alerting
 
 //			that all the fields must be filled and a button to return to the previous page
 
-
-insertRequestRemoveLexicon($id_project, $id_lexicon, $_SESSION['id_usuario_corrente']);
-
+insertRequestRemoveLexicon(
+        $id_project = '',
+        $id_lexicon = '', 
+        $_SESSION['id_usuario_corrente']);
 ?>
 
 <script language="javascript1.3">
@@ -32,7 +33,7 @@ opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION[
 
 </script>
 
-<h4>Operação efetuada com sucesso!</h4>
+<h4>Operaï¿½ï¿½o efetuada com sucesso!</h4>
 
 <script language="javascript1.3">
 
