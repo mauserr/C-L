@@ -51,7 +51,7 @@ opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION[
 
 </script>
 
-<h4>Operação efetuada com sucesso!</h4>
+<h4>Operaï¿½ï¿½o efetuada com sucesso!</h4>
 
 <script language="javascript1.3">
 
@@ -65,17 +65,17 @@ self.close();
 	$project_name = simple_query("nome", "projeto", "id_projeto = " . $_SESSION['id_projeto_corrente']);
 
 	$query_sql = "SELECT * FROM cenario WHERE id_cenario = $id_scenario";
-	$query_confirm_sql = mysql_query($query_sql) or die("Erro ao executar a query");
+	$query_confirm_sql = mysql_query($query_sql) or die(" Erro ao executar a consulta");
 	$result = mysql_fetch_array($query_confirm_sql);
 
 	?>
 
 <html>
 <head>
-<title>Alterar Cenário</title>
+<title>Alterar Cenï¿½rio</title>
 </head>
 <body>
-	<h4>Alterar Cenário</h4>
+	<h4>Alterar Cenï¿½rio</h4>
 	<br>
 	<form action="?id_projeto=<?=$id_project?>" method="post">
 		<table>
@@ -86,7 +86,7 @@ self.close();
 			</tr>
 			<input type="hidden" name="id_cenario"
 				value="<?=$result['id_cenario']?>">
-			<td>Título:</td>
+			<td>Tï¿½tulo:</td>
 			<? $result['titulo'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['titulo']); ?>
 			<input type="hidden" name="titulo" value="<?=$result['titulo']?>">
 			<td><input disabled maxlength="128" name="titulo2" size="48"

@@ -37,8 +37,18 @@ if (isset($submit)) {
     }
 
 
-    insertRequestAlterLexicon($id_project, $id_lexico, $name, $notion, $impact, $justification, $_SESSION['current_id_user'], $synonymList, $classification);
+    insertRequestAlterLexicon(
+            $id_project = '', 
+            $id_lexico = '', 
+            $name = '', 
+            $notion = '', 
+            $impact = '', 
+            $justification = '', 
+            $_SESSION['current_id_user'], 
+            $synonymList = '', 
+            $classification = '');
     ?>
+
     <html>
         <head>
             <title>Alter Lexicon</title>
@@ -51,7 +61,7 @@ if (isset($submit)) {
 
             </script>
 
-            <h4>Operating successfully executed!</h4>
+            <h4>Operacao Efetuada com Sucesso!!</h4>
 
             <script language="javascript1.3">
          
