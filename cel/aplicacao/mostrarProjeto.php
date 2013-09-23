@@ -3,22 +3,25 @@
 include("funcoes_genericas.php");
 include("httprequest.inc");
 
-//Cenário  -  Escolher Projeto
+//Scenario  -  Select project
 
-//Objetivo:     Permitir ao Administrador/Usuário escolher um projeto.
-//Contexto:     O Administrador/Usuário deseja escolher um projeto.
-//              Pré-Condições: Login, Ser Administrador
-//Atores:       Administrador, Usuário
-//Recursos:     Usuários cadastrados
-//Episódios:    Caso o Usuario selecione da lista de projetos um projeto da qual ele seja administrador,
+//Objective:    Allows a ADM/User to select a project
+//Context:      The ADM/User wants to select a project
+//Actors:       Administrator, User
+//Episodes:     Caso o Usuario selecione da lista de projetos um projeto da qual ele seja administrador,
 //              ver ADMINISTRADOR ESCOLHE PROJETO.
 //              Caso contrário, ver USUÁRIO ESCOLHE PROJETO.
    
-$bd_recupera = bd_connect() or die("Erro ao conectar ao SGBD");
-   
-$qq = "select * from publicacao where id_projeto = $id_projeto AND versao = $versao";
-$qrr = mysql_query($qq) or die("Erro ao enviar a query");
-$row = mysql_fetch_row($qrr);
+$connect = bd_connect() or die("Erro ao conectar ao SGBD");
+
+$id_project ='';
+$version ='';
+$row ='';
+$xml_banco ='';
+
+$query_select_sql = "select * from publication where id_project = $id_project AND version = $version";
+$query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query");
+$row = mysql_fetch_row($query_result_sql);
 $xml_banco = $row[3];
 
 echo $xml_banco;
