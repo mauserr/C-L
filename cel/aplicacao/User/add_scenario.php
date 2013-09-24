@@ -9,6 +9,7 @@ session_start();
 //					That indicate the project a new scenario must be inserted.
 
 include("funcoes_genericas.php");
+require_once '/Functions/check_User.php';
 include("httprequest.inc");
 include_once("bd.inc");
 
@@ -104,7 +105,7 @@ else
 </head>
 <body bgcolor="#FFFFFF">
 	<p style="color: red; font-weight: bold; text-align: center">Este
-		cenário já existe!</p>
+		cenï¿½rio jï¿½ existe!</p>
 	<br>
 	<br>
 	<center>
@@ -224,7 +225,7 @@ context   = form.context.value;
 				</td>
 			</tr>
 			<tr>
-				<td>Exceçãoo:</td>
+				<td>Exceï¿½ï¿½oo:</td>
 				<td><textarea cols="51" name="excecao" rows="3" WRAP="SOFT"></textarea>
 				</td>
 			</tr>
@@ -244,7 +245,7 @@ context   = form.context.value;
 		<a href="javascript:self.close();">Fechar</a>
 	</center>
 	<br>
-	<i><a href="showSource.php?file=add_scenario.php">Veja o código fonte!</a>
+	<i><a href="showSource.php?file=add_scenario.php">Veja o cï¿½digo fonte!</a>
 	</i>
 </body>
 </html>

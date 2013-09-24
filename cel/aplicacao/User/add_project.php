@@ -3,6 +3,7 @@ session_start();
 
 //require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/funcoes_genericas.php'; 
 include("../funcoes_genericas.php");
+require_once '/Functions/check_User.php';
 include("../httprequest.inc");
 
 // Access control scenario
