@@ -1,6 +1,11 @@
 <?php
+/*************************************************************
+ * File: security.php
+ * purpose: Removes the metacharacters of the PHP
+ * About the data_prepare function
+ * 
+ ************************************************************/
 
-// Removes the metacharacters of the PHP
 function escape_metacharacter ( $string )
 {
     
@@ -10,10 +15,7 @@ function escape_metacharacter ( $string )
 }
 
 function data_prepare( $string ) 
-{
-	//Removes the empty spaces in the beginning and ending of the string
-
-	// Replaces the & by amp; (to avoid troubles generating the XML)	
+{	
 	$string  = preg_replace("/&/i", "/&amp;/", $string);
 	
         
