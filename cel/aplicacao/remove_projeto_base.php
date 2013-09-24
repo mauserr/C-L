@@ -1,12 +1,9 @@
 <?php
-
-session_start();
-
-include("funcoes_genericas.php");
-include_once("CELConfig/CELConfig.inc");
-
-
-
+/*************************************************************
+ * File: structures.php
+ * purpose: define structures for lexic concepts.
+ * 
+ * 
 //scenario  -  Remove base project
 
 //Objetivo:	   Remove a project of data base
@@ -14,7 +11,11 @@ include_once("CELConfig/CELConfig.inc");
 //Actors:	   Administrator
 //Recursos:	   System, data of project, data base
 //Episode:     The system remove all the data of the project from the data base 
+ ************************************************************/
+session_start();
 
+include("funcoes_genericas.php");
+include_once("CELConfig/CELConfig.inc");
 
         $id_project = $_SESSION['current_id_projeto'];
         
@@ -37,7 +38,7 @@ function logoff()
     <a href="javascript:logoff();">Clique aqui para Sair</a>
  </p>
 <p>
-  <i><a href="showSource.php?file=remove_projeto_base.php">Veja o código fonte!</a></i> 
+  <i><a href="showSource.php?file=remove_projeto_base.php">Veja o cï¿½digo fonte!</a></i> 
 </p>
 </body>
 </html>
