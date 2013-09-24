@@ -8,9 +8,9 @@ include("httprequest.inc");
 //Objective:    Allows a ADM/User to select a project
 //Context:      The ADM/User wants to select a project
 //Actors:       Administrator, User
-//Episodes:     Caso o Usuario selecione da lista de projetos um projeto da qual ele seja administrador,
-//              ver ADMINISTRADOR ESCOLHE PROJETO.
-//              Caso contrário, ver USUÁRIO ESCOLHE PROJETO.
+//Episodes:     In the case of the administrator select the list of projects,
+//              see ADMINISTRATOR CHOOSE PROJECT.
+//              in the other hand, see USER CHOOSE PROJECT.
    
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
