@@ -10,7 +10,7 @@ session_start();
 
 include("funcoes_genericas.php");
 include("httprequest.inc");
-
+require_once '/Functions/check_User.php';
 check_User("index.php"); 
 if (isset($submit)) {
         $DB = new PGDB () ;

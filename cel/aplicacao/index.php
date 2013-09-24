@@ -1,17 +1,18 @@
 <?php 
 //**************************************
 //* Class: index.php 
-//* Classe de índice 
+//* Classe de ï¿½ndice 
 //* Licensa:
 //**************************************
 
 session_start(); 
 include ("funcoes_genericas.php"); 
+require_once '/Functions/check_User.php';
 Check_User("index.php");        // Cenario: controle de acesso 
 
 ?> 
 
-<title>C&L - Cenários e Léxico</title> 
+<title>C&L - Cenï¿½rios e Lï¿½xico</title> 
 <frameset rows="103,*" cols="*" frameborder="NO" border="0" framespacing="0"> 
     <frame src="heading.php" name="heading" scrolling="NO"> 
     <frameset cols="160,40,*" frameborder="NO" border="0" framespacing="0" rows="*"> 

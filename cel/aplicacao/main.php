@@ -14,6 +14,7 @@ $_SESSION['site'] = "http://" . CELConfig_ReadVar("HTTPD_ip") . "/" . CELConfig_
 $_SESSION['diretorio'] = CELConfig_ReadVar("DAML_dir_relativo_ao_CEL") ;
 
 include("funcoes_genericas.php");    
+require_once '/Functions/check_User.php';
 include("httprequest.inc");
 include_once("coloca_links.php");
 

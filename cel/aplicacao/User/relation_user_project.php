@@ -3,6 +3,7 @@
 session_start();
 
 include("funcoes_genericas.php");
+require_once '/Functions/check_User.php';
 include("httprequest.inc");
 
 check_User("index.php");
@@ -39,7 +40,7 @@ self.close();
 
 <html>
     <head>
-        <title>Selecione os usuários</title>
+        <title>Selecione os usuï¿½rios</title>
         <script language="javascript1.3" src="MSelect.js"></script>
         <script language="javascript1.3">
 
@@ -68,8 +69,8 @@ self.close();
         </style>
     </head>
     <body onLoad="createMSelect();">
-        <h4>Selecione os usuários para participar do projeto "<span style="color: orange"><?=simple_query("nome", "projeto", "id_projeto = " . $_SESSION['id_projeto_corrente'])?></span>":</h4>
-        <p style="color: red">Mantenha <strong>CTRL</strong> pressionado para selecionar múltiplas opções</p>
+        <h4>Selecione os usuï¿½rios para participar do projeto "<span style="color: orange"><?=simple_query("nome", "projeto", "id_projeto = " . $_SESSION['id_projeto_corrente'])?></span>":</h4>
+        <p style="color: red">Mantenha <strong>CTRL</strong> pressionado para selecionar mï¿½ltiplas opï¿½ï¿½es</p>
         <form action="" method="post" onSubmit="selAll();">
         <table cellspacing="8" width="100%">
             <tr>
@@ -149,7 +150,7 @@ self.close();
             </tr>
         </table>
         </form>
-        <br><i><a href="showSource.php?file=rel_usuario.php">Veja o código fonte!</a></i>
+        <br><i><a href="showSource.php?file=rel_usuario.php">Veja o cï¿½digo fonte!</a></i>
     </body>
 </html>
 

@@ -6,6 +6,7 @@
 session_start();
 
 include("funcoes_genericas.php");
+require_once '/Functions/check_User.php';
 include("httprequest.inc");
 check_User("index.php");        
 
@@ -23,17 +24,17 @@ opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION[
 // Scenario - Remove Relation
 
 //Objective: Allows a user to remove a relation 
-//Contexto:	Usuário deseja excluir um conceito
-//              Pré-Condição: Login, cenário cadastrado no sistema
-//Atores:	Usuário, Sistema
-//Exceção:	Se todos os campos não foram preenchidos, retorna para o usuário uma mensagem
-//              avisando que todos os campos devem ser preenchidos e um botão de voltar para a pagina anterior.
+//Contexto:	Usuï¿½rio deseja excluir um conceito
+//              Prï¿½-Condiï¿½ï¿½o: Login, cenï¿½rio cadastrado no sistema
+//Atores:	Usuï¿½rio, Sistema
+//Exceï¿½ï¿½o:	Se todos os campos nï¿½o foram preenchidos, retorna para o usuï¿½rio uma mensagem
+//              avisando que todos os campos devem ser preenchidos e um botï¿½o de voltar para a pagina anterior.
 
 ?>
 
 </script>
 
-<h4>Operação efetuada com sucesso!</h4>
+<h4>Operaï¿½ï¿½o efetuada com sucesso!</h4>
 
 <script language="javascript1.3">
 

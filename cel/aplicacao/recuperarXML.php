@@ -3,6 +3,7 @@
 session_start();
 
 include("funcoes_genericas.php");
+require_once '/Functions/check_User.php';
 include("httprequest.inc");
 
 check_User("index.php");     
@@ -53,7 +54,7 @@ while ( $result = mysql_fetch_row($query_result_sql) )
 
 <table>
    <tr>
-                <th>Versão:</th><td><?=$versao?></td>
+                <th>Versï¿½o:</th><td><?=$versao?></td>
                 <th>Data:</th><td><?=$data?></td>
                 <th><a href="mostraXML.php?id_projeto=<?=$id_projeto?>&versao=<?=$versao?>">XML</a></th>
                 <th><a href="recuperarXML.php?id_projeto=<?=$id_projeto?>&versao=<?=$versao?>&apaga=true">Apaga XML</a></th>
@@ -68,7 +69,7 @@ while ( $result = mysql_fetch_row($query_result_sql) )
 
 ?>
 
-<br><i><a href="showSource.php?file=recuperarXML.php">Veja o código fonte!</a></i>
+<br><i><a href="showSource.php?file=recuperarXML.php">Veja o cï¿½digo fonte!</a></i>
     
     </body>
 

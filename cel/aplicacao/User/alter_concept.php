@@ -10,6 +10,7 @@
 session_start();
 
 include("funcoes_genericas.php");
+require_once '/Functions/check_User.php';
 include("httprequest.inc");
 include_once("bd.inc");
 

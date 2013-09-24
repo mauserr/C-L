@@ -1,14 +1,14 @@
 <?php 
 
     //session_start(); 
-
+    require_once '/Functions/check_User.php';
     //include("funcoes_genericas.php"); 
 
     check_User("index.php");        // Cenario: controle de acesso 
 
 // frame_inferior.php 
 // Dada a base, o tipo "c", "l", "oc", "or" e "oa" e o 
-// id do respectivo, mostra os dados necessários 
+// id do respectivo, mostra os dados necessï¿½rios 
 // no frame. 
 
     function frame_inferior( $bd, $tipo, $id  ) 
@@ -19,7 +19,7 @@
 
         if ( $tipo == "c" )            // Se for cenario 
         { 
-            // Seleciona os cenários que referenciam o cenário 
+            // Seleciona os cenï¿½rios que referenciam o cenï¿½rio 
             // com o id passado. 
             $qry_cenario = "SELECT id_cenario, titulo 
                             FROM   cenario, centocen 
@@ -32,7 +32,7 @@
 
             <table> 
             <tr> 
-              <th>Cenários</th> 
+              <th>Cenï¿½rios</th> 
             </tr> 
 
 <?php 
@@ -52,7 +52,7 @@
 
         else if ( $tipo == "l" ) 
         { 
-            // Seleciona os cenários que referenciam o léxico 
+            // Seleciona os cenï¿½rios que referenciam o lï¿½xico 
             // com o id passado. 
             $qry_cenario = "SELECT c.id_cenario, c.titulo 
                             FROM   cenario c, centolex cl 
@@ -75,8 +75,8 @@
 
             <table> 
             <tr> 
-                <th>Cenários</th> 
-                <th>Léxicos</th> 
+                <th>Cenï¿½rios</th> 
+                <th>Lï¿½xicos</th> 
             </tr> 
 
 <?php 
@@ -135,7 +135,7 @@
                  ORDER BY r.nome  ";  
            $result = mysql_query($q) or die("Erro ao enviar a query de selecao !!". mysql_error());  
         
-           print "<TABLE><tr><th align=left CLASS=\"Estilo\">Relação</th><th align=left CLASS=\"Estilo\">Conceito</Th></tr>"; 
+           print "<TABLE><tr><th align=left CLASS=\"Estilo\">Relaï¿½ï¿½o</th><th align=left CLASS=\"Estilo\">Conceito</Th></tr>"; 
 
            while ($line = mysql_fetch_array($result, MYSQL_BOTH))   
            { 
@@ -146,7 +146,7 @@
 
         } //elseif 
 
-        else if ( $tipo == "or" ) /* RELAÇÃO */ 
+        else if ( $tipo == "or" ) /* RELAï¿½ï¿½O */ 
         { 
            $q = "SELECT DISTINCT  c.id_conceito, c.nome 
                  FROM     conceito c, relacao_conceito rc, relacao r 

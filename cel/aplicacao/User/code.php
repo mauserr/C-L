@@ -8,6 +8,7 @@ if (isset($_GET['id_projeto'])) {
 
 
 include("funcoes_genericas.php");
+require_once '/Functions/check_User.php';
 include_once("bd.inc");
 
 check_User("index.php");        // Checks if the user was authenticated 

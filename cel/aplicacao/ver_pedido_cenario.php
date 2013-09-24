@@ -12,6 +12,7 @@
 session_start();
 
 include("funcoes_genericas.php");
+require_once '/Functions/check_User.php';
 include("httprequest.inc");
 
 
@@ -46,7 +47,7 @@ if (isset($submit)) {
 
     </script>
 
-    <h4>Operaçao efetuada com sucesso!</h4>
+    <h4>Operaï¿½ao efetuada com sucesso!</h4>
     <script language="javascript1.3">
 
         self.close();
@@ -57,7 +58,7 @@ if (isset($submit)) {
     ?>
     <html>
         <head>
-            <title>Pedidos de alteraçaoo dos Cenáios</title>
+            <title>Pedidos de alteraï¿½aoo dos Cenï¿½ios</title>
         </head>
         <body>
             <h2>Pedidos de Alteraï¿½ï¿½o no Conjunto de Cenï¿½rios</h2>
