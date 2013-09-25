@@ -13,6 +13,10 @@ include("httprequest.inc");
 
 // Checa se o usuario foi autenticado
 chkUser("index.php");
+$submit = null;
+$orders = null;
+$remove = null;
+$id_projeto = null;
 
 if (isset($submit)) {
 
@@ -22,10 +26,10 @@ if (isset($submit)) {
     $update = new QUERY($DB);
     $delete = new QUERY($DB);
     
-    for ($count = 0; $count < sizeof($pedidos); $count++) {
+    for ($count = 0; $count < sizeof($orders); $count++) {
         
-        $update->execute("update pedidolex set aprovado= 1 where id_pedido = $pedidos[$count]");
-        tratarPedidoLexico($pedidos[$count]);
+        $update->execute("update pedidolex set aprovado= 1 where id_pedido = $orders[$count]");
+        tratarPedidoLexico($orders[$count]);
     }
     
     for ($count = 0; $count < sizeof($remove); $count++) {

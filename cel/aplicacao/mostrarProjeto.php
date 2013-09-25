@@ -16,8 +16,6 @@ $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
 $id_project ='';
 $version ='';
-$row ='';
-$xml_banco ='';
 
 $query_select_sql = "select * from publication where id_project = $id_project AND version = $version";
 $query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query");

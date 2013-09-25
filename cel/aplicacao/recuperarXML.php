@@ -28,11 +28,15 @@ $XML = "";
 
 
 $bd_recupera = bd_connect() or die("Erro ao conectar ao SGBD");
+
+$erase = null;
+$id_projeto = null;
+$version = null;
 if (isset($erase))
 {
 	if ( $erase )
 	{
-		$query_delete_sql = "DELETE FROM publicacao WHERE id_projeto = '$id_projeto' AND versao = '$versao' ";
+		$query_delete_sql = "DELETE FROM publicacao WHERE id_projeto = '$id_projeto' AND versao = '$version' ";
 		$query_erase_result_sql = mysql_query($query_delete_sql);	
 	}
 }
@@ -54,10 +58,10 @@ while ( $result = mysql_fetch_row($query_result_sql) )
 
 <table>
    <tr>
-                <th>Vers�o:</th><td><?=$versao?></td>
-                <th>Data:</th><td><?=$data?></td>
-                <th><a href="mostraXML.php?id_projeto=<?=$id_projeto?>&versao=<?=$versao?>">XML</a></th>
-                <th><a href="recuperarXML.php?id_projeto=<?=$id_projeto?>&versao=<?=$versao?>&apaga=true">Apaga XML</a></th>
+                <th>Vers�o:</th><td><?=$version?></td>
+                <th>Data:</th><td><?=$date?></td>
+                <th><a href="mostraXML.php?id_projeto=<?=$id_projeto?>&versao=<?=$version?>">XML</a></th>
+                <th><a href="recuperarXML.php?id_projeto=<?=$id_projeto?>&versao=<?=$version?>&erase=true">Apaga XML</a></th>
                 
    </tr>
 

@@ -12,6 +12,12 @@ include("funcoes_genericas.php");
 include("httprequest.inc");
 require_once '/Functions/check_User.php';
 check_User("index.php"); 
+
+$submit = null;
+$pedidos = null;
+$remover = null;
+$id_projeto = null;
+
 if (isset($submit)) {
         $DB = new PGDB () ;
         $select = new QUERY ($DB) ;

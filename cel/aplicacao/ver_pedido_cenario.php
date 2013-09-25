@@ -18,6 +18,11 @@ include("httprequest.inc");
 
 check_User("index.php");
 
+$submit = null;
+$request = null;
+$remove = null;
+$id_projeto = null;
+$order_type = null;
 if (isset($submit)) {
     
     $DB = new PGDB ();
@@ -28,7 +33,7 @@ if (isset($submit)) {
     for ($count = 0; $count < sizeof($request); $count++) {
         
         $update->execute("update request_scenario set aproved= 1 where id_request = $request[$count]");
-        tratarPedidoCenario($pedidos[$count]);
+        tratarPedidoCenario($request[$count]);
         
     }
     

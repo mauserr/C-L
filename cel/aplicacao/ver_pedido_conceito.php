@@ -14,6 +14,12 @@ include("httprequest.inc");
 
 
 chkUser("index.php");
+$submit = null;
+$orders = null;
+$remove = null;
+$id_projeto = null;
+$aproved = null;
+$id_request = null;
 
 if (isset($submit)) {
     $DB = new PGDB ();
@@ -125,11 +131,11 @@ if (isset($submit)) {
                                 <h3>O usu�rio <a  href="mailto:<?= $user['email'] ?>" ><?= $user['nome'] ?></a> pede para <?= $order_type ?> o conceito <font color="#ff0000"><?= $record['nome'] ?></font></h3>
                             <?php
                             }
-                            if ($aprovado == 1) {
+                            if ($aproved == 1) {
                                 echo "<font color=\"#ff0000\">Aprovado</font> ";
                             } else {
-                                echo "Aprovar<input type=\"checkbox\" name=\"pedidos[]\" value=\"$id_pedido\">";
-                                echo "Rejeitar<input type=\"checkbox\" name=\"remover[]\" value=\"$id_pedido\">";
+                                echo "Aprovar<input type=\"checkbox\" name=\"pedidos[]\" value=\"$id_request\">";
+                                echo "Rejeitar<input type=\"checkbox\" name=\"remover[]\" value=\"$id_request\">";
                             }
                             echo "<br>\n<hr color=\"#000000\"><br>\n";
                             $record = $select->gonext();
