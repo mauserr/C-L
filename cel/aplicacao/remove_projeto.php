@@ -1,5 +1,9 @@
 <?php
-
+/*************************************************************
+ * File: remove_projeto.php
+ * purpose: removes a project from the system and the BD.
+ * 
+ ************************************************************/
 session_start();
 
 include("funcoes_genericas.php");
@@ -50,12 +54,12 @@ include("httprequest.inc");
   </tr>
 </table>
 <br><br>
-<center><b>Cuidado!O projeto será apagado para todos seus usuários!</b></center>
+<center><b>Cuidado!O projeto serï¿½ apagado para todos seus usuï¿½rios!</b></center>
 <p><br>
   <center><a href="remove_projeto_base.php">Apagar o projeto</a></center> 
 </p>
 <p>
-  <i><a href="showSource.php?file=remove_projeto.php">Veja o código fonte!</a></i> 
+  <i><a href="showSource.php?file=remove_projeto.php">Veja o cï¿½digo fonte!</a></i> 
 </p>
 </body>
 </html>
