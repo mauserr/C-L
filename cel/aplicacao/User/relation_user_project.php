@@ -11,7 +11,8 @@ check_User("index.php");
 
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
-
+$submit = null;
+$users = null;
 if (isset($submit)) {
 
 	$query_delete_sql = "DELETE FROM participa
@@ -19,12 +20,12 @@ if (isset($submit)) {
 	AND id_projeto = " . $_SESSION['id_projeto_corrente'];
 	mysql_query($query_delete_sql) or die("Erro ao executar a query de DELETE");
 
-	$number_of_selected_users = count($usuarios);
+	$number_of_selected_users = count($users);
 	 
 	for ($i = 0; $i < $number_of_selected_users; $i++) {
 
 		$query_insert_sql = "INSERT INTO participa (id_usuario, id_projeto)
-		VALUES (" . $usuarios[$i] . ", " . $_SESSION['id_projeto_corrente'] . ")";
+		VALUES (" . $users[$i] . ", " . $_SESSION['id_projeto_corrente'] . ")";
 		mysql_query($query_insert_sql) or die("Erro ao cadastrar usuario");
 	}
 	?>

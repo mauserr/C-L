@@ -9,7 +9,7 @@ include_once("bd.inc");
 //                 indicates that the project should be inserted the new term.
 
 session_start();
-
+$sucess = null;
 if (!isset($sucess)) {
     $sucess = 'n';
 }
@@ -19,14 +19,16 @@ check_User("index.php");
 
 $connect_db = db_connect() or die("Erro ao conectar ao SGBD");
 
-
+$submit = null;
+$name = null;
+$synonymList = null;
 if (isset($submit)) {
-
+    
     $ret = checkExistingLexical($_SESSION['current_id_project'], $name);
     if (!isset($synonymList))
         $synonymList = array();
 
-    $retSinonimo = checkSynonym($_SESSION['current_id_project'], $synonymList);
+    $retSin = checkSynonym($_SESSION['current_id_project'], $synonymList);
 
     if (($ret == true) AND ($retSin == true )) {
         $current_id_user = $_SESSION['current_id_user'];
@@ -35,7 +37,7 @@ if (isset($submit)) {
                 $name = '',
                 $notion = '',
                 $impact = '',
-                $current_id_usuario = '',
+                $current_id_user = '',
                 $synonymList = '',
                 $classification = ''
                 );
@@ -195,7 +197,7 @@ if (isset($submit)) {
                 <table>
                     <tr>
                         <td>Projeto:</td>
-                        <td><input disabled size="48" type="text" value="<?= $name_project ?>">
+                        <td><input disabled size="48" type="text" value="<?= $project_name ?>">
                         </td>
                     </tr>
                     <tr>
@@ -206,7 +208,7 @@ if (isset($submit)) {
                         <td>Synonyms:</td>
                         <td width="0%"><input name="synonym" size="15" type="text"
                                               maxlength="50"> &nbsp;&nbsp;&nbsp;&nbsp;<input type="button"
-                                              value="Add" onclick="addSynonym()"> &nbsp;&nbsp;<input
+                                              value="Add" onclick="addSynonym();"> &nbsp;&nbsp;<input
                                               type="button" value="Remove" onclick="deleteSynonym()">&nbsp;</td>
                     </tr>
                     <tr>

@@ -19,6 +19,8 @@ check_User("index.php");
 
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
+$submit = null;
+$synonymList = null;
 if (isset($submit)) {
 
     if (!isset($synonymList))
@@ -74,8 +76,8 @@ if (isset($submit)) {
         } else {
             $project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
             $query = "SELECT * FROM lexico WHERE id_lexico = $id_lexico";
-            $query_result_sql = mysql_query($q) or die(" Erro ao executar a consulta");
-            $result = mysql_fetch_array($qrr);
+            $query_result_sql = mysql_query($query) or die(" Erro ao executar a consulta");
+           $result = mysql_fetch_array($query_result_sql);
 
             //synonym
             // $DB = new PGDB () ;
@@ -169,7 +171,7 @@ if (isset($submit)) {
 
                         <tr>
                             <td>Projeto:</td>
-                            <td><input disabled size="48" type="text" value="<?= $name_project ?>"></td>
+                            <td><input disabled size="48" type="text" value="<?= $project_name ?>"></td>
                         </tr>
                         <tr>
                             <td>Nome:</td>
@@ -182,8 +184,8 @@ if (isset($submit)) {
                             <td>Sinonimo:</td>
                             <td width="0%">
                                 <input name="synonym" size="15" type="text" maxlength="50">             
-                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Add" onclick="addSynonym()">
-                                &nbsp;&nbsp;<input type="button" value="Remove" onclick="deleteSynonym()">&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Add" onclick="addSynonym();">
+                                &nbsp;&nbsp;<input type="button" value="Remove" onclick="deleteSynonym();">&nbsp;
                             </td>
                         </tr>
 

@@ -42,7 +42,6 @@ if ( !isset( $sucess ) )
 	$sucess = "n" ;
 }
 
-$connect_bd = "";
 $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 
 $submit = "";
@@ -50,7 +49,6 @@ if (isset($submit)) {
 	
 	
 	$title = "";
-	$confirm = "";
 	
 	$confirm = checkExistingScenario($_SESSION['current_id_project'],$title);
 	?>
@@ -77,10 +75,10 @@ if ($confirm == true)
 	print("<!-- Tentando Inserir Cenario --><BR>");
 
 	$title     = str_replace( ">" , " " , str_replace ( "<" , " " , $title     ) ) ;
-	$objective   = str_replace( ">" , " " , str_replace ( "<" , " " , $objetive   ) ) ;
+	$objective   = str_replace( ">" , " " , str_replace ( "<" , " " , $objective   ) ) ;
 	$context   = str_replace( ">" , " " , str_replace ( "<" , " " , $context   ) ) ;
 	$authors     = str_replace( ">" , " " , str_replace ( "<" , " " , $authors     ) ) ;
-	$resource   = str_replace( ">" , " " , str_replace ( "<" , " " , $recourse   ) ) ;
+	$resource   = str_replace( ">" , " " , str_replace ( "<" , " " , $resource   ) ) ;
 	$exception    = str_replace( ">" , " " , str_replace ( "<" , " " , $exception    ) ) ;
 	$episodes  = str_replace( ">" , " " , str_replace ( "<" , " " , $episodes  ) ) ;
 	
@@ -90,7 +88,7 @@ if ($confirm == true)
 			$objective,
 			$context,
 			$authors,
-			$recourse,
+			$resource,
 			$exception,
 			$episodes,
 			$_SESSION['current_id_user']);
@@ -123,17 +121,16 @@ return;
 opener.parent.frames['code'].location.reload();
 opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['id_projeto_corrente']?>');
 //self.close();
-//location.href = "http://<?php print( CELConfig_ReadVar("HTTPD_ip") . "/" . CELConfig_ReadVar("CEL_dir_relativo") ); ?>add_cenario.php?id_projeto=<?=$id_projeto?>&sucesso=s" ;
+//location.href = "http://<?php print( CELConfig_ReadVar("HTTPD_ip") . "/" . CELConfig_ReadVar("CEL_dir_relativo") ); ?>add_cenario.php?id_projeto=<?=$id_project?>&sucesso=s" ;
 
 
-location.href = "add_cenario.php?id_projeto=<?=$id_projeto?>&sucesso=s";
+location.href = "add_cenario.php?id_projeto=<?=$id_project?>&sucesso=s";
 
 </script>
 
 <?php
 
 } else {    // Script chamado atraves do menu superior
-	$project_name =  "";
 	$project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_projeto']);
 	?>
 

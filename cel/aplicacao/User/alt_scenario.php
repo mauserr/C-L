@@ -31,6 +31,7 @@ check_User("index.php");
 
 $connect_bd = bd_connect() or die("Erro ao conectar ao SGBD");
 
+$submit = null;
 if (isset($submit)) {
 	insertRequestAddScenario($_SESSION['current_id_project'],
 			$id_scenario = '',
@@ -150,7 +151,7 @@ self.close();
 
 			<tr>
 				<td align="center" colspan="2" height="60"><input name="submit"
-					type="submit" value="Alterar Cen�rio" onClick="updateOpener()"></td>
+					type="submit" value="Alterar Cen�rio" onClick="updateOpener();"></td>
 			</tr>
 		</table>
 	</form>
