@@ -30,7 +30,15 @@ if (isset($submit)) {
 
     if (($ret == true) AND ($retSin == true )) {
         $current_id_user = $_SESSION['current_id_user'];
-        insertRequestAddLexicon($id_project, $name, $notion, $impact, $current_id_usuario, $synonymList, $classification);
+        insertRequestAddLexicon(
+                $id_project = '',
+                $name = '',
+                $notion = '',
+                $impact = '',
+                $current_id_usuario = '',
+                $synonymList = '',
+                $classification = ''
+                );
     } else {
         ?>
         <html>
