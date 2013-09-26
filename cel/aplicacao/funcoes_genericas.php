@@ -4,37 +4,6 @@ include_once("bd_class.php");
 
 require_once '/security.php'; //("security.php");
 
-###################################################################
-# Insere um cenario no banco de dados.
-# Recebe o id_projeto, titulo, objetivo, contexto, atores, recursos, excecao e episodios. (1.1)
-# Insere os valores do lexico na tabela CENARIO. (1.2)
-# Devolve o id_cenario. (1.4)
-#
-###################################################################
-
-if (!(function_exists("inclui_cenario"))) 
-{
-    function inclui_cenario($id_projeto, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios)
-    {
-        //Variavel $connect que faz conexao com a base de dados
-        $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        
-        $data = date("Y-m-d");
-        
-        $q = "INSERT INTO cenario (id_projeto,data, titulo, objetivo, contexto, atores, recursos, excecao, episodios) 
-		VALUES ($id_projeto,'$data', '".data_prepare(strtolower($titulo))."', '".data_prepare($objetivo)."',
-		'".data_prepare($contexto)."', '".data_prepare($atores)."', '".data_prepare($recursos)."',
-		'".data_prepare($excecao)."', '".data_prepare($episodios)."')";
-			  
-	mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        
-        $q = "SELECT max(id_cenario) FROM cenario";
-        
-        $qrr = mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        $result = mysql_fetch_row($qrr);
-        return $result[0];
-    }
-}
 
 ###################################################################
 # Insere um lexico no banco de dados.
