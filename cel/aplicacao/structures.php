@@ -36,9 +36,9 @@ class relacao_entre_conceitos
 
 class termo_do_lexico
 {
-	var $name;
-	var $nocao;
-	var $impact;
+	var $name = null;
+	var $nocao = null;
+	var $impact = null;
 	
 	function termo_do_lexico($name_Parameter_Term, $notion_Parameter,
                 $impact_Parameter){
