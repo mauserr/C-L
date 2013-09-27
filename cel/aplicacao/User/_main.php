@@ -22,29 +22,29 @@ check_User("index.php");        // Checa se o usuario foi autenticado
             document.location.replace(URL);
         }
 
-        function altCenario(cenario) {
-            var url = 'alt_cenario.php?id_projeto=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_cenario=' + cenario;
+        function altCenario(scenario) {
+            var url = 'alt_cenario.php?id_project=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_scenario=' + scenario;
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
         }
 
-        function rmvCenario(cenario) {
-            var url = 'rmv_cenario.php?id_projeto=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_cenario=' + cenario;
+        function rmvCenario(scenario) {
+            var url = 'rmv_cenario.php?id_project=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_scenario=' + scenario;
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
         }
 
-        function altLexico(lexico) {
-            var url = 'alt_lexico.php?id_projeto=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_lexico=' + lexico;
+        function altLexico(lexicon) {
+            var url = 'alt_lexico.php?id_project=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_lexicon=' + lexicon;
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
         }
 
-        function rmvLexico(lexico) {
-            var url = 'rmv_lexico.php?id_projeto=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_lexico=' + lexico;
+        function rmvLexico(lexicon) {
+            var url = 'rmv_lexico.php?id_project=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_lexicon=' + lexicon;
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
@@ -53,14 +53,14 @@ check_User("index.php");        // Checa se o usuario foi autenticado
         // Funcoes que serao usadas quando o script
         // for chamado atraves da heading.php
         function pedidoCenario() {
-            var url = 'ver_pedido_cenario.php?id_projeto=' + '<?=$id_projeto?>';
+            var url = 'ver_pedido_cenario.php?id_project=' + '<?=$id_project?>';
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
         }
 
         function pedidoLexico() {
-            var url = 'ver_pedido_lexico.php?id_projeto=' + '<?=$id_projeto?>';
+            var url = 'ver_pedido_lexico.php?id_project=' + '<?=$id_project?>';
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
@@ -81,7 +81,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
         }
 
         function geraXML() {
-            var url = 'xml_gerador.php?id_projeto=' + '<?=$id_projeto?>';
+            var url = 'xml_gerador.php?id_project=' + '<?=$id_project?>';
             var where = '_blank';
             var window_spec = 'dependent,height=330,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
@@ -118,74 +118,74 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 		<?php
 		$c = bd_connect() or die("Erro ao conectar ao SGBD");
 
-		if ($t == "c") {        // se for cenario
-			$q = "SELECT id_cenario, titulo, objetivo, contexto, atores, recursos, episodios
-			FROM cenario
-			WHERE id_cenario = $id";
-			$qrr = mysql_query($q) or die("Erro ao enviar a query de selecao");
-			$result = mysql_fetch_array($qrr);
+		if ($t == "c") {        // if its a scenario
+			$query = "SELECT id_scenario, title, objective, context, actors, resources, episodes
+			FROM scenario
+			WHERE id_scenario = $id";
+			$query_result = mysql_query($query) or die("Erro ao enviar a query de selecao");
+			$result = mysql_fetch_array($query_result);
 			?>
 
 		<tr>
 			<td>Titulo:</td>
-			<td><?=$result['titulo']?></td>
+			<td><?=$result['title']?></td>
 		</tr>
 		<tr>
 			<td>Objetivo:</td>
-			<td><?=$result['objetivo']?></td>
+			<td><?=$result['objective']?></td>
 		</tr>
 		<tr>
 			<td>Contexto:</td>
-			<td><?=$result['contexto']?></td>
+			<td><?=$result['context']?></td>
 		</tr>
 		<tr>
 			<td>Atores:</td>
-			<td><?=$result['atores']?></td>
+			<td><?=$result['actors']?></td>
 		</tr>
 		<tr>
 			<td>Recursos:</td>
-			<td><?=$result['recursos']?></td>
+			<td><?=$result['resouces']?></td>
 		</tr>
 		<tr>
 			<td>Epis�dios:</td>
-			<td><?=$result['episodios']?></td>
+			<td><?=$result['episodes']?></td>
 		</tr>
 		<tr>
 			<td height="40" valign="bottom"><a href="#"
-				onClick="altCenario(<?=$result['id_cenario']?>);">Alterar Cen�rio</a>
+				onClick="altCenario(<?=$result['id_scenario']?>);">Alterar Cen�rio</a>
 			</td>
 			<td valign="bottom"><a href="#"
-				onClick="rmvCenario(<?=$result['id_cenario']?>);">Remover Cen�rio</a>
+				onClick="rmvCenario(<?=$result['id_scenario']?>);">Remover Cen�rio</a>
 			</td>
 		</tr>
 
 		<?php
 		} else {
-			$q = "SELECT id_lexico, nome, nocao, impacto
-			FROM lexico
-			WHERE id_lexico = $id";
-			$qrr = mysql_query($q) or die("Erro ao enviar a query de selecao");
-			$result = mysql_fetch_array($qrr);
+			$query = "SELECT id_lexicon, name, notion, impact
+			FROM lexicon
+			WHERE id_lexicon = $id";
+			$query_result = mysql_query($query) or die("Erro ao enviar a query de selecao");
+			$result = mysql_fetch_array($query_result);
 			?>
 
 		<tr>
 			<td>Nome:</td>
-			<td><?=$result['nome']?></td>
+			<td><?=$result['name']?></td>
 		</tr>
 		<tr>
 			<td>No��o:</td>
-			<td><?=$result['nocao']?></td>
+			<td><?=$result['notion']?></td>
 		</tr>
 		<tr>
 			<td>Impacto:</td>
-			<td><?=$result['impacto']?></td>
+			<td><?=$result['impact']?></td>
 		</tr>
 		<tr>
 			<td height="40" valign="bottom"><a href="#"
-				onClick="altLexico(<?=$result['id_lexico']?>);">Alterar L�xico</a>
+				onClick="altLexico(<?=$result['id_lexicon']?>);">Alterar L�xico</a>
 			</td>
 			<td valign="bottom"><a href="#"
-				onClick="rmvLexico(<?=$result['id_lexico']?>);">Remover L�xico</a>
+				onClick="rmvLexico(<?=$result['id_lexicon']?>);">Remover L�xico</a>
 			</td>
 		</tr>
 
@@ -215,32 +215,32 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 
 	frame_inferior($c, $t, $id);
 
-	} elseif (isset($id_projeto)) {         // SCRIPT CHAMADO PELO HEADING.PHP
+	} elseif (isset($id_project)) {         // SCRIPT CHAMADO PELO HEADING.PHP
 
-		// Foi passada uma variavel $id_projeto. Esta variavel deve conter o id de um
+		// Foi passada uma variavel $id_project. Esta variavel deve conter o id de um
 		// projeto que o usuario esteja cadastrado. Entretanto, como a passagem eh
 		// feita usando JavaScript (no heading.php), devemos checar se este id realmente
 		// corresponde a um projeto que o usuario tenha acesso (seguranca).
-		check_proj_perm($_SESSION['id_usuario_corrente'], $id_projeto) or die("Permissao negada");
+		check_proj_perm($_SESSION['id_usuario_corrente'], $id_project) or die("Permissao negada");
 
 		// Seta uma variavel de sessao correspondente ao projeto atual
-		$_SESSION['id_projeto_corrente'] = $id_projeto;
+		$_SESSION['id_projeto_corrente'] = $id_project;
 		?>
 
 	<table>
 		<tr>
 			<td>Projeto:</td>
-			<td><?=simple_query("nome", "projeto", "id_projeto = $id_projeto")?>
+			<td><?=simple_query("name", "project", "id_project = $id_project")?>
 			</td>
 		</tr>
 		<tr>
 			<td>Data de cria��o:</td>
-			<td><?=simple_query("TO_CHAR(data_criacao, 'DD/MM/YY')", "projeto", "id_projeto = $id_projeto")?>
+			<td><?=simple_query("TO_CHAR(data_criacao, 'DD/MM/YY')", "project", "id_project = $id_project")?>
 			</td>
 		</tr>
 		<tr>
 			<td>Descri��o:</td>
-			<td><?=simple_query("descricao", "projeto", "id_projeto = $id_projeto")?>
+			<td><?=simple_query("description", "project", "id_project = $id_project")?>
 			</td>
 		</tr>
 	</table>
@@ -248,7 +248,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 	<?php
 
 	// Verifica se o usuario eh administrador deste projeto
-	if (is_admin($_SESSION['id_usuario_corrente'], $id_projeto)) {
+	if (is_admin($_SESSION['id_usuario_corrente'], $id_project)) {
 		?>
 
 	<br>
