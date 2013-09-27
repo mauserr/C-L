@@ -53,7 +53,7 @@ if ( $submit == 'Entrar')
 		
     } 
 
-	/** @Episodio 11: Se o login e senha estiverem corretos entãoo registrar sessï¿½o para o usuï¿½rio, fechar login.php e abrir aplicação . **/
+	/** @Episodio 11: Se o login e senha estiverem corretos entï¿½oo registrar sessï¿½o para o usuï¿½rio, fechar login.php e abrir aplicaï¿½ï¿½o . **/
 	else {
 
         $row = mysql_fetch_row($query_result_sql);
@@ -109,8 +109,8 @@ else {
 	<form action="?url=<?=$url?>" method="post">
     <div align="center">
     <table cellpadding="5">
-      <tr><td>Login:</td><td><input maxlength="32" name="login" size="24" type="text"></td></tr>
-      <tr><td>Senha:</td><td><input maxlength="32" name="password" size="24" type="password"></td></tr>
+      <tr><td>Login:</td><td><input maxlength="32" name="login" size="24" type="text" value ="<?= $login?>"></td></tr>
+      <tr><td>Senha:</td><td><input maxlength="32" name="password" size="24" type="password" value ="<?= $password?>"></td></tr>
       <tr><td height="10"></td></tr>
       <tr><td align="center" colspan="2"><input name="submit" type="submit" value="Entrar"></td></tr>
     </table>
@@ -126,7 +126,7 @@ else {
 
 <?php		/** @Episodio 8: [MOSTRAR O Cï¿½DIGO FONTE] **/ ?>
 
-	<i><a href="showSource.php?file=login.php">Veja o código fonte!</a></i>    
+	<i><a href="showSource.php?file=login.php">Veja o cï¿½digo fonte!</a></i>    
 </html>
 
 <?php

@@ -11,23 +11,36 @@ include_once("bd.inc");
 $first_try = "true";
 
 include("httprequest.inc");
-
-if (isset($submit)) { 
+$name = null;
+$email = null;
+$login = null;
+$password = null;
+$psw_conf = null;
+$submit = null;
+if (isset($_POST['submit'])) { 
     
     $first_try = "false";
+    $name = $_POST['name'];
+    $login = $_POST['login'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $psw_conf = $_POST['psw_conf'];
     
     // ** Scenario "Independente Independent user inclusion" **
     // The system checks if all the fields are filled. If some isn't, the
     // system warns the user that all the fields must be filled.
 
-    if ($name == "" || $email == "" || $login == "" || $password == "" || $senha_conf == "") {
+    if ($name == "" || $email == "" || $login == "" || $password == "" || $psw_conf == "") {
+        
         $p_style = "color: red; font-weight: bold";
         $p_text = "Por favor, preencha todos os campos.";
-        recarrega("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&login=$login&senha=$password&senha_conf=$senha_conf&novo=$novo");
+        recarrega("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&login=$login&senha=$password&senha_conf=$psw_conf&novo=$novo");
+    
+        
     } else {
 
         // Test if both passwords provided by the user are the same.
-        if ($password != $senha_conf) {
+        if ($password != $psw_conf) {
             
             $p_style = "color: red; font-weight: bold";
             $p_text = "Senhas diferentes. Favor preencher novamente as senhas.";
@@ -59,7 +72,7 @@ if (isset($submit)) {
             //              with a message for the user to choose another login.
 
             $connect_bd = bd_connect() or die("Erro ao conectar ao SGBD");
-            $query_sql = "SELECT id_usuario FROM usuario WHERE login = '$login'";
+            $query_sql = "SELECT id_user FROM user WHERE login = '$login'";
             $query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query");
             
             
@@ -67,7 +80,7 @@ if (isset($submit)) {
                 
                 //                $p_style = "color: red; font-weight: bold";
                 //                $p_text = "Login j� existente no sistema. Favor escolher outro login.";
-                //                recarrega("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&senha=$password&senha_conf=$senha_conf&novo=$novo");
+                //                recarrega("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&senha=$password&senha_conf=$psw_conf&novo=$novo");
                 
                 // Scenario - Add user.
                 // Objective: Allows to the administrator to add new users.
@@ -98,7 +111,7 @@ if (isset($submit)) {
 
                 // Encrypting the password
                 $password = md5($password);
-                $query_add_sql = "INSERT INTO usuario (name, login, email, senha) VALUES ('$name', '$login', '$email', '$password')";
+                $query_add_sql = "INSERT INTO user (name, login, email, password) VALUES ('$name', '$login', '$email', '$password')";
                 mysql_query($query_add_sql) or die("Erro ao cadastrar o usuario");
                 recarrega("?cadastrado=&novo=$novo&login=$login");
             }
@@ -154,14 +167,17 @@ if (isset($submit)) {
         // Conexion with the database
         $connect_bd = bd_connect() or die("Erro ao conectar ao SGBD");
         
+        
         // $login is the login of the included user, passed through the URL
-        $id_usuario_incluido = simple_query("id_usuario", "usuario", "login = '$login'");
-        $insert_sql = "INSERT INTO participa (id_usuario, id_projeto)
+        $id_usuario_incluido = simple_query("id_user", "user", "login = '$login'");
+        
+        $insert_sql = "INSERT INTO participates (id_user, id_project)
 		VALUES ($id_usuario_incluido, " . $_SESSION['id_projeto_corrente'] . ")";
+        
         mysql_query($insert_sql) or die("Erro ao inserir na tabela participa");
 
-        $nome_usuario = simple_query("name", "usuario", "id_usuario = $id_usuario_incluido");
-        $nome_projeto = simple_query("name", "projeto", "id_projeto = " . $_SESSION['id_projeto_corrente']);
+        $nome_usuario = simple_query("name", "user", "id_user = $id_usuario_incluido");
+        $nome_projeto = simple_query("name", "project", "id_project = " . $_SESSION['id_projeto_corrente']);
         ?>
 
         <script language="javascript1.3">
@@ -184,7 +200,7 @@ if (isset($submit)) {
         $login = "";
         $name = "";
         $password = "";
-        $senha_conf = "";
+        $psw_conf = "";
     }
     ?>
 
@@ -237,24 +253,24 @@ if (isset($submit)) {
                     <tr>
                         <td>Nome:</td>
                         <td colspan="3"><input name="name" maxlength="255" size="48"
-                                               type="text" value="<?= $name ?>"></td>
+                                               type="text" value=""></td>
                     </tr>
                     <tr>
                         <td>E-mail:</td>
                         <td colspan="3"><input name="email" maxlength="64" size="48"
-                                               type="text" value="<?= $email ?>" OnBlur="checkEmail(this)"></td>
+                                               type="text" value="" OnBlur="checkEmail(this);"></td>
                     </tr>
                     <tr>
                         <td>Login:</td>
                         <td><input name="login" maxlength="32" size="24" type="text"
-                                   value="<?= $login ?>"></td>
+                                   value=""></td>
                     </tr>
                     <tr>
                         <td>Senha:</td>
-                        <td><input name="senha" maxlength="32" size="16" type="password"
-                                   value="<?= $password ?>"></td>
-                        <td>Senha (confirma��o):</td>
-                        <td><input name="senha_conf" maxlength="32" size="16"
+                        <td><input name="password" maxlength="32" size="16" type="password"
+                                   value=""></td>
+                        <td>Senha (confirmacao):</td>
+                        <td><input name="psw_conf" maxlength="32" size="16"
                                    type="password" value=""></td>
                     </tr>
                     <tr>

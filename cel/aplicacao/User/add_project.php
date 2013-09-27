@@ -33,9 +33,10 @@ check_User("index.php");
  * */
 // Called thru the button 'submit'
 $submit = null;
+$name = null;
+$description = null;
 if (isset($submit)) {
-	$name = '';
-	$description ='';
+	
     $id_included_project = include_project($name, $description);
 
 
