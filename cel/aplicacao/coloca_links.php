@@ -6,25 +6,25 @@ function carrega_vetor_lexicos($id_project, $id_current_lexicon, $semAtual) {
 
     if ($semAtual) {
 
-        $lexicon_query = "SELECT id_lexico, nome    
-							FROM lexico    
-							WHERE id_projeto = '$id_project' AND id_lexico <> '$id_current_lexicon' 
-							ORDER BY nome DESC";
+        $lexicon_query = "SELECT id_lexicon, name    
+							FROM lexicon    
+							WHERE id_project = '$id_project' AND id_lexicon <> '$id_current_lexicon' 
+							ORDER BY name DESC";
 
-        $synonyms_query = "SELECT id_lexico, nome 
+        $synonyms_query = "SELECT id_lexicon, name 
 							FROM sinonimo
-							WHERE id_projeto = '$id_project' AND id_lexico <> '$id_current_lexicon' 
-							ORDER BY nome DESC";
+							WHERE id_project = '$id_project' AND id_lexicon <> '$id_current_lexicon' 
+							ORDER BY name DESC";
     } else {
 
-        $lexicon_query = "SELECT id_lexico, nome    
-							FROM lexico    
-							WHERE id_projeto = '$id_project' 
-							ORDER BY nome DESC";
+        $lexicon_query = "SELECT id_lexicon, name    
+							FROM lexicon    
+							WHERE id_project = '$id_project' 
+							ORDER BY name DESC";
 
-        $synonyms_query = "SELECT id_lexico, nome    
+        $synonyms_query = "SELECT id_lexicon, name    
 							FROM sinonimo
-							WHERE id_projeto = '$id_project' ORDER BY nome DESC";
+							WHERE id_project = '$id_project' ORDER BY name DESC";
     }
 
     $lexicon_query_result = mysql_query($lexicon_query) or die("Erro ao enviar a query de selecao na tabela lexicos !" . mysql_error());
@@ -51,7 +51,7 @@ function carrega_vetor_lexicos($id_project, $id_current_lexicon, $semAtual) {
 }
 
 
-function carrega_vetor_cenario($id_project, $id_cenario_atual, $semAtual){
+function carrega_vetor_cenario($id_project, $id_current_scenario, $semAtual){
     
     if (!isset($scenarios_vector)){
         
@@ -61,26 +61,26 @@ function carrega_vetor_cenario($id_project, $id_cenario_atual, $semAtual){
     
     if ($semAtual){
         
-        $queryCenarios = "SELECT id_cenario, titulo    
-							FROM cenario    
-							WHERE id_projeto = '$id_project' AND id_cenario <> '$id_cenario_atual' 
-							ORDER BY titulo DESC";
+        $query_scenarios = "SELECT id_scenario, title    
+							FROM scenario    
+							WHERE id_project = '$id_project' AND id_scenario <> '$id_current_scenario' 
+							ORDER BY title DESC";
     } else{
         
-        $queryCenarios = "SELECT id_cenario, titulo    
-							FROM cenario    
-							WHERE id_projeto = '$id_project' 
-							ORDER BY titulo DESC";
+        $query_scenarios = "SELECT id_scenario, title    
+							FROM scenario    
+							WHERE id_project = '$id_project' 
+							ORDER BY title DESC";
         
     }
 
-    $resultadoQueryCenarios = mysql_query($queryCenarios) or die("Erro ao enviar a query de selecao !!" . mysql_error());
+    $query_scenario_result = mysql_query($query_scenarios) or die("Erro ao enviar a query de selecao !!" . mysql_error());
 
     $i = 0;
     
-    while ($linhaCenario = mysql_fetch_object($resultadoQueryCenarios)){
+    while ($scenario_row = mysql_fetch_object($query_scenario_result)){
         
-        $scenarios_vector[$i] = $linhaCenario;
+        $scenarios_vector[$i] = $scenario_row;
         $i++;
         
     }
@@ -89,58 +89,56 @@ function carrega_vetor_cenario($id_project, $id_cenario_atual, $semAtual){
 }
 
 // Divides the array in two
-function divide_array(&$vector, $ini, $fim, $type){
+function divide_array(&$vector, $begin, $end, $type){
     
-    $i = $ini;
-    $j = $fim;
     $dir = 1;
 
-    while ($i < $j){
+    while ($begin < $end){
         
-        if (strcasecmp($type, 'cenario') == 0){
+        if (strcasecmp($type, 'scenario') == 0){
             
-            if (strlen($vector[$i]->titulo) < strlen($vector[$j]->titulo)) {
+            if (strlen($vector[$begin]->title) < strlen($vector[$end]->title)) {
                 
-                $str_temp = $vector[$i];
-                $vector[$i] = $vector[$j];
-                $vector[$j] = $str_temp;
+                $str_temp = $vector[$begin];
+                $vector[$begin] = $vector[$end];
+                $vector[$end] = $str_temp;
                 $dir--;
                 
             }
             
         }else{
             
-            if (strlen($vector[$i]->nome) < strlen($vector[$j]->nome)){
+            if (strlen($vector[$begin]->name) < strlen($vector[$end]->name)){
                 
-                $str_temp = $vector[$i];
-                $vector[$i] = $vector[$j];
-                $vector[$j] = $str_temp;
+                $str_temp = $vector[$begin];
+                $vector[$begin] = $vector[$end];
+                $vector[$end] = $str_temp;
                 $dir--;
                 
             }
         }
         
         if ($dir == 1){
-           $j--; 
+           $end--; 
         }else{
-           $i++; 
+           $begin++; 
         }
             
     }
 
-    return $i;
+    return $begin;
 }
 
 // Sort the vector
 
-function quicksort(&$vector, $ini, $fim, $type){
+function quicksort(&$vector, $begin, $end, $type){
     
-    if ($ini < $fim){
+    if ($begin < $end){
         
-        $k = divide_array($vector, $ini, $fim, $type);
+        $k = divide_array($vector, $begin, $end, $type);
         
-        quicksort($vector, $ini, $k - 1, $type);
-        quicksort($vector, $k + 1, $fim, $type);
+        quicksort($vector, $begin, $k - 1, $type);
+        quicksort($vector, $k + 1, $end, $type);
         
     }
 }
@@ -157,9 +155,9 @@ function monta_links($text, $lexicon_vector, $scenarios_vector){
         $aux_lexicon_vector = array();
     }
     
-    if (!isset($vetorAuxCenarios)){
+    if (!isset($aux_scenarios_vector)){
         
-        $vetorAuxCenarios = array();
+        $aux_scenarios_vector = array();
         
     }
     
@@ -184,8 +182,8 @@ function monta_links($text, $lexicon_vector, $scenarios_vector){
         
         while ($i < count($lexicon_vector)){
             
-            $nomeLexico = escapa_metacaracteres($lexicon_vector[$i]->nome);
-            $regex = "/(\s|\b)(" . $nomeLexico . ")(\s|\b)/i";
+            $name_lexicon = escapa_metacaracteres($lexicon_vector[$i]->name);
+            $regex = "/(\s|\b)(" . $name_lexicon . ")(\s|\b)/i";
             
             if (preg_match($regex, $copy_text) != 0){
                 
@@ -203,9 +201,9 @@ function monta_links($text, $lexicon_vector, $scenarios_vector){
 
         // If the scenario vector isnt empty, it will look for lexicons and scenarios
 
-        $tamLexicos = count($lexicon_vector);
-        $tamCenarios = count($scenarios_vector);
-        $tamanhoTotal = $tamLexicos + $tamCenarios;
+        $size_lexicons = count($lexicon_vector);
+        $size_scenarios = count($scenarios_vector);
+        $tamanhoTotal = $size_lexicons + $size_scenarios;
         
         $i = 0;
         $j = 0;
@@ -215,12 +213,12 @@ function monta_links($text, $lexicon_vector, $scenarios_vector){
         
         while ($contador < $tamanhoTotal){
             
-            if (($i < $tamLexicos ) && ($j < $tamCenarios)){
+            if (($i < $size_lexicons ) && ($j < $size_scenarios)){
                 
-                if (strlen($scenarios_vector[$j]->titulo) < strlen($lexicon_vector[$i]->nome)){
+                if (strlen($scenarios_vector[$j]->title) < strlen($lexicon_vector[$i]->name)){
                     
-                    $nomeLexico = escapa_metacaracteres($lexicon_vector[$i]->nome);
-                    $regex = "/(\s|\b)(" . $nomeLexico . ")(\s|\b)/i";
+                    $name_lexicon = escapa_metacaracteres($lexicon_vector[$i]->name);
+                    $regex = "/(\s|\b)(" . $name_lexicon . ")(\s|\b)/i";
                     
                     if (preg_match($regex, $copy_text) != 0){
                         
@@ -234,13 +232,13 @@ function monta_links($text, $lexicon_vector, $scenarios_vector){
                     
                 }else{
 
-                    $tituloCenario = escapa_metacaracteres($scenarios_vector[$j]->titulo);
-                    $regex = "/(\s|\b)(" . $tituloCenario . ")(\s|\b)/i";
+                    $title_scenarios = escapa_metacaracteres($scenarios_vector[$j]->title);
+                    $regex = "/(\s|\b)(" . $title_scenarios . ")(\s|\b)/i";
                     
                     if (preg_match($regex, $copy_text) != 0){
                         
                         $copy_text = preg_replace($regex, " ", $copy_text);
-                        $vetorAuxCenarios[$b] = $scenarios_vector[$j];
+                        $aux_scenarios_vector[$b] = $scenarios_vector[$j];
                         $b++;
                         
                     }
@@ -248,25 +246,25 @@ function monta_links($text, $lexicon_vector, $scenarios_vector){
                     $j++;
                 }
                 
-            }else if($tamLexicos == $i){
+            }else if($size_lexicons == $i){
 
-                $tituloCenario = escapa_metacaracteres($scenarios_vector[$j]->titulo);
-                $regex = "/(\s|\b)(" . $tituloCenario . ")(\s|\b)/i";
+                $title_scenarios = escapa_metacaracteres($scenarios_vector[$j]->title);
+                $regex = "/(\s|\b)(" . $title_scenarios . ")(\s|\b)/i";
                 
                 if (preg_match($regex, $copy_text) != 0){
                     
                     $copy_text = preg_replace($regex, " ", $copy_text);
-                    $vetorAuxCenarios[$b] = $scenarios_vector[$j];
+                    $aux_scenarios_vector[$b] = $scenarios_vector[$j];
                     $b++;
                     
                 }
                 
                 $j++;
                 
-            }else if($tamCenarios == $j){
+            }else if($size_scenarios == $j){
 
-                $nomeLexico = escapa_metacaracteres($lexicon_vector[$i]->nome);
-                $regex = "/(\s|\b)(" . $nomeLexico . ")(\s|\b)/i";
+                $name_lexicon = escapa_metacaracteres($lexicon_vector[$i]->name);
+                $regex = "/(\s|\b)(" . $name_lexicon . ")(\s|\b)/i";
                 
                 if (preg_match($regex, $copy_text) != 0){
                     
@@ -291,9 +289,9 @@ function monta_links($text, $lexicon_vector, $scenarios_vector){
     
     while ($index < count($aux_lexicon_vector)){
         
-        $nomeLexico = escapa_metacaracteres($aux_lexicon_vector[$index]->nome);
-        $regex = "/(\s|\b)(" . $nomeLexico . ")(\s|\b)/i";
-        $link = "<a title=\"L�xico\" href=\"main.php?t=l&id=" . $aux_lexicon_vector[$index]->id_lexico . "\">" . $aux_lexicon_vector[$index]->nome . "</a>";
+        $name_lexicon = escapa_metacaracteres($aux_lexicon_vector[$index]->name);
+        $regex = "/(\s|\b)(" . $name_lexicon . ")(\s|\b)/i";
+        $link = "<a title=\"L�xico\" href=\"main.php?t=l&id=" . $aux_lexicon_vector[$index]->id_lexicon . "\">" . $aux_lexicon_vector[$index]->name . "</a>";
         $vetorAux[$index] = $link;
         $text = preg_replace($regex, "$1wzzxkkxy" . $index . "$3", $text);
         $index++;
@@ -315,11 +313,11 @@ function monta_links($text, $lexicon_vector, $scenarios_vector){
     $index = 0;
     $vetorAuxCen = array();
     
-    while ($index < count($vetorAuxCenarios)){
+    while ($index < count($aux_scenarios_vector)){
         
-        $tituloCenario = escapa_metacaracteres($vetorAuxCenarios[$index]->titulo);
-        $regex = "/(\s|\b)(" . $tituloCenario . ")(\s|\b)/i";
-        $link = "$1<a title=\"Cen�rio\" href=\"main.php?t=c&id=" . $vetorAuxCenarios[$index]->id_cenario . "\"><span style=\"font-variant: small-caps\">" . $vetorAuxCenarios[$index]->titulo . "</span></a>$3";
+        $title_scenarios = escapa_metacaracteres($aux_scenarios_vector[$index]->title);
+        $regex = "/(\s|\b)(" . $title_scenarios . ")(\s|\b)/i";
+        $link = "$1<a title=\"Cen�rio\" href=\"main.php?t=c&id=" . $aux_scenarios_vector[$index]->id_scenario . "\"><span style=\"font-variant: small-caps\">" . $aux_scenarios_vector[$index]->title . "</span></a>$3";
         $vetorAuxCen[$index] = $link;
         $text = preg_replace($regex, "$1wzzxkkxyy" . $index . "$3", $text);
         $index++;
