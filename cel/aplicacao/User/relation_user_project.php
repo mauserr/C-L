@@ -11,22 +11,21 @@ check_User("index.php");
 
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
-$submit = null;
 $users = null;
-if (isset($submit)) {
+if (isset($_POST['submit'])) {
 
-	$query_delete_sql = "DELETE FROM participa
-	WHERE id_usuario != " . $_SESSION['id_usuario_corrente'] . "
-	AND id_projeto = " . $_SESSION['id_projeto_corrente'];
+	$query_delete_sql = "DELETE FROM participates
+	WHERE id_user != " . $_SESSION['id_usuario_corrente'] . "
+	AND id_project = " . $_SESSION['id_projeto_corrente'];
 	mysql_query($query_delete_sql) or die("Erro ao executar a query de DELETE");
 
 	$number_of_selected_users = count($users);
 	 
 	for ($i = 0; $i < $number_of_selected_users; $i++) {
 
-		$query_insert_sql = "INSERT INTO participa (id_usuario, id_projeto)
+		$query_insert_sql = "INSERT INTO participates (id_user, id_project)
 		VALUES (" . $users[$i] . ", " . $_SESSION['id_projeto_corrente'] . ")";
-		mysql_query($query_insert_sql) or die("Erro ao cadastrar usuario");
+		mysql_query($query_insert_sql) or die("Erro ao cadastrar user");
 	}
 	?>
 <script language="javascript1.3">
@@ -70,7 +69,7 @@ self.close();
         </style>
     </head>
     <body onLoad="createMSelect();">
-        <h4>Selecione os usu�rios para participar do projeto "<span style="color: orange"><?=simple_query("nome", "projeto", "id_projeto = " . $_SESSION['id_projeto_corrente'])?></span>":</h4>
+        <h4>Selecione os usu�rios para participar do projeto "<span style="color: orange"><?=simple_query("nome", "projeto", "id_project = " . $_SESSION['id_projeto_corrente'])?></span>":</h4>
         <p style="color: red">Mantenha <strong>CTRL</strong> pressionado para selecionar m�ltiplas op��es</p>
         <form action="" method="post" onSubmit="selAll();">
         <table cellspacing="8" width="100%">
@@ -89,17 +88,17 @@ self.close();
 // Objective: Allows the administrator to make a relationship between project and a new user
 	// Actors:    Administrator
 
-		$query_select_sql = "SELECT u.id_usuario, login
-		FROM usuario u, participa p
-		WHERE u.id_usuario = p.id_usuario
-		AND p.id_projeto = " . $_SESSION['id_projeto_corrente'] . "
-		AND u.id_usuario != " . $_SESSION['id_usuario_corrente'];
+		$query_select_sql = "SELECT u.id_user, login
+		FROM user u, participates p
+		WHERE u.id_user = p.id_user
+		AND p.id_project = " . $_SESSION['id_projeto_corrente'] . "
+		AND u.id_user != " . $_SESSION['id_usuario_corrente'];
 
 		$query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query");
 		while ($result = mysql_fetch_array($query_result_sql)) {
 ?>
 
-                        <option value="<?=$result['id_usuario']?>"><?=$result['login']?></option>
+                        <option value="<?=$result['id_user']?>"><?=$result['login']?></option>
 
 <?php
     }
@@ -114,25 +113,25 @@ self.close();
                     <select  multiple name="usuarios_r" size="6">
 
 <?php
-    $alternative_query_select_sql = "SELECT id_usuario FROM participa where participa.id_projeto =".$_SESSION['id_projeto_corrente'];
-	$alternative_query_result_sql = mysql_query($alternative_query_result_sql) or die("Erro ao enviar a subquery");
+    $alternative_query_select_sql = "SELECT id_user FROM participates where participates.id_project =".$_SESSION['id_projeto_corrente'];
+	$alternative_query_result_sql = mysql_query($alternative_query_select_sql) or die("Erro ao enviar a subquery");
 	$alternative_sub_query_result_sql = "(0)";
 		if($alternative_sub_query_result_sql != 0)
 		{
 			$row = mysql_fetch_row($alternative_query_result_sql);
 			$alternative_sub_query_result = "( $row[0]";
-			while($row = mysql_fetch_row($subqrr))
+			while($row = mysql_fetch_row($alternative_query_result_sql))
 				$alternative_sub_query_result = "$alternative_sub_query_result, $row[0]";
-				$alternative_sub_query_result = "$alternative_sub_query_result )";
+			$alternative_sub_query_result = "$alternative_sub_query_result )";
 		}
-		$query_select_sql = "SELECT usuario.id_usuario, usuario.login FROM usuario where usuario.id_usuario not in ".$resultadosubq;
+		$query_select_sql = "SELECT user.id_user, user.login FROM user where user.id_user not in ".$resultadosubq;
 
 		echo($query_select_sql);
 		$query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query");
 		while ($result = mysql_fetch_array($query_result_sql))
   
 ?>
-                        <option value="<?=$result['id_usuario']?>"><?=$result['login']?></option>
+                        <option value="<?=$result['id_user']?>"><?=$result['login']?></option>
 
 <?php
     }
