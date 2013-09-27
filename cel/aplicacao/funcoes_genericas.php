@@ -1845,11 +1845,11 @@ if (!(function_exists("tratarPedidoRelacao"))) {
 #a esse projeto.Ela so verifica atualmente
 #se a pessoa e um gerente.
 #############################################
-if (!(function_exists("verificaGerente"))) {
-    function verificaGerente($id_usuario){
+if (!(function_exists("verifyManager"))) {
+    function verifyManager($id_user){
         $DB = new PGDB () ;
         $select = new QUERY ($DB) ;
-        $select->execute("SELECT * FROM participa WHERE gerente = 1 AND id_usuario = $id_usuario") ;
+        $select->execute("SELECT * FROM participates WHERE manager = 1 AND id_user = $id_user") ;
         if ($select->getntuples() == 0){
             return 0 ;
         }else{

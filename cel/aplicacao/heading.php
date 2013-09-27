@@ -278,7 +278,7 @@ if (isset($id_project)) {
 //Objetivo:    Allows the administrator remove a new project
 //Context:     Administrator wants to remove a project of the data base
 //Actors:      Administrator
-//Episodes:   The administrator clicks on "remover projeto" on the top of the screen
+//Episodes:    The administrator clicks on "remover projeto" on the top of the screen
 
 
  if (isset($id_project)){

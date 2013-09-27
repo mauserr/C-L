@@ -108,7 +108,7 @@ if (isset($submit)) {
                 <table>
                     <tr>
                         <td>Nome:</td>
-                        <td><input maxlength="128" name="nome" size="48" type="text"></td>
+                        <td><input maxlength="128" name="name" size="48" type="text"></td>
                     </tr>
                     <tr>
                         <td>Descrição:</td>
