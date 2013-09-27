@@ -2,8 +2,8 @@
 session_start();
 
 
-if (isset($_GET['id_projeto'])) {
-    $id_projeto = $_GET['id_projeto'];
+if (isset($_GET['id_project'])) {
+    $id_project = $_GET['id_project'];
 }
 
 
@@ -12,7 +12,7 @@ require_once '/Functions/check_User.php';
 include_once("bd.inc");
 
 check_User("index.php");        // Checks if the user was authenticated 
-//$id_projeto = 2; 
+//$id_project = 2; 
 ?>  
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> 
@@ -26,15 +26,15 @@ $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 // As the transition is done using JavaScript, we must check 
 // if this id realy corresponds to a project that the user have access. 
 
-if (isset($id_projeto)){
+if (isset($id_project)){
     
-    check_proj_perm($_SESSION['id_usuario_corrente'], $id_projeto) or die("Permissao negada");
+    check_proj_perm($_SESSION['id_usuario_corrente'], $id_project) or die("Permissao negada");
     
     
-    $query_project = "SELECT nome FROM projeto WHERE id_projeto = $id_projeto";
+    $query_project = "SELECT name FROM project WHERE id_project = $id_project";
     $query_check_error_project = mysql_query($query_project) or die("Erro ao enviar a query");
     $result = mysql_fetch_array($query_check_error_project);
-    $nome_projeto = $result['nome'];
+    $name_project = $result['name'];
     
 }else{
     
@@ -90,7 +90,7 @@ if (isset($id_projeto)){
         // for description of each option and their possible values. 
 
             MTMDefaultTarget = "text";
-            MTMenuText = "<?= $nome_projeto ?>";
+            MTMenuText = "<?= $name_project ?>";
 
             /****************************************************************************** 
              * User-configurable list of icons.                                            * 
@@ -115,10 +115,10 @@ if (isset($id_projeto)){
 <?php
 
 
-$query_scenario = "SELECT id_cenario, titulo  
-                  FROM cenario  
-                  WHERE id_projeto = $id_projeto  
-                  ORDER BY titulo";
+$query_scenario = "SELECT id_scenario, title  
+                  FROM scenario  
+                  WHERE id_project = $id_project  
+                  ORDER BY title";
 
 
 $query_check_error = mysql_query($query_scenario) or die("Erro ao enviar a query de selecao");
@@ -151,8 +151,8 @@ while ($row = mysql_fetch_row($query_check_error)) {    // For each projects sce
     <?php
     
     
-    $query_id_scenario = "SELECT c.id_cenario_to, cen.titulo FROM centocen c, cenario cen WHERE c.id_cenario_from = " . $row[0];
-    $query_id_scenario = $query_id_scenario . " AND c.id_cenario_to = cen.id_cenario";
+    $query_id_scenario = "SELECT c.id_scenario_to, cen.title FROM centocen c, scenario cen WHERE c.id_scenario_from = " . $row[0];
+    $query_id_scenario = $query_id_scenario . " AND c.id_scenario_to = cen.id_scenario";
     $qrr_2 = mysql_query($query_id_scenario) or die("Erro ao enviar a query de selecao");
     
     
@@ -191,10 +191,10 @@ while ($row = mysql_fetch_row($query_check_error)) {    // For each projects sce
 
 <?php
 
-$query_lexicon = "SELECT id_lexico, nome  
-                  FROM lexico  
-                  WHERE id_projeto = $id_projeto  
-                  ORDER BY nome";
+$query_lexicon = "SELECT id_lexicon, name  
+                  FROM lexicon  
+                  WHERE id_project = $id_project  
+                  ORDER BY name";
 
 $query_check_error_lexicon = mysql_query($query_lexicon) or die("Erro ao enviar a query de selecao");
 
@@ -212,8 +212,8 @@ while ($row = mysql_fetch_row($query_check_error_lexicon)){   // for each projec
 
     <?php
     
-    $query_id_lexicon = "SELECT l.id_lexico_to, lex.nome FROM lextolex l, lexico lex WHERE l.id_lexico_from = " . $row[0];
-    $query_id_lexicon = $query_id_lexicon . " AND l.id_lexico_to = lex.id_lexico";
+    $query_id_lexicon = "SELECT l.id_lexico_to, lex.name FROM lextolex l, lexicon lex WHERE l.id_lexico_from = " . $row[0];
+    $query_id_lexicon = $query_id_lexicon . " AND l.id_lexico_to = lex.id_lexicon";
     $qrr_2 = mysql_query($query_id_lexicon) or die("Erro ao enviar a query de selecao");
     
     while ($row_2 = mysql_fetch_row($qrr_2)){
@@ -271,10 +271,10 @@ while ($row = mysql_fetch_row($query_check_error_lexicon)){   // for each projec
 <?php
 
 
-$query_concept = "SELECT id_conceito, nome  
-                  FROM conceito 
-                  WHERE id_projeto = $id_projeto  
-                  ORDER BY nome";
+$query_concept = "SELECT id_concept, name  
+                  FROM concept 
+                  WHERE id_project = $id_project  
+                  ORDER BY name";
 
 $query_check_erro_concept = mysql_query($query_concept) or die("Erro ao enviar a query de selecao");
 
@@ -303,10 +303,10 @@ while ($row = mysql_fetch_row($query_check_erro_concept)){  // for each projects
 <?php
 
 
-$query_relation = "SELECT   id_relacao, nome 
-                  FROM     relacao r 
-                  WHERE    id_projeto = $id_projeto  
-                  ORDER BY nome";
+$query_relation = "SELECT   id_relation, name 
+                  FROM     relation r 
+                  WHERE    id_project = $id_project  
+                  ORDER BY name";
 
 $query_check_erro_relation = mysql_query($query_relation) or die("Erro ao enviar a query de selecao");
 
@@ -333,10 +333,10 @@ while ($row = mysql_fetch_row($query_check_erro_relation)){   // For each projec
 <?php
 
 
-$query_axiom = "SELECT   id_axioma, axioma 
-                 FROM     axioma 
-                 WHERE    id_projeto = $id_projeto  
-                 ORDER BY axioma";
+$query_axiom = "SELECT   id_axiom, axiom 
+                 FROM     axiom 
+                 WHERE    id_project = $id_project  
+                 ORDER BY axiom";
 
 $query_check_error_axiom = mysql_query($query_axiom) or die("Erro ao enviar a query de selecao");
 
