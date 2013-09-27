@@ -45,12 +45,12 @@ login = form.login.value
                 <tr><td>Login:</td><td><input maxlength="12" name="login" size="24" type="text"></td></tr>
                
                 <tr><td height="10"></td></tr>
-                <tr><td align="center" colspan="2"><input name="submit"  onClick="return TestarBranco(this.form);" type="submit" value="Enviar"></td></tr>
+                <tr><td align="center" colspan="2"><input name="submit"  onClick="return TestarNull(this.form);" type="submit" value="Enviar"></td></tr>
             </table>
         </div>
         <br>
         <br>
         <center><a href="JavaScript:window.history.go(-1)">Voltar</a></center>
-        </form<i><a href="showSource.php?file=esqueciSenha.php">Veja o código fonte!</a></i>
+        </form<i><a href="showSource.php?file=forgot_password.php">Veja o código fonte!</a></i>
 </body>
 </html>

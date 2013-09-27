@@ -1890,14 +1890,14 @@ if (!(function_exists("is_admin"))) {
 }
 
 // Retorna TRUE ssse $id_usuario tem permissao sobre $id_projeto
-if (!(function_exists("check_proj_perm"))) {
-    function check_proj_perm($id_usuario, $id_projeto)
+if (!(function_exists("check_project_permanent"))) {
+    function check_project_permanent($id_usuario, $id_projeto)
     {
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $q = "SELECT *
-              FROM participa
-              WHERE id_usuario = $id_usuario
-              AND id_projeto = $id_projeto";
+              FROM participates
+              WHERE id_user = $id_user
+              AND id_project = $id_project";
         $qrr = mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         return (1 == mysql_num_rows($qrr));
     }

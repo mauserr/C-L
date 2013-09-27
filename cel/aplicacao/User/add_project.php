@@ -3,7 +3,7 @@ session_start();
 
 //require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/funcoes_genericas.php'; 
 include("../funcoes_genericas.php");
-require_once '/Functions/check_User.php';
+require_once '../Functions/check_User.php';
 include("../httprequest.inc");
 
 // Access control scenario
@@ -32,7 +32,7 @@ check_User("index.php");
  *                  of this user, the system shows an error message.
  * */
 // Called thru the button 'submit'
-$submit = null;
+//$submit = null;
 $name = null;
 $description = null;
 if (isset($submit)) {
@@ -57,7 +57,7 @@ if (isset($submit)) {
             <html>
             <title>Erro</title>
             <body>
-                <p style="color: red; font-weight: bold; text-align: center">Nome de projeto jï¿½ existente!</p>
+                <p style="color: red; font-weight: bold; text-align: center">Nome de projeto já existente!</p>
             <center><a href="JavaScript:window.history.go(-1)">Voltar</a></center>
         </body>
         </html>   
@@ -81,7 +81,7 @@ if (isset($submit)) {
             <title>Adicionar Projeto</title>
             <script language="javascript1.3">
 
-                function chkFrmVals() {
+                function checkFormsValues() {
                     if (document.forms[0].name.value == "") {
                         alert('Preencha o campo "Nome"');
                         document.forms[0].name.focus();
@@ -91,7 +91,7 @@ if (isset($submit)) {
                         nOK = padrao.exec(document.forms[0].name.value);
                         if (nOK)
                         {
-                            window.alert("O nome do projeto nï¿½o pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
+                            window.alert("O nome do projeto nïãoo pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
                             document.forms[0].name.focus();
                             return false;
                         }
@@ -104,21 +104,21 @@ if (isset($submit)) {
         <body>
             <h4>Adicionar Projeto:</h4>
             <br>
-            <form action="" method="post" onSubmit="return chkFrmVals();">
+            <form action="" method="post" onSubmit="return checkFormsValues();">
                 <table>
                     <tr>
                         <td>Nome:</td>
                         <td><input maxlength="128" name="nome" size="48" type="text"></td>
                     </tr>
                     <tr>
-                        <td>Descriï¿½ï¿½o:</td>
+                        <td>Descrição:</td>
                         <td><textarea cols="48" name="description" rows="4"></textarea></td>
                     <tr>
                         <td align="center" colspan="2" height="60"><input name="submit" type="submit" value="Adicionar Projeto"></td>
                     </tr>
                 </table>
             </form>
-            <br><i><a href="showSource.php?file=add_projeto.php">Veja o cï¿½digo fonte!</a></i>
+            <br><i><a href="showSource.php?file=add_project.php">Veja o código fonte!</a></i>
         </body>
     </html>
 

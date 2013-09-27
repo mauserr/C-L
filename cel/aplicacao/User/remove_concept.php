@@ -36,7 +36,7 @@ opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION[
 
 </script>
 
-<h4>Operaï¿½ï¿½o efetuada com sucesso!</h4>
+<h4>Operação efetuada com sucesso!</h4>
 
 <script language="javascript1.3">
 
