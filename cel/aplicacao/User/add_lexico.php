@@ -22,6 +22,8 @@ $connect_db = db_connect() or die("Erro ao conectar ao SGBD");
 $submit = null;
 $name = null;
 $synonymList = null;
+$id_project;
+
 if (isset($submit)) {
     
     $ret = checkExistingLexical($_SESSION['current_id_project'], $name);
@@ -32,15 +34,7 @@ if (isset($submit)) {
 
     if (($ret == true) AND ($retSin == true )) {
         $current_id_user = $_SESSION['current_id_user'];
-        insertRequestAddLexicon(
-                $id_project = '',
-                $name = '',
-                $notion = '',
-                $impact = '',
-                $current_id_user = '',
-                $synonymList = '',
-                $classification = ''
-                );
+        insertRequestAddLexicon($id_project,$_POST['name'],$_POST['notion'],$_POST['impact'],$current_id_user, $synonymList,$_POST['classification']);
     } else {
         ?>
         <html>
