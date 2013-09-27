@@ -32,7 +32,7 @@ check_User("index.php");
  *                  of this user, the system shows an error message.
  * */
 // Called thru the button 'submit'
-//$submit = null;
+$submit = null;
 $name = null;
 $description = null;
 if (isset($submit)) {

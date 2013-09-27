@@ -20,6 +20,7 @@ check_User("index.php");
 
 if( isset( $_GET['id_projeto']))
 {
+	$id_project = null;
 	$id_project = $_GET['id_projeto'];
 }
 
@@ -77,8 +78,8 @@ function newScenario() {
 
 // Scenario - Update Scenario
 
-//Objetivo:	Allows inclusion, alteration and exclusion of a scenario by a user
-//Actors:	User, manager of project
+//Objective:	Allows inclusion, alteration and exclusion of a scenario by a user
+//Actors:	User, Project Manager
 //Episodes:	User click on the button on the option:
 //                If user clicks on "Incluir", so include a new Scenario
 
@@ -106,21 +107,16 @@ function newScenario() {
 function novoLexico() {
  <?php
 
-//Cenï¿½rios -  Atualizar Lï¿½xico
+//Scenarios-  Update Lexicon
 
-//Objetivo:	Permitir Inclusï¿½o, Alteraï¿½ï¿½o e Exclusï¿½o de um Lï¿½xico por um usuï¿½rio
-//Contexto:	Usuï¿½rio deseja incluir um lï¿½xico ainda nï¿½o cadastrado, alterar e/ou 
-//              excluir um cenï¿½rio/lï¿½xico previamente cadastrados.
-//              Prï¿½-Condiï¿½ï¿½o: Login
-//Atores:	Usuï¿½rio, Gerente do projeto
-//Recursos:	Sistema, menu superior, objeto a ser modificado
-//Episï¿½dios:	O usuï¿½rio clica no menu superior na opï¿½ï¿½o:
-//                Se usuï¿½rio clica em Incluir entï¿½o INCLUIR Lï¿½XICO
-
+//Objective:	Allows inclusion, alteration and exclusion of a lexicon by a user
+//Actors: User, Project Manager
+//Episodes:	User click on the button on the option:
+//                If user clicks on "Incluir", so include a new Lexicon
 				             if (isset($id_project))
 				             {
 				             ?>
-				                var url = 'add_lexico.php?id_projeto=' + '<?=$id_project?>';
+				                var url = 'add_lexico.php?id_project=' + '<?=$id_project?>';
 				             <?php
 				             }
 				             else
@@ -137,8 +133,8 @@ function novoLexico() {
     open(url, where, window_spec);
 }
 
-function prjInfo(idprojeto) {
-    top.frames['text'].location.replace('main.php?id_projeto=' + idprojeto);
+function projectInfo(idprojeto) {
+    top.frames['text'].location.replace('main.php?id_project=' + idprojeto);
 }
 
 </script>
@@ -175,7 +171,7 @@ function prjInfo(idprojeto) {
    	
    	$id_user = $_SESSION['id_usuario_corrente'];
    	
-   	$ret = verificaGerente($id_user, $id_project);
+   	$ret = verifyManager($id_user, $id_project);
    	  
         if ( $ret != 0 ){
 	
@@ -189,7 +185,7 @@ function prjInfo(idprojeto) {
         }
         else{  
        
-?>                               <font color="#FF0033">Usuï¿½rio normal</font>
+?>                               <font color="#FF0033">Usuário normal</font>
                                     
 
 <?php
@@ -202,31 +198,31 @@ function prjInfo(idprojeto) {
     }     
 ?>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Projeto:&nbsp;&nbsp;
                                 
-                                    <select name="id_projeto" size="1" onChange="atualizaMenu();">
+                                    <select name="id_project" size="1" onChange="updateMenu();">
                                         <option>-- Selecione um Projeto --</option>
                                                                                 
 
 <?php
 
-// ** Cenario "Login" **
-// O sistema dï¿½ ao usuï¿½rio a opï¿½ï¿½o de cadastrar um novo projeto
-// ou utilizar um projeto em que ele faï¿½a parte.
+// Scenario: Login
+//Actors: User
+// Episodes: The system shows user a option of register a new project 		
+// or uptade a existing one
 
-// conecta ao SGBD
-$r = bd_connect() or die("Erro ao conectar ao SGBD");
 
-// define a consulta
-$q = "SELECT p.id_project, p.name, pa.manager
+$connect = bd_connect() or die("Erro ao conectar ao SGBD");
+
+
+$query_select_sql = "SELECT p.id_project, p.name, pa.manager
       FROM user u, participates pa, project p
       WHERE u.id_user = pa.id_user
       AND pa.id_project = p.id_project
       AND pa.id_user = " . $_SESSION["id_usuario_corrente"] . "
       ORDER BY p.name";
 
-// executa a consulta
-$qrr = mysql_query($q) or die("Erro ao executar query");
+$query_result_sql = mysql_query($query_select_sql) or die("Erro ao executar query");
 
-while ($result = mysql_fetch_array($qrr)) {    // enquanto houver projetos
+while ($result = mysql_fetch_array($query_result_sql)) {   
 ?>
 <option value="<?=$result['id_project']?>"><?=($result['manager'] == 1) ? "*" : ""?>  <?=$result['name']?></option>
 
@@ -243,91 +239,61 @@ while ($result = mysql_fetch_array($qrr)) {    // enquanto houver projetos
                             <tr bgcolor="#E0FFFF" height="30">
                                 
             <td align="right" valign=MIDDLE> <?php
-if (isset($id_project)) {    // Se o usuario ja tiver escolhido um projeto,
-                             // entao podemos mostrar os links de adicionar cen/lex
-                             // e de informacoes (pagina principal) do projeto
+if (isset($id_project)) {   
 
 
-// Cenï¿½rio - Administrador escolhe Projeto
+// Scenario - Administrador choose project
 
-// Objetivo:  Permitir ao Administrador escolher um projeto.
-// Contexto:  O Administrador deseja escolher um projeto.
-//            Prï¿½-Condiï¿½ï¿½es: Login, Ser administrador do projeto selecionado.
-// Atores:    Administrador
-// Recursos:  Projetos doAdministrador
-// Episï¿½dios: Aparecendo no menu as opï¿½ï¿½es de: 
-//            -Adicionar Cenï¿½rio (ver Adicionar Cenï¿½rio); 
-//            -Adicionar Lï¿½xico (ver Adicionar Lï¿½xico); 
+// Objective: Allows the administrator to choose a project
+// Context:   O Administrator wants to choose a project
+// Actors:    Administrator
+// Episodes: Shows the menus of: 
+//            -Add Scenario; 
+//            -Add Lexicon; 
 //            -Info; 
-//            -Adicionar Projeto; 
-//            -Alterar Cadastro.
+//            -Add Project; 
+//            -Alter cadastre.
 
 
-?> <a href="#" onClick="newScenario();">Adicionar Cenï¿½rio</a>&nbsp;&nbsp;&nbsp; 
-              <a href="#" onClick="novoLexico();">Adicionar Sï¿½mbolo</a>&nbsp;&nbsp;&nbsp; 
-              <a href="#" title="Informaï¿½ï¿½es sobre o Projeto" onClick="prjInfo(<?=$id_project?>);">Info</a>&nbsp;&nbsp;&nbsp; 
+?> <a href="#" onClick="newScenario();">Adicionar Cenario</a>&nbsp;&nbsp;&nbsp; 
+              <a href="#" onClick="novoLexico();">Adicionar Simbolo</a>&nbsp;&nbsp;&nbsp; 
+              <a href="#" title="Informações sobre o Projeto" onClick="projectInfo(<?=$id_project?>);">Info</a>&nbsp;&nbsp;&nbsp; 
               <?php
 }
 ?> <?php
 
-//Cenï¿½rio  -  Cadastrar Novo Projeto 
+//Scenario  -  Register a new Project
 
-//Objetivo:    Permitir ao usuï¿½rio cadastrar um novo projeto
-//Contexto:    Usuï¿½rio deseja incluir um novo projeto na base de dados
-//             Prï¿½-Condiï¿½ï¿½o: Login
-//Atores:      Usuï¿½rio
-//Recursos:    Sistema, dados do projeto, base de dados
-//Episï¿½dios:   O Usuï¿½rio clica na opï¿½ï¿½o ï¿½adicionar projetoï¿½ encontrada no menu superior.
+//Objective:    Allows a user include a new project
+//Context:    User wants to include a new project
+//Actors:      User
+//Episï¿½dios:   User clicks on add project, on the top of the screen
 
 ?> <a href="#" onClick="window.open('User/add_project.php', '_blank', 'dependent,height=313,width=550,resizable,scrollbars,titlebar');">Adicionar 
               Projeto</a>&nbsp;&nbsp;&nbsp; <?php
 
 
-//Cenï¿½rio  -   Remover Novo Projeto 
+//Scenario  -   Remove new project
 
-//Objetivo:    Permitir ao Administrador do projeto remover um projeto
-//Contexto:    Um Administrador de projeto deseja remover um determinado projeto da base de dados
-//             Prï¿½-Condiï¿½ï¿½o: Login, Ser administrador do projeto selecionado.
-//Atores:      Administrador
-//Recursos:    Sistema, dados do projeto, base de dados
-//Episï¿½dios:   O Administrador clica na opï¿½ï¿½o ï¿½remover projetoï¿½ encontrada no menu superior.
+//Objetivo:    Allows the administrator remove a new project
+//Context:     Administrator wants to remove a project of the data base
+//Actors:      Administrator
+//Episodes:   The administrator clicks on "remover projeto" on the top of the screen
 
 
  if (isset($id_project)){
    	
    	$id_user = $_SESSION['id_usuario_corrente'];
    	
-   	$ret = verificaGerente($id_user, $id_project);
+   	$ret = verifyManager($id_user, $id_project);
    	  
         if ( $ret != 0 ){
-?> <a href="#" onClick="window.open('remove_projeto.php', '_blank', 'dependent,height=300,width=550,resizable,scrollbars,titlebar');">Remover 
+?> <a href="#" onClick="window.open('remove_project.php', '_blank', 'dependent,height=300,width=550,resizable,scrollbars,titlebar');">Remover 
               Projeto</a>&nbsp;&nbsp;&nbsp; <?php
         }
  }       
 
-// Cenï¿½rio - Logar no sistema
 
-// Objetivo:  Permitir ao usuï¿½rio entrar no sistema e escolher um projeto que ele esteja 
-//              cadastrado, ou cadastrar novo projeto	
-// Contexto:  Sistema estï¿½ aberto Usuï¿½rio na tela de login do sistema. 
-//            Usuï¿½rio sabe a sua senha Usuï¿½rio deseja entrar no sistema com seu perfil 
-//            Prï¿½-Condiï¿½ï¿½o: Usuï¿½rio ter acessado ao sistema	
-// Atores:	  Usuï¿½rio, Sistema	
-// Recursos:  Banco de Dados	
-// Episï¿½dios: O sistema dï¿½ ao usuï¿½rio as opï¿½ï¿½es:
-//             - ALTERAR CADASTRO, no qual o usuï¿½rio terï¿½ a possibilidade de realizar 
-//               alteraï¿½ï¿½es nos seus dados cadastrais
-
-
-// Cenï¿½rio - Alterar cadastro
-//
-//Objetivo:  Permitir ao usuï¿½rio realizar alteraï¿½ï¿½o nos seus dados cadastrais	
-//Contexto:  Sistema aberto, Usuï¿½rio ter acessado ao sistema e logado 
-//           Usuï¿½rio deseja alterar seus dados cadastrais 
-//           Prï¿½-Condiï¿½ï¿½o: Usuï¿½rio ter acessado ao sistema	
-//Atores:    Usuï¿½rio, Sistema.	
-//Recursos:  Interface	
-//Episï¿½dios: O usuï¿½rio clica na opï¿½ï¿½o de alterar cadastro da interface
 
 ?> <a href="#" onClick="window.open('Call_UpdUser.php', '_blank', 'dependent,height=300,width=550,resizable,scrollbars,titlebar');">Alterar 
               Cadastro</a>&nbsp;&nbsp;&nbsp; 
@@ -338,33 +304,6 @@ if (isset($id_project)) {    // Se o usuario ja tiver escolhido um projeto,
 
 
               <?php
-
-
-// Cenï¿½rio - Logar no sistema
-
-// Objetivo:  Permitir ao usuï¿½rio entrar no sistema e escolher um projeto que ele esteja 
-//              cadastrado, ou cadastrar novo projeto	
-// Contexto:  Sistema estï¿½ aberto Usuï¿½rio na tela de login do sistema. 
-//            Usuï¿½rio sabe a sua senha Usuï¿½rio deseja entrar no sistema com seu perfil 
-//            Prï¿½-Condiï¿½ï¿½o: Usuï¿½rio ter acessado ao sistema	
-// Atores:    Usuï¿½rio, Sistema	
-// Recursos:  Banco de Dados	
-// Episï¿½dios: O sistema dï¿½ ao usuï¿½rio as opï¿½ï¿½es:
-//             - REALIZAR LOGOUT, no qual o usuï¿½rio terï¿½ a possibilidade de sair da 
-//               sessï¿½o e se logar novamente
-
-
-// Cenï¿½rio - Realizar logout
-
-// Objetivo:  Permitir ao usuï¿½rio realizar o logout, mantendo a integridade do que foi 
-//            realizado,  e retorna a tela de login	
-// Contexto:  Sistema aberto. Usuï¿½rio ter acessado ao sistema. 
-//            Usuï¿½rio deseja sair da aplicaï¿½ï¿½o e manter a integridade do que foi 
-//            realizado 
-//            Prï¿½-Condiï¿½ï¿½o: Usuï¿½rio ter acessado ao sistema	
-// Atores:	  Usuï¿½rio, Sistema.	
-// Recursos:  Interface	
-// Episï¿½dios: O usuï¿½rio clica na opï¿½ï¿½o de logout
 
 ?> <a href="logout.php" target="_parent");">Sair</a>&nbsp;&nbsp;&nbsp; <a href="ajuda.htm" target="_blank"> 
               Ajuda</a></td>
