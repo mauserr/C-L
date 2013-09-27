@@ -32,11 +32,11 @@ include("httprequest.inc");
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
 /** @Episodio 9: Se o formul�rio tiver sido submetido ent�o verificar se o login e senha est�o corretos. **/
-if ( $submit == 'Entrar') 
+if ( isset($_POST['submit'])) 
 {        
-	$password_cript = md5($password);
+	$password_cript = md5($_POST['password']);
 	
-	$query_select_sql = "SELECT id_user FROM user WHERE login='$login' AND password='$password'";
+	$query_select_sql = "SELECT id_user FROM user WHERE login='$login' AND password='$password_cript'";
     $query_result_sql = mysql_query($query_select_sql) or die("Erro ao executar a query");
   
 	/** @Episodio 10: Se o login e/ou senha estiverem incorretos ent�o retornar a p�gina de login com wrong=true na URL. **/
@@ -109,8 +109,8 @@ else {
 	<form action="?url=<?=$url?>" method="post">
     <div align="center">
     <table cellpadding="5">
-      <tr><td>Login:</td><td><input maxlength="32" name="login" size="24" type="text" value ="<?= $login?>"></td></tr>
-      <tr><td>Senha:</td><td><input maxlength="32" name="password" size="24" type="password" value ="<?= $password?>"></td></tr>
+      <tr><td>Login:</td><td><input maxlength="32" name="login" size="24" type="text" ></td></tr>
+      <tr><td>Senha:</td><td><input maxlength="32" name="password" size="24" type="password" ></td></tr>
       <tr><td height="10"></td></tr>
       <tr><td align="center" colspan="2"><input name="submit" type="submit" value="Entrar"></td></tr>
     </table>

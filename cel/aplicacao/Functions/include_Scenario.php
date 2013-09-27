@@ -16,14 +16,14 @@ if (!(function_exists("include_Scenario"))) {
         
         $data = date("Y-m-d");
         
-        $query = "INSERT INTO cenario (id_projeto,data, titulo, objetivo, contexto, atores, recursos, excecao, episodios) 
+        $query = "INSERT INTO scenario (id_projeto,data, titulo, objetivo, contexto, atores, recursos, excecao, episodios) 
 		VALUES ($id_projeto,'$data', '".data_prepare(strtolower($titulo))."', '".data_prepare($objetivo)."',
 		'".data_prepare($contexto)."', '".data_prepare($atores)."', '".data_prepare($recursos)."',
 		'".data_prepare($excecao)."', '".data_prepare($episodios)."')";
 			  
 	mysql_query($query) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
-        $query = "SELECT max(id_cenario) FROM cenario";
+        $query = "SELECT max(id_cenario) FROM scenario";
         
         $qrr = mysql_query($query) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $result = mysql_fetch_row($qrr);

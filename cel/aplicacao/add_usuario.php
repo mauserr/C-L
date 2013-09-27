@@ -16,7 +16,6 @@ $email = null;
 $login = null;
 $password = null;
 $psw_conf = null;
-$submit = null;
 if (isset($_POST['submit'])) { 
     
     $first_try = "false";
