@@ -31,25 +31,25 @@ check_User("index.php");
 
 $connect_bd = bd_connect() or die("Erro ao conectar ao SGBD");
 
-$submit = null;
-if (isset($submit)) {
+if (isset($_POST['submit'])) {
+        $id_scenario = $_POST['id_scenario'];
 	insertRequestAddScenario($_SESSION['current_id_project'],
-			$id_scenario = '',
-			$title = '',
-			$objective = '',
-			$contex ='',
-			$actors = '',
-			$resource = '',
-			$exception = '',
-			$episodes = '',
-			$justification = '',
+			$_POST['id_scenario'],
+			$_POST['title'],
+			$_POST['objective'],
+			$_POST['contex'],
+			$_POST['actors'],
+			$_POST['resource'],
+			$_POST['exception'],
+			$_POST['episodes'],
+			$_POST['justification'],
 			$_SESSION['current_id_user']);
 	?>
 
 <script language="javascript1.3">
 
 opener.parent.frames['code'].location.reload();
-opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['id_projeto_corrente']?>');
+opener.parent.frames['text'].location.replace('main.php?id_project=<?=$_SESSION['id_projeto_corrente']?>');
 
 </script>
 
@@ -62,11 +62,11 @@ self.close();
 </script>
 
 <?php
-} else { // Script chamado atraves do link no cenario corrente
+} else { // Script chamado atraves do link no scenario corrente
 
-	$project_name = simple_query("nome", "projeto", "id_projeto = " . $_SESSION['id_projeto_corrente']);
+	$project_name = simple_query("name", "project", "id_project = " . $_SESSION['id_projeto_corrente']);
 
-	$query_sql = "SELECT * FROM cenario WHERE id_cenario = $id_scenario";
+	$query_sql = "SELECT * FROM scenario WHERE id_scenario = $id_scenario";
 	$query_confirm_sql = mysql_query($query_sql) or die(" Erro ao executar a consulta");
 	$result = mysql_fetch_array($query_confirm_sql);
 
@@ -79,64 +79,64 @@ self.close();
 <body>
 	<h4>Alterar Cen�rio</h4>
 	<br>
-	<form action="?id_projeto=<?=$id_project?>" method="post">
+	<form action="?id_project=<?=$id_project?>" method="post">
 		<table>
 			<tr>
 				<td>Projeto:</td>
 				<td><input disabled size="48" type="text" value="<?=$project_name?>">
 				</td>
 			</tr>
-			<input type="hidden" name="id_cenario"
-				value="<?=$result['id_cenario']?>">
+			<input type="hidden" name="id_scenario"
+				value="<?=$result['id_scenario']?>">
 			<td>T�tulo:</td>
-			<? $result['titulo'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['titulo']); ?>
-			<input type="hidden" name="titulo" value="<?=$result['titulo']?>">
+			<? $result['title'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['title']); ?>
+			<input type="hidden" name="title" value="<?=$result['title']?>">
 			<td><input disabled maxlength="128" name="titulo2" size="48"
-				type="text" value="<?=$result['titulo']?>"></td>
+				type="text" value="<?=$result['title']?>"></td>
 			<tr>
 				<td>Objetivo:</td>
-				<? $result['objetivo'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['objetivo']); ?>
+				<? $result['objective'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['objective']); ?>
 
-				<td><textarea name="objetivo" cols="48" rows="3">
-						<?=$result['objetivo']?>
+				<td><textarea name="objective" cols="48" rows="3">
+						<?=$result['objective']?>
 					</textarea></td>
 			</tr>
 			<tr>
 				<td>Contexto:</td>
-				<? $result['contexto'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['contexto']); ?>
-				<td><textarea name="contexto" cols="48" rows="3">
-						<?=$result['contexto']?>
+				<? $result['context'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['context']); ?>
+				<td><textarea name="context" cols="48" rows="3">
+						<?=$result['context']?>
 					</textarea></td>
 			</tr>
 			<tr>
 				<td>Atores:</td>
-				<? $result['atores'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['atores']); ?>
+				<? $result['actors'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['actors']); ?>
 
-				<td><textarea name="atores" cols="48" rows="3">
-						<?=$result['atores']?>
+				<td><textarea name="actors" cols="48" rows="3">
+						<?=$result['actors']?>
 					</textarea></td>
 			</tr>
 			<tr>
 				<td>Recursos:</td>
-				<? $result['recursos'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['recursos']); ?>
+				<? $result['resources'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['resources']); ?>
 
-				<td><textarea name="recursos" cols="48" rows="3">
-						<?=$result['recursos']?>
+				<td><textarea name="resources" cols="48" rows="3">
+						<?=$result['resources']?>
 					</textarea></td>
 			</tr>
 			<tr>
 				<td>Exce��o:</td>
-				<? $result['excecao'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['excecao']); ?>
+				<? $result['exception'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['exception']); ?>
 
-				<td><textarea name="excecao" cols="48" rows="3">
-						<?=$result['excecao']?>
+				<td><textarea name="exception" cols="48" rows="3">
+						<?=$result['exception']?>
 					</textarea></td>
 			</tr>
 			<tr>
 				<td>Epis�dios:</td>
-				<? $result['episodios'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['episodios']); ?>
-				<td><textarea cols="48" name="episodios" rows="5">
-						<?=$result['episodios']?>
+				<? $result['episodes'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['episodes']); ?>
+				<td><textarea cols="48" name="episodes" rows="5">
+						<?=$result['episodes']?>
 					</textarea></td>
 			</tr>
 			<tr>

@@ -19,9 +19,8 @@ check_User("index.php");
 
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
-$submit = null;
 $synonymList = null;
-if (isset($submit)) {
+if (isset($_POST['submit'])) {
 
     if (!isset($synonymList))
         $synonymList = array();
@@ -41,15 +40,15 @@ if (isset($submit)) {
 
 
     insertRequestAlterLexicon(
-            $id_project = '', 
-            $id_lexico = '', 
-            $name = '', 
-            $notion = '', 
-            $impact = '', 
-            $justification = '', 
+            $_POST['id_project'], 
+            $_POST['id_lexicon'], 
+            $_POST['name'], 
+            $_POST['notion'], 
+            $_POST['impact'], 
+            $_POST['justification'], 
             $_SESSION['current_id_user'], 
-            $synonymList = '', 
-            $classification = '');
+            $synonymList, 
+            $_POST['classification']);
     ?>
 
     <html>
@@ -75,15 +74,15 @@ if (isset($submit)) {
             <?php
         } else {
             $project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
-            $query = "SELECT * FROM lexico WHERE id_lexico = $id_lexico";
+            $query = "SELECT * FROM lexicon WHERE id_lexicon = id_lexicon";
             $query_result_sql = mysql_query($query) or die(" Erro ao executar a consulta");
            $result = mysql_fetch_array($query_result_sql);
 
             //synonym
             // $DB = new PGDB () ;
             // $selectSin = new QUERY ($DB) ;
-            // $selectSin->execute("SELECT nome FROM sinonimo WHERE id_lexico = $id_lexico");
-            $query_sin = "SELECT nome FROM sinonimo WHERE id_lexico = $id_lexico";
+            // $selectSin->execute("SELECT name FROM synonym WHERE id_lexicon = id_lexicon");
+            $query_sin = "SELECT name FROM synonym WHERE id_lexicon = id_lexicon";
             $query_result_sql_sin = mysql_query($query_sin) or die(" Erro ao executar a consulta");
             //$resultSin = mysql_fetch_array($query_resulat_Sin);
             ?>
@@ -99,7 +98,7 @@ if (isset($submit)) {
                         notion = form.notion.value;
         	
                         if( notion == "" )
-                        { alert (" Por favor, forneca o NOME do lexico.\n O campo NOME é obrigatorio.");
+                        { alert (" Por favor, forneca o NOME do lexicon.\n O campo NOME é obrigatorio.");
                             form.notion.focus();
                             return false;
                         }
@@ -167,7 +166,7 @@ if (isset($submit)) {
                 <br>
                 <form action="?id_project=<?= $id_project ?>" method="post" onSubmit="return(doSubmit());">
                     <table>
-                        <input type="hidden" name="id_lexico" value="<?= $result['id_lexico'] ?>">
+                        <input type="hidden" name="id_lexicon" value="<?= $result['id_lexicon'] ?>">
 
                         <tr>
                             <td>Projeto:</td>
@@ -176,7 +175,7 @@ if (isset($submit)) {
                         <tr>
                             <td>Nome:</td>
                             <td><input disabled maxlength="64" name="nome_visivel" size="48" type="text" value="<?= $result['name']; ?>">
-                                <input type="hidden"  maxlength="64" name="nome" size="48" type="text" value="<?= $result['name']; ?>">
+                                <input type="hidden"  maxlength="64" name="name" size="48" type="text" value="<?= $result['name']; ?>">
                             </td>
                         </tr>
 

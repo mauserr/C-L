@@ -21,22 +21,22 @@ check_User("index.php");
 // Connects to the database
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
-$submit = null;
 // Script called thru the forms submit
-if (isset($submit)) {       
+if (isset($_POST['submit'])) {     
+    $id_concept = $_POST['id_concept'];
     inserirPedidoAlterarConceito($_SESSION['id_projeto_corrente'], 
-            $id_concept = '', 
-            $name = '', 
-            $description = '', 
-            $namespace = '', 
-            $justification = '', 
+            $_POST['id_concept'], 
+            $_POST['name'], 
+            $_POST['description'], 
+            $_POST['namespace'], 
+            $_POST['justification'], 
             $_SESSION['id_usuario_corrente']);
     ?>
 
     <script language="javascript1.3">
 
         opener.parent.frames['code'].location.reload();
-        opener.parent.frames['text'].location.replace('main.php?id_projeto=<?= $_SESSION['id_projeto_corrente'] ?>');
+        opener.parent.frames['text'].location.replace('main.php?id_project=<?= $_SESSION['id_projeto_corrente'] ?>');
 
     </script>
 
@@ -50,9 +50,9 @@ if (isset($submit)) {
 
     <?php
 } else { // Script chamado atraves do link no cenario corrente
-    $project_name = simple_query("nome", "projeto", "id_projeto = " . $_SESSION['id_projeto_corrente']);
+    $project_name = simple_query("name", "project", "id_project = " . $_SESSION['id_projeto_corrente']);
 
-    $query_select = "SELECT * FROM conceito WHERE id_conceito = $id_concept";
+    $query_select = "SELECT * FROM concept WHERE id_concept = $id_concept";
     $query = mysql_query($query_select) or die("Erro ao executar a query");
     $result = mysql_fetch_array($query);
 
@@ -77,17 +77,17 @@ if (isset($submit)) {
         <body>
             <h4>Alterar Conceito</h4>
             <br>
-            <form action="?id_projeto=<?= $id_project ?>" method="post">
+            <form action="?id_project=<?= $id_project ?>" method="post">
                 <table>
                     <tr>
                         <td>Projeto:</td>
                         <td><input disabled size="48" type="text" value="<?= $project_name ?>"></td>
                     </tr>
-                    <input type="hidden" name="id_conceitos" value="<?= $result['id_conceito'] ?>">
+                    <input type="hidden" name="id_conceitos" value="<?= $result['id_concept'] ?>">
                     <td>Nome:</td>
-    <? $result['nome'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['nome']); ?>
-                    <input type="hidden" name="nome" value="<?= $result['nome'] ?>">
-                    <td><input disabled maxlength="128" name="nome2" size="48" type="text" value="<?= $result['nome'] ?>"></td>
+    <? $result['name'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['name']); ?>
+                    <input type="hidden" name="name" value="<?= $result['name'] ?>">
+                    <td><input disabled maxlength="128" name="nome2" size="48" type="text" value="<?= $result['name'] ?>"></td>
                     <tr>
                         <td>Descricao:</td>
     <? $result['descricao'] = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $result['descricao']); ?>
