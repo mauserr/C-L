@@ -1,9 +1,9 @@
 <?php
-/*************************************************************
+/* * ***********************************************************
  * File: projetos.php
  * purpose: Main file for loading project data
  * 
- ************************************************************/
+ * ********************************************************** */
 
 include("funcoes_genericas.php");
 ?>
@@ -17,8 +17,8 @@ include("funcoes_genericas.php");
 </head>
 <body>
 
-<?php
-$connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
+    <?php
+    $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 
 //Scenario -  Choose Project
 //Objective:  Allow the Administrator to choose a project.
@@ -30,11 +30,9 @@ $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 //            see ADMINISTRATOR CHOOSE PROJECT.
 //            Otherwise, see USER CHOOSE PROJECT.
 
-$query = "SELECT * FROM publicacao";
-$query_result_sql = mysql_query($q) or die("Erro ao enviar a query de busca");
-?>
+    $query = "SELECT * FROM publicacao";
+    $query_result_sql = mysql_query($q) or die("Erro ao enviar a query de busca");
 
-    <?php
     while ($result = mysql_fetch_row($query_result_sql)) {
         $id_project = $result[0];
         $date = $result[1];
@@ -46,7 +44,7 @@ $query_result_sql = mysql_query($q) or die("Erro ao enviar a query de busca");
         $result_name = mysql_fetch_row($query_search);
         $name_project = $result_name[1];
         ?>
-        
+
         <table border='0'>
 
             <tr>
@@ -59,9 +57,9 @@ $query_result_sql = mysql_query($q) or die("Erro ao enviar a query de busca");
 
         </table>
 
-    <?php
-}
-?>
+        <?php
+    }
+    ?>
 
 </body>
 
