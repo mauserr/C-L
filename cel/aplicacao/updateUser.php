@@ -11,7 +11,7 @@ include("funcoes_genericas.php");
 include("httprequest.inc");
 include_once("bd.inc");
 
-$id_user = $_SESSION['id_usuario_corrente'];
+$id_user = $_SESSION['current_id_user'];
 
 $connectDB = bd_connect() or die("Erro ao conectar ao SGBD");
 
@@ -42,7 +42,7 @@ $connectDB = bd_connect() or die("Erro ao conectar ao SGBD");
 
 $encrypt_password = md5($password);
 
-$update_query = "UPDATE usuario SET  nome ='$name' , login = '$login' , email = '$email' , senha = '$encrypt_password' WHERE  id_usuario='$id_user'";
+$update_query = "UPDATE user SET  name ='$name' , login = '$login' , email = '$email' , encrypt_password = '$encrypt_password' WHERE  id_user='$id_user'";
 
 mysql_query($update_query) or die("<p style='color: red; font-weight: bold; text-align: center'>Erro!Login ja existente!</p><br><br><center><a href='JavaScript:window.history.go(-1)'>Voltar</a></center>");
 

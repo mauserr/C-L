@@ -131,7 +131,7 @@ location.href = "add_cenario.php?id_projeto=<?=$id_project?>&sucesso=s";
 <?php
 
 } else {    // Script chamado atraves do menu superior
-	$project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_projeto']);
+	$project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
 	?>
 
 <html>
