@@ -30,17 +30,17 @@ $XML = "";
 $bd_recupera = bd_connect() or die("Erro ao conectar ao SGBD");
 
 $erase = null;
-$id_projeto = null;
+$id_project = null;
 $version = null;
 if (isset($erase))
 {
 	if ( $erase )
 	{
-		$query_delete_sql = "DELETE FROM publicacao WHERE id_projeto = '$id_projeto' AND versao = '$version' ";
+		$query_delete_sql = "DELETE FROM publicacao WHERE id_projeto = '$id_project' AND versao = '$version' ";
 		$query_erase_result_sql = mysql_query($query_delete_sql);	
 	}
 }
-$query_select_sql = "SELECT * FROM publicacao WHERE id_projeto = '$id_projeto'";
+$query_select_sql = "SELECT * FROM publicacao WHERE id_projeto = '$id_project'";
 $query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query");
 
 ?>

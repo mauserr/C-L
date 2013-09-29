@@ -22,8 +22,8 @@ include("httprequest.inc");
     </head>
 <?php
       
-        $id_projeto = $_SESSION['id_projeto_corrente'];
-        $id_usuario = $_SESSION['id_usuario_corrente'];
+        $id_project = $_SESSION['current_id_project'];
+        $id_user = $_SESSION['current_id_user'];
       
         $connect = bd_connect() or die("Erro ao conectar ao SGBD");  
         $query_select_sql = "SELECT * FROM projeto WHERE id_projeto = '$id_project' "; 

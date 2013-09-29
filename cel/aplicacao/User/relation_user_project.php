@@ -15,8 +15,8 @@ $users = null;
 if (isset($_POST['submit'])) {
 
 	$query_delete_sql = "DELETE FROM participates
-	WHERE id_user != " . $_SESSION['id_usuario_corrente'] . "
-	AND id_project = " . $_SESSION['id_projeto_corrente'];
+	WHERE id_user != " . $_SESSION['current_id_user'] . "
+	AND id_project = " . $_SESSION['current_id_project'];
 	mysql_query($query_delete_sql) or die("Erro ao executar a query de DELETE");
 
 	$number_of_selected_users = count($users);
@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
 	for ($i = 0; $i < $number_of_selected_users; $i++) {
 
 		$query_insert_sql = "INSERT INTO participates (id_user, id_project)
-		VALUES (" . $users[$i] . ", " . $_SESSION['id_projeto_corrente'] . ")";
+		VALUES (" . $users[$i] . ", " . $_SESSION['current_id_project'] . ")";
 		mysql_query($query_insert_sql) or die("Erro ao cadastrar user");
 	}
 	?>
@@ -91,8 +91,8 @@ self.close();
 		$query_select_sql = "SELECT u.id_user, login
 		FROM user u, participates p
 		WHERE u.id_user = p.id_user
-		AND p.id_project = " . $_SESSION['id_projeto_corrente'] . "
-		AND u.id_user != " . $_SESSION['id_usuario_corrente'];
+		AND p.id_project = " . $_SESSION['current_id_project'] . "
+		AND u.id_user != " . $_SESSION['current_id_user'];
 
 		$query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query");
 		while ($result = mysql_fetch_array($query_result_sql)) {
@@ -113,7 +113,7 @@ self.close();
                     <select  multiple name="usuarios_r" size="6">
 
 <?php
-    $alternative_query_select_sql = "SELECT id_user FROM participates where participates.id_project =".$_SESSION['id_projeto_corrente'];
+    $alternative_query_select_sql = "SELECT id_user FROM participates where participates.id_project =".$_SESSION['current_id_project'];
 	$alternative_query_result_sql = mysql_query($alternative_query_select_sql) or die("Erro ao enviar a subquery");
 	$alternative_sub_query_result_sql = "(0)";
 		if($alternative_sub_query_result_sql != 0)
