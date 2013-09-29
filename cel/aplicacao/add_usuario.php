@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
         
         $p_style = "color: red; font-weight: bold";
         $p_text = "Por favor, preencha todos os campos.";
-        recarrega("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&login=$login&senha=$password&senha_conf=$psw_conf&novo=$novo");
+        recarrega("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&login=$login&password=$password&senha_conf=$psw_conf&novo=$novo");
     
         
     } else {

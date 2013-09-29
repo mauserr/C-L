@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
 <script language="javascript1.3">
 
 opener.parent.frames['code'].location.reload();
-opener.parent.frames['text'].location.replace('main.php?id_project=<?=$_SESSION['id_projeto_corrente']?>');
+opener.parent.frames['text'].location.replace('main.php?id_project=<?=$_SESSION['current_id_project']?>');
 
 </script>
 
@@ -64,7 +64,7 @@ self.close();
 <?php
 } else { // Script chamado atraves do link no scenario corrente
 
-	$project_name = simple_query("name", "project", "id_project = " . $_SESSION['id_projeto_corrente']);
+	$project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
 
 	$query_sql = "SELECT * FROM scenario WHERE id_scenario = $id_scenario";
 	$query_confirm_sql = mysql_query($query_sql) or die(" Erro ao executar a consulta");
