@@ -12,9 +12,9 @@ extract($_GET);
    
 $bd_recupera = bd_connect() or die("Erro ao conectar ao SGBD");
 
-$query_sql = "select * from publicacao where id_project = $id_project AND versao = $version";
+$query_sql = "select * from publicacao where id_project = $id_project AND version = $version";
 $query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query ao BD");
-$result = mysql_fetch_row($qrr);
+$row = mysql_fetch_row($qrr);
 $xml_banco = $row[3];
 
 $i = 1;

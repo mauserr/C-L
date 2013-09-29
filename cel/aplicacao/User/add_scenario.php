@@ -63,12 +63,12 @@ if (isset($submit)) {
 
 assert ($confirm != NULL);
 
-$objective = "";
-$context = "";
-$authors = "";
-$resource = "";
-$exception = "";
-$episodes = "";
+$objective = null;
+$context = null;
+$authors = null;
+$resource = null;
+$exception = null;
+$episodes = null;
 
 if ($confirm == true)
 {

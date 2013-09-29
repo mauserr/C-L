@@ -57,11 +57,11 @@ if ( isset($_POST['submit']))
 	else {
 
         $row = mysql_fetch_row($query_result_sql);
-        $id_usuario_corrente = $row[0];
+        $current_id_user = $row[0];
 
         //session_register("id_usuario_corrente");
         
-        $_SESSION['id_usuario_corrente'] = "$row[0]";
+        $_SESSION['current_id_user'] = "$row[0]";
 ?>  
 		<script language="javascript1.3">
 			opener.document.location.replace('<?=$url?>');
