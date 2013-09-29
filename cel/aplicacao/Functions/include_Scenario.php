@@ -23,7 +23,7 @@ if (!(function_exists("include_Scenario"))) {
 			  
 	mysql_query($query) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
-        $query = "SELECT max(id_cenario) FROM scenario";
+        $query = "SELECT max(id_scenario) FROM scenario";
         
         $query_result = mysql_query($query) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $result = mysql_fetch_row($query_result);

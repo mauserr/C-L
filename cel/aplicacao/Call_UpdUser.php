@@ -16,10 +16,10 @@ $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 //             nome, email, login, senha e confirmacao da senha; the User can change them.
 //             he clicks on a button "Atualizar"
 
-$id_usuario = $_SESSION['id_usuario_corrente'];
+$id_user = $_SESSION['current_id_user'];
 
 
-$query_select = "SELECT * FROM user WHERE id_user='$id_usuario'";
+$query_select = "SELECT * FROM user WHERE id_user='$id_user'";
 
 $query_fecth = mysql_query($query_select) or die("Erro ao executar a query");
 
