@@ -31,7 +31,7 @@ include("funcoes_genericas.php");
 //            Otherwise, see USER CHOOSE PROJECT.
 
     $query = "SELECT * FROM publicacao";
-    $query_result_sql = mysql_query($q) or die("Erro ao enviar a query de busca");
+    $query_result_sql = mysql_query($query) or die("Erro ao enviar a query de busca");
 
     while ($result = mysql_fetch_row($query_result_sql)) {
         $id_project = $result[0];
