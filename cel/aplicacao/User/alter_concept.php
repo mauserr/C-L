@@ -24,13 +24,13 @@ $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 // Script called thru the forms submit
 if (isset($_POST['submit'])) {     
     $id_concept = $_POST['id_concept'];
-    inserirPedidoAlterarConceito($_SESSION['id_projeto_corrente'], 
+    inserirPedidoAlterarConceito($_SESSION['current_id_project'], 
             $_POST['id_concept'], 
             $_POST['name'], 
             $_POST['description'], 
             $_POST['namespace'], 
             $_POST['justification'], 
-            $_SESSION['id_usuario_corrente']);
+            $_SESSION['current_id_user']);
     ?>
 
     <script language="javascript1.3">
@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
 
     <?php
 } else { // Script chamado atraves do link no cenario corrente
-    $project_name = simple_query("name", "project", "id_project = " . $_SESSION['id_projeto_corrente']);
+    $project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
 
     $query_select = "SELECT * FROM concept WHERE id_concept = $id_concept";
     $query = mysql_query($query_select) or die("Erro ao executar a query");
