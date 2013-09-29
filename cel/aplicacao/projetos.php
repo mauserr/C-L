@@ -1,4 +1,10 @@
 <?php
+/*************************************************************
+ * File: projetos.php
+ * purpose: Main file for loading project data
+ * 
+ ************************************************************/
+
 include("funcoes_genericas.php");
 ?>
 <html>
