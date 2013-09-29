@@ -119,7 +119,7 @@ return;
 <script language="javascript1.2">
 
 opener.parent.frames['code'].location.reload();
-opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['id_projeto_corrente']?>');
+opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['current_id_project']?>');
 //self.close();
 //location.href = "http://<?php print( CELConfig_ReadVar("HTTPD_ip") . "/" . CELConfig_ReadVar("CEL_dir_relativo") ); ?>add_cenario.php?id_projeto=<?=$id_project?>&sucesso=s" ;
 

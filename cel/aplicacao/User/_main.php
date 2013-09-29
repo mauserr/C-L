@@ -23,28 +23,28 @@ check_User("index.php");        // Checa se o usuario foi autenticado
         }
 
         function altCenario(scenario) {
-            var url = 'alt_cenario.php?id_project=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_scenario=' + scenario;
+            var url = 'alt_cenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_scenario=' + scenario;
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
         }
 
         function rmvCenario(scenario) {
-            var url = 'rmv_cenario.php?id_project=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_scenario=' + scenario;
+            var url = 'rmv_cenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_scenario=' + scenario;
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
         }
 
         function altLexico(lexicon) {
-            var url = 'alt_lexico.php?id_project=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_lexicon=' + lexicon;
+            var url = 'alt_lexico.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_lexicon=' + lexicon;
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
         }
 
         function rmvLexico(lexicon) {
-            var url = 'rmv_lexico.php?id_project=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_lexicon=' + lexicon;
+            var url = 'rmv_lexico.php?id_project=' + '<?=$_SESSION['current_id_prohect']?>' + '&id_lexicon=' + lexicon;
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
@@ -221,10 +221,10 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 		// projeto que o usuario esteja cadastrado. Entretanto, como a passagem eh
 		// feita usando JavaScript (no heading.php), devemos checar se este id realmente
 		// corresponde a um projeto que o usuario tenha acesso (seguranca).
-		check_proj_perm($_SESSION['id_usuario_corrente'], $id_project) or die("Permissao negada");
+		check_proj_perm($_SESSION['current_id_user'], $id_project) or die("Permissao negada");
 
 		// Seta uma variavel de sessao correspondente ao projeto atual
-		$_SESSION['id_projeto_corrente'] = $id_project;
+		$_SESSION['current_id_project'] = $id_project;
 		?>
 
 	<table>
