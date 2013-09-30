@@ -1038,7 +1038,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 <?php    
 }    
 ?>    
-<i><a href="showSource.php?file=main.php">Veja o cï¿½digo fonte!</a></i> 
+<i><a href="showSource.php?file=main.php">Veja o código fonte!</a></i> 
     </body> 
 
 </html> 

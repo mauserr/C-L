@@ -32,7 +32,7 @@
 
             <table> 
             <tr> 
-              <th>Cenï¿½rios</th> 
+              <th>Cenários</th> 
             </tr> 
 
 <?php 

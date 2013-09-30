@@ -5,7 +5,8 @@
  * 
  ************************************************************/
 
-$file = $HTTP_GET_VARS['file'];
+$file = null;
+$file = $HTTP_GET_VARS["file"];
 
 if(isset($HTTP_GET_VARS["file"])){
     

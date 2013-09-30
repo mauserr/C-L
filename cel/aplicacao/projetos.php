@@ -30,7 +30,13 @@ include("funcoes_genericas.php");
 //            see ADMINISTRATOR CHOOSE PROJECT.
 //            Otherwise, see USER CHOOSE PROJECT.
 
-    $query = "SELECT * FROM publicacao";
+    $id_project = null;
+    $date = null;
+    $version = null;
+    $XML = null;
+    $name_project = null;
+    
+    $query = "SELECT * FROM publication";
     $query_result_sql = mysql_query($query) or die("Erro ao enviar a query de busca");
 
     while ($result = mysql_fetch_row($query_result_sql)) {
@@ -39,7 +45,7 @@ include("funcoes_genericas.php");
         $version = $result[2];
         $XML = $result[3];
 
-        $query_search_name_project = "SELECT * FROM projeto WHERE id_projeto = '$id_project'";
+        $query_search_name_project = "SELECT * FROM project WHERE id_project = '$id_project'";
         $query_search = mysql_query($query_search_name_project) or die("Erro ao enviar a query de busca de projeto");
         $result_name = mysql_fetch_row($query_search);
         $name_project = $result_name[1];
@@ -49,7 +55,7 @@ include("funcoes_genericas.php");
 
             <tr>
 
-                <th height="29" width="140"><a href="mostrarProjeto.php?id_projeto=<?= $id_project ?>&versao=<?= $version ?>"><?= $name_project ?></a></th>
+                <th height="29" width="140"><a href="mostrarProjeto.php?id_project=<?= $id_project ?>&version=<?= $version ?>"><?= $name_project ?></a></th>
                 <th height="29" width="140">Data: <?= $date ?></th>
                 <th height="29" width="100">Versao: <?= $version ?></th>
 

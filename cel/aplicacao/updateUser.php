@@ -20,7 +20,7 @@ $connectDB = bd_connect() or die("Erro ao conectar ao SGBD");
 
 <html>
     <head>
-        <title>Alterar dados de Usuï¿½rio</title>
+        <title>Alterar dados de Usuário</title>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     </head>
 
