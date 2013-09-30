@@ -867,35 +867,35 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
     frame_inferior($c, $t, $id);    
 
-} elseif (isset($id_projeto)) {         // SCRIPT CHAMADO PELO HEADING.PHP 
+} elseif (isset($id_project)) {         // SCRIPT CHAMADO PELO HEADING.PHP 
 
     // Foi passada uma variavel $id_projeto. Esta variavel deve conter o id de um 
     // projeto que o usuario esteja cadastrado. Entretanto, como a passagem eh 
     // feita usando JavaScript (no heading.php), devemos checar se este id realmente 
     // corresponde a um projeto que o usuario tenha acesso (seguranca). 
-    check_proj_perm($_SESSION['id_usuario_corrente'], $id_projeto) or die("Permissao negada");    
+    check_project_permanent($_SESSION['id_usuario_corrente'], $id_project) or die("Permissao negada");    
 
     // Seta uma variavel de sessao correspondente ao projeto atual 
-    $_SESSION['id_projeto_corrente'] = $id_projeto;    
+    $_SESSION['id_projeto_corrente'] = $id_project;    
 ?>    
 
         <table ALIGN=CENTER> 
             <tr> 
                 <th>Projeto:</th> 
-                <td CLASS="Estilo"><?=simple_query("nome", "projeto", "id_projeto = $id_projeto")?></td> 
+                <td CLASS="Estilo"><?=simple_query("name", "project", "id_project = $id_project")?></td> 
             </tr> 
             <tr> 
-                <th>Data de criaï¿½ï¿½o:</th> 
+                <th>Data de criaçãoo:</th> 
                 <?php    
-                    $data = simple_query("data_criacao", "projeto", "id_projeto = $id_projeto");    
+                    $data = simple_query("date_criation", "project", "id_project = $id_project");    
                 ?>    
 
         <td CLASS="Estilo"><?=formataData($data)?></td> 
 
             </tr> 
             <tr> 
-                <th>Descriï¿½ï¿½o:</th> 
-                <td CLASS="Estilo"><?=nl2br(simple_query("descricao", "projeto", "id_projeto = $id_projeto"))?></td> 
+                <th>Descrição:</th> 
+                <td CLASS="Estilo"><?=nl2br(simple_query("description", "project", "id_project = $id_project"))?></td> 
             </tr> 
         </table> 
 
@@ -913,13 +913,13 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 //            Caso contrï¿½rio, ver Usuï¿½rio escolhe Projeto. 
 
     // Verifica se o usuario eh administrador deste projeto 
-    if (is_admin($_SESSION['id_usuario_corrente'], $id_projeto)) {    
+    if (is_admin($_SESSION['id_usuario_corrente'], $id_project)) {    
 ?>    
 
         <br> 
         <table ALIGN=CENTER> 
             <tr> 
-                <th>Vocï¿½ ï¿½ um administrador deste projeto:</th> 
+                <th>Você é um administrador deste projeto:</th> 
 
 <?php    
 
@@ -1022,7 +1022,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 	<br>
 	<table ALIGN=CENTER> 
             <tr> 
-                <th>Vocï¿½ nï¿½o ï¿½ um administrador deste projeto:</th> 	
+                <th>Você não é um administrador deste projeto:</th> 	
 			</tr>	
 			<tr> 
                 <td CLASS="Estilo"><a href="#" onClick="geraGrafo();" >Gerar grafo deste projeto</a></td>

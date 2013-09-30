@@ -1891,7 +1891,7 @@ if (!(function_exists("is_admin"))) {
 
 // Retorna TRUE ssse $id_usuario tem permissao sobre $id_projeto
 if (!(function_exists("check_project_permanent"))) {
-    function check_project_permanent($id_usuario, $id_projeto)
+    function check_project_permanent($id_user, $id_project)
     {
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $q = "SELECT *

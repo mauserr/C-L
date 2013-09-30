@@ -11,17 +11,17 @@ check_User("index.php");
 // Scenario - User chooses project
 
 // Objective:  Allows a user to choose a project
-// Context:  User wants to choose a project
-// Actors:    User
-// Episodes:  User select from the list a project that he isn't a administrator 
-//            The user can
-//              - Update scenario:
-//              - Update lexicon.
+// Context:    User wants to choose a project
+// Actors:     User
+// Episodes:   User select from the list a project that he isn't a administrator 
+//             The user can
+//               - Update scenario:
+//               - Update lexicon.
 
-if( isset( $_GET['id_projeto']))
+if( isset( $_GET['id_project']))
 {
 	$id_project = null;
-	$id_project = $_GET['id_projeto'];
+	$id_project = $_GET['id_project'];
 }
 
 ?>
@@ -29,19 +29,19 @@ if( isset( $_GET['id_projeto']))
 <script language="javascript1.3">
 
 function getIDProject() {
-    var select = document.forms[0].id_projeto; 
+    var select = document.forms[0].id_project; 
     var index = select.selectedIndex; 
-    var id_projeto = select.options[index].value;
-    return id_projeto;
+    var id_project = select.options[index].value;
+    return id_project;
 
 }
 
 function updateMenu() {   
    
-    if (!(document.forms[0].id_projeto.options[0].selected))
+    if (!(document.forms[0].id_project.options[0].selected))
     {
-          top.frames['code'].location.replace('code.php?id_projeto=' + getIDProject());
-          top.frames['text'].location.replace('main.php?id_projeto=' + getIDProject());
+          top.frames['code'].location.replace('C-L/cel/aplicacao/User/code.php?id_project=' + getIDProject());
+          top.frames['text'].location.replace('main.php?id_project=' + getIDProject());
 
 
           location.replace('heading.php?id_project=' + getIDProject());
