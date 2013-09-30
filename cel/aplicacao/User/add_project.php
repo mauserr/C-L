@@ -32,15 +32,17 @@ check_User("index.php");
  *                  of this user, the system shows an error message.
  * */
 // Called thru the button 'submit'
+/*
 $submit = null;
 $name = null;
 $description = null;
+*/
 if (isset($submit)) {
 	
     $id_included_project = include_project($name, $description);
 
 
-    // Insert into table 'participa' 
+   
     if ($id_included_project != -1) {
 
         $connect = bd_connect() or die("Erro ao conectar ao SGBD");

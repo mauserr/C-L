@@ -3,28 +3,25 @@
 session_start();
 include("funcoes_genericas.php");
 include("httprequest.inc");
+require_once '../Functions/check_User.php';
 
-chkUser("index.php");        // Checa se o usuario foi autenticado
-   
+check_User("index.php");
+
 $bd_recupera = bd_connect() or die("Erro ao conectar ao SGBD");
 
-//Cenário -  Gerar Relatórios XML 
+//Scenario -  Generate XML report
 
-//Objetivo:	Permitir ao administrador gerar relatórios em formato XML de um projeto,
-//              identificados por data.
-//Contexto:   Gerente deseja gerar um relatório para um dos projetos da qual é administrador.
-//              Pré-Condição: Login, projeto cadastrado.
-//Atores:	  Administrador
-//Recursos:	  Sistema, dados do relatório, dados cadastrados do projeto, banco de dados.
-//Episódios:  Gerando com sucesso o relatório a partir dos dados cadastrados do projeto,
-//             o sistema fornece ao administrador a tela de visualização do relatório
-//             XML criado.
-   
-$qq = "select * from publicacao where id_projeto = $id_projeto AND versao = $versao";
+//Objective: Allows the administrator generate a XML report of a project identify by date
+//Contexto:	Manager wants to generate a report for one of project that he is an administrator
+//Actors:	  Administrator
+//Episodes: Generating a report from data of registered project with sucess, the system  
+//			provides to administrator a screen of visualization of the created XML report 
+
+$qq = "SELECT * FROM publication WHERE id_project = $id_project AND version = $version";
 $qrr = mysql_query($qq) or die("Erro ao enviar a query");
 $row = mysql_fetch_row($qrr);
-$xml_banco = $row[3];
+$xml_bank = $row[3];
 
-echo $xml_banco;
-	
+echo $xml_bank;
+
 ?>
