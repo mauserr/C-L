@@ -15,7 +15,7 @@ if (!(function_exists("check_User")))
 			
 			<script language="javascript1.3">
 			
-				open('../login.php?url=<?=$url?>', 'login', 'dependent,height=430,width=490,resizable,scrollbars,titlebar');
+				open('login.php?url=<?=$url?>', 'login', 'dependent,height=430,width=490,resizable,scrollbars,titlebar');
 			
 			</script>
 			
