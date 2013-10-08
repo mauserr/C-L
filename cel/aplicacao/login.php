@@ -16,9 +16,7 @@ session_start();
 include("bd.inc");
 
 $url = '';
-$submit = '';
 $login = '';
-$password = '';
 $wrong = "false";
 
 include("httprequest.inc");
