@@ -67,4 +67,18 @@ if (!(function_exists("include_project")))
 		return $result[0];
 	}
 }
+
+// Retorna TRUE ssse $id_usuario tem permissao sobre $id_projeto
+if (!(function_exists("check_project_permanent"))) {
+	function check_project_permanent($id_user, $id_project)
+	{
+		$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+		$query_select_sql = "SELECT *
+		FROM participates
+		WHERE id_user = $id_user
+		AND id_project = $id_project";
+		$query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+		return (1 == mysql_num_rows($query_result_sql));
+	}
+}
 ?>
