@@ -23,9 +23,9 @@ include_once("coloca_links.php");
 check_User("index.php");   
 
 //Recebe parametro da heading.php. Sem isso vai travar ja que a variavel nao foi inicializada 
-if( isset( $_GET['id_projeto']))    
+if( isset( $_GET['id_project']))    
 {    
-    $id_projeto = $_GET['id_projeto'];    
+    $id_project = $_GET['id_project'];    
 }    
 else    
 {    

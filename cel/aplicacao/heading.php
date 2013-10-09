@@ -20,7 +20,7 @@ check_User("index.php");
 
 if( isset( $_GET['id_project']))
 {
-	$id_project = null;
+	//$id_project = null;
 	$id_project = $_GET['id_project'];
 }
 
@@ -60,7 +60,7 @@ if (isset($id_project)) {
 ?>
 
 function setProjectSelected() {
-    var select = document.forms[0].id_projeto;
+    var select = document.forms[0].id_project;
     for (var i = 0; i < select.length; i++) {
         if (select.options[i].value == <?=$id_project?>) {
             select.options[i].selected = true;
