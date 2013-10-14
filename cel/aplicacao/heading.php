@@ -87,13 +87,13 @@ function newScenario() {
 				             if (isset($id_project))
 				             {
 				             ?>
-				               var url = 'add_scenario.php?id_project=' + '<?=$id_project?>';
+				               var url = 'User/add_scenario.php?id_project=' + '<?=$id_project?>';
 				             <?php
 				             }
 				             else
 				             {
 				             ?>
-				              var url = 'add_scenario.php?'
+				              var url = 'User/add_scenario.php?'
 				             <?php
 				             }
 
@@ -186,7 +186,7 @@ function projectInfo(idprojeto) {
         }
         else{  
        
-?>                               <font color="#FF0033">Usuário normal</font>
+?>                               <font color="#FF0033">Usuï¿½rio normal</font>
                                     
 
 <?php
@@ -258,7 +258,7 @@ if (isset($id_project)) {
 
 ?> <a href="#" onClick="newScenario();">Adicionar Cenario</a>&nbsp;&nbsp;&nbsp; 
               <a href="#" onClick="novoLexico();">Adicionar Simbolo</a>&nbsp;&nbsp;&nbsp; 
-              <a href="#" title="Informações sobre o Projeto" onClick="projectInfo(<?=$id_project?>);">Info</a>&nbsp;&nbsp;&nbsp; 
+              <a href="#" title="Informaï¿½ï¿½es sobre o Projeto" onClick="projectInfo(<?=$id_project?>);">Info</a>&nbsp;&nbsp;&nbsp; 
               <?php
 }
 ?> <?php

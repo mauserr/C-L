@@ -348,7 +348,7 @@ if (!(function_exists("gera_xml_links"))) {
            		preg_match('/href="main.php\?t=(.)&id=(\d+?)"/mi', $vector_size[$i], $match);
                 if($match)
                 {
-                    $id_project = $_SESSION['id_projeto_corrente'];
+                    $id_project = $_SESSION['current_id_project'];
                         
                     // Verifica se � l�xico 
                     if($match[1]=='l')
@@ -405,7 +405,7 @@ if (!(function_exists("gera_xml_links"))) {
 
 <?php
 
-    $id_project = $_SESSION['id_projeto_corrente'];
+    $id_project = $_SESSION['current_id_project'];
     $search_date = $year_date . "-" . $month_date . "-" . $day_date;
     $formated_flag = $flag;
 

@@ -7,6 +7,7 @@
 session_start();
 
 include("funcoes_genericas.php");
+require_once '/Functions/lexicon_functions';
 require_once '/Functions/check_User.php';
 include("httprequest.inc");
 check_User("index.php");      
@@ -30,7 +31,7 @@ insertRequestRemoveLexicon(
 <script language="javascript1.3">
 
 opener.parent.frames['code'].location.reload();
-opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['id_projeto_corrente']?>');
+opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['current_id_project']?>');
 
 </script>
 

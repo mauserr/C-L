@@ -10,14 +10,14 @@ require_once '/Functions/check_User.php';
 include("httprequest.inc");
 check_User("index.php");        
 
-insertRequestRemoveRelation($_SESSION['id_projeto_corrente'], $id_relacao, $_SESSION['id_usuario_corrente']);
+insertRequestRemoveRelation($_SESSION['current_id_project'], $id_relacao, $_SESSION['id_usuario_corrente']);
 
 ?>  
 
 <script language="javascript1.3">
 
 opener.parent.frames['code'].location.reload();
-opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['id_projeto_corrente']?>');
+opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['current_id_project']?>');
 
 <?php
 
