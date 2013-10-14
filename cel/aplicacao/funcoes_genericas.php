@@ -53,9 +53,9 @@ if (!(function_exists("simple_query")))
     funcTion simple_query($field, $table, $where)
     {
         $connect = bd_connect() or die("Erro ao conectar ao SGBD");
-        $q = "SELECT $field FROM $table WHERE $where";
-        $qrr = mysql_query($q) or die("Erro ao enviar a query");
-        $result = mysql_fetch_row($qrr);
+        $query_sql = "SELECT $field FROM $table WHERE $where";
+        $query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query");
+        $result = mysql_fetch_row($query_result_sql);
         return $result[0];        
     }
 }
@@ -673,15 +673,15 @@ if (!(function_exists("alteraLexico")))
 # Essa funcao recebe um id de relacao e remove todos os seus
 # links e relacionamentos existentes.
 ###################################################################
-if (!(function_exists("removeRelacao"))) {
-    function removeRelacao($id_projeto, $id_relacao){
+if (!(function_exists("remove_relation"))) {
+    function remove_relation($id_project, $id_relation){
         $DB = new PGDB () ;
 
         $sql6 = new QUERY ($DB) ;
         
         # Remove o conceito escolhido
-        $sql6->execute ("DELETE FROM relacao WHERE id_relacao = $id_relacao") ;
-        $sql6->execute ("DELETE FROM relacao_conceito WHERE id_relacao = $id_relacao") ;
+        $sql6->execute ("DELETE FROM relation WHERE id_relation = $id_relation") ;
+        $sql6->execute ("DELETE FROM relation_concept WHERE id_relation = $id_relation") ;
         
     }
     
