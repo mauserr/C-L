@@ -11,6 +11,7 @@ session_start();
 
 include("funcoes_genericas.php");
 include("httprequest.inc");
+require_once '/Functions/concept_Functions.php';
 
 
 chkUser("index.php");
@@ -28,7 +29,7 @@ if (isset($submit)) {
     $delete = new QUERY($DB);
     for ($count = 0; $count < sizeof($orders); $count++) {
         $update->execute("update pedidocon set aprovado= 1 where id_pedido = $orders[$count]");
-        tratarPedidoConceito($orders[$count]);
+        treat_request_concept($orders[$count]);
     }
     for ($count = 0; $count < sizeof($remove); $count++) {
         $delete->execute("delete from pedidocon where id_pedido = $remove[$count]");
