@@ -9,6 +9,7 @@
 session_start();
 
 include("funcoes_genericas.php");
+require_once '/Functions/lexicon_functions';
 include("httprequest.inc");
 
 // Checa se o usuario foi autenticado

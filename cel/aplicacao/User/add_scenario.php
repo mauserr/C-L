@@ -8,10 +8,11 @@ session_start();
 //                  is passed,through of URL, a variable $id_project,
 //					That indicate the project a new scenario must be inserted.
 
-include("funcoes_genericas.php");
-require_once '/Functions/check_User.php';
-include("httprequest.inc");
-include_once("bd.inc");
+
+require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/funcoes_genericas.php';
+require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/Functions/check_User.php';
+require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/httprequest.inc';
+require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/bd.inc';
 
 // Scenario -  Insert Scenario
 
