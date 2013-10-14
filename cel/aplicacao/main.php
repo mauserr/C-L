@@ -33,10 +33,10 @@ else
   // $id_projeto = ""; 
 }    
 
-if (!isset  ( $_SESSION['id_projeto_corrente'] ))    
+if (!isset  ( $_SESSION['current_id_project'] ))    
 {    
 
-   $_SESSION['id_projeto_corrente'] = "";    
+   $_SESSION['current_id_project'] = "";    
 }    
 
 
@@ -886,7 +886,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><?=simple_query("name", "project", "id_project = $id_project")?></td> 
             </tr> 
             <tr> 
-                <th>Data de criaçãoo:</th> 
+                <th>Data de criaï¿½ï¿½oo:</th> 
                 <?php    
                     $data = simple_query("date_criation", "project", "id_project = $id_project");    
                 ?>    
@@ -895,7 +895,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
             </tr> 
             <tr> 
-                <th>Descrição:</th> 
+                <th>Descriï¿½ï¿½o:</th> 
                 <td CLASS="Estilo"><?=nl2br(simple_query("description", "project", "id_project = $id_project"))?></td> 
             </tr> 
         </table> 
@@ -920,7 +920,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
         <br> 
         <table ALIGN=CENTER> 
             <tr> 
-                <th>Você é um administrador deste projeto:</th> 
+                <th>Vocï¿½ ï¿½ um administrador deste projeto:</th> 
 
 <?php    
 
@@ -1023,7 +1023,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 	<br>
 	<table ALIGN=CENTER> 
             <tr> 
-                <th>Você não é um administrador deste projeto:</th> 	
+                <th>Vocï¿½ nï¿½o ï¿½ um administrador deste projeto:</th> 	
 			</tr>	
 			<tr> 
                 <td CLASS="Estilo"><a href="#" onClick="geraGrafo();" >Gerar grafo deste projeto</a></td>
@@ -1039,7 +1039,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 <?php    
 }    
 ?>    
-<i><a href="showSource.php?file=main.php">Veja o código fonte!</a></i> 
+<i><a href="showSource.php?file=main.php">Veja o cï¿½digo fonte!</a></i> 
     </body> 
 
 </html> 
