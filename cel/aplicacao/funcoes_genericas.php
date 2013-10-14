@@ -1011,40 +1011,40 @@ if (!(function_exists("inserirPedidoAlterarLexico"))) {
 # alt_cenario.php
 ###################################################################
 if (!(function_exists("inserirPedidoAlterarCenario"))) {
-    function inserirPedidoAlterarConceito($id_projeto, $id_conceito, $nome, $descricao, $namespace, $justificativa, $id_usuario) {
+    function insert_request_alter_concept($id_project, $id_concept, $name, $description, $namespace, $justification, $id_user) {
         $DB = new PGDB();
         $insere = new QUERY($DB);
         $select = new QUERY($DB);
         $select2 = new QUERY($DB);
         
-        $q = "SELECT * FROM participa WHERE gerente = 1 AND id_usuario = $id_usuario AND id_projeto = $id_projeto";
-        $qr = mysql_query($q) or die("Erro ao enviar a query de select no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        $resultArray = mysql_fetch_array($qr);
+        $query_sql = "SELECT * FROM participates WHERE manager = 1 AND id_user = $id_user AND id_project = $id_project";
+        $query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query de select no participates<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $resultArray = mysql_fetch_array($query_result_sql);
         
         
         if ( $resultArray == false ) //nao e gerente
         {
             
-            $insere->execute("INSERT INTO pedidocon (id_projeto, id_conceito, nome, descricao, namespace, id_usuario, tipo_pedido, aprovado, justificativa) VALUES ($id_projeto, $id_conceito, '$nome', '$descricao', '$namespace', $id_usuario, 'alterar', 0, '$justificativa')");
-            $select->execute("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
-            $select2->execute("SELECT * FROM participa WHERE gerente = 1 AND id_projeto = $id_projeto");
+            $insere->execute("INSERT INTO request_concept (id_project, id_concept, name, description, namespace, id_user, type_request, aprove, justification) VALUES ($id_project, $id_concept, '$name', '$description', '$namespace', $id_user, 'alter', 0, '$justification')");
+            $select->execute("SELECT * FROM user WHERE id_user = $id_user");
+            $select2->execute("SELECT * FROM participates WHERE manager = 1 AND id_project = $id_project");
             $record = $select->gofirst();
-            $nomeUsuario = $record['nome'];
+            $name_user = $record['name'];
             $email = $record['email'];
             $record2 = $select2->gofirst();
             while($record2 != 'LAST_RECORD_REACHED') {
-                $id = $record2['id_usuario'];
-                $select->execute("SELECT * FROM usuario WHERE id_usuario = $id");
+                $id = $record2['id_user'];
+                $select->execute("SELECT * FROM user WHERE id_user = $id");
                 $record = $select->gofirst();
-                $mailGerente = $record['email'];
-                mail("$mailGerente", "Pedido de Altera��o Conceito", "O usuario do sistema $nomeUsuario\nPede para alterar o conceito $nome \nObrigado!","From: $nomeUsuario\r\n"."Reply-To: $email\r\n");
+                $mail_manager = $record['email'];
+                mail("$mail_manager", "Pedido de Altera��o Conceito", "O usuario do sistema $name_user\nPede para alterar o conceito $name \nObrigado!","From: $name_user\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
             }
         }
         else{ //Eh gerente
         
-        remove_concept($id_projeto,$id_conceito) ;
-        adicionar_conceito($id_projeto, $nome, $descricao, $namespace) ;
+        remove_concept($id_project,$id_concept) ;
+        add_concept($id_project, $name, $description, $namespace) ;
         
         }
     }
