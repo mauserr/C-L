@@ -1137,32 +1137,32 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
 # rmv_conceito.php
 ###################################################################
 if (!(function_exists("insertRequestRemoveConcept"))) {
-    function insertRequestRemoveConcept($id_projeto,$id_conceito,$id_usuario){
+    function insertRequestRemoveConcept($id_project,$id_concept,$id_user){
         $DB = new PGDB () ;
         $insere = new QUERY ($DB) ;
         $select = new QUERY ($DB) ;
         $select2 = new QUERY ($DB) ;
-        $select->execute("SELECT * FROM conceito WHERE id_conceito = $id_conceito") ;
-        $conceito = $select->gofirst ();
-        $nome = $conceito['nome'] ;
+        $select->execute("SELECT * FROM concept WHERE id_concept = $id_concept") ;
+        $concept = $select->gofirst ();
+        $name = $concept['name'] ;
         
-        $insere->execute("INSERT INTO pedidocon (id_projeto,id_conceito,nome,id_usuario,tipo_pedido,aprovado) VALUES ($id_projeto,$id_conceito,'$nome',$id_usuario,'remover',0)") ;
-        $select->execute("SELECT * FROM usuario WHERE id_usuario = $id_usuario") ;
-        $select2->execute("SELECT * FROM participa WHERE gerente = 1 and id_projeto = $id_projeto") ;
+        $insere->execute("INSERT INTO request_concept(id_project,id_concept,name,id_user,type_request,aprove) VALUES ($id_project,$id_concept,'$name',$id_user,'remove',0)") ;
+        $select->execute("SELECT * FROM user WHERE id_user = $id_user") ;
+        $select2->execute("SELECT * FROM participates WHERE manager = 1 and id_project = $id_project") ;
         
         if ($select->getntuples() == 0&&$select2->getntuples() == 0){
             echo "<BR> [ERRO]Pedido nao foi comunicado por e-mail." ;
         }else{
             $record = $select->gofirst ();
-            $nome = $record['nome'] ;
+            $name = $record['name'] ;
             $email = $record['email'] ;
             $record2 = $select2->gofirst ();
             while($record2 != 'LAST_RECORD_REACHED'){
-                $id = $record2['id_usuario'] ;
-                $select->execute("SELECT * FROM usuario WHERE id_usuario = $id") ;
+                $id = $record2['id_user'] ;
+                $select->execute("SELECT * FROM user WHERE id_user = $id") ;
                 $record = $select->gofirst ();
-                $mailGerente = $record['email'] ;
-                mail("$mailGerente", "Pedido de Remover Conceito", "O usuario do sistema $nome2\nPede para remover o conceito $id_conceito \nObrigado!","From: $nome\r\n"."Reply-To: $email\r\n");
+                $mail_manager = $record['email'] ;
+                mail("$mail_maneger", "Pedido de Remover Conceito", "O usuario do sistema $name2\nPede para remover o conceito $id_concept \nObrigado!","From: $name\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
             }
         }
