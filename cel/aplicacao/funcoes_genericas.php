@@ -1127,47 +1127,7 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
     }
 }
 
-###################################################################
-# Funcao faz um insert na tabela de pedido.
-# Para remover um conceito ela deve receber
-# o id do conceito e id projeto.(1.1)
-# Ao final ela manda um e-mail para o gerente do projeto
-# referente a este conceito.(2.1)
-# Arquivos que utilizam essa funcao:
-# rmv_conceito.php
-###################################################################
-if (!(function_exists("insertRequestRemoveConcept"))) {
-    function insertRequestRemoveConcept($id_project,$id_concept,$id_user){
-        $DB = new PGDB () ;
-        $insere = new QUERY ($DB) ;
-        $select = new QUERY ($DB) ;
-        $select2 = new QUERY ($DB) ;
-        $select->execute("SELECT * FROM concept WHERE id_concept = $id_concept") ;
-        $concept = $select->gofirst ();
-        $name = $concept['name'] ;
-        
-        $insere->execute("INSERT INTO request_concept(id_project,id_concept,name,id_user,type_request,aprove) VALUES ($id_project,$id_concept,'$name',$id_user,'remove',0)") ;
-        $select->execute("SELECT * FROM user WHERE id_user = $id_user") ;
-        $select2->execute("SELECT * FROM participates WHERE manager = 1 and id_project = $id_project") ;
-        
-        if ($select->getntuples() == 0&&$select2->getntuples() == 0){
-            echo "<BR> [ERRO]Pedido nao foi comunicado por e-mail." ;
-        }else{
-            $record = $select->gofirst ();
-            $name = $record['name'] ;
-            $email = $record['email'] ;
-            $record2 = $select2->gofirst ();
-            while($record2 != 'LAST_RECORD_REACHED'){
-                $id = $record2['id_user'] ;
-                $select->execute("SELECT * FROM user WHERE id_user = $id") ;
-                $record = $select->gofirst ();
-                $mail_manager = $record['email'] ;
-                mail("$mail_maneger", "Pedido de Remover Conceito", "O usuario do sistema $name2\nPede para remover o conceito $id_concept \nObrigado!","From: $name\r\n"."Reply-To: $email\r\n");
-                $record2 = $select2->gonext();
-            }
-        }
-    }
-}
+
 
 ###################################################################
 # Funcao faz um insert na tabela de pedido.
@@ -1256,47 +1216,6 @@ if (!(function_exists("tratarPedidoCenario"))) {
                 adicionar_cenario($id_projeto, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios) ;
             }
             //$delete->execute ("DELETE FROM pedidocen WHERE id_pedido = $id_pedido") ;
-        }
-    }
-}
-
-###################################################################
-# Processa um pedido identificado pelo seu id.
-# Recebe o id do pedido.(1.1)
-# Faz um select para pegar o pedido usando o id recebido.(1.2)
-# Pega o campo tipo_pedido.(1.3)
-# Se for para remover: Chamamos a funcao remove();(1.4)
-# Se for para alterar: Devemos (re)mover o cenario e inserir o novo.
-# Se for para inserir: chamamos a funcao insert();
-###################################################################
-if (!(function_exists("tratarPedidoConceito"))) {
-    function tratarPedidoConceito($id_pedido){
-        $DB = new PGDB () ;
-        $select = new QUERY ($DB) ;
-        $delete = new QUERY ($DB) ;
-        $select->execute("SELECT * FROM pedidocon WHERE id_pedido = $id_pedido") ;
-        if ($select->getntuples() == 0){
-            echo "<BR> [ERRO]Pedido invalido." ;
-        }else{
-            $record = $select->gofirst () ;
-            $tipoPedido = $record['tipo_pedido'] ;
-            if(!strcasecmp($tipoPedido,'remover')){
-                $id_conceito = $record['id_conceito'] ;
-                $id_projeto = $record['id_projeto'] ;
-                removeConceito($id_projeto,$id_conceito) ;
-            }else{
-                
-                $id_projeto = $record['id_projeto'] ;
-                $nome         = $record['nome'] ;
-                $descricao  = $record['descricao'] ;
-                $namespace   = $record['namespace'] ;
-                
-                if(!strcasecmp($tipoPedido,'alterar')){
-                    $id_cenario = $record['id_conceito'] ;
-                    removeConceito($id_projeto,$id_conceito) ;
-                }
-                adicionar_conceito($id_projeto, $nome, $descricao, $namespace) ;
-            }
         }
     }
 }

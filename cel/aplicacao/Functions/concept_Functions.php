@@ -9,8 +9,8 @@
 # Arquivos que utilizam essa funcao:
 # rmv_conceito.php
 ###################################################################
-if (!(function_exists("insertRequestRemoveConcept"))) {
-    function insertRequestRemoveConcept($id_project,$id_concept,$id_user){
+if (!(function_exists("insert_request_remove_concept"))) {
+    function insert_request_remove_concept($id_project,$id_concept,$id_user){
         $DB = new PGDB () ;
         $insere = new QUERY ($DB) ;
         $select = new QUERY ($DB) ;
