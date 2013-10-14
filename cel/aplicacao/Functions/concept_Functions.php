@@ -83,4 +83,79 @@ if (!(function_exists("treat_concept_request"))) {
     }
 }
 
+###################################################################
+# Essa funcao recebe um id de conceito e remove todos os seus
+# links e relacionamentos existentes.
+###################################################################
+if (!(function_exists("remove_concept"))) {
+    function remove_concept($id_project, $id_concept){
+        $DB = new PGDB () ;
+        $sql = new QUERY ($DB) ;
+        $sql2 = new QUERY ($DB) ;
+        $sql3 = new QUERY ($DB) ;
+        $sql4 = new QUERY ($DB) ;
+        $sql5 = new QUERY ($DB) ;
+        $sql6 = new QUERY ($DB) ;
+        $sql7 = new QUERY ($DB) ;
+        # Este select procura o cenario a ser removido
+        # dentro do projeto
+        
+        $sql2->execute ("SELECT * FROM concept WHERE id_project = $id_project and id_concept = $id_concept") ;
+        if ($sql2->getntuples() == 0){
+            //echo "<BR> Cenario nao existe para esse projeto." ;
+        }else{
+            $record = $sql2->gofirst ();
+            $name_concept = $record['name'] ;
+            # tituloCenario = Nome do cenario com id = $id_cenario
+        }
+        # [ATENCAO] Essa query pode ser melhorada com um join
+        //print("<br>SELECT * FROM cenario WHERE id_projeto = $id_projeto");
+        /*  $sql->execute ("SELECT * FROM cenario WHERE id_projeto = $id_projeto AND id_cenario != $tituloCenario");
+        if ($sql->getntuples() == 0){
+        echo "<BR> Projeto n�o possui cenarios." ;
+        }else{*/
+        $query_sql = "SELECT * FROM concept WHERE id_project = $id_project AND id_concept != $id_concept";
+        //echo($qr)."          ";
+        $query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query de SELECT<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        while ($result = mysql_fetch_array($query_result_sql))
+        {
+            # Percorre todos os cenarios tirando as tag do conceito
+            # a ser removido
+            //$record = $sql->gofirst ();
+            //while($record !='LAST_RECORD_REACHED'){
+            $id_concept_ref = $result['id_concept'] ;
+            $previous_name = $result['name'] ;
+            $previous_description = $result['description'] ;
+            $previous_namespace = $result['namespace'] ;
+            #echo        "/<a title=\"Cen�rio\" href=\"main.php?t='c'&id=$id_cenario>($tituloCenario)<\/a>/mi"  ;
+            #$episodiosAnterior = "<a title=\"Cen�rio\" href=\"main.php?t=c&id=38\">robin</a>" ;
+            /*"'<a title=\"Cen�rio\" href=\"main.php?t=c&id=38\">robin<\/a>'si" ; */
+            $tiratag = "'<[\/\!]*?[^<>]*?>'si" ;
+            //$tiratagreplace = "";
+            //$tituloCenario = preg_replace($tiratag,$tiratagreplace,$tituloCenario);
+            $regexp = "/<a[^>]*?>($name_concept)<\/a>/mi" ;//rever
+            $replace = "$1";
+            //echo($episodiosAnterior)."   ";
+            //$tituloAtual = $tituloAnterior ;
+            //*$tituloAtual = preg_replace($regexp,$replace,$tituloAnterior);*/
+            $current_description = preg_replace($regexp,$replace,$previous_description);
+            $current_namespace = preg_replace($regexp,$replace,$previous_namespace);
+            /*echo "ant:".$episodiosAtual ;
+            echo "<br>" ;
+            echo "dep:".$episodiosAnterior ;*/
+            // echo($tituloCenario)."   ";
+            // echo($episodiosAtual)."  ";
+            //print ("<br>update cenario set objetivo = '$objetivoAtual',contexto = '$contextoAtual',atores = '$atoresAtual',recursos = '$recursosAtual',episodios = '$episodiosAtual' where id_cenario = $idCenarioRef ");
+            $sql7->execute ("update concept set description = '$current_description', namespace = '$current_namespace' where id_concept = $id_concept_ref");
+            
+            //$record = $sql->gonext() ;
+            // }
+        }
+        # Remove o conceito escolhido
+        $sql6->execute ("DELETE FROM concept WHERE id_concept = $id_concept") ;
+        $sql6->execute ("DELETE FROM relation_concept WHERE id_concept = $id_concept") ;   
+    }   
+}
+
+
 ?>
