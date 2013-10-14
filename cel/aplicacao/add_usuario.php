@@ -171,12 +171,12 @@ if (isset($_POST['submit'])) {
         $id_usuario_incluido = simple_query("id_user", "user", "login = '$login'");
         
         $insert_sql = "INSERT INTO participates (id_user, id_project)
-		VALUES ($id_usuario_incluido, " . $_SESSION['id_projeto_corrente'] . ")";
+		VALUES ($id_usuario_incluido, " . $_SESSION['current_id_project'] . ")";
         
         mysql_query($insert_sql) or die("Erro ao inserir na tabela participa");
 
         $nome_usuario = simple_query("name", "user", "id_user = $id_usuario_incluido");
-        $nome_projeto = simple_query("name", "project", "id_project = " . $_SESSION['id_projeto_corrente']);
+        $nome_projeto = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
         ?>
 
         <script language="javascript1.3">
