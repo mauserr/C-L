@@ -1,4 +1,7 @@
 <?php
+
+require_once '/../bd.inc';
+require_once'/../security.php';
 /*************************************************************
  * File: /Functions/project_Functions.php
 * purpose: Group the functions how has a relation with project

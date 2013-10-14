@@ -1,10 +1,19 @@
 <?php
-require_once '/Functions/project_Functions.php';
+require_once dirname(__FILE__).'/../Functions/project_Functions.php';
 
 class project_FunctionsTest extends PHPUnit_Framework_TestCase{
 	
-	public function testcheck_project_permanent(){
-		assertTrue($actual);
+	function setUp(){
+		
+		$_POST['name'] = 'wilker';
+		$_POST['email'] = 'wilker@mail.com';
+		$_POST['password'] = '123456';
+		  
+	}
+	public function testinclude_project(){
+		$id_project = include_project("Projeto","Descrição");
+		
+		$this->assertNotNull($id_project);
 	}
 }
 ?>
