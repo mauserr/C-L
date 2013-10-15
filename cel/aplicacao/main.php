@@ -71,7 +71,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function altCenario(cenario) { 
-            var url = 'alt_cenario.php?id_projeto=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_cenario=' + cenario; 
+            var url = 'alt_cenario.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_cenario=' + cenario; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=660,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec); 
@@ -93,7 +93,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function rmvCenario(cenario) { 
-            var url = 'rmv_cenario.php?id_projeto=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_cenario=' + cenario; 
+            var url = 'rmv_cenario.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_cenario=' + cenario; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar'; 
             open(url, where, window_spec); 
@@ -115,7 +115,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function altLexico(lexico) { 
-            var url = 'alt_lexico.php?id_projeto=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_lexico=' + lexico; 
+            var url = 'alt_lexico.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_lexico=' + lexico; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=573,width=570,resizable,scrollbars,titlebar';
             open(url, where, window_spec); 
@@ -137,7 +137,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function rmvLexico(lexico) { 
-            var url = 'rmv_lexico.php?id_projeto=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_lexico=' + lexico; 
+            var url = 'rmv_lexico.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_lexico=' + lexico; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar'; 
             open(url, where, window_spec); 
@@ -162,7 +162,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function altConceito(conceito) { 
-            var url = 'alt_conceito.php?id_projeto=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_conceito=' + conceito; 
+            var url = 'alt_conceito.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_conceito=' + conceito; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar'; 
             open(url, where, window_spec); 
@@ -184,7 +184,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function rmvConceito(conceito) { 
-            var url = 'rmv_conceito.php?id_projeto=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_conceito=' + conceito; 
+            var url = 'rmv_conceito.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_conceito=' + conceito; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar'; 
             open(url, where, window_spec); 
@@ -192,7 +192,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
         
         function rmvRelacao(relacao) { 
             
-            var url = 'rmv_relacao.php?id_projeto=' + '<?=$_SESSION['id_projeto_corrente']?>' + '&id_relacao=' + relacao; 
+            var url = 'rmv_relacao.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_relacao=' + relacao; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar'; 
             open(url, where, window_spec); 
@@ -218,7 +218,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 
         function pedidoCenario() { 
             <?php    
-             if (isset($id_projeto))    
+             if (isset($id_project))    
              {    
              ?>    
 				var url = 'ver_pedido_cenario.php?id_projeto=' + '<?=$id_projeto?>'; 
@@ -722,7 +722,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
             <th>Sinï¿½nimo(s):</th> 
 
 			<?php //sinonimos 
-                 $id_projeto = $_SESSION['id_projeto_corrente'];    
+                 $id_projeto = $_SESSION['current_id_project'];    
                  $qSinonimo = "SELECT * FROM sinonimo WHERE id_lexico = $id";    
                  $qrr = mysql_query($qSinonimo) or die("Erro ao enviar a query de Sinonimos". mysql_error());    
 
@@ -877,7 +877,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
     check_project_permanent($_SESSION['id_usuario_corrente'], $id_project) or die("Permissao negada");    
 
     // Seta uma variavel de sessao correspondente ao projeto atual 
-    $_SESSION['id_projeto_corrente'] = $id_project;    
+    $_SESSION['current_id_project'] = $id_project;    
 ?>    
 
         <table ALIGN=CENTER> 
@@ -914,13 +914,13 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 //            Caso contrï¿½rio, ver Usuï¿½rio escolhe Projeto. 
 
     // Verifica se o usuario eh administrador deste projeto 
-    if (is_admin($_SESSION['id_usuario_corrente'], $id_project)) {    
+    if (is_admin($_SESSION['current_id_user'], $id_project)) {    
 ?>    
 
         <br> 
         <table ALIGN=CENTER> 
             <tr> 
-                <th>Vocï¿½ ï¿½ um administrador deste projeto:</th> 
+                <th>Você é um administrador deste projeto:</th> 
 
 <?php    
 

@@ -6,6 +6,7 @@
  ************************************************************/
 session_start();
 
+require_once '/Functions/project_Functions.php';
 include("funcoes_genericas.php");
 include("httprequest.inc");
 
@@ -23,12 +24,12 @@ include("httprequest.inc");
 <?php
       
         $id_project = $_SESSION['current_id_project'];
-        $id_user = $_SESSION['current_id_user'];
+        $id_user = $_SESSION['id_usuario_corrente'];
       
         $connect = bd_connect() or die("Erro ao conectar ao SGBD");  
-        $query_select_sql = "SELECT * FROM projeto WHERE id_projeto = '$id_project' "; 
-        $query_result_sql = mysql_query($qv) or die("Erro ao enviar a query de select no projeto");        
-        $resultArrayProject = mysql_fetch_array($qvr);
+        $query_select_sql = "SELECT * FROM project WHERE id_project = '$id_project' "; 
+        $query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query de select no projeto");        
+        $resultArrayProject = mysql_fetch_array($query_result_sql);
         $project_Name       = $resultArrayProjeto[1];
         $data_Project       = $resultArrayProjeto[2];
         $project_Description= $resultArrayProjeto[3];  
@@ -54,12 +55,12 @@ include("httprequest.inc");
   </tr>
 </table>
 <br><br>
-<center><b>Cuidado!O projeto serï¿½ apagado para todos seus usuï¿½rios!</b></center>
+<center><b>Cuidado!O projeto será apagado para todos seus usuários!</b></center>
 <p><br>
   <center><a href="remove_projeto_base.php">Apagar o projeto</a></center> 
 </p>
 <p>
-  <i><a href="showSource.php?file=remove_projeto.php">Veja o cï¿½digo fonte!</a></i> 
+  <i><a href="showSource.php?file=remove_projeto.php">Veja o código fonte!</a></i> 
 </p>
 </body>
 </html>
