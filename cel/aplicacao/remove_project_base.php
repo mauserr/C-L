@@ -16,6 +16,7 @@ session_start();
 
 require_once '/Functions/project_Functions.php';
 include("funcoes_genericas.php");
+include("httprequest.inc");
 include_once("CELConfig/CELConfig.inc");
 
         $id_project = $_SESSION['current_id_project'];

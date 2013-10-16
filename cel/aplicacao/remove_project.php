@@ -30,9 +30,9 @@ include("httprequest.inc");
         $query_select_sql = "SELECT * FROM project WHERE id_project = '$id_project' "; 
         $query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query de select no projeto");        
         $resultArrayProject = mysql_fetch_array($query_result_sql);
-        $project_Name       = $resultArrayProjeto[1];
-        $data_Project       = $resultArrayProjeto[2];
-        $project_Description= $resultArrayProjeto[3];  
+        $project_Name       = $resultArrayProject[1];
+        $data_Project       = $resultArrayProject[2];
+        $project_Description= $resultArrayProject[3];  
   
         
         
@@ -57,7 +57,7 @@ include("httprequest.inc");
 <br><br>
 <center><b>Cuidado!O projeto será apagado para todos seus usuários!</b></center>
 <p><br>
-  <center><a href="remove_projeto_base.php">Apagar o projeto</a></center> 
+  <center><a href="remove_project_base.php">Apagar o projeto</a></center> 
 </p>
 <p>
   <i><a href="showSource.php?file=remove_projeto.php">Veja o código fonte!</a></i> 
