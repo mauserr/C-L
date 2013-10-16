@@ -164,7 +164,7 @@ function removeProject($id_project)
 	$deletaLexico = mysql_query($qv) or die("Erro ao apagar pedidos do cenario<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 
 	//remover participantes
-	$qv = "Delete FROM participa WHERE id_projest = '$id_projest' ";
+	$qv = "Delete FROM participates WHERE id_project = '$id_project' ";
 	$deletaParticipantes = mysql_query($qv) or die("Erro ao apagar no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 
 	//remover publicacao
