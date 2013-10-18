@@ -10,9 +10,9 @@ session_start();
 
 
 require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/funcoes_genericas.php';
-require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/Functions/check_User.php';
 require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/httprequest.inc';
 require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/bd.inc';
+require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/Functions/scenario_Functions.php'; 
 
 // Scenario -  Insert Scenario
 
