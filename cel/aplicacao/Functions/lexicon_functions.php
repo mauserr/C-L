@@ -1,5 +1,6 @@
 <?php
-
+require_once '../bd.inc';
+require_once '../security.php';
 
 ###################################################################
 # Insere um lexico no banco de dados.
@@ -19,12 +20,12 @@ if (!(function_exists("inclui_lexico")))
         $data = date("Y-m-d");
      
                 
-        $q = "INSERT INTO lexico (id_projeto, data, nome, nocao, impacto, tipo)
+        $q = "INSERT INTO lexicon (id_project, data, name, notion, impact, type)
               VALUES ($id_projeto, '$data', '" .data_prepare(strtolower($nome)). "',
 			  '".data_prepare($nocao)."', '".data_prepare($impacto)."', '$classificacao')";
 				
 		mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        
+                $linhas_afetadas = mysql_affected_rows();
         //sinonimo
         $newLexId = mysql_insert_id($connect);
         
@@ -34,15 +35,19 @@ if (!(function_exists("inclui_lexico")))
         
         foreach($sinonimos as $novoSin)
         {
-       		$q = "INSERT INTO sinonimo (id_lexico, nome, id_projeto)
+       		$q = "INSERT INTO synonym (id_lexicon, name, id_project)
                 VALUES ($newLexId, '" . data_prepare(strtolower($novoSin)) . "', $id_projeto)";
             mysql_query($q, $connect) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         }
         
-        $q = "SELECT max(id_lexico) FROM lexico";
+        $q = "SELECT max(id_lexicon) FROM lexicon";
         $qrr = mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $result = mysql_fetch_row($qrr);
-        return $result[0];
+        if($linhas_afetadas == 0){
+            return null;
+        }else{
+            return $result[0];
+        }
     }
 }
 
@@ -326,18 +331,25 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
 ###################################################################
 if (!(function_exists("removeLexico"))) {
     function removeLexico($id_projeto,$id_lexico){
-        $DB = new PGDB () ;
+        $DB = new PGDB() ;
         $delete = new QUERY ($DB) ;        
         
         # Remove o relacionamento entre o lexico a ser removido
         # e outros lexicos que o referenciam
-        $delete->execute ("DELETE FROM lextolex WHERE id_lexico_from = $id_lexico") ;
-        $delete->execute ("DELETE FROM lextolex WHERE id_lexico_to = $id_lexico") ;
-        $delete->execute ("DELETE FROM centolex WHERE id_lexico = $id_lexico") ;
+        $delete->execute ("DELETE FROM lexicon_to_lexicon WHERE id_lexicon_from = $id_lexico") ;
+        $delete->execute ("DELETE FROM lexicon_to_lexicon WHERE id_lexicon_to = $id_lexico") ;
+        $delete->execute ("DELETE FROM scenario_to_lexicon WHERE id_lexicon = $id_lexico") ;
         
         # Remove o lexico escolhido
         $delete->execute ("DELETE FROM sinonimo WHERE id_lexico = $id_lexico") ;
         $delete->execute ("DELETE FROM lexico WHERE id_lexico = $id_lexico") ;
+        $linhas_afetadas = mysql_affected_rows();
+        
+        if($linhas_afetadas == 0){
+            return false;
+        }else{
+            return true;
+        }
     }
 }
 

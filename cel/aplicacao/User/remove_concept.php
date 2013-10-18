@@ -10,7 +10,7 @@ require_once '/Functions/check_User.php';
 include("httprequest.inc");
 check_User("index.php");        
 
-insertRequestRemoveConcept($_SESSION['id_projeto_corrente'], 
+insertRequestRemoveConcept($_SESSION['current_id_project'], 
         $id_conceito = '', 
         $_SESSION['id_usuario_corrente']);
 
@@ -19,7 +19,7 @@ insertRequestRemoveConcept($_SESSION['id_projeto_corrente'],
 <script language="javascript1.3">
 
 opener.parent.frames['code'].location.reload();
-opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['id_projeto_corrente']?>');
+opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['current_id_project']?>');
 
 <?php
 
@@ -36,7 +36,7 @@ opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION[
 
 </script>
 
-<h4>Operação efetuada com sucesso!</h4>
+<h4>Operaï¿½ï¿½o efetuada com sucesso!</h4>
 
 <script language="javascript1.3">
 

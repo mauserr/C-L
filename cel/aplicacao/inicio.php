@@ -5,13 +5,13 @@
 	include("script_bd2.php");
 	session_start();
 
-	if( isset( $_SESSION['id_projeto_corrente']))
+	if( isset( $_SESSION['current_id_project']))
 	{
-		$_SESSION['id_projeto'] = $_SESSION['id_projeto_corrente'];
+		$_SESSION['id_projeto'] = $_SESSION['current_id_project'];
 	}
 	else 
 	{
-		print("<b> PROJETO NÃO SELECIONADO </b><br>");
+		print("<b> PROJETO Nï¿½O SELECIONADO </b><br>");
 		exit();
 	}
 	
