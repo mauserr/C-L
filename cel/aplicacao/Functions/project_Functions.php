@@ -33,9 +33,9 @@ if (!(function_exists("include_project")))
 		
 			$id_project_repetead = $resultArray['id_project'];
 
-			$id_user_current = $_SESSION['current_id_user'];
+			$id_user_current = $_SESSION['id_usuario_corrente'];
 
-			$query_select_repeated_sql = "SELECT * FROM participates WHERE id_project = '$id_projeto_repetido' AND id_user = '$id_usuario_corrente' ";
+			$query_select_repeated_sql = "SELECT * FROM participates WHERE id_project = '$id_project_repetead' AND id_user = '$id_user_current' ";
 
 			$query_result_repeated_sql = mysql_query($query_select_repeated_sql) or die("Erro ao enviar a query de SELECT no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 

@@ -1,7 +1,7 @@
 <?php
 
 /*************************************************************
- * File: /Functions/include_Scenario.php
+ * File: /Functions/scenario_Functions.php
  * purpose: Insert a scenario in the data Base. It gets the id_projeto,
  * titulo, objetivo, contexto, atores, recursos, excessão e episodios as
  * parameters. Returns id_cenario

@@ -914,7 +914,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 //            Caso contr�rio, ver Usu�rio escolhe Projeto. 
 
     // Verifica se o usuario eh administrador deste projeto 
-    if (is_admin($_SESSION['current_id_user'], $id_project)) {    
+    if (is_admin($_SESSION['id_usuario_corrente'], $id_project)) {    
 ?>    
 
         <br> 
