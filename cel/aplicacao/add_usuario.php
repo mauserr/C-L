@@ -141,7 +141,7 @@ if (isset($_POST['submit'])) {
         //               as an administrator in the database
        // $id_usuario_corrente = simple_query("id_usuario", "usuario", "login = '$login'");
        // session_register("id_usuario_corrente");
-        $_SESSION['id_usuario_corrente'] = simple_query("id_usuario", "usuario", "login = '$login'");
+        $_SESSION['current_id_user'] = simple_query("id_usuario", "usuario", "login = '$login'");
         ?>
 
         <script language="javascript1.3">

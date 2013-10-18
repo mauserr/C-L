@@ -46,9 +46,7 @@ if ( !isset( $sucess ) )
 $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 
 if (isset($_POST['submit'])) {
-	
-	
-	$title = "";
+	$title = $_POST['titulo'];
 	
 	$confirm = checkExistingScenario($_SESSION['current_id_project'],$title);
 	?>
@@ -61,11 +59,10 @@ if (isset($_POST['submit'])) {
         -->
 <?PHP
 
-assert ($confirm != NULL);
 
 $objective = $_POST['objetivo'];
 $context = $_POST['contexto'];
-$authors = $_POST['autores'];
+$authors = $_POST['atores'];
 $resource = $_POST['recursos'];
 $exception = $_POST['excecao'];
 $episodes = $_POST['episodios'];
@@ -103,7 +100,7 @@ else
 </head>
 <body bgcolor="#FFFFFF">
 	<p style="color: red; font-weight: bold; text-align: center">Este
-		cen�rio j� existe!</p>
+		cenario ja existe!</p>
 	<br>
 	<br>
 	<center>

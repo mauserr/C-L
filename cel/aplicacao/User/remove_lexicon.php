@@ -25,7 +25,7 @@ check_User("index.php");
 insertRequestRemoveLexicon(
         $id_project = '',
         $id_lexicon = '', 
-        $_SESSION['id_usuario_corrente']);
+        $_SESSION['current_id_user']);
 ?>
 
 <script language="javascript1.3">

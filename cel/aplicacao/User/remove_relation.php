@@ -10,7 +10,7 @@ require_once '/Functions/check_User.php';
 include("httprequest.inc");
 check_User("index.php");        
 
-insertRequestRemoveRelation($_SESSION['current_id_project'], $id_relacao, $_SESSION['id_usuario_corrente']);
+insertRequestRemoveRelation($_SESSION['current_id_project'], $id_relacao, $_SESSION['current_id_user']);
 
 ?>  
 

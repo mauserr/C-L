@@ -248,7 +248,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 	<?php
 
 	// Verifica se o usuario eh administrador deste projeto
-	if (is_admin($_SESSION['id_usuario_corrente'], $id_project)) {
+	if (is_admin($_SESSION['current_id_user'], $id_project)) {
 		?>
 
 	<br>
