@@ -33,10 +33,20 @@ class lexicon_functionsTest extends PHPUnit_Framework_TestCase {
      *
      */
     public function testRemoveLexico() {
-        $this->assertNotNull(removeLexico($this->idProjeto, 1));
+        $this->assertEquals(true, removeLexico($this->idProjeto, null, $this->nome));
+        
+    }
+    
+    /**
+     * @test
+     *
+     */
+    public function testRemoveLexicoErro() {
+        $this->assertEquals(false, removeLexico($this->idProjeto, 0, null));;
         
     }
 
+    
 }
 
 ?>
