@@ -4,8 +4,8 @@ include_once("bd_class.php");
 
 require_once '/security.php'; //("security.php");
 require_once '/Functions/concept_Functions.php';
-require_once '/Functions/include_Scenario.php';
-require_once '/Functions/lexicon_functions.php';
+require_once '/Functions/scenario_Functions.php';
+require_once '/Functions/lexicon_Functions.php';
 
 
 ###################################################################
