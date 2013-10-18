@@ -5,16 +5,20 @@ class project_FunctionsTest extends PHPUnit_Framework_TestCase{
 	
 	function setUp(){
 		
+		
 		$_POST['name'] = 'wilker';
 		$_POST['email'] = 'wilker@mail.com';
 		$_POST['password'] = '123456';
-		session_start($_POST);
+		
 		  
 	}
 	public function testinclude_projectCompleto(){
-		$id_project = include_project("Projeto","Descrição");
+		$POST['project.name']= "Projeto";
+		$POST['project.description']= "Descrição";
 		
-		$this->assertNotNull($id_project);
+		$id_project = include_project( $POST, $SESSION[$_POST]);
+		
+		$this->assertNotNull(TRUE, $id_project);
 	}
 	
 	public function testinclude_projectSemDescrição(){
