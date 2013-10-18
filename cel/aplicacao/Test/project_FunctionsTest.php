@@ -3,29 +3,30 @@ require_once dirname(__FILE__).'/../Functions/project_Functions.php';
 
 class project_FunctionsTest extends PHPUnit_Framework_TestCase{
 	
-	function setUp(){
-		
-		
-		$_POST['name'] = 'wilker';
-		$_POST['email'] = 'wilker@mail.com';
-		$_POST['password'] = '123456';
-		
-		  
-	}
-	public function testinclude_projectCompleto(){
-		$POST['project.name']= "Projeto";
-		$POST['project.description']= "Descrição";
-		
-		$id_project = include_project( $POST, $SESSION[$_POST]);
-		
-		$this->assertNotNull(TRUE, $id_project);
-	}
+public function setUp(){
 	
-	public function testinclude_projectSemDescrição(){
-		$id_project = include_project("Projeto","");
+	$_SESSION['id_usuario_corrente'] = '2';
+	ob_start();
+	ob_get_clean();
 	
-		$this->assertNotNull($id_project);
-	}
+}
+	
+public function testInsertProjectComplete(){
+	
+	$object = include_project('Projetonlos','ProjetonDescriptionlos');
+	
+	$this->assertNotNull($object);
+	removeProject($object);
+}
+
+public function testRemoveProjectComplete(){
+	
+	$object = include_project('ProjetoTeste','ProjetoTeste pitchu');
+	echo $object;
+	$object = removeProject($object);
+	$this->assertNotNull(FALSE, $object);
+	
+}
 	
 }
 ?>
