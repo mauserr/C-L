@@ -29,7 +29,7 @@ $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 
 if (isset($id_project)){
     
-     check_project_permanent($_SESSION['id_usuario_corrente'], $id_project) or die("Permissao negada");
+     check_project_permanent($_SESSION['current_id_user'], $id_project) or die("Permissao negada");
     
     
     $query_project = "SELECT name FROM project WHERE id_project = $id_project";

@@ -9,7 +9,7 @@ if (!(function_exists("check_User")))
 {
     function check_User($url)
     {
-        if(!(isset($_SESSION['id_usuario_corrente'])))
+        if(!(isset($_SESSION['current_id_user'])))
         {
 			?>
 			

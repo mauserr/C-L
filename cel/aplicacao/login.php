@@ -61,7 +61,7 @@ if ( isset($_POST['submit']))
 
         //session_register("id_usuario_corrente");
         
-        $_SESSION['id_usuario_corrente'] = "$row[0]";
+        $_SESSION['current_id_user'] = "$row[0]";
 ?>  
 		<script language="javascript1.3">
 			opener.document.location.replace('<?=$url?>');

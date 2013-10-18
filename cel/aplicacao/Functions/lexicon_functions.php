@@ -84,7 +84,7 @@ if (!(function_exists("adicionar_lexico")))
         while ($result = mysql_fetch_array($qrr)) 
         {    // 2  - Para todos os cenarios
         
-           $nomeEscapado = escapa_metacaracteres( $nome );
+           $nomeEscapado = escape_metacharacter( $nome );
 		   $regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
          
             if( (preg_match($regex, $result['objetivo']) != 0) ||
@@ -113,7 +113,7 @@ if (!(function_exists("adicionar_lexico")))
             while ($result2 = mysql_fetch_array($qrr))
             {
                 
-                $nomeSinonimoEscapado = escapa_metacaracteres( $sinonimos[$i] );
+                $nomeSinonimoEscapado = escape_metacharacter( $sinonimos[$i] );
 				$regex = "/(\s|\b)(" . $nomeSinonimoEscapado . ")(\s|\b)/i";
                 
                 if( (preg_match($regex, $result2['objetivo']) != 0) ||
@@ -152,7 +152,7 @@ if (!(function_exists("adicionar_lexico")))
         while ($result = mysql_fetch_array($qrr)) 
         {    // (3)
         
-            $nomeEscapado = escapa_metacaracteres( $nome );
+            $nomeEscapado = escape_metacharacter( $nome );
             $regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
             
             if ( (preg_match($regex, $result['nocao']) != 0 ) ||
@@ -172,7 +172,7 @@ if (!(function_exists("adicionar_lexico")))
                 }
             }
          
-			$nomeEscapado = escapa_metacaracteres( $result['nome'] );
+			$nomeEscapado = escape_metacharacter( $result['nome'] );
             $regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
          
             if((preg_match($regex, $nocao) != 0) ||
@@ -203,7 +203,7 @@ if (!(function_exists("adicionar_lexico")))
         {
             while ($resultl = mysql_fetch_array($qrr)) {
                                
-				$nomeSinonimoEscapado = escapa_metacaracteres( $sinonimos[$i] );
+				$nomeSinonimoEscapado = escape_metacharacter( $sinonimos[$i] );
 			   $regex = "/(\s|\b)(" . $nomeSinonimoEscapado . ")(\s|\b)/i";
                 
                 if ( (preg_match($regex, $resultl['nocao']) != 0)  ||

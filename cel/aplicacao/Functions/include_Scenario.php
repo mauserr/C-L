@@ -1,7 +1,7 @@
 <?php
 
 /*************************************************************
- * File: /Functions/include_Scenario.php
+ * File: /Functions/scenario_Functions.php
  * purpose: Insert a scenario in the data Base. It gets the id_projeto,
  * titulo, objetivo, contexto, atores, recursos, excessão e episodios as
  * parameters. Returns id_cenario
@@ -16,7 +16,7 @@ if (!(function_exists("include_Scenario"))) {
         
         $data = date("Y-m-d");
         
-        $query = "INSERT INTO scenario (id_project,date, title, objective, context, actors, resources, exception, episodes) 
+        $query = "INSERT INTO scenario (id_project,data, title, objective, context, actors, resource, exception, episodes) 
 		VALUES ($id_project,'$data', '".data_prepare(strtolower($title))."', '".data_prepare($objective)."',
 		'".data_prepare($context)."', '".data_prepare($actors)."', '".data_prepare($resources)."',
 		'".data_prepare($exception)."', '".data_prepare($episodes)."')";
