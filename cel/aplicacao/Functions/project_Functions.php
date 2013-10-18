@@ -81,7 +81,15 @@ if (!(function_exists("check_project_permanent"))) {
 		WHERE id_user = $id_user
 		AND id_project = $id_project";
 		$query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-		return (1 == mysql_num_rows($query_result_sql));
+		
+		if (mysql_num_rows($query_result_sql) >= 1){
+			return 1;	
+		}
+		//return (1 == mysql_num_rows($query_result_sql));
+		else {
+			return 0;
+		}
+		
 	}
 }
 

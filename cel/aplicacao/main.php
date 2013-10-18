@@ -71,7 +71,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function altCenario(cenario) { 
-            var url = 'alt_cenario.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_cenario=' + cenario; 
+            var url = 'alt_scenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_scenario=' + cenario; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=660,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec); 
@@ -614,20 +614,20 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
     
 	if ($t == "c") {        // se for cenario 
         
-		$q = "SELECT id_cenario, titulo, objetivo, contexto, atores, recursos, excecao, episodios, id_projeto    
-              FROM cenario    
-              WHERE id_cenario = $id";    
+		$q = "SELECT id_scenario, title, objetive, context, autor, recurses, exception, episodes, id_project    
+              FROM scenario    
+              WHERE id_scenario = $id";    
         
 		$qrr = mysql_query($q) or die("Erro ao enviar a query de selecao !!". mysql_error());    
         $result = mysql_fetch_array($qrr);  
         
-		$c_id_projeto = $result['id_projeto'];
+		$c_id_projeto = $result['id_project'];
 		
 		$vetorDeCenarios = carrega_vetor_cenario( $c_id_projeto, $id, true ); // carrega vetor de cenario
-        quicksort( $vetorDeCenarios, 0, count($vetorDeCenarios)-1,'cenario' );
+        quicksort( $vetorDeCenarios, 0, count($vetorDeCenarios)-1,'scenario' );
       
 	    $vetorDeLexicos = carrega_vetor_lexicos( $c_id_projeto, 0, false ); // carrega vetor de lï¿½xicos 
-        quicksort( $vetorDeLexicos, 0, count($vetorDeLexicos)-1,'lexico' );
+        quicksort( $vetorDeLexicos, 0, count($vetorDeLexicos)-1,'lexicon' );
     		
 ?>    
 
@@ -787,7 +787,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <th>Nome:</th><td CLASS="Estilo"><?=$result['nome']?></td> 
             </tr> 
             <tr> 
-                <th>Descriï¿½ï¿½o:</th><td CLASS="Estilo"><?=nl2br($result['descricao'])?></td> 
+                <th>Descrição:</th><td CLASS="Estilo"><?=nl2br($result['descricao'])?></td> 
             </tr> 
         </TABLE> 
         <BR> 
@@ -886,16 +886,16 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><?=simple_query("name", "project", "id_project = $id_project")?></td> 
             </tr> 
             <tr> 
-                <th>Data de criaï¿½ï¿½oo:</th> 
+                <th>Data de criaçãoo:</th> 
                 <?php    
-                    $data = simple_query("date_criation", "project", "id_project = $id_project");    
+                    $data = simple_query("date_creation", "project", "id_project = $id_project");    
                 ?>    
 
         <td CLASS="Estilo"><?=formataData($data)?></td> 
 
             </tr> 
             <tr> 
-                <th>Descriï¿½ï¿½o:</th> 
+                <th>Descriçãoo:</th> 
                 <td CLASS="Estilo"><?=nl2br(simple_query("description", "project", "id_project = $id_project"))?></td> 
             </tr> 
         </table> 
@@ -1011,7 +1011,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><font size="1">*Para usar Ontologias Geradas pelo C&L: </font></td>               
             </TR>
             <TR> 
-                <td CLASS="Estilo">   <font size="1">Histï¿½rico em DAML da ontologia do projeto -> Botao Direito do Mouse -> Copiar Atalho</font></td>             
+                <td CLASS="Estilo">   <font size="1">Histórico em DAML da ontologia do projeto -> Botao Direito do Mouse -> Copiar Atalho</font></td>             
             </TR>
 		</table>
 
@@ -1023,7 +1023,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 	<br>
 	<table ALIGN=CENTER> 
             <tr> 
-                <th>Vocï¿½ nï¿½o ï¿½ um administrador deste projeto:</th> 	
+                <th>Você não é um administrador deste projeto:</th> 	
 			</tr>	
 			<tr> 
                 <td CLASS="Estilo"><a href="#" onClick="geraGrafo();" >Gerar grafo deste projeto</a></td>
@@ -1039,7 +1039,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 <?php    
 }    
 ?>    
-<i><a href="showSource.php?file=main.php">Veja o cï¿½digo fonte!</a></i> 
+<i><a href="showSource.php?file=main.php">Veja o código fonte!</a></i> 
     </body> 
 
 </html> 

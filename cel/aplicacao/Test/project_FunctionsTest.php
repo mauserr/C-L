@@ -5,7 +5,7 @@ class project_FunctionsTest extends PHPUnit_Framework_TestCase{
 
 	public function setUp(){
 
-		$_SESSION['id_usuario_corrente'] = '2';
+		$_SESSION['id_usuario_corrente'] = '6';
 		ob_start();
 		ob_get_clean();
 
@@ -38,21 +38,34 @@ class project_FunctionsTest extends PHPUnit_Framework_TestCase{
 
 		removeProject($id_project);
 	}
+	
+	public function testInsertProjectWrongName(){
+	
+		try{
+			$id_project = include_project('//','Descrição');
+		}catch(Exception $e){
+			$this->assertEquals('O nome do projeto não pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |',$id_project);
+		}
+	
+		removeProject($id_project);
+	}
 
-	public function testRemoveProjectComplete(){
+	public function testRemoveProject(){
 
 		$id_project = include_project('ProjetoTeste','ProjetoTeste pitchu');
-
-		
 
 		try{
 			removeProject($id_project);
 		}catch(Exception $e){
 			$this->assertEquals('Projeto apagado com sucesso',$id_project);
 		}
-		
-
 	}
-
+	
+	public function testeCheck_project_permanentWrong(){
+		
+		
+		$id_project = '18';
+		$this->assertEquals('0',check_project_permanent('2','20'));
+	}
 }
 ?>

@@ -93,7 +93,7 @@ if (isset($submit)) {
                         nOK = padrao.exec(document.forms[0].name.value);
                         if (nOK)
                         {
-                            window.alert("O nome do projeto nïãoo pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
+                            window.alert("O nome do projeto não pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
                             document.forms[0].name.focus();
                             return false;
                         }

@@ -1,7 +1,7 @@
 <?php
-require_once '../bd.inc';
-require_once '../security.php';
-require_once '../bd_class.php';
+require_once '/../bd.inc';
+require_once '/../security.php';
+require_once '/../bd_class.php';
 
 ###################################################################
 # Insere um lexico no banco de dados.

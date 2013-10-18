@@ -294,7 +294,7 @@ if (isset($_POST['submit'])) {
                 </table>
             </form>
             <br>
-            <i><a href="showSource.php?file=add_usuario.php">Veja o cÃ³digo fonte!</a>
+            <i><a href="showSource.php?file=add_usuario.php">Veja o código fonte!</a>
             </i>
         </body>
     </html>
