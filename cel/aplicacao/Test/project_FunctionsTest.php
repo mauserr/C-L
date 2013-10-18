@@ -13,41 +13,46 @@ class project_FunctionsTest extends PHPUnit_Framework_TestCase{
 
 	public function testInsertProjectComplete(){
 
-		$object = include_project('Projetonlos','ProjetonDescriptionlos');
+		$id_project = include_project('Projetonlos','ProjetonDescriptionlos');
 
-		$this->assertNotNull(TRUE,$object);
-		removeProject($object);
+		$this->assertNotNull(TRUE,$id_project);
+		removeProject($id_project);
 	}
 
 	public function testInsertProjectOnlyName(){
 
-		$object = include_project('Projetonlos','');
+		$id_project = include_project('Projetonlos','');
 
-		$this->assertNotNull(TRUE,$object);
-		removeProject($object);
+		$this->assertNotNull(TRUE,$id_project);
+		removeProject($id_project);
 	}
 
 	public function testInsertProjectWithoutName(){
 
 		try{
-			$object = include_project('','');
+			$id_project = include_project('','');
 		}catch(Exception $e){
-			$this->assertEquals('Preencha o campo "Nome"',$object);
+			$this->assertEquals('Preencha o campo "Nome"',$id_project);
 		}
 
 
-		removeProject($object);
+		removeProject($id_project);
 	}
-/*
+
 	public function testRemoveProjectComplete(){
 
-		$object = include_project('ProjetoTeste','ProjetoTeste pitchu');
+		$id_project = include_project('ProjetoTeste','ProjetoTeste pitchu');
 
-		removeProject($object);
+		
 
-		$this->assertEquals('',$object);
+		try{
+			removeProject($id_project);
+		}catch(Exception $e){
+			$this->assertEquals('Projeto apagado com sucesso',$id_project);
+		}
+		
 
 	}
-*/
+
 }
 ?>
