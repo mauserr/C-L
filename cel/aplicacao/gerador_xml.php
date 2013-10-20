@@ -4,6 +4,7 @@ session_start();
 
 include("funcoes_genericas.php");
 include_once("coloca_links.php");
+include("Functions/recarrega.php");
 include("httprequest.inc");
 include_once("bd.inc");
 include_once("seguranca.php");

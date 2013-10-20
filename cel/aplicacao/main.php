@@ -3,6 +3,7 @@
 session_start();
 include_once("CELConfig/CELConfig.inc");
 require_once'/Functions/project_Functions.php';
+include("Functions/recarrega.php");
 
 //$_SESSION['site'] = 'http://pes.inf.puc-rio.br/pes03_1_1/Site/desenvolvimento/teste/';       
 //$_SESSION['site'] = 'http://139.82.24.189/cel_vf/aplicacao/teste/';
@@ -787,7 +788,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <th>Nome:</th><td CLASS="Estilo"><?=$result['nome']?></td> 
             </tr> 
             <tr> 
-                <th>Descrição:</th><td CLASS="Estilo"><?=nl2br($result['descricao'])?></td> 
+                <th>Descriï¿½ï¿½o:</th><td CLASS="Estilo"><?=nl2br($result['descricao'])?></td> 
             </tr> 
         </TABLE> 
         <BR> 
@@ -886,7 +887,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><?=simple_query("name", "project", "id_project = $id_project")?></td> 
             </tr> 
             <tr> 
-                <th>Data de criaçãoo:</th> 
+                <th>Data de criaï¿½ï¿½oo:</th> 
                 <?php    
                     $data = simple_query("date_creation", "project", "id_project = $id_project");    
                 ?>    
@@ -895,7 +896,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
             </tr> 
             <tr> 
-                <th>Descriçãoo:</th> 
+                <th>Descriï¿½ï¿½oo:</th> 
                 <td CLASS="Estilo"><?=nl2br(simple_query("description", "project", "id_project = $id_project"))?></td> 
             </tr> 
         </table> 
@@ -920,7 +921,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
         <br> 
         <table ALIGN=CENTER> 
             <tr> 
-                <th>Você é um administrador deste projeto:</th> 
+                <th>Vocï¿½ ï¿½ um administrador deste projeto:</th> 
 
 <?php    
 
@@ -1011,7 +1012,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><font size="1">*Para usar Ontologias Geradas pelo C&L: </font></td>               
             </TR>
             <TR> 
-                <td CLASS="Estilo">   <font size="1">Histórico em DAML da ontologia do projeto -> Botao Direito do Mouse -> Copiar Atalho</font></td>             
+                <td CLASS="Estilo">   <font size="1">Histï¿½rico em DAML da ontologia do projeto -> Botao Direito do Mouse -> Copiar Atalho</font></td>             
             </TR>
 		</table>
 
@@ -1023,7 +1024,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 	<br>
 	<table ALIGN=CENTER> 
             <tr> 
-                <th>Você não é um administrador deste projeto:</th> 	
+                <th>Vocï¿½ nï¿½o ï¿½ um administrador deste projeto:</th> 	
 			</tr>	
 			<tr> 
                 <td CLASS="Estilo"><a href="#" onClick="geraGrafo();" >Gerar grafo deste projeto</a></td>
@@ -1039,7 +1040,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 <?php    
 }    
 ?>    
-<i><a href="showSource.php?file=main.php">Veja o código fonte!</a></i> 
+<i><a href="showSource.php?file=main.php">Veja o cï¿½digo fonte!</a></i> 
     </body> 
 
 </html> 

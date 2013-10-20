@@ -6,6 +6,7 @@ require_once '/security.php'; //("security.php");
 require_once '/Functions/concept_Functions.php';
 require_once '/Functions/scenario_Functions.php';
 require_once '/Functions/lexicon_Functions.php';
+include("/Functions/recarrega.php");
 
 
 ###################################################################
@@ -34,21 +35,7 @@ if (!(function_exists("recarrega")))
     }
 }
 
-if (!(function_exists("breakpoint"))) 
-{
-    function breakpoint($num) 
-    {
-		?>
-		
-		<script language="javascript1.3">
-		
-		alert('<?=$num?>');
-		
-		</script>
-		
-		<?php
-    }
-}
+
 
 if (!(function_exists("simple_query")))
 {
