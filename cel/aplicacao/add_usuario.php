@@ -6,6 +6,7 @@ session_start();
 
 <?php
 include("funcoes_genericas.php");
+include("Functions/recarrega.php");
 include_once("bd.inc");
 
 $first_try = "true";
@@ -294,7 +295,7 @@ if (isset($_POST['submit'])) {
                 </table>
             </form>
             <br>
-            <i><a href="showSource.php?file=add_usuario.php">Veja o código fonte!</a>
+            <i><a href="showSource.php?file=add_usuario.php">Veja o cï¿½digo fonte!</a>
             </i>
         </body>
     </html>

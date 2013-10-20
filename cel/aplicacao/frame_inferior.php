@@ -2,6 +2,7 @@
 
     //session_start(); 
     require_once '/Functions/check_User.php';
+    include("Functions/recarrega.php");
     //include("funcoes_genericas.php"); 
 
     check_User("index.php");        // Cenario: controle de acesso 
@@ -32,7 +33,7 @@
 
             <table> 
             <tr> 
-              <th>Cenários</th> 
+              <th>Cenï¿½rios</th> 
             </tr> 
 
 <?php 
