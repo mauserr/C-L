@@ -4,10 +4,22 @@ require_once dirname(__FILE__).'/../Functions/project_Functions.php';
 
 class concept_FunctionsTeste extends PHPUnit_Framework_TestCase{
     
+    protected $id_concept;
+    protected $name;
+    protected $description;
+    protected $namespace;
+    protected $synonymous;
+    protected $current_id_user;
+    
     public function setUp(){
         
-//id usuario 2
-		
+        $this->id_concept= 1;
+        $this->name = "Name Test";
+        $this->description = "Description Test";
+        $this->namespace = "Namespace Test";
+        $this->justification = "Synonymous Test";
+        $this->current_id_user = "CLassification Test";
+       	
 	}
             
    public function testInsertRequestRemoveConcept(){
