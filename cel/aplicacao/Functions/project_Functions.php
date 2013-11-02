@@ -19,7 +19,10 @@ require_once'/../security.php';
 if (!(function_exists("include_project")))
 {
 	function include_project($name, $description)
-	{
+		{
+		assert($name != NULL);
+		assert($description != NULL);	
+		
 		$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 		$query_select_sql = "SELECT * FROM project WHERE name = '$name'";
 		$query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query de select<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -33,9 +36,9 @@ if (!(function_exists("include_project")))
 		
 			$id_project_repetead = $resultArray['id_project'];
 
-			$id_user_current = $_SESSION['id_usuario_corrente'];
+			$current_id_user = $_SESSION['current_id_user'];
 
-			$query_select_repeated_sql = "SELECT * FROM participates WHERE id_project = '$id_project_repetead' AND id_user = '$id_user_current' ";
+			$query_select_repeated_sql = "SELECT * FROM participates WHERE id_project = '$id_project_repetead' AND id_user = '$current_id_user' ";
 
 			$query_result_repeated_sql = mysql_query($query_select_repeated_sql) or die("Erro ao enviar a query de SELECT no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 
@@ -75,6 +78,12 @@ if (!(function_exists("include_project")))
 if (!(function_exists("check_project_permanent"))) {
 	function check_project_permanent($id_user, $id_project)
 	{
+		assert($id_user != NULL);
+		assert($id_project != NULL);
+		assert($id_user < 0);
+		assert($id_project < 0);
+		
+		
 		$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 		$query_select_sql = "SELECT *
 		FROM participates

@@ -826,7 +826,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                  <td CLASS="Estilo" height="40" valign=MIDDLE>                   
                 </th>
                 <td CLASS="Estilo"  valign=MIDDLE> 
-                    <a href="#" onClick="rmvRelacao(<?=$result['id_relacao']?>);">Remover Relaï¿½ï¿½o</a> 
+                    <a href="#" onClick="rmvRelacao(<?=$result['id_relacao']?>);">Remover Relaçãoo</a> 
                 </th> 
             </tr> 
 
@@ -845,13 +845,13 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
 
 <?php    
-    if ($t == "c")       { print "<h3>Cenï¿½rios que referenciam este cenï¿½rio</h3>";   
+    if ($t == "c")       { print "<h3>Cenários que referenciam este cenário</h3>";   
 
-    } elseif ($t == "l") { print "<h3>Cenï¿½rios e termos do lï¿½xico que referenciam este termo</h3>";   
+    } elseif ($t == "l") { print "<h3>Cenários e termos do léxico que referenciam este termo</h3>";   
 
-    } elseif ($t == "oc") { print "<h3>Relaï¿½ï¿½es do conceito</h3>";   
+    } elseif ($t == "oc") { print "<h3>Relações do conceito</h3>";   
 
-    } elseif ($t == "or") { print "<h3>Conceitos referentes ï¿½ relaï¿½ï¿½o</h3>";   
+    } elseif ($t == "or") { print "<h3>Conceitos referentes à relação</h3>";   
 
     } elseif ($t == "oa") { print "<h3>Axioma</h3>";   
 
@@ -875,7 +875,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
     // projeto que o usuario esteja cadastrado. Entretanto, como a passagem eh 
     // feita usando JavaScript (no heading.php), devemos checar se este id realmente 
     // corresponde a um projeto que o usuario tenha acesso (seguranca). 
-    check_project_permanent($_SESSION['id_usuario_corrente'], $id_project) or die("Permissao negada");    
+    check_project_permanent($_SESSION['current_id_user'], $id_project) or die("Permissao negada");    
 
     // Seta uma variavel de sessao correspondente ao projeto atual 
     $_SESSION['current_id_project'] = $id_project;    
@@ -887,7 +887,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><?=simple_query("name", "project", "id_project = $id_project")?></td> 
             </tr> 
             <tr> 
-                <th>Data de criaï¿½ï¿½oo:</th> 
+                <th>Data de criaçãoo:</th> 
                 <?php    
                     $data = simple_query("date_creation", "project", "id_project = $id_project");    
                 ?>    
@@ -896,7 +896,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
             </tr> 
             <tr> 
-                <th>Descriï¿½ï¿½oo:</th> 
+                <th>Descriçãoo:</th> 
                 <td CLASS="Estilo"><?=nl2br(simple_query("description", "project", "id_project = $id_project"))?></td> 
             </tr> 
         </table> 
@@ -915,13 +915,13 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 //            Caso contrï¿½rio, ver Usuï¿½rio escolhe Projeto. 
 
     // Verifica se o usuario eh administrador deste projeto 
-    if (is_admin($_SESSION['id_usuario_corrente'], $id_project)) {    
+    if (is_admin($_SESSION['current_id_user'], $id_project)) {    
 ?>    
 
         <br> 
         <table ALIGN=CENTER> 
             <tr> 
-                <th>Vocï¿½ ï¿½ um administrador deste projeto:</th> 
+                <th>Você é um administrador deste projeto:</th> 
 
 <?php    
 
@@ -948,10 +948,10 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
             </TR>
             
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="addUsuario();">Adicionar usuï¿½rio (nï¿½o cadastrado) neste projeto</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="addUsuario();">Adicionar usuário (não cadastrado) neste projeto</a></td> 
             </TR> 
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="relUsuario();">Adicionar usuï¿½rios jï¿½ existentes neste projeto</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="relUsuario();">Adicionar usuários já existentes neste projeto</a></td> 
             </TR>   
             
             <TR> 
@@ -959,17 +959,17 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
             </TR> 
             
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoCenario();">Verificar pedidos de alteraï¿½ï¿½o de Cenï¿½rios</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="pedidoCenario();">Verificar pedidos de alteração de Cenários</a></td> 
             </TR> 
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoLexico();">Verificar pedidos de alteraï¿½ï¿½o de termos do Lï¿½xico</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="pedidoLexico();">Verificar pedidos de alteraçaode termos do Léxico</a></td> 
             </TR>
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoConceito();">Verificar pedidos de alteraï¿½ï¿½o de Conceitos</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="pedidoConceito();">Verificar pedidos de alteração de Conceitos</a></td> 
             </TR> 
             
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoRelacao();">Verificar pedidos de alteraï¿½ï¿½o de Relaï¿½ï¿½es</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="pedidoRelacao();">Verificar pedidos de alteração de Relações</a></td> 
             </TR>
    
        
@@ -997,7 +997,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><a href="#" onClick="geraDAML();">Gerar DAML da ontologia do projeto</a></td> 
             </TR> 
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="recuperaDAML();">Histï¿½rico em DAML da ontologia do projeto</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="recuperaDAML();">Histórico em DAML da ontologia do projeto</a></td> 
             </TR>           
             <TR> 
                 <td CLASS="Estilo"><a href="http://www.daml.org/validator/" target="new">*Validador de Ontologias na Web</a></td> 
@@ -1040,7 +1040,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 <?php    
 }    
 ?>    
-<i><a href="showSource.php?file=main.php">Veja o cï¿½digo fonte!</a></i> 
+<i><a href="showSource.php?file=main.php">Veja o código fonte!</a></i> 
     </body> 
 
 </html> 

@@ -57,7 +57,7 @@ function updateMenu() {
 if (isset($id_project)) {   
 
     //Do a check of security,because of the data passed throug javascript
-    check_project_permanent($_SESSION['id_usuario_corrente'], $id_project) or die("Permissao negada");
+    check_project_permanent($_SESSION['current_id_user'], $id_project) or die("Permissao negada");
 ?>
 
 function setProjectSelected() {
@@ -117,13 +117,13 @@ function novoLexico() {
 				             if (isset($id_project))
 				             {
 				             ?>
-				                var url = 'add_lexico.php?id_project=' + '<?=$id_project?>';
+				                var url = 'add_lexicon.php?id_project=' + '<?=$id_project?>';
 				             <?php
 				             }
 				             else
 				             {
 				             ?>
-				               var url = 'add_lexico.php';
+				               var url = 'add_lexicon.php';
 				             <?php
 				             }
 
@@ -218,7 +218,7 @@ $query_select_sql = "SELECT p.id_project, p.name, pa.manager
       FROM user u, participates pa, project p
       WHERE u.id_user = pa.id_user
       AND pa.id_project = p.id_project
-      AND pa.id_user = " . $_SESSION["id_usuario_corrente"] . "
+      AND pa.id_user = " . $_SESSION["current_id_user"] . "
       ORDER BY p.name";
 
 $query_result_sql = mysql_query($query_select_sql) or die("Erro ao executar query");

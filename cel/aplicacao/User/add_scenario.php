@@ -13,6 +13,7 @@ require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/funcoes_genericas.php';
 require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/httprequest.inc';
 require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/bd.inc';
 require_once 'C:/xampp/htdocs/C-L/cel/aplicacao/Functions/scenario_Functions.php'; 
+require_once '/../Functions/check_User.php';
 
 // Scenario -  Insert Scenario
 
@@ -62,7 +63,7 @@ if (isset($_POST['submit'])) {
 
 $objective = $_POST['objetivo'];
 $context = $_POST['contexto'];
-$authors = $_POST['atores'];
+$actors = $_POST['atores'];
 $resource = $_POST['recursos'];
 $exception = $_POST['excecao'];
 $episodes = $_POST['episodios'];
@@ -74,7 +75,7 @@ if ($confirm == true)
 	$title     = str_replace( ">" , " " , str_replace ( "<" , " " , $title     ) ) ;
 	$objective   = str_replace( ">" , " " , str_replace ( "<" , " " , $objective   ) ) ;
 	$context   = str_replace( ">" , " " , str_replace ( "<" , " " , $context   ) ) ;
-	$authors     = str_replace( ">" , " " , str_replace ( "<" , " " , $authors     ) ) ;
+	$actors     = str_replace( ">" , " " , str_replace ( "<" , " " , $actors     ) ) ;
 	$resource   = str_replace( ">" , " " , str_replace ( "<" , " " , $resource   ) ) ;
 	$exception    = str_replace( ">" , " " , str_replace ( "<" , " " , $exception    ) ) ;
 	$episodes  = str_replace( ">" , " " , str_replace ( "<" , " " , $episodes  ) ) ;
@@ -84,7 +85,7 @@ if ($confirm == true)
 			$title,
 			$objective,
 			$context,
-			$authors,
+			$actors,
 			$resource,
 			$exception,
 			$episodes,

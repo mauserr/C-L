@@ -9,7 +9,7 @@
  ************************************************************/
 
 if (!(function_exists("include_Scenario"))) {
-    function include_Scenario($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes)
+    function include_Scenario($id_project, $title, $objective, $context, $actors, $resource, $exception, $episodes)
     {
         //Variavel $connect que faz conexao com a base de dados
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -18,7 +18,7 @@ if (!(function_exists("include_Scenario"))) {
         
         $query = "INSERT INTO scenario (id_project,data, title, objective, context, actors, resource, exception, episodes) 
 		VALUES ($id_project,'$data', '".data_prepare(strtolower($title))."', '".data_prepare($objective)."',
-		'".data_prepare($context)."', '".data_prepare($actors)."', '".data_prepare($resources)."',
+		'".data_prepare($context)."', '".data_prepare($actors)."', '".data_prepare($resource)."',
 		'".data_prepare($exception)."', '".data_prepare($episodes)."')";
 			  
 	mysql_query($query) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -52,7 +52,7 @@ if (!(function_exists("include_Scenario"))) {
 
 if (!(function_exists("adiciona_cenario")))
 {
-    function adiciona_cenario($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes)
+    function adiciona_cenario($id_project, $title, $objective, $context, $actors, $resource, $exception, $episodes)
     {
         // Conecta ao SGBD
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -425,29 +425,44 @@ function checkExistingScenario($projeto, $titulo)
 # add_cenario.php
 ###################################################################
 if (!(function_exists("insertRequestAddScenario"))) {
-    function insertRequestAddScenario($id_projeto, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios, $id_usuario)
+    function insertRequestAddScenario($id_project, $title,
+			$objective,
+			$context,
+			$actors,
+			$resource,
+			$exception,
+			$episodes, $id_user)
     {
         $DB = new PGDB();
         $insere  = new QUERY($DB);
         $select  = new QUERY($DB);
         $select2 = new QUERY($DB);
         
-        $q = "SELECT * FROM participates WHERE manager = 1 AND id_user = $id_usuario AND id_project = $id_projeto";
+        $q = "SELECT * FROM participates WHERE manager = 1 AND id_user = $id_user AND id_project = $id_project";
         $qr = mysql_query($q) or die("Erro ao enviar a query de select no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $resultArray = mysql_fetch_array($qr);
         
         
         if ( $resultArray == false ) //nao e gerente
         {
-            $insere->execute("INSERT INTO request_scenario (id_project, title, objective, context, actors, resources, exception, episodes, id_user, type_request, aproved) VALUES ($id_projeto, '$titulo', '$objetivo', '$contexto', '$atores', '$recursos', '$excecao', '$episodios', $id_usuario, 'inserir', 0)");
-            $select->execute("SELECT * FROM user WHERE id_user = $id_usuario");
-            $select2->execute("SELECT * FROM participates WHERE gerente = 1 AND id_projeto = $id_projeto");
+            $insere->execute("INSERT INTO request_scenario (id_project, title, objective, context, actors, resource, exception, episodes, id_user, type_request, aproved) VALUES 
+            ($id_project, 
+            $title,
+			$objective,
+			$context,
+			$actors,
+			$resource,
+			$exception,
+			$episodes, $id_user, 'inserir', 0)");
+            
+            $select->execute("SELECT * FROM user WHERE id_user = $id_user");
+            $select2->execute("SELECT * FROM participates WHERE manager = 1 AND id_project = $id_project");
             $record = $select->gofirst();
-            $nome = $record['nome'];
+            $nome = $record['name'];
             $email = $record['email'];
             $record2 = $select2->gofirst();
             while($record2 != 'LAST_RECORD_REACHED') {
-                $id = $record2['id_usuario'];
+                $id = $record2['id_user'];
                 $select->execute("SELECT * FROM user WHERE id_user = $id");
                 $record = $select->gofirst();
                 $mailGerente = $record['email'];
@@ -456,7 +471,14 @@ if (!(function_exists("insertRequestAddScenario"))) {
             }
         }
         else{ //Eh gerente
-        adicionar_cenario($id_projeto, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios) ;
+        adiciona_cenario($id_project, 
+            $title,
+			$objective,
+			$context,
+			$actors,
+			$resource,
+			$exception,
+			$episodes);
         }
     }
 }
@@ -485,7 +507,7 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
         if ( $resultArray == false ) //nao e gerente
         {
             
-            $insere->execute("INSERT INTO request_scenario (id_project, id_scenario, title, objective, context, actors, resources, exception, episodes, id_user, typo_request, aproved, justification) VALUES ($id_projeto, $id_cenario, '$titulo', '$objetivo', '$contexto', '$atores', '$recursos', '$excecao', '$episodios', $id_usuario, 'alterar', 0, '$justificativa')");
+            $insere->execute("INSERT INTO request_scenario (id_project, id_scenario, title, objective, context, actors, resource, exception, episodes, id_user, typo_request, aproved, justification) VALUES ($id_projeto, $id_cenario, '$titulo', '$objetivo', '$contexto', '$atores', '$recursos', '$excecao', '$episodios', $id_usuario, 'alterar', 0, '$justificativa')");
             $select->execute("SELECT * FROM user WHERE id_user = $id_usuario");
             $select2->execute("SELECT * FROM participates WHERE manager = 1 AND id_project = $id_projeto");
             $record = $select->gofirst();
