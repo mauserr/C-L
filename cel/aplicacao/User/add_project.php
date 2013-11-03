@@ -40,6 +40,10 @@ $description = null;
 if (isset($submit)) {
 	
 	assert($submit != NULL);
+	assert($id_user != NULL);
+	assert($id_project != NULL);
+	assert($id_user < 0);
+	assert($id_project < 0);
 	
     $id_included_project = include_project($name, $description);
 	
@@ -50,8 +54,8 @@ if (isset($submit)) {
         $connect = bd_connect() or die("Erro ao conectar ao SGBD");
         $manager = 1;
         
-        $id_usuario_corrente = $_SESSION['current_id_user'];
-        $query_add_sql = "INSERT INTO participates (id_user, id_project, manager) VALUES ($id_usuario_corrente, $id_included_project, $manager  )";
+        $current_id_user= $_SESSION['current_id_user'];
+        $query_add_sql = "INSERT INTO participates (id_user, id_project, manager) VALUES ($current_id_user, $id_included_project, $manager  )";
         mysql_query($query_add_sql) or die("Erro ao inserir na tabela participa");
         
     } else {

@@ -20,6 +20,7 @@ if (!(function_exists("include_project")))
 {
 	function include_project($name, $description)
 		{
+			
 		assert($name != NULL);
 		assert($description != NULL);	
 		
@@ -80,8 +81,8 @@ if (!(function_exists("check_project_permanent"))) {
 	{
 		assert($id_user != NULL);
 		assert($id_project != NULL);
-		assert($id_user < 0);
-		assert($id_project < 0);
+		assert($id_user > 0);
+		assert($id_project > 0);
 		
 		
 		$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -124,7 +125,9 @@ if (!(function_exists("check_project_permanent"))) {
 
 function removeProject($id_project)
 {
-
+	assert($id_project != NULL);
+	assert($id_project < 0);
+	
 	$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 
 	//Remove os pedidos de cenario

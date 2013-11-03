@@ -5,13 +5,11 @@ include_once("CELConfig/CELConfig.inc");
 require_once'/Functions/project_Functions.php';
 include("Functions/recarrega.php");
 
-//$_SESSION['site'] = 'http://pes.inf.puc-rio.br/pes03_1_1/Site/desenvolvimento/teste/';       
-//$_SESSION['site'] = 'http://139.82.24.189/cel_vf/aplicacao/teste/';
+
 /* URL do diretorio contendo os arquivos de DAML */
 $_SESSION['site'] = "http://" . CELConfig_ReadVar("HTTPD_ip") . "/" . CELConfig_ReadVar("CEL_dir_relativo") . CELConfig_ReadVar("DAML_dir_relativo_ao_CEL") ;
 
-//$_SESSION['diretorio'] = "/home/local/pes/pes03_1_1/Site/desenvolvimento/teste/";        
-//$_SESSION['diretorio'] = "teste/";        
+     
 /* Caminho relativo ao CEL do diretorio contendo os arquivos de DAML */
 $_SESSION['diretorio'] = CELConfig_ReadVar("DAML_dir_relativo_ao_CEL") ;
 
@@ -948,7 +946,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
             </TR>
             
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="addUsuario();">Adicionar usuário (não cadastrado) neste projeto</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="add_usuario.php();">Adicionar usuário (não cadastrado) neste projeto</a></td> 
             </TR> 
             <TR> 
                 <td CLASS="Estilo"><a href="#" onClick="relUsuario();">Adicionar usuários já existentes neste projeto</a></td> 
@@ -1012,7 +1010,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><font size="1">*Para usar Ontologias Geradas pelo C&L: </font></td>               
             </TR>
             <TR> 
-                <td CLASS="Estilo">   <font size="1">Histï¿½rico em DAML da ontologia do projeto -> Botao Direito do Mouse -> Copiar Atalho</font></td>             
+                <td CLASS="Estilo">   <font size="1">Histórico em DAML da ontologia do projeto -> Botao Direito do Mouse -> Copiar Atalho</font></td>             
             </TR>
 		</table>
 

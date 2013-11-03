@@ -11,7 +11,7 @@ if (!(function_exists("recarrega")))
     function recarrega($url) 
     {
 		?>
-		
+		assert($url != NULL );
 		<script language="javascript1.3">
 		
 		location.replace('<?=$url?>');
