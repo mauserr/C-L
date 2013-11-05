@@ -12,11 +12,11 @@ include_once("bd.inc");
 $first_try = "true";
 
 include("httprequest.inc");
-$name = null;
-$email = null;
-$login = null;
-$password = null;
-$psw_conf = null;
+//$name = null;
+//$email = null;
+//$login = null;
+//$password = null;
+//$psw_conf = null;
 if (isset($_POST['submit'])) { 
     
     $first_try = "false";

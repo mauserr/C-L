@@ -5,7 +5,7 @@ class project_FunctionsTest extends PHPUnit_Framework_TestCase{
 
 	public function setUp(){
 
-		$_SESSION['id_usuario_corrente'] = '6';
+		$_SESSION['current_id_user'] = '6';
 		ob_start();
 		ob_get_clean();
 
@@ -21,18 +21,19 @@ class project_FunctionsTest extends PHPUnit_Framework_TestCase{
 
 	public function testInsertProjectOnlyName(){
 
-		$id_project = include_project('Projetonlos','');
+		$id_project = include_project('Projesterona','');
 
 		$this->assertNotNull(TRUE,$id_project);
 		removeProject($id_project);
 	}
 
 	public function testInsertProjectWithoutName(){
-
+		
+		
 		try{
 			$id_project = include_project('','');
 		}catch(Exception $e){
-			$this->assertEquals('Preencha o campo "Nome"',$id_project);
+			$this->assertEquals('Preencha o campo "Nome"', $id_project);
 		}
 
 

@@ -247,7 +247,7 @@ CREATE TABLE `participates` (
 
 DROP TABLE IF EXISTS `request_scenario`;
 CREATE TABLE `request_scenario` (
-  `id_request` int(11) NOT NULL auto_increment,
+  `id_request_scenario` int(11) NOT NULL auto_increment,
   `id_user` int(11) NOT NULL default '0',
   `id_project` int(11) NOT NULL default '0',
   `type_request` varchar(7) NOT NULL default '',
@@ -262,7 +262,7 @@ CREATE TABLE `request_scenario` (
   `justification` text,
   `id_status` int(1) default NULL,
   `exception` text,
-  PRIMARY KEY  (`id_request`)
+  PRIMARY KEY  (`id_request_scenario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- 
@@ -277,7 +277,7 @@ CREATE TABLE `request_scenario` (
 
 DROP TABLE IF EXISTS `request_concept`;
 CREATE TABLE `request_concept` (
-  `id_request` int(11) NOT NULL auto_increment,
+  `id_request_concept` int(11) NOT NULL auto_increment,
   `id_user` int(11) NOT NULL default '0',
   `id_project` int(11) NOT NULL default '0',
   `type_request` varchar(7) NOT NULL default '',
@@ -288,7 +288,7 @@ CREATE TABLE `request_concept` (
   `namespace` text NOT NULL,
   `justification` text,
   `id_status` int(1) default NULL,
-  PRIMARY KEY  (`id_request`)
+  PRIMARY KEY  (`id_request_concept`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- 
@@ -304,7 +304,7 @@ CREATE TABLE `request_concept` (
 
 DROP TABLE IF EXISTS `request_lexicon`;
 CREATE TABLE `request_lexicon` (
-  `id_request` int(11) NOT NULL auto_increment,
+  `id_request_lexicon` int(11) NOT NULL auto_increment,
   `id_user` int(11) NOT NULL default '0',
   `id_project` int(11) NOT NULL default '0',
   `type_request` varchar(7) NOT NULL default '',
@@ -316,7 +316,7 @@ CREATE TABLE `request_lexicon` (
   `justification` text,
   `id_status` int(1) default NULL,
   `type` varchar(20) default NULL,
-  PRIMARY KEY  (`id_request`)
+  PRIMARY KEY  (`id_request_lexicon`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- 
@@ -333,7 +333,7 @@ CREATE TABLE `request_lexicon` (
 
 DROP TABLE IF EXISTS `request_relation`;
 CREATE TABLE `request_relation` (
-  `id_request` int(11) NOT NULL auto_increment,
+  `id_request_relation` int(11) NOT NULL auto_increment,
   `id_user` int(11) NOT NULL default '0',
   `id_project` int(11) NOT NULL default '0',
   `type_request` varchar(7) NOT NULL default '',
@@ -342,7 +342,7 @@ CREATE TABLE `request_relation` (
   `name` varchar(255) NOT NULL default '',
   `justification` text,
   `id_status` int(1) default NULL,
-  PRIMARY KEY  (`id_request`)
+  PRIMARY KEY  (`id_request_relation`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- 

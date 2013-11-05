@@ -21,6 +21,9 @@ include_once("CELConfig/CELConfig.inc");
 
         $id_project = $_SESSION['current_id_project'];
         
+        assert($id_project != NULL);
+        assert($id_project > 0);
+        
         removeProject($id_project);    
 ?>
 <html>

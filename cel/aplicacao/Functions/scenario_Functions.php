@@ -57,11 +57,11 @@ if (!(function_exists("adiciona_cenario")))
         // Conecta ao SGBD
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         // Inclui o cenario na base de dados (sem transformar os campos, sem criar os relacionamentos)
-        $id_incluido = include_scenario($id_projeto, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios);
+        $id_incluido = include_scenario($id_project, $title, $objective, $context, $actors, $resource, $exception, $episodes);
         
         $q = "SELECT id_scenario, title, context, episodes
               FROM scenario
-              WHERE id_project = $id_projeto
+              WHERE id_project = $id_project
               AND id_scenario != $id_incluido
               ORDER BY CHAR_LENGTH(title) DESC";
         $qrr = mysql_query($q) or die("Erro ao enviar a query de SELECT<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -75,7 +75,7 @@ if (!(function_exists("adiciona_cenario")))
         while ($result = mysql_fetch_array($qrr)) 
         {    // Para todos os cenarios
         
-        	$tituloEscapado = escape_metacharacter( $titulo );
+        	$tituloEscapado = escape_metacharacter( $title );
 			$regex = "/(\s|\b)(" . $tituloEscapado . ")(\s|\b)/i"; 
 	                
 	        if((preg_match($regex, $result['context']) != 0) ||
@@ -90,8 +90,8 @@ if (!(function_exists("adiciona_cenario")))
 			$tituloEscapado = escape_metacharacter( $result['title'] );
         	$regex = "/(\s|\b)(" . $tituloEscapado . ")(\s|\b)/i";        
       
-        	if((preg_match($regex, $contexto) != 0) ||
-         		(preg_match($regex, $episodios) != 0) ) 
+        	if((preg_match($regex, $context) != 0) ||
+         		(preg_match($regex, $episodes) != 0) ) 
          	{   // (2.3)        
         
         		$q = "INSERT INTO scenario_to_scenario (id_scenario_from, id_scenario_to) VALUES ($id_incluido, " . $result['id_scenario'] . ")"; //(2.4.1)
@@ -104,7 +104,7 @@ if (!(function_exists("adiciona_cenario")))
         // Verifica a ocorrencia do nome de todos os lexicos nos campos titulo, objetivo,
         // contexto, atores, recursos, episodios e excecao do cenario incluido 
       
-        $q = "SELECT id_lexicon, name FROM lexicon WHERE id_project = $id_projeto";
+        $q = "SELECT id_lexicon, name FROM lexicon WHERE id_project = $id_project";
         $qrr = mysql_query($q) or die("Erro ao enviar a query de SELECT 3<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         while ($result2 = mysql_fetch_array($qrr)) 
         {    // (3)
@@ -121,7 +121,7 @@ if (!(function_exists("adiciona_cenario")))
 	            (preg_match($regex, $excecao) != 0) ) 
 	        {   // (3.2)
 	                
-		        $qCen = "SELECT * FROM centolex WHERE id_cenario = $id_incluido AND id_lexico = " . $result2['id_lexico'];
+		        $qCen = "SELECT * FROM scenario_to_lexicon WHERE id_scenario = $id_incluido AND id_lexicon = " . $result2['id_lexicon'];
 		        $qrCen = mysql_query($qCen) or die("Erro ao enviar a query de select no centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 		        $resultArrayCen = mysql_fetch_array($qrCen);
 	        
@@ -138,7 +138,7 @@ if (!(function_exists("adiciona_cenario")))
         // contexto, atores, recursos, episodios e excecao do cenario incluido
       	//Sinonimos
                 
-        $qSinonimos = "SELECT name, id_lexicon FROM synonym WHERE id_project = $id_projeto AND id_pedidolex = 0";
+        $qSinonimos = "SELECT name, id_lexicon FROM synonym WHERE id_project = $id_project AND id_request_lexicon = 0 ";
         
         $qrrSinonimos = mysql_query($qSinonimos) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
@@ -149,15 +149,15 @@ if (!(function_exists("adiciona_cenario")))
         while($rowSinonimo = mysql_fetch_array($qrrSinonimos))
         {
             
-            $nomesSinonimos[]     = $rowSinonimo["nome"];
-            $id_lexicoSinonimo[]  = $rowSinonimo["id_lexico"];
+            $nomesSinonimos[]     = $rowSinonimo["name"];
+            $id_lexicoSinonimo[]  = $rowSinonimo["id_lexicon"];
             
         }
       
-        $qlc = "SELECT id_cenario, titulo, contexto, episodios, objetivo, atores, recursos, excecao
-              FROM cenario
-              WHERE id_projeto = $id_projeto
-              AND id_cenario = $id_incluido";
+        $qlc = "SELECT id_scenario, title, context, episodes, objetive, actors, resources, exception
+              FROM scenario
+              WHERE id_project = $id_project
+              AND id_scenario = $id_incluido";
         $count = count($nomesSinonimos);
         for ($i = 0; $i < $count; $i++)
         {
@@ -211,13 +211,13 @@ if (!(function_exists("removeCenario"))) {
                
         # Remove o relacionamento entre o cenario a ser removido
         # e outros cenarios que o referenciam
-        $sql1->execute ("DELETE FROM centocen WHERE id_cenario_from = $id_cenario") ;
-        $sql2->execute ("DELETE FROM centocen WHERE id_cenario_to = $id_cenario") ;
+        $sql1->execute ("DELETE FROM centocen WHERE id_scenario_from = $id_cenario") ;
+        $sql2->execute ("DELETE FROM centocen WHERE id_scenario_to = $id_cenario") ;
         # Remove o relacionamento entre o cenario a ser removido
         # e o seu lexico
-        $sql3->execute ("DELETE FROM centolex WHERE id_cenario = $id_cenario") ;
+        $sql3->execute ("DELETE FROM centolex WHERE id_scenario = $id_cenario") ;
         # Remove o cenario escolhido
-        $sql4->execute ("DELETE FROM cenario WHERE id_cenario = $id_cenario") ;
+        $sql4->execute ("DELETE FROM cenario WHERE id_scenario = $id_cenario") ;
         
     }
     

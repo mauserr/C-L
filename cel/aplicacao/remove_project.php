@@ -24,7 +24,12 @@ include("httprequest.inc");
 <?php
       
         $id_project = $_SESSION['current_id_project'];
-        $id_user = $_SESSION['id_usuario_corrente'];
+        $id_user = $_SESSION['current_id_user'];
+        
+        assert($id_project != NULL);
+        assert($id_project > 0);
+        assert($id_user != NULL);
+        assert($id_user > 0);
       
         $connect = bd_connect() or die("Erro ao conectar ao SGBD");  
         $query_select_sql = "SELECT * FROM project WHERE id_project = '$id_project' "; 
@@ -60,7 +65,7 @@ include("httprequest.inc");
   <center><a href="remove_project_base.php">Apagar o projeto</a></center> 
 </p>
 <p>
-  <i><a href="showSource.php?file=remove_projeto.php">Veja o código fonte!</a></i> 
+  <i><a href="showSource.php?file=remove_project.php">Veja o código fonte!</a></i> 
 </p>
 </body>
 </html>

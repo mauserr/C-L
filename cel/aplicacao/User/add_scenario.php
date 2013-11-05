@@ -185,7 +185,7 @@ context   = form.context.value;
 	if ( $sucess == "s" )
 	{
 		?>
-	<p style="color: blue; font-weight: bold; text-align: center">Cenï¿½rio
+	<p style="color: blue; font-weight: bold; text-align: center">Cenário
 		inserido com sucesso!</p>
 	<?php    
 	}
