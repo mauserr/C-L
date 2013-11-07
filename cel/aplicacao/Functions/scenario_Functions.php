@@ -11,6 +11,10 @@
 if (!(function_exists("include_Scenario"))) {
     function include_Scenario($id_project, $title, $objective, $context, $actors, $resource, $exception, $episodes)
     {
+        
+        assert($id_project != Null);
+        assert($title != Null);
+
         //Variavel $connect que faz conexao com a base de dados
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
@@ -202,7 +206,13 @@ if (!(function_exists("adiciona_cenario")))
 # links e relacionamentos existentes.
 ###################################################################
 if (!(function_exists("removeCenario"))) {
-    function removeCenario($id_projeto,$id_cenario){
+    function removeScenario($id_project,$id_scenario){
+        
+        assert($id_project != Null);
+        assert($id_project < 0);
+        assert($id_scenario != Null);
+        assert($id_scenario < 0);
+        
         $DB = new PGDB () ;
         $sql1 = new QUERY ($DB) ;
         $sql2 = new QUERY ($DB) ;
@@ -395,7 +405,7 @@ if (!(function_exists("alteraCenario")))
 # no projeto (1.2)
 # retorna true caso nao exista ou false caso exista (1.3)
 ###################################################################
-function checkExistingScenario($projeto, $titulo)
+function checkExistingScenario($project, $title)
 {
     $naoexiste = false;
     
@@ -438,9 +448,9 @@ if (!(function_exists("insertRequestAddScenario"))) {
         $select  = new QUERY($DB);
         $select2 = new QUERY($DB);
         
-        $q = "SELECT * FROM participates WHERE manager = 1 AND id_user = $id_user AND id_project = $id_project";
-        $qr = mysql_query($q) or die("Erro ao enviar a query de select no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        $resultArray = mysql_fetch_array($qr);
+        $query_sql = "SELECT * FROM participates WHERE manager = 1 AND id_user = $id_user AND id_project = $id_project";
+        $query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query de select no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $resultArray = mysql_fetch_array($query_result_sql);
         
         
         if ( $resultArray == false ) //nao e gerente
@@ -507,11 +517,11 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
         if ( $resultArray == false ) //nao e gerente
         {
             
-            $insere->execute("INSERT INTO request_scenario (id_project, id_scenario, title, objective, context, actors, resource, exception, episodes, id_user, typo_request, aproved, justification) VALUES ($id_projeto, $id_cenario, '$titulo', '$objetivo', '$contexto', '$atores', '$recursos', '$excecao', '$episodios', $id_usuario, 'alterar', 0, '$justificativa')");
-            $select->execute("SELECT * FROM user WHERE id_user = $id_usuario");
-            $select2->execute("SELECT * FROM participates WHERE manager = 1 AND id_project = $id_projeto");
+            $insere->execute("INSERT INTO request_scenario (id_project, id_scenario, title, objective, context, actors, resources, exception, episodes, id_user, typo_request, aproved, justification) VALUES ($id_project, $id_scenario, '$title', '$objective', '$context', '$actors', '$resources', '$exception', '$episodes', $id_user, 'alterar', 0, '$justification')");
+            $select->execute("SELECT * FROM user WHERE id_user = $id_user");
+            $select2->execute("SELECT * FROM participates WHERE manager = 1 AND id_project = $id_project");
             $record = $select->gofirst();
-            $nome = $record['nome'];
+            $name = $record['nome'];
             $email = $record['email'];
             $record2 = $select2->gofirst();
             while($record2 != 'LAST_RECORD_REACHED') {
@@ -519,13 +529,13 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
                 $select->execute("SELECT * FROM user WHERE id_user = $id");
                 $record = $select->gofirst();
                 $mailGerente = $record['email'];
-                mail("$mailGerente", "Pedido de Altera��o Cen�rio", "O usuario do sistema $nome\nPede para alterar o cenario $titulo \nObrigado!","From: $nome\r\n"."Reply-To: $email\r\n");
+                mail("$mailGerente", "Pedido de Altera��o Cen�rio", "O usuario do sistema $name\nPede para alterar o cenario $title \nObrigado!","From: $name\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
             }
         }
         else{ //Eh gerente
         
-        alteraCenario($id_projeto, $id_cenario, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios) ;
+        alteraCenario($id_project, $id_scenario, $title, $objective, $context, $actors, $resources, $exception, $episodes) ;
         
         }
     }
@@ -541,7 +551,7 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
 # rmv_cenario.php
 ###################################################################
 if (!(function_exists("inserirPedidoRemoverCenario"))) {
-    function inserirPedidoRemoverCenario($id_projeto, $id_cenario, $id_usuario) {
+    function inserirPedidoRemoverCenario($id_project, $id_scenario, $id_user) {
         $DB = new PGDB();
         $insere = new QUERY($DB);
         $select = new QUERY($DB);
@@ -553,27 +563,27 @@ if (!(function_exists("inserirPedidoRemoverCenario"))) {
 		
 		if( $resultArray == false ) //Nao e gerente
 		{
-			$select->execute("SELECT * FROM cenario WHERE id_cenario = $id_cenario");
-	        $cenario = $select->gofirst();
-	        $titulo = $cenario['titulo'];
-	        $insere->execute("INSERT INTO pedidocen (id_projeto, id_cenario, titulo, id_usuario, tipo_pedido, aprovado) VALUES ($id_projeto, $id_cenario, '$titulo', $id_usuario, 'remover', 0)");
-	        $select->execute("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
-	        $select2->execute("SELECT * FROM participa WHERE gerente = 1 AND id_projeto = $id_projeto");
+			$select->execute("SELECT * FROM cenario WHERE id_cenario = $id_scenario");
+	        $scenario = $select->gofirst();
+	        $title = $scenario['titulo'];
+	        $insere->execute("INSERT INTO pedidocen (id_project, id_scenario, title, id_user, request_type, aprove) VALUES ($id_project, $id_scenario, '$title', $id_user, 'remover', 0)");
+	        $select->execute("SELECT * FROM usuario WHERE id_usuario = $id_user");
+	        $select2->execute("SELECT * FROM participa WHERE gerente = 1 AND id_projeto = $id_project");
 	        $record = $select->gofirst();
-	        $nome = $record['nome'];
+	        $name = $record['nome'];
 	        $email = $record['email'];
 	        $record2 = $select2->gofirst();
 	        while($record2 != 'LAST_RECORD_REACHED') 
 			{
-	            $id = $record2['id_usuario'];
+	            $id = $record2['id_user'];
 	            $select->execute("SELECT * FROM usuario WHERE id_usuario = $id");
 	            $record = $select->gofirst();
 	            $mailGerente = $record['email'];
-	            mail("$mailGerente", "Pedido de Remover Cen�rio", "O usuario do sistema $nome\nPede para remover o cenario $id_cenario \nObrigado!", "From: $nome\r\n" . "Reply-To: $email\r\n");
+	            mail("$mailGerente", "Pedido de Remover Cen�rio", "O usuario do sistema $name\nPede para remover o cenario $id_scenario \nObrigado!", "From: $name\r\n" . "Reply-To: $email\r\n");
 	            $record2 = $select2->gonext();
 	        }
 		}else{
-			removeCenario($id_projeto,$id_cenario);
+			removeCenario($id_project,$id_scenario);
 		}
     }
 }
