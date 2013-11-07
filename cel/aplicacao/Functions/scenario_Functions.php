@@ -56,14 +56,14 @@ if (!(function_exists("include_Scenario"))) {
 
 if (!(function_exists("adiciona_cenario")))
 {
-    function adiciona_cenario($id_project, $title, $objective, $context, $actors, $resource, $exception, $episodes)
+    function adiciona_cenario($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes)
     {
         // Conecta ao SGBD
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         // Inclui o cenario na base de dados (sem transformar os campos, sem criar os relacionamentos)
-        $id_incluido = include_scenario($id_project, $title, $objective, $context, $actors, $resource, $exception, $episodes);
+        $id_incluido = include_scenario($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes);
         
-        $q = "SELECT id_scenario, title, context, episodes
+        $query_sql = "SELECT id_scenario, title, context, episodes
               FROM scenario
               WHERE id_project = $id_project
               AND id_scenario != $id_incluido
@@ -98,9 +98,9 @@ if (!(function_exists("adiciona_cenario")))
          		(preg_match($regex, $episodes) != 0) ) 
          	{   // (2.3)        
         
-        		$q = "INSERT INTO scenario_to_scenario (id_scenario_from, id_scenario_to) VALUES ($id_incluido, " . $result['id_scenario'] . ")"; //(2.4.1)
+        		$query_sql = "INSERT INTO scenario_to_scenario (id_scenario_from, id_scenario_to) VALUES ($id_incluido, " . $result['id_scenario'] . ")"; //(2.4.1)
         
-        		mysql_query($q) or die("Erro ao enviar a query de insert no centocen<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__); 
+        		mysql_query($query_sql) or die("Erro ao enviar a query de insert no centocen<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__); 
         	}   // if
       
         }   // while
@@ -108,31 +108,31 @@ if (!(function_exists("adiciona_cenario")))
         // Verifica a ocorrencia do nome de todos os lexicos nos campos titulo, objetivo,
         // contexto, atores, recursos, episodios e excecao do cenario incluido 
       
-        $q = "SELECT id_lexicon, name FROM lexicon WHERE id_project = $id_project";
-        $qrr = mysql_query($q) or die("Erro ao enviar a query de SELECT 3<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        while ($result2 = mysql_fetch_array($qrr)) 
+        $query_sql = "SELECT id_lexicon, name FROM lexicon WHERE id_project = $id_project";
+        $query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query de SELECT 3<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        while ($result2 = mysql_fetch_array($query_result_sql)) 
         {    // (3)
         
         $nomeEscapado = escape_metacharacter( $result2['nome']);
 		$regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
          
-	        if((preg_match($regex, $titulo) != 0) ||
-	            (preg_match($regex, $objetivo) != 0) ||
-	            (preg_match($regex, $contexto) != 0) ||
-	            (preg_match($regex, $atores) != 0) ||
-	            (preg_match($regex, $recursos) != 0) ||
-	            (preg_match($regex, $episodios) != 0) ||
-	            (preg_match($regex, $excecao) != 0) ) 
+	        if((preg_match($regex, $title) != 0) ||
+	            (preg_match($regex, $objective) != 0) ||
+	            (preg_match($regex, $context) != 0) ||
+	            (preg_match($regex, $actors) != 0) ||
+	            (preg_match($regex, $resources) != 0) ||
+	            (preg_match($regex, $episodes) != 0) ||
+	            (preg_match($regex, $exception) != 0) ) 
 	        {   // (3.2)
 	                
-		        $qCen = "SELECT * FROM scenario_to_lexicon WHERE id_scenario = $id_incluido AND id_lexicon = " . $result2['id_lexicon'];
-		        $qrCen = mysql_query($qCen) or die("Erro ao enviar a query de select no centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-		        $resultArrayCen = mysql_fetch_array($qrCen);
+		        $query_sql_scenario = "SELECT * FROM scenario_to_lexicon WHERE id_scenario = $id_incluido AND id_lexicon = " . $result2['id_lexicon'];
+		        $query_result_sql_scenario = mysql_query($query_sql_scenario) or die("Erro ao enviar a query de select no centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+		        $resultArrayCen = mysql_fetch_array($query_result_sql_scenario);
 	        
 		        if ($resultArrayCen == false)
 		        {
-		            $q = "INSERT INTO centolex (id_cenario, id_lexico) VALUES ($id_incluido, " . $result2['id_lexico'] . ")";
-		            mysql_query($q) or die("Erro ao enviar a query de INSERT 3<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);  // (3.3.1)
+		            $query_sql = "INSERT INTO centolex (id_scenario, id_lexicon) VALUES ($id_incluido, " . $result2['id_lexicon'] . ")";
+		            mysql_query($query_sql) or die("Erro ao enviar a query de INSERT 3<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);  // (3.3.1)
 		        }
 	        }   // if
       
@@ -142,19 +142,19 @@ if (!(function_exists("adiciona_cenario")))
         // contexto, atores, recursos, episodios e excecao do cenario incluido
       	//Sinonimos
                 
-        $qSinonimos = "SELECT name, id_lexicon FROM synonym WHERE id_project = $id_project AND id_request_lexicon = 0 ";
+        $query_sql_synonyms = "SELECT name, id_lexicon FROM synonym WHERE id_project = $id_project AND id_request_lexicon = 0 ";
         
-        $qrrSinonimos = mysql_query($qSinonimos) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $query_result_sql_synonyms = mysql_query($query_sql_synonyms) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
-        $nomesSinonimos = array();
+        $synonyms_names = array();
         
-        $id_lexicoSinonimo = array();
+        $id_lexicon_synonyms = array();
         
-        while($rowSinonimo = mysql_fetch_array($qrrSinonimos))
+        while($row_synonyms = mysql_fetch_array($query_result_sql_synonyms))
         {
             
-            $nomesSinonimos[]     = $rowSinonimo["name"];
-            $id_lexicoSinonimo[]  = $rowSinonimo["id_lexicon"];
+            $synonyms_names[]     = $row_synonyms["name"];
+            $id_lexicon_synonyms[]  = $row_synonyms["id_lexicon"];
             
         }
       
@@ -162,34 +162,34 @@ if (!(function_exists("adiciona_cenario")))
               FROM scenario
               WHERE id_project = $id_project
               AND id_scenario = $id_incluido";
-        $count = count($nomesSinonimos);
+        $count = count($synonyms_names);
         for ($i = 0; $i < $count; $i++)
         {
             
-            $qrr = mysql_query($qlc) or die("Erro ao enviar a query de busca<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+            $query_result_sql = mysql_query($qlc) or die("Erro ao enviar a query de busca<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
             // verifica sinonimos dos outros lexicos no cenario inclu�do
-            while ($result = mysql_fetch_array($qrr)) 
+            while ($result = mysql_fetch_array($query_result_sql)) 
             {    
             
 	            $nomeSinonimoEscapado = escape_metacharacter( $nomesSinonimos[$i] );
 				$regex = "/(\s|\b)(" . $nomeSinonimoEscapado . ")(\s|\b)/i";
 	            
-	         	if ((preg_match($regex, $objetivo) != 0) ||
-	            	(preg_match($regex, $contexto) != 0) ||
-	             	(preg_match($regex, $atores) != 0) ||
-	            	(preg_match($regex, $recursos) != 0) ||
-	            	(preg_match($regex, $episodios) != 0) ||
-	            	(preg_match($regex, $excecao) != 0) ) 
+	         	if ((preg_match($regex, $objective) != 0) ||
+	            	(preg_match($regex, $context) != 0) ||
+	             	(preg_match($regex, $actors) != 0) ||
+	            	(preg_match($regex, $resources) != 0) ||
+	            	(preg_match($regex, $episodes) != 0) ||
+	            	(preg_match($regex, $exception) != 0) ) 
 	            {
 		            
-		            $qCen = "SELECT * FROM centolex WHERE id_cenario = $id_incluido AND id_lexico = $id_lexicoSinonimo[$i] ";
-		            $qrCen = mysql_query($qCen) or die("Erro ao enviar a query de select no centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-		            $resultArrayCen = mysql_fetch_array($qrCen);
+		            $query_sql_scenario = "SELECT * FROM centolex WHERE id_cenario = $id_incluido AND id_lexico = $id_lexicoSinonimo[$i] ";
+		            $query_result_sql_scenario = mysql_query($query_sql_scenario) or die("Erro ao enviar a query de select no centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+		            $resultArrayCen = mysql_fetch_array($query_result_sql_scenario);
 		            
 		            if ($resultArrayCen == false)
 		            {
-		                $q = "INSERT INTO centolex (id_cenario, id_lexico) VALUES ($id_incluido, $id_lexicoSinonimo[$i])";
-		                mysql_query($q) or die("Erro ao enviar a query de insert no centolex 2<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);  // (3.3.1)
+		                $query_sql = "INSERT INTO centolex (id_cenario, id_lexico) VALUES ($id_incluido, $id_lexicon_synonyms[$i])";
+		                mysql_query($query_sql) or die("Erro ao enviar a query de insert no centolex 2<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);  // (3.3.1)
 		            }
 	            
 	            }   // if
