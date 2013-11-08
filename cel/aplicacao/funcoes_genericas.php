@@ -298,23 +298,6 @@ if (!(function_exists("alteraLexico")))
     }
 }
 
-###################################################################
-# Essa funcao recebe um id de relacao e remove todos os seus
-# links e relacionamentos existentes.
-###################################################################
-if (!(function_exists("remove_relation"))) {
-    function remove_relation($id_project, $id_relation){
-        $DB = new PGDB () ;
-
-        $sql6 = new QUERY ($DB) ;
-        
-        # Remove o conceito escolhido
-        $sql6->execute ("DELETE FROM relation WHERE id_relation = $id_relation") ;
-        $sql6->execute ("DELETE FROM relation_concept WHERE id_relation = $id_relation") ;
-        
-    }
-    
-}
 
 ###################################################################
 # Funcao faz um select na tabela lexico.
