@@ -12,8 +12,10 @@ if (!(function_exists("include_Scenario"))) {
     function include_Scenario($id_project, $title, $objective, $context, $actors, $resource, $exception, $episodes)
     {
         
-        assert($id_project != Null);
-        assert($title != Null);
+        assert($id_project != NULL);
+        assert($title != NULL);
+        assert($objective != NULL);
+        assert($context != NULL);
 
         //Variavel $connect que faz conexao com a base de dados
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -208,9 +210,9 @@ if (!(function_exists("adiciona_cenario")))
 if (!(function_exists("removeCenario"))) {
     function removeScenario($id_project,$id_scenario){
         
-        assert($id_project != Null);
+        assert($id_project != NULL);
         assert($id_project < 0);
-        assert($id_scenario != Null);
+        assert($id_scenario != NULL);
         assert($id_scenario < 0);
         
         $DB = new PGDB () ;
@@ -406,13 +408,17 @@ if (!(function_exists("alteraCenario")))
 # retorna true caso nao exista ou false caso exista (1.3)
 ###################################################################
 function checkExistingScenario($project, $title)
-{
+{    
+    assert($project != NULL);
+    assert($title != NULL);
+     
     $naoexiste = false;
     
     $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
     $q = "SELECT * FROM scenario WHERE id_project = $projeto AND title = '$titulo'";
     $qr = mysql_query($q) or die("Erro ao enviar a query de select no cenario<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
     $resultArray = mysql_fetch_array($qr);
+    
     if ( $resultArray != null )
     {
         $naoexiste = false;
@@ -647,38 +653,40 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
 # Se for para inserir: chamamos a funcao insert();
 ###################################################################
 if (!(function_exists("tratarPedidoCenario"))) {
-    function tratarPedidoCenario($id_pedido){
+    function tratarPedidoCenario($id_request){
         $DB = new PGDB () ;
         $select = new QUERY ($DB) ;
         $delete = new QUERY ($DB) ;
         //print("<BR>SELECT * FROM pedidocen WHERE id_pedido = $id_pedido");
         $select->execute("SELECT * FROM pedidocen WHERE id_pedido = $id_pedido") ;
+        
         if ($select->getntuples() == 0){
             echo "<BR> [ERRO]Pedido invalido." ;
         }else{
             $record = $select->gofirst () ;
-            $tipoPedido = $record['tipo_pedido'] ;
-            if(!strcasecmp($tipoPedido,'remover')){
-                $id_cenario = $record['id_cenario'] ;
-                $id_projeto = $record['id_projeto'] ;
-                removeCenario($id_projeto,$id_cenario) ;
+            $type_request = $record['tipo_pedido'] ;
+            
+            if(!strcasecmp($type_request,'remover')){
+                $id_scenario = $record['id_cenario'] ;
+                $id_project = $record['id_projeto'] ;
+                removeCenario($id_project,$id_scenario) ;
                 //$delete->execute ("DELETE FROM pedidocen WHERE id_cenario = $id_cenario") ;
-            }else{
+            }else{     
+                $id_project = $record['id_projeto'] ;
+                $title     = $record['titulo'] ;
+                $objective   = $record['objetivo'] ;
+                $context   = $record['contexto'] ;
+                $actors     = $record['atores'] ;
+                $resources   = $record['recursos'] ;
+                $exception    = $record['excecao'] ;
+                $episodes  = $record['episodios'] ;
                 
-                $id_projeto = $record['id_projeto'] ;
-                $titulo     = $record['titulo'] ;
-                $objetivo   = $record['objetivo'] ;
-                $contexto   = $record['contexto'] ;
-                $atores     = $record['atores'] ;
-                $recursos   = $record['recursos'] ;
-                $excecao    = $record['excecao'] ;
-                $episodios  = $record['episodios'] ;
-                if(!strcasecmp($tipoPedido,'alterar')){
-                    $id_cenario = $record['id_cenario'] ;
-                    removeCenario($id_projeto,$id_cenario) ;
+                if(!strcasecmp($type_request,'alterar')){
+                	$id_scenario = $record['id_cenario'] ;
+                    removeCenario($id_project,$id_scenario) ;
                     //$delete->execute ("DELETE FROM pedidocen WHERE id_cenario = $id_cenario") ;
                 }
-                adicionar_cenario($id_projeto, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios) ;
+                adicionar_cenario($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes) ;
             }
             //$delete->execute ("DELETE FROM pedidocen WHERE id_pedido = $id_pedido") ;
         }
