@@ -16,8 +16,7 @@ require_once '/../bd_class.php';
 if (!(function_exists("inclui_lexico"))) 
 {
     function include_lexicon($id_project, $name, $notion, $impact, $synonymous, $classification)
-    {
-        
+    {      
         assert($id_project != NULL);
 		assert($name != NULL);
         
@@ -162,7 +161,7 @@ if (!(function_exists("adicionar_lexico")))
         while ($result = mysql_fetch_array($qrr)) 
         {    // (3)
         
-            $nomeEscapado = escape_metacharacter( $nome );
+            $nomeEscapado = escape_metacharacter($name);
             $regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
             
             if ( (preg_match($regex, $result['nocao']) != 0 ) ||
@@ -269,14 +268,14 @@ if (!(function_exists("adicionar_lexico")))
 # add_lexico.php
 ###################################################################
 if (!(function_exists("inserirPedidoAdicionarLexico"))) {
-    function inserirPedidoAdicionarLexico($id_projeto,$nome,$nocao,$impacto,$id_usuario,$sinonimos, $classificacao){
+    function inserirPedidoAdicionarLexico($id_project,$name,$notion,$impact,$id_user,$synonymous, $classification){
         
         $DB = new PGDB() ;
         $insere = new QUERY($DB) ;
         $select = new QUERY($DB) ;
         $select2 = new QUERY($DB) ;
         
-        $q = "SELECT * FROM participa WHERE gerente = 1 AND id_usuario = $id_usuario AND id_projeto = $id_projeto";
+        $q = "SELECT * FROM participa WHERE gerente = 1 AND id_usuario = $id_user AND id_projeto = $id_project";
         $qr = mysql_query($q) or die("Erro ao enviar a query de select no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $resultArray = mysql_fetch_array($qr);
         
@@ -284,21 +283,21 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
         if ( $resultArray == false ) //nao e gerente
         {
             
-            $insere->execute("INSERT INTO pedidolex (id_projeto,nome,nocao,impacto,tipo,id_usuario,tipo_pedido,aprovado) VALUES ($id_projeto,'$nome','$nocao','$impacto','$classificacao',$id_usuario,'inserir',0)") ;
+            $insere->execute("INSERT INTO pedidolex (id_projeto,nome,nocao,impacto,tipo,id_usuario,tipo_pedido,aprovado) VALUES ($id_project,'$name','$notion','$impact','$classification',$id_user,'inserir',0)") ;
             
             $newId = $insere->getLastId();
             
-            $select->execute("SELECT * FROM usuario WHERE id_usuario = '$id_usuario'") ;
+            $select->execute("SELECT * FROM usuario WHERE id_usuario = '$id_user'") ;
             
-            $select2->execute("SELECT * FROM participa WHERE gerente = 1 and id_projeto = $id_projeto") ;
+            $select2->execute("SELECT * FROM participa WHERE gerente = 1 and id_projeto = $id_project") ;
             
             
             //insere sinonimos
             
-            foreach($sinonimos as $sin)
+            foreach($synonymous as $sin)
 			{
 				$insere->execute("INSERT INTO sinonimo (id_pedidolex, nome, id_projeto) 
-				VALUES ($newId, '".data_prepare(strtolower($sin))."', $id_projeto)");
+				VALUES ($newId, '".data_prepare(strtolower($sin))."', $id_project)");
             }
             //fim da insercao dos sinonimos
             
@@ -307,7 +306,7 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
             }else{
                 
                 $record = $select->gofirst ();
-                $nome2 = $record['nome'] ;
+                $name2 = $record['nome'] ;
                 $email = $record['email'] ;
                 $record2 = $select2->gofirst ();
                 while($record2 != 'LAST_RECORD_REACHED'){
@@ -315,7 +314,7 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
                     $select->execute("SELECT * FROM usuario WHERE id_usuario = $id") ;
                     $record = $select->gofirst ();
                     $mailGerente = $record['email'] ;
-                    mail("$mailGerente", "Pedido de Inclus�o de L�xico", "O usuario do sistema $nome2\nPede para inserir o lexico $nome \nObrigado!","From: $nome2\r\n"."Reply-To: $email\r\n");
+                    mail("$mailGerente", "Pedido de Inclus�o de L�xico", "O usuario do sistema $name2\nPede para inserir o lexico $name \nObrigado!","From: $name2\r\n"."Reply-To: $email\r\n");
                     $record2 = $select2->gonext();
                     
                     
@@ -323,7 +322,7 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
             }
             
         }else{ //Eh gerente
-        	adicionar_lexico($id_projeto, $nome, $nocao, $impacto, $sinonimos, $classificacao) ;
+        	adicionar_lexico($id_project, $name, $notion, $impact, $synonymous, $classification) ;
         
         }
     }
@@ -335,7 +334,16 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
 # links e relacionamentos existentes em todas as tabelas do banco.
 ###################################################################
 if (!(function_exists("removeLexico"))) {
-    function removeLexico($id_projeto,$id_lexicon, $lexicon_name){
+    function removeLexico($id_project,$id_lexicon, $lexicon_name){
+        
+        assert($id_project != NULL);
+		assert($id_project > 0);
+		assert($id_lexicon != NULL);
+		assert($id_lexicon > 0);
+		assert($id_project != NULL);
+		assert($id_project > 0);
+		assert($lexicon_name != NULL);
+		   
         $DB = new PGDB() ;
         $delete = new QUERY ($DB) ;      
         
@@ -344,8 +352,7 @@ if (!(function_exists("removeLexico"))) {
             $query = "SELECT id_lexicon FROM lexicon where name = '$lexicon_name'";
             $query_result = mysql_query($query);
             $id_lexicon = mysql_result($query_result, 0, "id_lexicon");
-        }
-        
+        }   
         
         # Remove o relacionamento entre o lexico a ser removido
         # e outros lexicos que o referenciam
@@ -356,9 +363,9 @@ if (!(function_exists("removeLexico"))) {
         # Remove o lexico escolhido
         $delete->execute ("DELETE FROM synonym WHERE id_lexicon = $id_lexicon");
         $delete->execute ("DELETE FROM lexicon WHERE id_lexicon = $id_lexicon");
-        $linhas_afetadas = mysql_affected_rows();
+        $affected_rows = mysql_affected_rows();
         
-        if($linhas_afetadas == 0){
+        if(affected_rows == 0){
             return false;
         }else{
             return true;
@@ -389,19 +396,19 @@ if (!(function_exists("inserirPedidoRemoverLexico"))) {
         if ( $resultArray == false ) //nao e gerente
         {
         
-	        $select->execute("SELECT * FROM lexico WHERE id_lexico = $id_lexico") ;
-	        $lexico = $select->gofirst ();
-	        $nome = $lexico['nome'] ;
+	        $select->execute("SELECT * FROM lexico WHERE id_lexico = $id_lexicon") ;
+	        $lexicon = $select->gofirst ();
+	        $name = $lexicon['nome'] ;
 	        
-	        $insere->execute("INSERT INTO pedidolex (id_projeto,id_lexico,nome,id_usuario,tipo_pedido,aprovado) VALUES ($id_projeto,$id_lexico,'$nome',$id_usuario,'remover',0)") ;
-	        $select->execute("SELECT * FROM usuario WHERE id_usuario = $id_usuario") ;
-	        $select2->execute("SELECT * FROM participa WHERE gerente = 1 and id_projeto = $id_projeto") ;
+	        $insere->execute("INSERT INTO pedidolex (id_projeto,id_lexico,nome,id_usuario,tipo_pedido,aprovado) VALUES ($id_project,$id_lexicon,'$name',$id_user,'remover',0)") ;
+	        $select->execute("SELECT * FROM usuario WHERE id_usuario = $id_user") ;
+	        $select2->execute("SELECT * FROM participa WHERE gerente = 1 and id_projeto = $id_project") ;
 	        
 	        if ($select->getntuples() == 0&&$select2->getntuples() == 0){
 	            echo "<BR> [ERRO]Pedido nao foi comunicado por e-mail." ;
 	        }else{
 	            $record = $select->gofirst ();
-	            $nome = $record['nome'] ;
+	            $name = $record['nome'] ;
 	            $email = $record['email'] ;
 	            $record2 = $select2->gofirst ();
 	            while($record2 != 'LAST_RECORD_REACHED'){
@@ -409,7 +416,7 @@ if (!(function_exists("inserirPedidoRemoverLexico"))) {
 	                $select->execute("SELECT * FROM usuario WHERE id_usuario = $id") ;
 	                $record = $select->gofirst ();
 	                $mailGerente = $record['email'] ;
-	                mail("$mailGerente", "Pedido de Remover L�xico", "O usuario do sistema $nome2\nPede para remover o lexico $id_lexico \nObrigado!","From: $nome\r\n"."Reply-To: $email\r\n");
+	                mail("$mailGerente", "Pedido de Remover L�xico", "O usuario do sistema $name2\nPede para remover o lexico $id_lexicon \nObrigado!","From: $name\r\n"."Reply-To: $email\r\n");
 	                $record2 = $select2->gonext();
 	            }
 	        }
@@ -429,46 +436,46 @@ if (!(function_exists("inserirPedidoRemoverLexico"))) {
 # Se for para inserir: chamamos a funcao insert();
 ###################################################################
 if (!(function_exists("tratarPedidoLexico"))) {
-    function tratarPedidoLexico($id_pedido){
+    function tratarPedidoLexico($id_request){
         $DB = new PGDB () ;
         $select = new QUERY ($DB) ;
         $delete = new QUERY ($DB);
         $selectSin = new QUERY ($DB);
-        $select->execute("SELECT * FROM pedidolex WHERE id_pedido = $id_pedido") ;
+        $select->execute("SELECT * FROM pedidolex WHERE id_pedido = $id_request") ;
         if ($select->getntuples() == 0){
             echo "<BR> [ERRO]Pedido invalido." ;
         }else{
             $record = $select->gofirst () ;
-            $tipoPedido = $record['tipo_pedido'] ;
-            if(!strcasecmp($tipoPedido,'remover')){
-                $id_lexico = $record['id_lexico'] ;
-                $id_projeto = $record['id_projeto'] ;
-                removeLexico($id_projeto,$id_lexico, null) ;
+            $type_request = $record['tipo_pedido'] ;
+            if(!strcasecmp($type_request,'remover')){
+                $id_lexicon = $record['id_lexico'] ;
+                $id_project = $record['id_projeto'] ;
+                removeLexico($id_project,$id_lexicon, null) ;
             }else{
-                $id_projeto = $record['id_projeto'] ;
-                $nome = $record['nome'] ;
-                $nocao = $record['nocao'] ;
-                $impacto = $record['impacto'] ;
-                $classificacao = $record['tipo'];
+                $id_project = $record['id_projeto'] ;
+                $name = $record['nome'] ;
+                $notion = $record['nocao'] ;
+                $impact = $record['impacto'] ;
+                $classification = $record['tipo'];
                 
-                //sinonimos
+                //synonymous
                 
-                $sinonimos = array();
-                $selectSin->execute("SELECT nome FROM sinonimo WHERE id_pedidolex = $id_pedido");
-                $sinonimo = $selectSin->gofirst();
+                $synonymous = array();
+                $selectSin->execute("SELECT nome FROM sinonimo WHERE id_pedidolex = $id_request");
+                $synonymous = $selectSin->gofirst();
                 if ($selectSin->getntuples() != 0)
 		{
-               	    while($sinonimo != 'LAST_RECORD_REACHED')
+               	    while($synonymous != 'LAST_RECORD_REACHED')
                	    {
-                        $sinonimos[] = $sinonimo["nome"];
-                        $sinonimo = $selectSin->gonext();
+                        $synonymous[] = $synonymous["nome"];
+                        $synonymous = $selectSin->gonext();
                     }
                 }
                 
-                if(!strcasecmp($tipoPedido,'alterar')){
-                    $id_lexico = $record['id_lexico'] ;
-                    alteraLexico($id_projeto, $id_lexico, $nome, $nocao, $impacto, $sinonimos, $classificacao);
-                }else if(($idLexicoConflitante = adicionar_lexico($id_projeto, $nome, $nocao, $impacto, $sinonimos, $classificacao)) <= 0)
+                if(!strcasecmp($type_request,'alterar')){
+                    $id_lexicon = $record['id_lexico'] ;
+                    alteraLexico($id_project, $id_lexicon, $name, $notion, $impact, $synonymous, $classification);
+                }else if(($idLexicoConflitante = adicionar_lexico($id_project, $name, $notion, $impact, $synonymous, $classification)) <= 0)
                 {
                     $idLexicoConflitante = -1 * $idLexicoConflitante;
                     

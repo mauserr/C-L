@@ -69,9 +69,9 @@ if (!(function_exists("treat_concept_request"))) {
             }else{
                 
                 $id_project = $record['id_project'] ;
-                $name         = $record['name'] ;
-                $description  = $record['description'] ;
-                $namespace   = $record['namespace'] ;
+                $name = $record['name'] ;
+                $description = $record['description'] ;
+                $namespace = $record['namespace'] ;
                 
                 if(!strcasecmp($type_request,'alter')){
                     $id_scenario = $record['id_concept'] ;
