@@ -15,36 +15,40 @@ require_once '/../bd_class.php';
 
 if (!(function_exists("inclui_lexico"))) 
 {
-    function inclui_lexico($id_projeto, $nome, $nocao, $impacto, $sinonimos, $classificacao)
+    function include_lexicon($id_project, $name, $notion, $impact, $synonymous, $classification)
     {
+        
+        assert($id_project != NULL);
+		assert($name != NULL);
+        
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $data = date("Y-m-d");
      
                 
-        $q = "INSERT INTO lexicon (id_project, data, name, notion, impact, type)
-              VALUES ($id_projeto, '$data', '" .data_prepare(strtolower($nome)). "',
-			  '".data_prepare($nocao)."', '".data_prepare($impacto)."', '$classificacao')";
+        $query_sql = "INSERT INTO lexicon (id_project, data, name, notion, impact, type)
+              VALUES ($id_project, '$data', '" .data_prepare(strtolower($name)). "',
+			  '".data_prepare($notion)."', '".data_prepare($impact)."', '$classification')";
 				
-		mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-                $linhas_afetadas = mysql_affected_rows();
+		mysql_query($query_sql) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+                $affected_rows = mysql_affected_rows();
         //sinonimo
         $newLexId = mysql_insert_id($connect);
         
         
-        if( ! is_array($sinonimos) )
-        $sinonimos = array();
+        if( ! is_array($synonymous) )
+        $synonymous = array();
         
-        foreach($sinonimos as $novoSin)
+        foreach($synonymous as $novoSin)
         {
-       		$q = "INSERT INTO synonym (id_lexicon, name, id_project)
-                VALUES ($newLexId, '" . data_prepare(strtolower($novoSin)) . "', $id_projeto)";
-            mysql_query($q, $connect) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+       		$query_sql = "INSERT INTO synonym (id_lexicon, name, id_project)
+                VALUES ($newLexId, '" . data_prepare(strtolower($novoSin)) . "', $id_project)";
+            mysql_query($query_sql, $connect) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         }
         
-        $q = "SELECT max(id_lexicon) FROM lexicon";
-        $qrr = mysql_query($q) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $query_sql = "SELECT max(id_lexicon) FROM lexicon";
+        $qrr = mysql_query($query_sql) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $result = mysql_fetch_row($qrr);
-        if($linhas_afetadas == 0){
+        if($affected_rows == 0){
             return false;
         }else{
             return $result[0];
@@ -75,11 +79,11 @@ if (!(function_exists("inclui_lexico")))
 
 if (!(function_exists("adicionar_lexico"))) 
 {
-    function adicionar_lexico($id_projeto, $nome, $nocao, $impacto, $sinonimos, $classificacao)
+    function adicionar_lexico($id_project, $name, $notion, $impact, $synonymous, $classification)
     {
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
-        $id_incluido = inclui_lexico($id_projeto, $nome, $nocao, $impacto, $sinonimos, $classificacao); // (1)
+        $id_incluido = include_lexicon($id_project, $name, $notion, $impact, $synonymous, $classification); // (1)
         
         $qr = "SELECT id_cenario, titulo, objetivo, contexto, atores, recursos, excecao, episodios
               FROM cenario
@@ -90,7 +94,7 @@ if (!(function_exists("adicionar_lexico")))
         while ($result = mysql_fetch_array($qrr)) 
         {    // 2  - Para todos os cenarios
         
-           $nomeEscapado = escape_metacharacter( $nome );
+           $nomeEscapado = escape_metacharacter($name);
 		   $regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
          
             if( (preg_match($regex, $result['objetivo']) != 0) ||
@@ -111,7 +115,7 @@ if (!(function_exists("adicionar_lexico")))
 
         
         //sinonimos do novo lexico
-        $count = count($sinonimos);
+        $count = count($synonymous);
         for ($i = 0; $i < $count; $i++)
         {
             
@@ -119,7 +123,7 @@ if (!(function_exists("adicionar_lexico")))
             while ($result2 = mysql_fetch_array($qrr))
             {
                 
-                $nomeSinonimoEscapado = escape_metacharacter( $sinonimos[$i] );
+                $nomeSinonimoEscapado = escape_metacharacter( $synonymous[$i] );
 				$regex = "/(\s|\b)(" . $nomeSinonimoEscapado . ")(\s|\b)/i";
                 
                 if( (preg_match($regex, $result2['objetivo']) != 0) ||
@@ -181,8 +185,8 @@ if (!(function_exists("adicionar_lexico")))
 			$nomeEscapado = escape_metacharacter( $result['nome'] );
             $regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
          
-            if((preg_match($regex, $nocao) != 0) ||
-               (preg_match($regex, $impacto) != 0) )
+            if((preg_match($regex, $notion) != 0) ||
+               (preg_match($regex, $impact) != 0) )
             {   // (3.3)        
         
                 $q = "INSERT INTO lextolex (id_lexico_from, id_lexico_to) VALUES ($id_incluido, " . $result['id_lexico'] . ")"; 
@@ -204,12 +208,12 @@ if (!(function_exists("adicionar_lexico")))
         
         $qrr = mysql_query($ql) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
-        $count = count($sinonimos);
+        $count = count($synonymous);
         for ($i = 0; $i < $count; $i++)
         {
             while ($resultl = mysql_fetch_array($qrr)) {
                                
-				$nomeSinonimoEscapado = escape_metacharacter( $sinonimos[$i] );
+				$nomeSinonimoEscapado = escape_metacharacter( $synonymous[$i] );
 			   $regex = "/(\s|\b)(" . $nomeSinonimoEscapado . ")(\s|\b)/i";
                 
                 if ( (preg_match($regex, $resultl['nocao']) != 0)  ||
@@ -410,7 +414,7 @@ if (!(function_exists("inserirPedidoRemoverLexico"))) {
 	            }
 	        }
         }else{ // e gerente
-        	removeLexico($id_projeto,$id_lexico, null);
+        	removeLexico($id_project,$id_lexicon, null);
         }
     }
 }
