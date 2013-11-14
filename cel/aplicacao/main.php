@@ -92,7 +92,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function rmvCenario(cenario) { 
-            var url = 'rmv_cenario.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_cenario=' + cenario; 
+            var url = 'rmv_cenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_cenario=' + cenario; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar'; 
             open(url, where, window_spec); 

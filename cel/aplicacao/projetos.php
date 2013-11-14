@@ -37,6 +37,7 @@ include("funcoes_genericas.php");
     $name_project = null;
     
     $query = "SELECT * FROM publication";
+    assert($query != NULL);
     $query_result_sql = mysql_query($query) or die("Erro ao enviar a query de busca");
 
     while ($result = mysql_fetch_row($query_result_sql)) {
@@ -45,6 +46,12 @@ include("funcoes_genericas.php");
         $version = $result[2];
         $XML = $result[3];
 
+        assert ($id_project != NULL);
+        assert ($id_project > 0);
+        assert ($date != NULL);
+        assert ($version != NULL);
+        assert ($XML != NULL);
+        
         $query_search_name_project = "SELECT * FROM project WHERE id_project = '$id_project'";
         $query_search = mysql_query($query_search_name_project) or die("Erro ao enviar a query de busca de projeto");
         $result_name = mysql_fetch_row($query_search);
@@ -57,7 +64,7 @@ include("funcoes_genericas.php");
 
                 <th height="29" width="140"><a href="mostrarProjeto.php?id_project=<?= $id_project ?>&version=<?= $version ?>"><?= $name_project ?></a></th>
                 <th height="29" width="140">Data: <?= $date ?></th>
-                <th height="29" width="100">Versao: <?= $version ?></th>
+                <th height="29" width="100">Versão: <?= $version ?></th>
 
             </tr>
 
