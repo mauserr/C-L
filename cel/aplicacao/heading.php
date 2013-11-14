@@ -186,7 +186,7 @@ function projectInfo(idprojeto) {
         }
         else{  
        
-?>                               <font color="#FF0033">Usuï¿½rio normal</font>
+?>                               <font color="#FF0033">Usuário normal</font>
                                     
 
 <?php

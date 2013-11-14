@@ -18,9 +18,17 @@ $id_project ='';
 $version ='';
 
 $query_select_sql = "select * from publication where id_project = $id_project AND version = $version";
+
+	assert ($query_select_sql != NULL);
+
 $query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query");
 $row = mysql_fetch_row($query_result_sql);
+
+	assert ($row != NULL);
+
 $xml_banco = $row[3];
+
+	assert ($xml_banco != NULL);
 
 echo $xml_banco;
 	
