@@ -22,7 +22,7 @@ check_User("index.php");
 $submit = null;
 $request = null;
 $remove = null;
-$id_projeto = null;
+$id_project = null;
 $order_type = null;
 if (isset($submit)) {
     
@@ -53,7 +53,7 @@ if (isset($submit)) {
 
     </script>
 
-    <h4>Operaï¿½ao efetuada com sucesso!</h4>
+    <h4>Operação efetuada com sucesso!</h4>
     <script language="javascript1.3">
 
         self.close();
@@ -64,11 +64,11 @@ if (isset($submit)) {
     ?>
     <html>
         <head>
-            <title>Pedidos de alteraï¿½aoo dos Cenï¿½ios</title>
+            <title>Pedidos de alteração dos Cenários</title>
         </head>
         <body>
-            <h2>Pedidos de Alteraï¿½ï¿½o no Conjunto de Cenï¿½rios</h2>
-            <form action="?id_projeto=<?= $id_projeto ?>" method="post">
+            <h2>Pedidos de Alteração no Conjunto de Cenários</h2>
+            <form action="?id_project=<?= $id_project ?>" method="post">
 
     <?php
     
@@ -94,7 +94,7 @@ if (isset($submit)) {
     $DB = new PGDB ();
     $select = new QUERY($DB);
     $select2 = new QUERY($DB);
-    $select->execute("SELECT * FROM pedidocen WHERE id_projeto = $id_projeto");
+    $select->execute("SELECT * FROM request_scenario WHERE id_project = $id_project");
     
     
     if ($select->getntuples() == 0) {
@@ -120,7 +120,7 @@ if (isset($submit)) {
                 ?>
 
                             <br>
-                            <h3>O usuï¿½rio <a  href="mailto:<?= $user['email'] ?>" ><?= $user['nome'] ?></a> pede para <?= $order_type ?> o cenï¿½rio <font color="#ff0000"><?= $record['titulo'] ?></font> <? if (!strcasecmp($order_type, 'alterar')) {
+                            <h3>O usuário <a  href="mailto:<?= $user['email'] ?>" ><?= $user['name'] ?></a> pede para <?= $order_type ?> o cenário <font color="#ff0000"><?= $record['title'] ?></font> <? if (!strcasecmp($order_type, 'alter')) {
                     echo"para cenï¿½rio abaixo:</h3>";
                     
                 } else {
@@ -129,39 +129,39 @@ if (isset($submit)) {
                     
                 } ?>
                                 <table>
-                                    <td><b>Tï¿½tulo:</b></td>
+                                    <td><b>Título:</b></td>
                                     <td><?= $record['titulo'] ?></td>
                                     <tr>
                                         <td><b>Objetivo:</b></td>
-                                        <td><?= $record['objetivo'] ?></td>
+                                        <td><?= $record['objective'] ?></td>
                                     </tr>
                                     <tr>
                                         <td><b>Contexto:</b></td>
-                                        <td><?= $record['contexto'] ?></td>
+                                        <td><?= $record['context'] ?></td>
                                     </tr>
                                     <tr>
                                         <td><b>Atores:</b></td>
-                                        <td><?= $record['atores'] ?></td>
+                                        <td><?= $record['actors'] ?></td>
                                     </tr>
                                     <tr>
                                         <td><b>Recursos:</b></td>
-                                        <td><?= $record['recursos'] ?></td>
+                                        <td><?= $record['resource'] ?></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Exceï¿½ï¿½o:</b></td>
-                                        <td><?= $record['excecao'] ?></td>
+                                        <td><b>Exceçãoo:</b></td>
+                                        <td><?= $record['exception'] ?></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Episï¿½dios:</b></td>
-                                        <td><textarea cols="48" name="episodios" rows="5"><?= $record['episodios'] ?></textarea></td>
+                                        <td><b>Episódios:</b></td>
+                                        <td><textarea cols="48" name="episodes" rows="5"><?= $record['episodes'] ?></textarea></td>
                                     </tr>
                                     <tr>
                                         <td><b>Justificativa:</b></td>
-                                        <td><textarea name="justificativa" cols="48" rows="2"><?= $record['justificativa'] ?></textarea></td>
+                                        <td><textarea name="justificative" cols="48" rows="2"><?= $record['justificative'] ?></textarea></td>
                                     </tr>
                                 </table>
                             <?php } else { ?>
-                                <h3>O usuï¿½rio <a  href="mailto:<?= $user['email'] ?>" ><?= $user['nome'] ?></a> pede para <?= $order_type ?> o cenï¿½rio <font color="#ff0000"><?= $record['titulo'] ?></font></h3>
+                                <h3>O usuário <a  href="mailto:<?= $user['email'] ?>" ><?= $user['name'] ?></a> pede para <?= $order_type ?> o cenário <font color="#ff0000"><?= $record['title'] ?></font></h3>
                             <?php
                             }
                             if ($aproved == 1) {
@@ -178,7 +178,7 @@ if (isset($submit)) {
                     ?>
                     <input name="submit" type="submit" value="Processar">
                     </form>
-                    <br><i><a href="showSource.php?file=ver_pedido_cenario.php">Veja o cï¿½digo fonte!</a></i>
+                    <br><i><a href="showSource.php?file=ver_pedido_cenario.php">Veja o código fonte!</a></i>
                     </body>
                     </html>
                     <?php

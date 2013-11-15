@@ -29,7 +29,7 @@ if( isset( $_GET['id_project']))
 }    
 else    
 {    
-  // $id_projeto = ""; 
+  // $id_project = ""; 
 }    
 
 if (!isset  ( $_SESSION['current_id_project'] ))    
@@ -220,7 +220,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
              if (isset($id_project))    
              {    
              ?>    
-				var url = 'ver_pedido_cenario.php?id_projeto=' + '<?=$id_projeto?>'; 
+				var url = 'ver_pedido_cenario.php?id_project=' + '<?=$id_project?>'; 
              <?php    
              }    
              else    
@@ -257,10 +257,10 @@ if (!isset  ( $_SESSION['current_id_project'] ))
         function pedidoLexico() { 
 
          <?php    
-                     if (isset($id_projeto))    
+                     if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'ver_pedido_lexico.php?id_projeto=' + '<?=$id_projeto?>'; 
+						var url = 'ver_pedido_lexico.php?id_projeto=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
@@ -297,10 +297,10 @@ if (!isset  ( $_SESSION['current_id_project'] ))
         function pedidoConceito() { 
 
          <?php    
-                     if (isset($id_projeto))    
+                     if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'ver_pedido_conceito.php?id_projeto=' + '<?=$id_projeto?>'; 
+						var url = 'ver_pedido_conceito.php?id_projeto=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
@@ -320,10 +320,10 @@ if (!isset  ( $_SESSION['current_id_project'] ))
         function pedidoRelacao() { 
 
          <?php    
-                     if (isset($id_projeto))    
+                     if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'ver_pedido_relacao.php?id_projeto=' + '<?=$id_projeto?>'; 
+						var url = 'ver_pedido_relacao.php?id_projeto=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
@@ -407,10 +407,10 @@ if (!isset  ( $_SESSION['current_id_project'] ))
         { 
 
         <?php    
-                             if (isset($id_projeto))    
+                             if (isset($id_project))    
                              {    
                              ?>    
-								var url = 'form_xml.php?id_projeto=' + '<?=$id_projeto?>'; 
+								var url = 'form_xml.php?id_project=' + '<?=$id_project?>'; 
                              <?php    
                              }    
                              else    
@@ -431,10 +431,10 @@ if (!isset  ( $_SESSION['current_id_project'] ))
                 { 
 
         <?php    
-                             if (isset($id_projeto))    
+                             if (isset($id_project))    
                              {    
                              ?>    
-								var url = 'recuperarXML.php?id_projeto=' + '<?=$id_projeto?>'; 
+								var url = 'recuperarXML.php?id_projeto=' + '<?=$id_project?>'; 
                              <?php    
                              }    
                              else    
@@ -455,10 +455,10 @@ if (!isset  ( $_SESSION['current_id_project'] ))
         { 
 
         <?php    
-			if (isset($id_projeto))    
+			if (isset($id_project))    
             {    
                 ?>    
-					var url = 'gerarGrafo.php?id_projeto=' + '<?=$id_projeto?>'; 
+					var url = 'gerarGrafo.php?id_projeto=' + '<?=$id_project?>'; 
                 <?php    
             }else    
             {    
@@ -486,10 +486,10 @@ if (!isset  ( $_SESSION['current_id_project'] ))
         { 
 
         <?php    
-                             if (isset($id_projeto))    
+                             if (isset($id_project))    
                              {    
                              ?>    
-								var url = 'inicio.php?id_projeto=' + '<?=$id_projeto?>'; 
+								var url = 'inicio.php?id_projeto=' + '<?=$id_project?>'; 
                              <?php    
                              }    
                              else    
@@ -516,10 +516,10 @@ if (!isset  ( $_SESSION['current_id_project'] ))
         { 
 
         <?php    
-                             if (isset($id_projeto))    
+                             if (isset($id_project))    
                              {    
                              ?>    
-								var url = 'form_daml.php?id_projeto=' + '<?=$id_projeto?>'; 
+								var url = 'form_daml.php?id_projeto=' + '<?=$id_project?>'; 
                              <?php    
                              }    
                              else    
@@ -544,10 +544,10 @@ if (!isset  ( $_SESSION['current_id_project'] ))
         { 
 
         <?php    
-                             if (isset($id_projeto))    
+                             if (isset($id_project))    
                              {    
                              ?>    
-								var url = 'recuperaDAML.php?id_projeto=' + '<?=$id_projeto?>'; 
+								var url = 'recuperaDAML.php?id_projeto=' + '<?=$id_project?>'; 
                              <?php    
                              }    
                              else    
@@ -580,15 +580,15 @@ include("frame_inferior.php");
 
 if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU PELA ARVORE) 
     $vetorVazio = array();
-    if ($t == "c")        { print "<h3>Informaï¿½ï¿½es sobre o cenï¿½rio</h3>";   
+    if ($t == "c")        { print "<h3>Informações sobre o cenário</h3>";   
 
-    } elseif ($t == "l")  { print "<h3>Informaï¿½ï¿½es sobre o sï¿½mbolo</h3>";   
+    } elseif ($t == "l")  { print "<h3>Informações sobre o símbolo</h3>";   
 
-    } elseif ($t == "oc") { print "<h3>Informaï¿½ï¿½es sobre o conceito</h3>";    
+    } elseif ($t == "oc") { print "<h3>Informações sobre o conceito</h3>";    
 
-    } elseif ($t == "or") { print "<h3>Informaï¿½ï¿½es sobre a relaï¿½ï¿½o</h3>";   
+    } elseif ($t == "or") { print "<h3>Informações sobre a relaço</h3>";   
 
-    } elseif ($t == "oa") { print "<h3>Informaï¿½ï¿½es sobre o axioma</h3>";   
+    } elseif ($t == "oa") { print "<h3>Informações sobre o axioma</h3>";   
 
     }    
 
@@ -607,13 +607,13 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
 
 
-<!-- CENï¿½RIO --> 
+<!-- CENÁRIO --> 
 
 <?php   
     
 	if ($t == "c") {        // se for cenario 
         
-		$q = "SELECT id_scenario, title, objetive, context, autor, recurses, exception, episodes, id_project    
+		$q = "SELECT id_scenario, title, objetive, context, autor, resourses, exception, episodes, id_project    
               FROM scenario    
               WHERE id_scenario = $id";    
         
@@ -658,12 +658,12 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 </td> 
             </tr> 
             <tr> 
-                <th>Exceï¿½ï¿½o:</th><td CLASS="Estilo">
+                <th>Exceção:</th><td CLASS="Estilo">
 		<?php echo nl2br(monta_links( $result['excecao'], $vetorDeLexicos, $vetorVazio) ) ; ?>
                 </td> 
             </tr> 
             <tr> 
-                <th>Episï¿½dios:</th><td CLASS="Estilo">
+                <th>Episódios:</th><td CLASS="Estilo">
 		<?php 
 	  		echo nl2br(monta_links( $result['episodios'], $vetorDeLexicos, $vetorDeCenarios ) ); ?>
 	  	
@@ -694,7 +694,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 		$qrr = mysql_query($q) or die("Erro ao enviar a query de selecao !!". mysql_error());    
         $result = mysql_fetch_array($qrr);
         
-        $l_id_projeto = $result['id_projeto'];
+        $l_id_projeto = $result['id_project'];
         
         $vetorDeLexicos = carrega_vetor_lexicos( $l_id_projeto, $id, true );  
 		
@@ -721,7 +721,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
             <th>Sinï¿½nimo(s):</th> 
 
 			<?php //sinonimos 
-                 $id_projeto = $_SESSION['current_id_project'];    
+                 $id_project = $_SESSION['current_id_project'];    
                  $qSinonimo = "SELECT * FROM sinonimo WHERE id_lexico = $id";    
                  $qrr = mysql_query($qSinonimo) or die("Erro ao enviar a query de Sinonimos". mysql_error());    
 
@@ -729,7 +729,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                  
                  while ($resultSinonimo = mysql_fetch_array($qrr))    
                  {    
-                      $tempS[] = $resultSinonimo['nome'];    
+                      $tempS[] = $resultSinonimo['name'];    
                  }    
 
 			?>    
@@ -783,10 +783,10 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 ?>    
 
             <tr> 
-                <th>Nome:</th><td CLASS="Estilo"><?=$result['nome']?></td> 
+                <th>Nome:</th><td CLASS="Estilo"><?=$result['name']?></td> 
             </tr> 
             <tr> 
-                <th>Descriï¿½ï¿½o:</th><td CLASS="Estilo"><?=nl2br($result['descricao'])?></td> 
+                <th>Descriçãoo:</th><td CLASS="Estilo"><?=nl2br($result['descricao'])?></td> 
             </tr> 
         </TABLE> 
         <BR> 
@@ -802,19 +802,19 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
 
 
-<!-- ONTOLOGIA - RELAï¿½ï¿½ES --> 
+<!-- ONTOLOGIA - RELAÇÕES --> 
 
 <?php    
     } elseif ($t == "or") {        // se for cenario 
-        $q = "SELECT id_relacao, nome   
-              FROM relacao   
-              WHERE id_relacao = $id";    
+        $q = "SELECT id_relation, name   
+              FROM relation   
+              WHERE id_relation = $id";    
         $qrr = mysql_query($q) or die("Erro ao enviar a query de selecao !!". mysql_error());    
         $result = mysql_fetch_array($qrr);    
 ?>    
 
             <tr> 
-                <th>Nome:</th><td CLASS="Estilo"><?=$result['nome']?></td> 
+                <th>Nome:</th><td CLASS="Estilo"><?=$result['name']?></td> 
             </tr> 
 
         </TABLE> 
@@ -824,7 +824,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                  <td CLASS="Estilo" height="40" valign=MIDDLE>                   
                 </th>
                 <td CLASS="Estilo"  valign=MIDDLE> 
-                    <a href="#" onClick="rmvRelacao(<?=$result['id_relacao']?>);">Remover Relaçãoo</a> 
+                    <a href="#" onClick="rmvRelacao(<?=$result['id_relation']?>);">Remover Relaçãoo</a> 
                 </th> 
             </tr> 
 
@@ -869,7 +869,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
 } elseif (isset($id_project)) {         // SCRIPT CHAMADO PELO HEADING.PHP 
 
-    // Foi passada uma variavel $id_projeto. Esta variavel deve conter o id de um 
+    // Foi passada uma variavel $id_project. Esta variavel deve conter o id de um 
     // projeto que o usuario esteja cadastrado. Entretanto, como a passagem eh 
     // feita usando JavaScript (no heading.php), devemos checar se este id realmente 
     // corresponde a um projeto que o usuario tenha acesso (seguranca). 
@@ -949,7 +949,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><a href="#" onClick="add_usuario.php();">Adicionar usuário (não cadastrado) neste projeto</a></td> 
             </TR> 
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="relUsuario();">Adicionar usuários já existentes neste projeto</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="relation_user_project();">Adicionar usuários já existentes neste projeto</a></td> 
             </TR>   
             
             <TR> 
@@ -1022,7 +1022,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 	<br>
 	<table ALIGN=CENTER> 
             <tr> 
-                <th>Vocï¿½ nï¿½o ï¿½ um administrador deste projeto:</th> 	
+                <th>Você não é um administrador deste projeto:</th> 	
 			</tr>	
 			<tr> 
                 <td CLASS="Estilo"><a href="#" onClick="geraGrafo();" >Gerar grafo deste projeto</a></td>

@@ -1,18 +1,16 @@
 <?php
 
 /**
-@Titulo: Acessar o sistema
+@Title: Login
 
-@Objetivo: Permitir que o usuï¿½rio acesse a Aplicaï¿½ï¿½o de Ediï¿½ï¿½o de Lï¿½xicos e de Ediï¿½ï¿½o de Cenï¿½rios, cadastre-se no sistema ou requisite sua senha no caso de tï¿½-la esquecido.
+@Objective: Allows the user to enter in the aplication. 
 
-@Contexto: A pï¿½gina da aplicaï¿½ï¿½o ï¿½ acessada. Na pï¿½gina de abertura ../cel/aplicacao/login.php o usuï¿½rio insere login ou senha incorretos - $wrong=true.
+@Actors: user, aplication
 
-@Atores: usuï¿½rio, aplicaï¿½ï¿½o
-
-@Recursos: URL de acesso ao sistema,  login, senha, bd.inc, httprequest.inc, $wrong, $url, showSource.php?file=login.php, esqueciSenha.php, add_usuario.php?novo=true 
+@Resources: URL to acess the system ,  login, passwrod, bd.inc, httprequest.inc, $wrong, $url, showSource.php?file=login.php, esqueciSenha.php, add_usuario.php?novo=true 
 **/
 
-/** @Episodio 1: Iniciar sessï¿½o **/
+/** @Episode 1: Start session **/
 session_start();
 
 include("bd.inc");
@@ -32,12 +30,23 @@ include("httprequest.inc");
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
 /** @Episodio 9: Se o formulï¿½rio tiver sido submetido entï¿½o verificar se o login e senha estï¿½o corretos. **/
+
+
+
 if ( isset($_POST['submit'])) 
 {        
+	
+	assert($_POSt['password'] != NULL);
+	
 	$password_cript = md5($_POST['password']);
 
+	assert($password_cript != NULL);
+	
 	$query_select_sql = "SELECT id_user FROM user WHERE login='$login' AND password='$password_cript'";
-    $query_result_sql = mysql_query($query_select_sql) or die("Erro ao executar a query");
+    
+	assert(query_select_sql != NULL);
+	
+	$query_result_sql = mysql_query($query_select_sql) or die("Erro ao executar a query");
   
 	/** @Episodio 10: Se o login e/ou senha estiverem incorretos entï¿½o retornar a pï¿½gina de login com wrong=true na URL. **/
 	if ( !mysql_num_rows($query_result_sql) ) {        
@@ -50,6 +59,7 @@ if ( isset($_POST['submit']))
 <?php
 
 		$wrong = $_GET["wrong"];
+		assert ($wrong != NULL);
 
     } 
 
@@ -57,9 +67,11 @@ if ( isset($_POST['submit']))
 	else {
 
         $row = mysql_fetch_row($query_result_sql);
+        
+        assert($row[0] != NULL); 
         $id_usuario_corrente = $row[0];
 
-        //session_register("id_usuario_corrente");
+       
         
         $_SESSION['current_id_user'] = "$row[0]";
 ?>  
@@ -94,7 +106,7 @@ else {
 
 		<?php
 	} 
-	/** @Episodio 5: Se wrong != true entï¿½o mostrar a mensagem Entre com seu login e senha. **/
+	/** @Episodio 5: Se wrong != true então mostrar a mensagem Entre com seu login e senha. **/
 	else {
 		?>
 
@@ -115,18 +127,18 @@ else {
       <tr><td align="center" colspan="2"><input name="submit" type="submit" value="Entrar"></td></tr>
     </table>
 
-<?php 		/** @Episodio 6: [CADASTRAR NOVO USUï¿½RIO] **/ ?>
+<?php 		/** @Episodio 6: [REGISTER NEW USER] **/ ?>
             <p><a href="add_usuario.php?novo=true">Cadastrar-se</a>&nbsp;&nbsp;
 
-<?php 	    /** @Episodio 7: [LEMBRAR SENHA] **/ ?>
+<?php 	    /** @Episodio 7: [REMEMBER PASSWORD] **/ ?>
             <a href="forgot_password.php">Esqueci senha</a></p>
         </div>
         </form>
     </body>
 
-<?php		/** @Episodio 8: [MOSTRAR O Cï¿½DIGO FONTE] **/ ?>
+<?php		/** @Episodio 8: [SHOW SOURCE CODE] **/ ?>
 
-	<i><a href="showSource.php?file=login.php">Veja o cï¿½digo fonte!</a></i>    
+	<i><a href="showSource.php?file=login.php">Veja o código fonte!</a></i>    
 </html>
 
 <?php

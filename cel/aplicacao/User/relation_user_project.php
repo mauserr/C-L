@@ -69,7 +69,7 @@ self.close();
         </style>
     </head>
     <body onLoad="createMSelect();">
-        <h4>Selecione os usuï¿½rios para participar do projeto "<span style="color: orange"><?=simple_query("nome", "projeto", "id_project = " . $_SESSION['current_id_project'])?></span>":</h4>
+        <h4>Selecione os usuários para participar do projeto "<span style="color: orange"><?=simple_query("nome", "projeto", "id_project = " . $_SESSION['current_id_project'])?></span>":</h4>
         <p style="color: red">Mantenha <strong>CTRL</strong> pressionado para selecionar mï¿½ltiplas opï¿½ï¿½es</p>
         <form action="" method="post" onSubmit="selAll();">
         <table cellspacing="8" width="100%">
