@@ -10,7 +10,8 @@ if (!(function_exists("check_User")))
     function check_User($url)
     {   
         assert(is_string($url));
-        assertNotNull($url);
+        //assertNotNull($url);
+        assert($url !=NULL);
         if(!(isset($_SESSION['current_id_user'])))
         {
 			?>
