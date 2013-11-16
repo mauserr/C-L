@@ -23,6 +23,8 @@ if (!(function_exists("recarrega")))
 {
     function recarrega($url) 
     {
+            assert(is_string($url));
+            assertNotNull($url);
 		?>
 		
 		<script language="javascript1.3">
@@ -41,6 +43,9 @@ if (!(function_exists("simple_query")))
 {
     funcTion simple_query($field, $table, $where)
     {
+        assert(is_string($field, $table, $where));
+        assertNotNull($field, $table, $where);
+        
         $connect = bd_connect() or die("Erro ao conectar ao SGBD");
         $query_sql = "SELECT $field FROM $table WHERE $where";
         $query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query");
@@ -60,6 +65,11 @@ if (!(function_exists("alteraLexico")))
 {
     function alteraLexico($id_projeto, $id_lexico, $nome, $nocao, $impacto, $sinonimos, $classificacao)
     {
+        assert(is_int($id_projeto, $id_lexico));
+        assert(is_string($nome, $nocao, $impacto, $sinonimos, $classificacao));
+        assertNotNull($id_projeto, $id_lexico, $nome, $nocao, $impacto, $sinonimos, $classificacao);
+        
+        
         $DB = new PGDB () ;
         $delete = new QUERY ($DB) ;        
         
@@ -312,6 +322,10 @@ if (!(function_exists("alteraLexico")))
 ###################################################################
 function checarLexicoExistente($projeto, $nome)
 {
+    assert(is_string($projeto, $nome));
+    assertNotNull($projeto, $nome);
+    
+    
     $naoexiste = false;
     
     $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -348,6 +362,10 @@ function checarLexicoExistente($projeto, $nome)
 ###################################################################
 function checarSinonimo($projeto, $listSinonimo)
 {
+    assert(is_string($projeto));
+    assertNotNull($projeto, $listSinonimo);
+    
+    
     $naoexiste = true;
     
     $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -391,7 +409,10 @@ function checarSinonimo($projeto, $listSinonimo)
 ###################################################################
 if (!(function_exists("inserirPedidoAlterarLexico"))) {
     function inserirPedidoAlterarLexico($id_projeto,$id_lexico,$nome,$nocao,$impacto,$justificativa,$id_usuario, $sinonimos, $classificacao){
-                                       
+        assert(is_int($id_lexico, $id_projeto, $id_usuario));
+        assert(is_string($nome,$nocao,$impacto,$justificativa,$sinonimos, $classificacao));
+        assertNotNull($id_projeto,$id_lexico,$nome,$nocao,$impacto,$justificativa,$id_usuario, $sinonimos, $classificacao);
+        
         $DB = new PGDB () ;
         $insere = new QUERY ($DB) ;
         $select = new QUERY ($DB) ;
@@ -457,7 +478,11 @@ if (!(function_exists("inserirPedidoAlterarLexico"))) {
 ###################################################################
 if (!(function_exists("insertRequestRemoveRelation"))) {
     function insertRequestRemoveRelation($id_projeto,$id_relacao,$id_usuario){
-    
+        assert(is_int($id_projeto, $id_relacao, $id_usuario));
+        assertNotNull($id_projeto,$id_relacao,$id_usuario);
+        
+        
+        
         $DB = new PGDB () ;
         $insere = new QUERY ($DB) ;
         $select = new QUERY ($DB) ;
@@ -500,6 +525,9 @@ if (!(function_exists("insertRequestRemoveRelation"))) {
 ###################################################################
 if (!(function_exists("tratarPedidoRelacao"))) {
     function tratarPedidoRelacao($id_pedido){
+        assert(is_int($id_pedido));
+        assertNotNull($id_pedido);
+        
         $DB = new PGDB () ;
         $select = new QUERY ($DB) ;
         $delete = new QUERY ($DB) ;
@@ -536,6 +564,9 @@ if (!(function_exists("tratarPedidoRelacao"))) {
 #############################################
 if (!(function_exists("verifyManager"))) {
     function verifyManager($id_user){
+        assert(is_int($id_user));
+        assertNotNull($id_user);
+        
         $DB = new PGDB () ;
         $select = new QUERY ($DB) ;
         $select->execute("SELECT * FROM participates WHERE manager = 1 AND id_user = $id_user") ;
@@ -567,6 +598,10 @@ if (!(function_exists("formataData"))) {
 if (!(function_exists("is_admin"))) {
     function is_admin($id_usuario, $id_projeto)
     {
+        assert(is_int($id_usuario, $id_projeto));
+        assertNotNull($id_usuario, $id_projeto);
+        
+        
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $q = "SELECT *
               FROM participates
@@ -592,6 +627,9 @@ if (!(function_exists("is_admin"))) {
 
 function verificaGerente($id_usuario, $id_projeto)
 {
+    assert(is_int($id_usuario, $id_projeto));
+    assertNotNull($id_usuario, $id_projeto);
+    
     $ret = 0;
     
     $q = "SELECT * FROM participates WHERE manager = 1 AND id_user = $id_usuario AND id_project = $id_projeto";
