@@ -19,12 +19,13 @@ check_User("index.php");
 
 $connect_db = db_connect() or die("Erro ao conectar ao SGBD");
 
-$submit = null;
-$name = null;
+
 $synonymList = null;
 $id_project;
 
-if (isset($submit)) {
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    
     
     $ret = checkExistingLexical($_SESSION['current_id_project'], $name);
     if (!isset($synonymList))
