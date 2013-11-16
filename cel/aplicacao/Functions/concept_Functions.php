@@ -11,8 +11,12 @@
 ###################################################################
 if (!(function_exists("insert_request_remove_concept"))) {
     function insert_request_remove_concept($id_project,$id_concept,$id_user){
-        assert(is_int($id_project, $id_concept, $id_user));
-        assertNotNull($id_project, $id_concept, $id_user);
+        assert(is_int($id_project));
+        assert(is_int($id_user));
+        assert(is_int($id_concept));
+        assert($id_project!=NULL);
+        assert($id_concept!=NULL);
+        assert($id_user!=NULL);
         
         
         $DB = new PGDB () ;

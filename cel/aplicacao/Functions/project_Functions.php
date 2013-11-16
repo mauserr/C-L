@@ -23,7 +23,8 @@ if (!(function_exists("include_project")))
 			
 		assert($name != NULL);
 		assert($description != NULL);	
-                assert(is_string($name, $description));
+                assert(is_string($name));
+                assert(is_string($description));
 		
 		$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 		$query_select_sql = "SELECT * FROM project WHERE name = '$name'";
