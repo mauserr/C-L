@@ -14,7 +14,7 @@ require_once '/../bd_class.php';
 ###################################################################
 
 
-if (!(function_exists("inclui_lexico"))) 
+if (!(function_exists("include_lexicon"))) 
 {
     function include_lexicon($id_project, $name, $notion, $impact, $synonymous, $classification)
     {      
@@ -56,6 +56,49 @@ if (!(function_exists("inclui_lexico")))
             return $result[0];
         }
     }
+}
+
+
+###################################################################
+# Funcao faz um select na tabela lexico.
+# Para inserir um novo lexico, deve ser verificado se ele ja existe,
+# ou se existe um sinonimo com o mesmo nome.
+# Recebe o id do projeto e o nome do lexico (1.0)
+# Faz um SELECT na tabela lexico procurando por um nome semelhante
+# no projeto (1.1)
+# Faz um SELECT na tabela sinonimo procurando por um nome semelhante
+# no projeto (1.2)
+# retorna true caso nao exista ou false caso exista (1.3)
+###################################################################
+function checkExistingLexicon($project, $name)
+{
+	assert(is_string($project, $name));
+	assertNotNull($project, $name);
+
+
+	$doenstexist= false;
+
+	$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+	$q = "SELECT * FROM lexicon WHERE id_project = $project AND name = '$name' ";
+	$qr = mysql_query($q) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+	$resultArray = mysql_fetch_array($qr);
+	if ( $resultArray == false )
+	{
+		$doenstexist = true;
+	}
+
+	$q = "SELECT * FROM synonym WHERE id_project = $project AND name = '$name' ";
+	$qr = mysql_query($q) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+	$resultArray = mysql_fetch_array($qr);
+
+	if ( $resultArray != false )
+	{
+		$doenstexist = false;
+	}
+
+	return $doenstexist;
+
+
 }
 
 

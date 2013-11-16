@@ -63,11 +63,11 @@ if (!(function_exists("simple_query")))
 
 if (!(function_exists("alteraLexico")))
 {
-    function alteraLexico($id_projeto, $id_lexico, $nome, $nocao, $impacto, $sinonimos, $classificacao)
+    function alteraLexico($id_projeto, $id_lexico, $name, $nocao, $impacto, $sinonimos, $classificacao)
     {
         assert(is_int($id_projeto, $id_lexico));
-        assert(is_string($nome, $nocao, $impacto, $sinonimos, $classificacao));
-        assertNotNull($id_projeto, $id_lexico, $nome, $nocao, $impacto, $sinonimos, $classificacao);
+        assert(is_string($name, $nocao, $impacto, $sinonimos, $classificacao));
+        assertNotNull($id_projeto, $id_lexico, $name, $nocao, $impacto, $sinonimos, $classificacao);
         
         
         $DB = new PGDB () ;
@@ -110,8 +110,8 @@ if (!(function_exists("alteraLexico")))
         while ($result = mysql_fetch_array($qrr)) 
         {    // 2  - Para todos os cenarios
         
-            $nomeEscapado = escape_metacharacter( $nome );
-			$regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
+            $nameEscapado = escape_metacharacter( $name );
+			$regex = "/(\s|\b)(" . $nameEscapado . ")(\s|\b)/i";
          
             if( (preg_match($regex, $result['objetivo']) != 0) ||
                 (preg_match($regex, $result['contexto']) != 0) ||
@@ -186,8 +186,8 @@ if (!(function_exists("alteraLexico")))
         
         	# Verifica a ocorrencia do titulo do lexico alterado no texto dos outros lexicos
         	        
-            $nomeEscapado = escape_metacharacter( $nome );
-			$regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
+            $nameEscapado = escape_metacharacter( $name );
+			$regex = "/(\s|\b)(" . $nameEscapado . ")(\s|\b)/i";
             
             if ( (preg_match($regex, $result['nocao']) != 0 ) ||
                  (preg_match($regex, $result['impacto'])!= 0) )
@@ -200,8 +200,8 @@ if (!(function_exists("alteraLexico")))
          
             # Verifica a ocorrencia do titulo dos outros lexicos no texto do lexico alterado
             
-			$nomeEscapado = escape_metacharacter( $result['nome'] );
-            $regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
+			$nameEscapado = escape_metacharacter( $result['nome'] );
+            $regex = "/(\s|\b)(" . $nameEscapado . ")(\s|\b)/i";
          
             if((preg_match($regex, $nocao) != 0) ||
                (preg_match($regex, $impacto) != 0) )
@@ -265,7 +265,7 @@ if (!(function_exists("alteraLexico")))
         
         $qrrSinonimos = mysql_query($qSinonimos) or die("Erro ao enviar a query de select no sinonimo<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
-        $nomesSinonimos = array();
+        $namesSinonimos = array();
         $id_lexicoSinonimo = array();
         
         while($rowSinonimo = mysql_fetch_array($qrrSinonimos))
@@ -309,47 +309,6 @@ if (!(function_exists("alteraLexico")))
 }
 
 
-###################################################################
-# Funcao faz um select na tabela lexico.
-# Para inserir um novo lexico, deve ser verificado se ele ja existe,
-# ou se existe um sinonimo com o mesmo nome.
-# Recebe o id do projeto e o nome do lexico (1.0)
-# Faz um SELECT na tabela lexico procurando por um nome semelhante
-# no projeto (1.1)
-# Faz um SELECT na tabela sinonimo procurando por um nome semelhante
-# no projeto (1.2)
-# retorna true caso nao exista ou false caso exista (1.3)
-###################################################################
-function checarLexicoExistente($projeto, $nome)
-{
-    assert(is_string($projeto, $nome));
-    assertNotNull($projeto, $nome);
-    
-    
-    $naoexiste = false;
-    
-    $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-    $q = "SELECT * FROM lexico WHERE id_projeto = $projeto AND nome = '$nome' ";
-    $qr = mysql_query($q) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-    $resultArray = mysql_fetch_array($qr);
-    if ( $resultArray == false )
-    {
-        $naoexiste = true;
-    }
-    
-    $q = "SELECT * FROM sinonimo WHERE id_projeto = $projeto AND nome = '$nome' ";
-    $qr = mysql_query($q) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-    $resultArray = mysql_fetch_array($qr);
-    
-    if ( $resultArray != false )
-    {
-        $naoexiste = false;
-    }
-    
-    return $naoexiste;
-    
-    
-}
 
 
 ###################################################################
@@ -360,10 +319,10 @@ function checarLexicoExistente($projeto, $nome)
 # um lexico com o mesmo nome do sinonimo.(1.1)
 # retorna true caso nao exista ou false caso exista (1.2)
 ###################################################################
-function checarSinonimo($projeto, $listSinonimo)
+function checarSinonimo($project, $listSinonimo)
 {
-    assert(is_string($projeto));
-    assertNotNull($projeto, $listSinonimo);
+    assert(is_string($project));
+    assertNotNull($project, $listSinonimo);
     
     
     $naoexiste = true;
@@ -372,7 +331,7 @@ function checarSinonimo($projeto, $listSinonimo)
     
     foreach($listSinonimo as $sinonimo){
         
-        $q = "SELECT * FROM sinonimo WHERE id_projeto = $projeto AND nome = '$sinonimo' ";
+        $q = "SELECT * FROM sinonimo WHERE id_projeto = $project AND nome = '$sinonimo' ";
         $qr = mysql_query($q) or die("Erro ao enviar a query de select no sinonimo<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $resultArray = mysql_fetch_array($qr);
         if ( $resultArray != false )
@@ -381,7 +340,7 @@ function checarSinonimo($projeto, $listSinonimo)
             return $naoexiste;
         }
         
-        $q = "SELECT * FROM lexico WHERE id_projeto = $projeto AND nome = '$sinonimo' ";
+        $q = "SELECT * FROM lexico WHERE id_projeto = $project AND nome = '$sinonimo' ";
         $qr = mysql_query($q) or die("Erro ao enviar a query de select no sinonimo<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $resultArray = mysql_fetch_array($qr);
         if ( $resultArray != false )
@@ -420,9 +379,9 @@ if (!(function_exists("insertRequestRemoveRelation"))) {
         $select2 = new QUERY ($DB) ;
         $select->execute("SELECT * FROM relacao WHERE id_relacao = $id_relacao") ;
         $relacao = $select->gofirst ();
-        $nome = $relacao['nome'] ;
+        $name = $relacao['nome'] ;
         
-        $insere->execute("INSERT INTO pedidorel (id_projeto,id_relacao,nome,id_usuario,tipo_pedido,aprovado) VALUES ($id_projeto,$id_relacao,'$nome',$id_usuario,'remover',0)") ;
+        $insere->execute("INSERT INTO pedidorel (id_projeto,id_relacao,nome,id_usuario,tipo_pedido,aprovado) VALUES ($id_projeto,$id_relacao,'$name',$id_usuario,'remover',0)") ;
         $select->execute("SELECT * FROM usuario WHERE id_usuario = $id_usuario") ;
         $select2->execute("SELECT * FROM participa WHERE gerente = 1 and id_projeto = $id_projeto") ;
         
@@ -430,7 +389,7 @@ if (!(function_exists("insertRequestRemoveRelation"))) {
             echo "<BR> [ERRO]Pedido nao foi comunicado por e-mail." ;
         }else{
             $record = $select->gofirst ();
-            $nome = $record['nome'] ;
+            $name = $record['nome'] ;
             $email = $record['email'] ;
             $record2 = $select2->gofirst ();
             while($record2 != 'LAST_RECORD_REACHED'){
@@ -438,7 +397,7 @@ if (!(function_exists("insertRequestRemoveRelation"))) {
                 $select->execute("SELECT * FROM usuario WHERE id_usuario = $id") ;
                 $record = $select->gofirst ();
                 $mailGerente = $record['email'] ;
-                mail("$mailGerente", "Pedido de Remover Conceito", "O usuario do sistema $nome2\nPede para remover o conceito $id_relacao \nObrigado!","From: $nome\r\n"."Reply-To: $email\r\n");
+                mail("$mailGerente", "Pedido de Remover Conceito", "O usuario do sistema $name2\nPede para remover o conceito $id_relacao \nObrigado!","From: $name\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
             }
         }
@@ -475,13 +434,13 @@ if (!(function_exists("tratarPedidoRelacao"))) {
             }else{
                 
                 $id_projeto = $record['id_projeto'] ;
-                $nome         = $record['nome'] ;
+                $name         = $record['nome'] ;
                                 
                 if(!strcasecmp($tipoPedido,'alterar')){
                     $id_relacao = $record['id_relacao'] ;
                     removeRelacao($id_projeto,$id_relacao) ;
                 }
-                adicionar_relacao($id_projeto, $nome) ;
+                adicionar_relacao($id_projeto, $name) ;
             }
         }
     }

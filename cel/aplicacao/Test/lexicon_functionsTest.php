@@ -22,8 +22,8 @@ class lexicon_functionsTest extends PHPUnit_Framework_TestCase {
      * @test
      *
      */
-    public function testIncluiLexico() {
-        $retorno = inclui_lexico($this->idProjeto,$this->nome,$this->nocao,$this->impacto,$this->sinonimos,$this->classificados);
+    public function testinclude_lexicon() {
+        $retorno = include_lexicon($this->idProjeto,$this->nome,$this->nocao,$this->impacto,$this->sinonimos,$this->classificados);
         $this->assertNotNull($retorno);
         
     }

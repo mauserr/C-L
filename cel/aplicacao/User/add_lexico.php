@@ -1,4 +1,5 @@
 <?php
+require_once'../Functions/lexicon_functions.php';
 include("funcoes_genericas.php");
 require_once '/Functions/check_User.php';
 include("httprequest.inc");
@@ -27,7 +28,7 @@ if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     
     
-    $ret = checkExistingLexical($_SESSION['current_id_project'], $name);
+    $ret = checkExistingLexicon($_SESSION['current_id_project'], $name);
     if (!isset($synonymList))
         $synonymList = array();
 
