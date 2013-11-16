@@ -11,7 +11,6 @@
 if (!(function_exists("include_Scenario"))) {
     function include_Scenario($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes)
     {
-        assert(is_int($id_project));
         assert(is_string($episodes));
         assert(is_string($title));
         assert(is_string($objective));

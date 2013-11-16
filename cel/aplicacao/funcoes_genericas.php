@@ -69,8 +69,6 @@ if (!(function_exists("alteraLexico")))
 {
     function alteraLexico($id_projeto, $id_lexico, $name, $nocao, $impacto, $sinonimos, $classificacao)
     {
-        assert(is_int($id_lexico));
-        assert(is_int($id_projeto));
         assert(is_string($classificacao));
         assert(is_string($name));
         assert(is_string($nocao));
@@ -386,9 +384,7 @@ function checarSinonimo($project, $listSinonimo)
 ###################################################################
 if (!(function_exists("insertRequestRemoveRelation"))) {
     function insertRequestRemoveRelation($id_projeto,$id_relacao,$id_usuario){
-        assert(is_int($id_usuario));
-        assert(is_int($id_projeto));
-        assert(is_int($id_relacao));
+        
         assert($id_projeto !=NULL);
         assert($id_relacao !=NULL);
         assert($id_usuario !=NULL);
@@ -437,7 +433,6 @@ if (!(function_exists("insertRequestRemoveRelation"))) {
 ###################################################################
 if (!(function_exists("tratarPedidoRelacao"))) {
     function tratarPedidoRelacao($id_pedido){
-        assert(is_int($id_pedido));
         assert($id_pedido !=NULL);
         
         $DB = new PGDB () ;
@@ -476,7 +471,6 @@ if (!(function_exists("tratarPedidoRelacao"))) {
 #############################################
 if (!(function_exists("verifyManager"))) {
     function verifyManager($id_user){
-        assert(is_int($id_user));
         assert($id_user !=NULL);
         
         $DB = new PGDB () ;
@@ -510,8 +504,6 @@ if (!(function_exists("formataData"))) {
 if (!(function_exists("is_admin"))) {
     function is_admin($id_usuario, $id_projeto)
     {
-        assert(is_int($id_usuario));
-        assert(is_int($id_projeto));
         assert($id_usuario !=NULL);
         assert($id_projeto !=NULL);
 
@@ -542,8 +534,6 @@ if (!(function_exists("is_admin"))) {
 
 function verificaGerente($id_usuario, $id_projeto)
 {
-    assert(is_int($id_usuario));
-    assert(is_int($id_projeto));
     assert($id_usuario !=NULL);
     assert($id_projeto !=NULL);
 

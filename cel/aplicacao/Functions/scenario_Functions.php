@@ -16,7 +16,6 @@ if (!(function_exists("include_Scenario"))) {
         assert($title != NULL);
         assert($objective != NULL);
         assert($context != NULL);
-        assert(is_int($id_project));
         assert(is_string($episodes));
         assert(is_string($title));
         assert(is_string($objective));
@@ -69,12 +68,10 @@ if (!(function_exists("adiciona_cenario")))
 {
     function adiciona_cenario($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes)
     {
-        assert(is_int($id_project));
         assert($id_project != NULL);
         assert($title != NULL);
         assert($objective != NULL);
         assert($context != NULL);
-        assert(is_int($id_project));
         assert(is_string($episodes));
         assert(is_string($title));
         assert(is_string($objective));
@@ -237,8 +234,6 @@ if (!(function_exists("removeCenario"))) {
         assert($id_project < 0);
         assert($id_scenario != NULL);
         assert($id_scenario < 0);
-        assert(is_int($id_project));
-        assert(is_int($id_project));
         $DB = new PGDB () ;
         $sql1 = new QUERY ($DB) ;
         $sql2 = new QUERY ($DB) ;
@@ -268,8 +263,6 @@ if (!(function_exists("alteraCenario")))
 {
     function alteraCenario($id_projeto, $id_cenario, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios)
     {
-        assert(is_int($id_projeto));
-        assert(is_int($id_cenario));
         assert(is_string($titulo));
         assert(is_string($objetivo));
         assert(is_string($contexto));
@@ -488,8 +481,6 @@ function checkExistingScenario($project, $title)
 if (!(function_exists("insertRequestAddScenario"))) {
     function insertRequestAddScenario($id_project, $title,$objective,$context,$actors,$resource,$exception,$episodes, $id_user)
     {
-        assert(is_int($id_user));
-        assert(is_int($id_project));
         assert(is_string($episodes));
         assert(is_string($title));
         assert(is_string($objective));
@@ -570,9 +561,7 @@ if (!(function_exists("insertRequestAddScenario"))) {
 ###################################################################
 if (!(function_exists("inserirPedidoAlterarCenario"))) {
     function inserirPedidoAlterarCenario($id_projeto, $id_cenario, $titulo, $objetivo, $contexto, $atores, $recursos,$excecao, $episodios, $justificativa, $id_usuario) {
-        assert(is_int($id_usuario));
-        assert(is_int($id_cenario));
-        assert(is_int($id_projeto));
+        
         assert(is_string($titulo));
         assert(is_string($objetivo));
         assert(is_string($contexto));
@@ -642,9 +631,7 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
 ###################################################################
 if (!(function_exists("inserirPedidoRemoverCenario"))) {
     function inserirPedidoRemoverCenario($id_project, $id_scenario, $id_user) {
-        assert(is_int($id_user));
-        assert(is_int($id_project));
-        assert(is_int($id_scenario));
+      
         assert($id_project !=NULL);
         assert($id_scenario !=NULL);
         assert($id_user !=NULL);
@@ -698,9 +685,7 @@ if (!(function_exists("inserirPedidoRemoverCenario"))) {
 ###################################################################
 if (!(function_exists("inserirPedidoAlterarCenario"))) {
     function insert_request_alter_concept($id_project, $id_concept, $name, $description, $namespace, $justification, $id_user) {
-        assert(is_int($id_concept));
-        assert(is_int($id_project));
-        assert(is_int($id_user));
+     
         assert(is_string($name));
         assert(is_string($description));
         assert(is_string($namespace));
@@ -764,7 +749,6 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
 ###################################################################
 if (!(function_exists("tratarPedidoCenario"))) {
     function tratarPedidoCenario($id_request){
-        assert(is_int($id_request));
         assert($id_request != NULL);
         
         $DB = new PGDB () ;

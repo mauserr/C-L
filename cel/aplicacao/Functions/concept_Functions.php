@@ -11,9 +11,7 @@
 ###################################################################
 if (!(function_exists("insert_request_remove_concept"))) {
     function insert_request_remove_concept($id_project,$id_concept,$id_user){
-        assert(is_int($id_project));
-        assert(is_int($id_user));
-        assert(is_int($id_concept));
+
         assert($id_project!=NULL);
         assert($id_concept!=NULL);
         assert($id_user!=NULL);
@@ -61,7 +59,6 @@ if (!(function_exists("insert_request_remove_concept"))) {
 ###################################################################
 if (!(function_exists("treat_concept_request"))) {
     function treat_concept_request($id_request){
-        assert(is_int($id_request));
         assertNotNull($id_request);
         
         $DB = new PGDB () ;
@@ -100,7 +97,6 @@ if (!(function_exists("treat_concept_request"))) {
 ###################################################################
 if (!(function_exists("remove_concept"))) {
     function remove_concept($id_project, $id_concept){
-        assert(is_int($id_project, $id_concept));
         assertNotNull($id_project, $id_concept);
         
         $DB = new PGDB () ;
