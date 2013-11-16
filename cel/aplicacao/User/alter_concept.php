@@ -25,12 +25,15 @@ $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 if (isset($_POST['submit'])) {     
     $id_concept = $_POST['id_concept'];
     inserirPedidoAlterarConceito($_SESSION['current_id_project'], 
-            $_POST['id_concept'], 
+			
+    		$_POST['id_concept'], 
             $_POST['name'], 
             $_POST['description'], 
             $_POST['namespace'], 
             $_POST['justification'], 
             $_SESSION['current_id_user']);
+    
+    
     ?>
 
     <script language="javascript1.3">

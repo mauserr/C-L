@@ -514,6 +514,73 @@ if (!(function_exists("tratarPedidoLexico"))) {
         }
     }
 }
+
+###################################################################
+# Funcao faz um insert na tabela de pedido.
+# Para alterar um lexico ela deve receber os campos do lexicos
+# jah modificados.(1.1)
+# Ao final ela manda um e-mail para o gerente do projeto
+# referente a este lexico caso o criador nï¿½o seja o gerente.(2.1)
+# Arquivos que utilizam essa funcao:
+# alt_lexico.php
+###################################################################
+if (!(function_exists("insertRequestAlterLexicon"))) {
+	function insertRequestAlterLexicon($id_project,$id_lexicon,$name,$notion,$impact,$justification,$id_user, $synonym, $classification){
+		assert(is_int($id_lexicon, $id_project, $id_user));
+		assert(is_string($name,$notion,$impact,$justificative,$synonym, $classification));
+		assertNotNull($id_project,$id_lexicon,$name,$notion,$impact,$justification,$id_user, $synonym, $classification);
+
+		$DB = new PGDB () ;
+		$insere = new QUERY ($DB) ;
+		$select = new QUERY ($DB) ;
+		$select2 = new QUERY ($DB) ;
+
+		$q = "SELECT * FROM participates WHERE manager = 1 AND id_user = $id_user AND id_project = $id_project";
+		$qr = mysql_query($q) or die("Erro ao enviar a query de select no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+		$resultArray = mysql_fetch_array($qr);
+
+
+		if ( $resultArray == false ) //nao e gerente
+		{
+
+			$insere->execute("INSERT INTO request_lexicon(id_project,id_lexicon,name,notion,impact,id_user,type_request,aproved,justification, type) VALUES ($id_project,$id_lexico,'$name','$notion','$impact',$id_user,'alter',0,'$justification', '$classification')") ;
+
+			$newPedidoId = $insere->getLastId();
+
+			//sinonimos
+			foreach($synonym as $sin)
+			{
+				$insere->execute("INSERT INTO synonym (id_request_lexicon,name,id_project)
+						VALUES ($newPedidoId,'".data_prepare(strtolower($sin))."', $id_project)") ;
+			}
+
+
+			$select->execute("SELECT * FROM user WHERE id_user = '$id_user'") ;
+			$select2->execute("SELECT * FROM participates WHERE manager = 1 and id_project = $id_project") ;
+
+			if ($select->getntuples() == 0 && $select2->getntuples() == 0){
+				echo "<BR> [ERRO]Pedido nao foi comunicado por e-mail." ;
+			}else{
+				$record = $select->gofirst ();
+				$nome2 = $record['name'] ;
+				$email = $record['email'] ;
+				$record2 = $select2->gofirst ();
+				while($record2 != 'LAST_RECORD_REACHED'){
+					$id = $record2['id_user'] ;
+					$select->execute("SELECT * FROM user WHERE id_user = $id") ;
+					$record = $select->gofirst ();
+					$mailGerente = $record['email'] ;
+					mail("$mailGerente", "Pedido de Alterar Léxico", "O usuario do sistema $name2\nPede para alterar o lexico $name \nObrigado!","From: $name2\r\n"."Reply-To: $email\r\n");
+					$record2 = $select2->gonext();
+				}
+			}
+		}
+		else{ //É gerente
+			alteraLexico($id_project,$id_lexicon, $name, $notion, $impact, $synonym, $classification) ;
+		}
+
+	}
+}
 ?>
 
 
