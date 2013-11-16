@@ -85,7 +85,8 @@ if (!(function_exists("check_project_permanent"))) {
 		assert($id_project != NULL);
 		assert($id_user > 0);
 		assert($id_project > 0);
-                assert(is_int($id_project, $id_user));
+                assert(is_int($id_user));
+                assert(is_int($id_project));
 		
 		
 		$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);

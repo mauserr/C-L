@@ -24,7 +24,7 @@ if (!(function_exists("recarrega")))
     function recarrega($url) 
     {
             assert(is_string($url));
-            assertNotNull($url);
+            assert($url !=NULL);
 		?>
 		
 		<script language="javascript1.3">
@@ -43,8 +43,12 @@ if (!(function_exists("simple_query")))
 {
     funcTion simple_query($field, $table, $where)
     {
-        assert(is_string($field, $table, $where));
-        assertNotNull($field, $table, $where);
+        assert(is_string($where));
+        assert(is_string($field));
+        assert(is_string($table));
+        assert($field !=NULL);
+        assert($table !=NULL);
+        assert($where !=NULL);
         
         $connect = bd_connect() or die("Erro ao conectar ao SGBD");
         $query_sql = "SELECT $field FROM $table WHERE $where";
@@ -65,9 +69,21 @@ if (!(function_exists("alteraLexico")))
 {
     function alteraLexico($id_projeto, $id_lexico, $name, $nocao, $impacto, $sinonimos, $classificacao)
     {
-        assert(is_int($id_projeto, $id_lexico));
-        assert(is_string($name, $nocao, $impacto, $sinonimos, $classificacao));
-        assertNotNull($id_projeto, $id_lexico, $name, $nocao, $impacto, $sinonimos, $classificacao);
+        assert(is_int($id_lexico));
+        assert(is_int($id_projeto));
+        assert(is_string($classificacao));
+        assert(is_string($name));
+        assert(is_string($nocao));
+        assert(is_string($impacto));
+        assert(is_string($sinonimos));
+        assert($id_projeto !=NULL);
+        assert($id_lexico !=NULL);
+        assert($name !=NULL);
+        assert($nocao !=NULL);
+        assert($impacto !=NULL);
+        assert($sinonimos !=NULL);
+        assert($classificacao !=NULL);
+
         
         
         $DB = new PGDB () ;
@@ -322,7 +338,9 @@ if (!(function_exists("alteraLexico")))
 function checarSinonimo($project, $listSinonimo)
 {
     assert(is_string($project));
-    assertNotNull($project, $listSinonimo);
+    assert($project !=NULL);
+    assert($listSinonimo !=NULL);
+
     
     
     $naoexiste = true;
@@ -368,9 +386,13 @@ function checarSinonimo($project, $listSinonimo)
 ###################################################################
 if (!(function_exists("insertRequestRemoveRelation"))) {
     function insertRequestRemoveRelation($id_projeto,$id_relacao,$id_usuario){
-        assert(is_int($id_projeto, $id_relacao, $id_usuario));
-        assertNotNull($id_projeto,$id_relacao,$id_usuario);
-        
+        assert(is_int($id_usuario));
+        assert(is_int($id_projeto));
+        assert(is_int($id_relacao));
+        assert($id_projeto !=NULL);
+        assert($id_relacao !=NULL);
+        assert($id_usuario !=NULL);
+
         
         
         $DB = new PGDB () ;
@@ -416,7 +438,7 @@ if (!(function_exists("insertRequestRemoveRelation"))) {
 if (!(function_exists("tratarPedidoRelacao"))) {
     function tratarPedidoRelacao($id_pedido){
         assert(is_int($id_pedido));
-        assertNotNull($id_pedido);
+        assert($id_pedido !=NULL);
         
         $DB = new PGDB () ;
         $select = new QUERY ($DB) ;
@@ -455,7 +477,7 @@ if (!(function_exists("tratarPedidoRelacao"))) {
 if (!(function_exists("verifyManager"))) {
     function verifyManager($id_user){
         assert(is_int($id_user));
-        assertNotNull($id_user);
+        assert($id_user !=NULL);
         
         $DB = new PGDB () ;
         $select = new QUERY ($DB) ;
@@ -488,8 +510,11 @@ if (!(function_exists("formataData"))) {
 if (!(function_exists("is_admin"))) {
     function is_admin($id_usuario, $id_projeto)
     {
-        assert(is_int($id_usuario, $id_projeto));
-        assertNotNull($id_usuario, $id_projeto);
+        assert(is_int($id_usuario));
+        assert(is_int($id_projeto));
+        assert($id_usuario !=NULL);
+        assert($id_projeto !=NULL);
+
         
         
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -517,8 +542,11 @@ if (!(function_exists("is_admin"))) {
 
 function verificaGerente($id_usuario, $id_projeto)
 {
-    assert(is_int($id_usuario, $id_projeto));
-    assertNotNull($id_usuario, $id_projeto);
+    assert(is_int($id_usuario));
+    assert(is_int($id_projeto));
+    assert($id_usuario !=NULL);
+    assert($id_projeto !=NULL);
+
     
     $ret = 0;
     
