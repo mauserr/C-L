@@ -1,4 +1,5 @@
 <?php
+
 require_once '/../bd.inc';
 require_once '/../security.php';
 require_once '/../bd_class.php';
@@ -18,7 +19,9 @@ if (!(function_exists("inclui_lexico")))
     function include_lexicon($id_project, $name, $notion, $impact, $synonymous, $classification)
     {      
         assert($id_project != NULL);
-		assert($name != NULL);
+	assert($name != NULL);
+        assert(is_int($id_project));
+        assert(is_string($name, $notion, $impact, $synonymous, $classification));
         
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $data = date("Y-m-d");
@@ -80,6 +83,11 @@ if (!(function_exists("adicionar_lexico")))
 {
     function adicionar_lexico($id_project, $name, $notion, $impact, $synonymous, $classification)
     {
+        assert(is_int($id_project));
+        assert(is_string($name, $notion, $impact, $synonymous, $classification));
+        assertNotNull($id_project, $name, $notion, $impact, $synonymous, $classification);
+        
+        
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
         $id_incluido = include_lexicon($id_project, $name, $notion, $impact, $synonymous, $classification); // (1)
@@ -269,6 +277,10 @@ if (!(function_exists("adicionar_lexico")))
 ###################################################################
 if (!(function_exists("inserirPedidoAdicionarLexico"))) {
     function inserirPedidoAdicionarLexico($id_project,$name,$notion,$impact,$id_user,$synonymous, $classification){
+        assert(is_int($id_project, $id_user));
+        assert(is_string($name, $notion, $impact, $synonymous, $classification));
+        assertNotNull($id_project, $name, $notion, $impact,$id_user, $synonymous, $classification);
+        
         
         $DB = new PGDB() ;
         $insere = new QUERY($DB) ;
@@ -337,12 +349,14 @@ if (!(function_exists("removeLexico"))) {
     function removeLexico($id_project,$id_lexicon, $lexicon_name){
         
         assert($id_project != NULL);
-		assert($id_project > 0);
-		assert($id_lexicon != NULL);
-		assert($id_lexicon > 0);
-		assert($id_project != NULL);
-		assert($id_project > 0);
-		assert($lexicon_name != NULL);
+	assert($id_project > 0);
+	assert($id_lexicon != NULL);
+	assert($id_lexicon > 0);
+	assert($id_project != NULL);
+	assert($id_project > 0);
+	assert($lexicon_name != NULL);
+        assert(is_int($id_lexicon, $id_project));
+        assert(is_string($lexicon_name));
 		   
         $DB = new PGDB() ;
         $delete = new QUERY ($DB) ;      
@@ -384,6 +398,11 @@ if (!(function_exists("removeLexico"))) {
 ###################################################################
 if (!(function_exists("inserirPedidoRemoverLexico"))) {
     function insertRequestRemoveLexicon($id_project,$id_lexicon,$id_user){
+        assert(is_int($id_project, $id_lexicon, $id_user));
+        assertNotNull($id_lexicon, $id_project, $id_user);
+        
+        
+        
         $DB = new PGDB () ;
         $insere = new QUERY ($DB) ;
         $select = new QUERY ($DB) ;
@@ -437,6 +456,10 @@ if (!(function_exists("inserirPedidoRemoverLexico"))) {
 ###################################################################
 if (!(function_exists("tratarPedidoLexico"))) {
     function tratarPedidoLexico($id_request){
+        assert(is_int($id_request));
+        assertNotNull($id_request);
+        
+        
         $DB = new PGDB () ;
         $select = new QUERY ($DB) ;
         $delete = new QUERY ($DB);

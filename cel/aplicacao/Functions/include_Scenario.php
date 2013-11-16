@@ -11,6 +11,10 @@
 if (!(function_exists("include_Scenario"))) {
     function include_Scenario($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes)
     {
+        assert(is_int($id_project));
+        assert(is_string($title, $objective, $context, $actors, $resources, $exception, $episodes));
+        assertNotNull($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes);
+        
         //Variavel $connect que faz conexao com a base de dados
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
