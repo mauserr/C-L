@@ -23,6 +23,7 @@ if (!(function_exists("include_project")))
 			
 		assert($name != NULL);
 		assert($description != NULL);	
+                assert(is_string($name, $description));
 		
 		$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 		$query_select_sql = "SELECT * FROM project WHERE name = '$name'";
@@ -83,6 +84,7 @@ if (!(function_exists("check_project_permanent"))) {
 		assert($id_project != NULL);
 		assert($id_user > 0);
 		assert($id_project > 0);
+                assert(is_int($id_project, $id_user));
 		
 		
 		$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -127,6 +129,7 @@ function removeProject($id_project)
 {
 	assert($id_project != NULL);
 	assert($id_project > 0);
+        assert(is_int($id_project));
 	
 	$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 

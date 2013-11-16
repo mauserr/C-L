@@ -16,6 +16,8 @@ if (!(function_exists("include_Scenario"))) {
         assert($title != NULL);
         assert($objective != NULL);
         assert($context != NULL);
+        assert(is_int($id_project));
+        assert(is_string($title, $objective, $context, $actors, $resource, $exception, $episodes));
 
         //Variavel $connect que faz conexao com a base de dados
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -60,6 +62,11 @@ if (!(function_exists("adiciona_cenario")))
 {
     function adiciona_cenario($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes)
     {
+        assert(is_int($id_project));
+        assert(is_string($title, $objective, $context, $actors, $resources, $exception, $episodes));
+        assertNotNull($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes);
+        
+        
         // Conecta ao SGBD
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         // Inclui o cenario na base de dados (sem transformar os campos, sem criar os relacionamentos)
@@ -214,6 +221,7 @@ if (!(function_exists("removeCenario"))) {
         assert($id_project < 0);
         assert($id_scenario != NULL);
         assert($id_scenario < 0);
+        assert(is_int($id_project, $id_scenario));
         
         $DB = new PGDB () ;
         $sql1 = new QUERY ($DB) ;
@@ -244,6 +252,10 @@ if (!(function_exists("alteraCenario")))
 {
     function alteraCenario($id_projeto, $id_cenario, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios)
     {
+        assert(is_int($id_cenario, $id_projeto));
+        assert(is_string($titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios));
+        assertNotNull($id_projeto, $id_cenario, $titulo, $objetivo, $contexto, $atores, $recursos, $excecao, $episodios);
+        
         $DB = new PGDB () ;
         $sql1 = new QUERY ($DB) ;
         $sql2 = new QUERY ($DB) ;
@@ -411,6 +423,7 @@ function checkExistingScenario($project, $title)
 {    
     assert($project != NULL);
     assert($title != NULL);
+    assert(is_string($project, $title));
      
     $naoexiste = false;
     
@@ -441,14 +454,13 @@ function checkExistingScenario($project, $title)
 # add_cenario.php
 ###################################################################
 if (!(function_exists("insertRequestAddScenario"))) {
-    function insertRequestAddScenario($id_project, $title,
-			$objective,
-			$context,
-			$actors,
-			$resource,
-			$exception,
-			$episodes, $id_user)
+    function insertRequestAddScenario($id_project, $title,$objective,$context,$actors,$resource,$exception,$episodes, $id_user)
     {
+        assert(is_int($id_project, $id_user));
+        assert(is_string($title,$objective,$context,$actors,$resource,$exception,$episodes));
+        assertNotNull($id_project, $title,$objective,$context,$actors,$resource,$exception,$episodes, $id_user);
+        
+        
         $DB = new PGDB();
         $insere  = new QUERY($DB);
         $select  = new QUERY($DB);
@@ -510,6 +522,10 @@ if (!(function_exists("insertRequestAddScenario"))) {
 ###################################################################
 if (!(function_exists("inserirPedidoAlterarCenario"))) {
     function inserirPedidoAlterarCenario($id_projeto, $id_cenario, $titulo, $objetivo, $contexto, $atores, $recursos,$excecao, $episodios, $justificativa, $id_usuario) {
+        assert(is_int($id_cenario, $id_projeto, $id_usuario));
+        assert(is_string($titulo, $objetivo, $contexto, $atores, $recursos,$excecao, $episodios, $justificativa));
+        assertNotNull($id_projeto, $id_cenario, $titulo, $objetivo, $contexto, $atores, $recursos,$excecao, $episodios, $justificativa, $id_usuario);
+        
         $DB = new PGDB();
         $insere = new QUERY($DB);
         $select = new QUERY($DB);
@@ -558,6 +574,10 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
 ###################################################################
 if (!(function_exists("inserirPedidoRemoverCenario"))) {
     function inserirPedidoRemoverCenario($id_project, $id_scenario, $id_user) {
+        assert(is_int($id_project, $id_scenario, $id_user));
+        assertNotNull($id_project, $id_scenario, $id_user);
+        
+        
         $DB = new PGDB();
         $insere = new QUERY($DB);
         $select = new QUERY($DB);
@@ -605,6 +625,11 @@ if (!(function_exists("inserirPedidoRemoverCenario"))) {
 ###################################################################
 if (!(function_exists("inserirPedidoAlterarCenario"))) {
     function insert_request_alter_concept($id_project, $id_concept, $name, $description, $namespace, $justification, $id_user) {
+        assert(is_int($id_concept, $id_project, $id_user));
+        assert(is_string($name, $description, $namespace, $justification));
+        assertNotNull($id_project, $id_concept, $name, $description, $namespace, $justification, $id_user);
+        
+        
         $DB = new PGDB();
         $insere = new QUERY($DB);
         $select = new QUERY($DB);
@@ -654,11 +679,14 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
 ###################################################################
 if (!(function_exists("tratarPedidoCenario"))) {
     function tratarPedidoCenario($id_request){
+        assert(is_int($id_request));
+        assertNotNull($id_request);
+        
         $DB = new PGDB () ;
         $select = new QUERY ($DB) ;
         $delete = new QUERY ($DB) ;
         //print("<BR>SELECT * FROM pedidocen WHERE id_pedido = $id_pedido");
-        $select->execute("SELECT * FROM pedidocen WHERE id_pedido = $id_pedido") ;
+        $select->execute("SELECT * FROM pedidocen WHERE id_pedido = $id_request") ;
         
         if ($select->getntuples() == 0){
             echo "<BR> [ERRO]Pedido invalido." ;

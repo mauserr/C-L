@@ -7,6 +7,10 @@
 ###################################################################
 if (!(function_exists("remove_relation"))) {
     function remove_relation($id_project, $id_relation){
+        assert(is_int($id_project, $id_relation));
+        assertNotNull($id_project, $id_relation);
+        
+        
         $DB = new PGDB () ;
 
         $sql6 = new QUERY ($DB) ;
