@@ -2,7 +2,7 @@
 include("bd.inc");
 include("httprequest.inc");
 
-// Scenario - remenber password
+// Scenario - remember password
 //Objetivo:	Allows an registered user, how forgot the password, receive that for email
 //Contexto:	 The system is open, the user forgot his password, user clicks on the button of forgot password  
 //Actors:	 User, system
@@ -40,6 +40,11 @@ else
    $mail  = $row[2];
    $login = $row[3];
    $password = $row[4];
+   
+   assert($name != NULL);
+   assert($mail != NULL);
+   assert($login != NULL);
+   assert($password != NULL);
 
 
 	function createrandonstring($n)
@@ -50,6 +55,7 @@ else
 		{		
 			$rand = rand(0,61);
 			$cod .= substr($str,$rand,1);
+			assert($cod != NULL);
 		}	
 		return $cod;
 	}

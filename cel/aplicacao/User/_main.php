@@ -23,14 +23,14 @@ check_User("index.php");        // Checa se o usuario foi autenticado
         }
 
         function altCenario(scenario) {
-            var url = 'alt_cenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_scenario=' + scenario;
+            var url = 'alter_scenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_scenario=' + scenario;
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
         }
 
         function rmvCenario(scenario) {
-            var url = 'rmv_cenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_scenario=' + scenario;
+            var url = 'remove_scenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_scenario=' + scenario;
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
@@ -44,7 +44,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
         }
 
         function rmvLexico(lexicon) {
-            var url = 'rmv_lexico.php?id_project=' + '<?=$_SESSION['current_id_prohect']?>' + '&id_lexicon=' + lexicon;
+            var url = 'remov_lexicon.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_lexicon=' + lexicon;
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);
@@ -101,13 +101,13 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 		if ($t == "c") {
 			?>
 
-	<h3>Informaï¿½ï¿½es sobre o cenï¿½rio</h3>
+	<h3>Informações sobre o cenário</h3>
 
 	<?php
 		} else {
 			?>
 
-	<h3>Informaï¿½ï¿½es sobre o lï¿½xico</h3>
+	<h3>Informações sobre o léxico</h3>
 
 	<?php
 		}
@@ -147,7 +147,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 			<td><?=$result['resouces']?></td>
 		</tr>
 		<tr>
-			<td>Episï¿½dios:</td>
+			<td>Episódios:</td>
 			<td><?=$result['episodes']?></td>
 		</tr>
 		<tr>
@@ -173,7 +173,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 			<td><?=$result['name']?></td>
 		</tr>
 		<tr>
-			<td>Noï¿½ï¿½o:</td>
+			<td>Noção:</td>
 			<td><?=$result['notion']?></td>
 		</tr>
 		<tr>
@@ -202,7 +202,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 	if ($t == "c") {
 		?>
 
-	<h3>Cenï¿½rios que referenciam este cenï¿½rio</h3>
+	<h3>Cenários que referenciam este cenï¿½rio</h3>
 
 	<?php
 	} else {
@@ -234,12 +234,12 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 			</td>
 		</tr>
 		<tr>
-			<td>Data de criaï¿½ï¿½o:</td>
+			<td>Data de criação:</td>
 			<td><?=simple_query("TO_CHAR(data_criacao, 'DD/MM/YY')", "project", "id_project = $id_project")?>
 			</td>
 		</tr>
 		<tr>
-			<td>Descriï¿½ï¿½o:</td>
+			<td>Descrição:</td>
 			<td><?=simple_query("description", "project", "id_project = $id_project")?>
 			</td>
 		</tr>
@@ -253,22 +253,22 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 
 	<br>
 	<p>
-		<b>Vocï¿½ ï¿½ um administrador deste projeto</b>
+		<b>Você é um administrador deste projeto</b>
 	</p>
 	<p>
-		<a href="#" onClick="pedidoCenario();">Verificar pedidos de alteraï¿½ï¿½o
-			de Cenï¿½rios</a>
+		<a href="#" onClick="pedidoCenario();">Verificar pedidos de alteração
+			de Cenários</a>
 	</p>
 	<p>
 		<a href="#" onClick="pedidoLexico();">Verificar pedidos de alteraï¿½ï¿½o
-			de termos do Lï¿½xico</a>
+			de termos do Léxico</a>
 	</p>
 	<p>
-		<a href="#" onClick="addUsuario();">Adicionar usuï¿½rio (nï¿½o existente)
+		<a href="#" onClick="addUsuario();">Adicionar usuário (não existente)
 			neste projeto</a>
 	</p>
 	<p>
-		<a href="#" onClick="relUsuario();">Relacionar usuï¿½rios jï¿½ existentes
+		<a href="#" onClick="relUsuario();">Relacionar usuários jáexistentes
 			com este projeto</a>
 	</p>
 	<p>

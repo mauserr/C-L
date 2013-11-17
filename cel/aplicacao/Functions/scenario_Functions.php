@@ -11,18 +11,22 @@
 if (!(function_exists("include_Scenario"))) {
     function include_Scenario($id_project, $title, $objective, $context, $actors, $resource, $exception, $episodes)
     {
-        
-        assert($id_project != NULL);
-        assert($title != NULL);
-        assert($objective != NULL);
-        assert($context != NULL);
-        assert(is_string($episodes));
-        assert(is_string($title));
-        assert(is_string($objective));
-        assert(is_string($context));
-        assert(is_string($actors));
-        assert(is_string($resource));
-        assert(is_string($exception));
+    	assert(is_string($episodes));
+    	assert(is_string($title));
+    	assert(is_string($objective));
+    	assert(is_string($context));
+    	assert(is_string($actors));
+    	assert(is_string($resources));
+    	assert(is_string($exception));
+    	assert($id_project !=NULL);
+    	assert( $title!=NULL);
+    	assert($objective !=NULL);
+    	assert($context !=NULL);
+    	assert($actors !=NULL);
+    	assert($resources !=NULL);
+    	assert($exception !=NULL);
+    	assert($episodes !=NULL);
+    	
 
 
         //Variavel $connect que faz conexao com a base de dados
@@ -44,6 +48,7 @@ if (!(function_exists("include_Scenario"))) {
         return $result[0];
     }
 }
+
 
 // Para a correta inclusao de um cenario, uma serie de procedimentos
 // precisam ser tomados (relativos ao requisito 'navegacao circular'):
