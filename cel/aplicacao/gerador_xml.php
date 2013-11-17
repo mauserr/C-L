@@ -4,7 +4,7 @@ session_start();
 
 include("funcoes_genericas.php");
 include_once("coloca_links.php");
-include("Functions/recarrega.php");
+include("Functions/reload_Page.php");
 include("httprequest.inc");
 include_once("bd.inc");
 include_once("seguranca.php");
@@ -428,7 +428,7 @@ if (!(function_exists("gera_xml_links"))) {
                  VALUES ( '$id_project', '$search_date', '$version', '".mysql_real_escape_string($result_xml)."')";
               
 			mysql_query($q) or die("Erro ao enviar a query INSERT do XML no banco de dados! ");
-			recarrega("http://pes.inf.puc-rio.br/cel/aplicacao/mostraXML.php?id_project=".$id_project."&version=".$version);
+			reload_Page("http://pes.inf.puc-rio.br/cel/aplicacao/mostraXML.php?id_project=".$id_project."&version=".$version);
 		}
     else
     {

@@ -6,7 +6,7 @@ require_once '/security.php'; //("security.php");
 require_once '/Functions/concept_Functions.php';
 require_once '/Functions/scenario_Functions.php';
 require_once '/Functions/lexicon_Functions.php';
-include("/Functions/recarrega.php");
+include("/Functions/reload_Page.php");
 
 
 ###################################################################

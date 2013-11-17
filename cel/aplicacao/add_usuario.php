@@ -6,7 +6,7 @@ session_start();
 
 <?php
 include("funcoes_genericas.php");
-include("Functions/recarrega.php");
+include("Functions/reload_Page.php");
 include_once("bd.inc");
 
 $first_try = "true";
@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
         
         $p_style = "color: red; font-weight: bold";
         $p_text = "Por favor, preencha todos os campos.";
-        recarrega("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&login=$login&password=$password&senha_conf=$psw_conf&novo=$novo");
+        reload_Page("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&login=$login&password=$password&senha_conf=$psw_conf&novo=$novo");
     
         
     } else {
@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
             
             $p_style = "color: red; font-weight: bold";
             $p_text = "Senhas diferentes. Favor preencher novamente as senhas.";
-            recarrega("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&login=$login&novo=$novo");
+            reload_Page("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&login=$login&novo=$novo");
         
             
         } else {
@@ -80,7 +80,7 @@ if (isset($_POST['submit'])) {
                 
                 //                $p_style = "color: red; font-weight: bold";
                 //                $p_text = "Login j� existente no sistema. Favor escolher outro login.";
-                //                recarrega("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&senha=$password&senha_conf=$psw_conf&novo=$novo");
+                //                reload_Page("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&senha=$password&senha_conf=$psw_conf&novo=$novo");
                 
                 // Scenario - Add user.
                 // Objective: Allows to the administrator to add new users.
@@ -99,7 +99,7 @@ if (isset($_POST['submit'])) {
                 </script>
 
                 <?php
-                recarrega("?novo=$novo");
+                reload_Page("?novo=$novo");
             
             // The registration passed through all the tests -- Can now be included to the database
             } else {    
@@ -113,7 +113,7 @@ if (isset($_POST['submit'])) {
                 $password = md5($password);
                 $query_add_sql = "INSERT INTO user (name, login, email, password) VALUES ('$name', '$login', '$email', '$password')";
                 mysql_query($query_add_sql) or die("Erro ao cadastrar o usuario");
-                recarrega("?cadastrado=&novo=$novo&login=$login");
+                reload_Page("?cadastrado=&novo=$novo&login=$login");
             }
         }   // else
     }   // else
