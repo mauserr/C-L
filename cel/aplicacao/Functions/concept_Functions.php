@@ -16,7 +16,6 @@ if (!(function_exists("insert_request_remove_concept"))) {
         assert($id_concept!=NULL);
         assert($id_user!=NULL);
         
-        
         $DB = new PGDB () ;
         $insere = new QUERY ($DB) ;
         $select = new QUERY ($DB) ;

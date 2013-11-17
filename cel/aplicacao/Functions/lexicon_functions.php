@@ -79,16 +79,16 @@ function checkExistingLexicon($project, $name)
 	$doenstexist= false;
 
 	$connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-	$q = "SELECT * FROM lexicon WHERE id_project = $project AND name = '$name' ";
-	$qr = mysql_query($q) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-	$resultArray = mysql_fetch_array($qr);
+	$query_sql = "SELECT * FROM lexicon WHERE id_project = $project AND name = '$name' ";
+	$query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+	$resultArray = mysql_fetch_array($query_result_sql);
 	if ( $resultArray == false )
 	{
 		$doenstexist = true;
 	}
 
-	$q = "SELECT * FROM synonym WHERE id_project = $project AND name = '$name' ";
-	$qr = mysql_query($q) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+	$query_sql = "SELECT * FROM synonym WHERE id_project = $project AND name = '$name' ";
+	$query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 	$resultArray = mysql_fetch_array($qr);
 
 	if ( $resultArray != false )
@@ -100,8 +100,6 @@ function checkExistingLexicon($project, $name)
 
 
 }
-
-
 
 //
 // Para a correta inclusao de um termo no lexico, uma serie de procedimentos
@@ -613,12 +611,12 @@ if (!(function_exists("insertRequestAlterLexicon"))) {
 					$select->execute("SELECT * FROM user WHERE id_user = $id") ;
 					$record = $select->gofirst ();
 					$mailGerente = $record['email'] ;
-					mail("$mailGerente", "Pedido de Alterar Léxico", "O usuario do sistema $name2\nPede para alterar o lexico $name \nObrigado!","From: $name2\r\n"."Reply-To: $email\r\n");
+					mail("$mailGerente", "Pedido de Alterar Lï¿½xico", "O usuario do sistema $name2\nPede para alterar o lexico $name \nObrigado!","From: $name2\r\n"."Reply-To: $email\r\n");
 					$record2 = $select2->gonext();
 				}
 			}
 		}
-		else{ //É gerente
+		else{ //ï¿½ gerente
 			alteraLexico($id_project,$id_lexicon, $name, $notion, $impact, $synonym, $classification) ;
 		}
 

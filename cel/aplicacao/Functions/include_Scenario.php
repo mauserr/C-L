@@ -32,17 +32,17 @@ if (!(function_exists("include_Scenario"))) {
         
         $data = date("Y-m-d");
         
-        $query = "INSERT INTO scenario (id_project,data, title, objective, context, actors, resource, exception, episodes) 
+        $query_sql = "INSERT INTO scenario (id_project,data, title, objective, context, actors, resource, exception, episodes) 
 		VALUES ($id_project,'$data', '".data_prepare(strtolower($title))."', '".data_prepare($objective)."',
 		'".data_prepare($context)."', '".data_prepare($actors)."', '".data_prepare($resources)."',
 		'".data_prepare($exception)."', '".data_prepare($episodes)."')";
 			  
-	mysql_query($query) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+	mysql_query($query_sql) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
-        $query = "SELECT max(id_scenario) FROM scenario";
+        $query_sql = "SELECT max(id_scenario) FROM scenario";
         
-        $query_result = mysql_query($query) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        $result = mysql_fetch_row($query_result);
+        $query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $result = mysql_fetch_row($query_result_sql);
         return $result[0];
     }
 }
