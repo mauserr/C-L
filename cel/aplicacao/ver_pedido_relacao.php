@@ -59,7 +59,6 @@ self.close();
 <form action="?id_project=<?=$id_project?>" method="post">
 
 <?php
-
                 $DB = new PGDB () ;
                 $select = new QUERY ($DB) ;
                 $select2 = new QUERY ($DB) ;
@@ -85,12 +84,12 @@ self.close();
                             assert(is_int($id_user));
                             assert(is_int($id_request));
                             
-                            $select2->execute("SELECT * FROM usuario WHERE id_usuario = $id_user") ;
-                            $usuario = $select2->gofirst () ;
+                            $select2->execute("SELECT * FROM usuario WHERE id_user = $id_user") ;
+                            $user = $select2->gofirst () ;
                             if(strcasecmp($order_type,'remover')){?>
         
         <br>
-                <h3>O usu�rio <a  href="mailto:<?=$usuario['email']?>" ><?=$usuario['nome']?></a> pede para <?=$order_type?> a rela��o <font color="#ff0000"><?=$record['nome']?></font> <?  if(!strcasecmp($order_type,'alterar')){echo"para conceito abaixo:</h3>" ;}else{echo"</h3>" ;}?>
+                <h3>O usu�rio <a  href="mailto:<?=$user['email']?>" ><?=$user['nome']?></a> pede para <?=$order_type?> a rela��o <font color="#ff0000"><?=$record['nome']?></font> <?  if(!strcasecmp($order_type,'alterar')){echo"para conceito abaixo:</h3>" ;}else{echo"</h3>" ;}?>
                     <table>
                 <td><b>Nome:</b></td>
                 <td><?=$record['nome']?></td>
@@ -100,7 +99,7 @@ self.close();
             </tr>
         </table>
 <?php    }else{?>
-            <h3>O usu�rio <a  href="mailto:<?=$usuario['email']?>" ><?=$usuario['nome']?></a> pede para <?=$order_type?> a rela��o <font color="#ff0000"><?=$record['nome']?></font></h3>
+            <h3>O usu�rio <a  href="mailto:<?=$user['email']?>" ><?=$user['nome']?></a> pede para <?=$order_type?> a rela��o <font color="#ff0000"><?=$record['nome']?></font></h3>
 <?php }
 				if ($aproved == 1)
                 {
