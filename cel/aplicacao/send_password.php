@@ -1,8 +1,9 @@
 <?php
 include("bd.inc");
 include("httprequest.inc");
+include("/Function/create_Random_String.php");
 
-// Scenario - remember password
+// Scenario - remenber password
 //Objetivo:	Allows an registered user, how forgot the password, receive that for email
 //Contexto:	 The system is open, the user forgot his password, user clicks on the button of forgot password  
 //Actors:	 User, system
@@ -40,27 +41,8 @@ else
    $mail  = $row[2];
    $login = $row[3];
    $password = $row[4];
-   
-   assert($name != NULL);
-   assert($mail != NULL);
-   assert($login != NULL);
-   assert($password != NULL);
-
-
-	function createrandonstring($n)
-	{	
-		$string = "ABCDEFGHIJKLMNOPQRSTUVXYWZabcdefghijklmnopqrstuvxywz0123456789";
-		$cod = "";
-		for($a = 0;$a < $n;$a++)
-		{		
-			$rand = rand(0,61);
-			$cod .= substr($str,$rand,1);
-			assert($cod != NULL);
-		}	
-		return $cod;
-	}
 	
-   $new_password = createrandonstring(6);
+   $new_password = create_Randon_String(6);
    
    $new_password_cript = md5($new_password);
    
@@ -68,7 +50,7 @@ else
    $query_update_sql = "update user set password = '$new_password_cript' where login = '$login'";
    $query_resutl_upadate_sql = mysql_query($qUp) or die("Erro ao executar a query de update na tabela usuario");
    
-   $body_email = "Caro $name,\n Como solicitado, estamos enviando sua nova senha para acesso ao sistema C&L.\n\n login: $login \n senha: $new_password \n\n Para evitar futuros transtornos altere sua senha o mais breve possível. \n Obrigado! \n Equipe de Suporte do C&L.";
+   $body_email = "Caro $name,\n Como solicitado, estamos enviando sua nova senha para acesso ao sistema C&L.\n\n login: $login \n senha: $new_password \n\n Para evitar futuros transtornos altere sua senha o mais breve possï¿½vel. \n Obrigado! \n Equipe de Suporte do C&L.";
    $headers = "";
    if(mail("$mail", "Nova senha do C&L" , "$body_email" , $headers))
    { 	

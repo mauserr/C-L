@@ -3,7 +3,7 @@
 session_start();
 include_once("CELConfig/CELConfig.inc");
 require_once'/Functions/project_Functions.php';
-include("Functions/recarrega.php");
+include("Functions/reload_Page.php");
 
 
 /* URL do diretorio contendo os arquivos de DAML */
@@ -580,15 +580,15 @@ include("frame_inferior.php");
 
 if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU PELA ARVORE) 
     $vetorVazio = array();
-    if ($t == "c")        { print "<h3>Informações sobre o cenário</h3>";   
+    if ($t == "c")        { print "<h3>Informaï¿½ï¿½es sobre o cenï¿½rio</h3>";   
 
-    } elseif ($t == "l")  { print "<h3>Informações sobre o símbolo</h3>";   
+    } elseif ($t == "l")  { print "<h3>Informaï¿½ï¿½es sobre o sï¿½mbolo</h3>";   
 
-    } elseif ($t == "oc") { print "<h3>Informações sobre o conceito</h3>";    
+    } elseif ($t == "oc") { print "<h3>Informaï¿½ï¿½es sobre o conceito</h3>";    
 
-    } elseif ($t == "or") { print "<h3>Informações sobre a relaço</h3>";   
+    } elseif ($t == "or") { print "<h3>Informaï¿½ï¿½es sobre a relaï¿½o</h3>";   
 
-    } elseif ($t == "oa") { print "<h3>Informações sobre o axioma</h3>";   
+    } elseif ($t == "oa") { print "<h3>Informaï¿½ï¿½es sobre o axioma</h3>";   
 
     }    
 
@@ -607,7 +607,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
 
 
-<!-- CENÁRIO --> 
+<!-- CENï¿½RIO --> 
 
 <?php   
     
@@ -658,12 +658,12 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 </td> 
             </tr> 
             <tr> 
-                <th>Exceção:</th><td CLASS="Estilo">
+                <th>Exceï¿½ï¿½o:</th><td CLASS="Estilo">
 		<?php echo nl2br(monta_links( $result['excecao'], $vetorDeLexicos, $vetorVazio) ) ; ?>
                 </td> 
             </tr> 
             <tr> 
-                <th>Episódios:</th><td CLASS="Estilo">
+                <th>Episï¿½dios:</th><td CLASS="Estilo">
 		<?php 
 	  		echo nl2br(monta_links( $result['episodios'], $vetorDeLexicos, $vetorDeCenarios ) ); ?>
 	  	
@@ -786,7 +786,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <th>Nome:</th><td CLASS="Estilo"><?=$result['name']?></td> 
             </tr> 
             <tr> 
-                <th>Descriçãoo:</th><td CLASS="Estilo"><?=nl2br($result['descricao'])?></td> 
+                <th>Descriï¿½ï¿½oo:</th><td CLASS="Estilo"><?=nl2br($result['descricao'])?></td> 
             </tr> 
         </TABLE> 
         <BR> 
@@ -802,7 +802,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
 
 
-<!-- ONTOLOGIA - RELAÇÕES --> 
+<!-- ONTOLOGIA - RELAï¿½ï¿½ES --> 
 
 <?php    
     } elseif ($t == "or") {        // se for cenario 
@@ -824,7 +824,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                  <td CLASS="Estilo" height="40" valign=MIDDLE>                   
                 </th>
                 <td CLASS="Estilo"  valign=MIDDLE> 
-                    <a href="#" onClick="rmvRelacao(<?=$result['id_relation']?>);">Remover Relaçãoo</a> 
+                    <a href="#" onClick="rmvRelacao(<?=$result['id_relation']?>);">Remover Relaï¿½ï¿½oo</a> 
                 </th> 
             </tr> 
 
@@ -843,13 +843,13 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
 
 <?php    
-    if ($t == "c")       { print "<h3>Cenários que referenciam este cenário</h3>";   
+    if ($t == "c")       { print "<h3>Cenï¿½rios que referenciam este cenï¿½rio</h3>";   
 
-    } elseif ($t == "l") { print "<h3>Cenários e termos do léxico que referenciam este termo</h3>";   
+    } elseif ($t == "l") { print "<h3>Cenï¿½rios e termos do lï¿½xico que referenciam este termo</h3>";   
 
-    } elseif ($t == "oc") { print "<h3>Relações do conceito</h3>";   
+    } elseif ($t == "oc") { print "<h3>Relaï¿½ï¿½es do conceito</h3>";   
 
-    } elseif ($t == "or") { print "<h3>Conceitos referentes à relação</h3>";   
+    } elseif ($t == "or") { print "<h3>Conceitos referentes ï¿½ relaï¿½ï¿½o</h3>";   
 
     } elseif ($t == "oa") { print "<h3>Axioma</h3>";   
 
@@ -885,7 +885,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><?=simple_query("name", "project", "id_project = $id_project")?></td> 
             </tr> 
             <tr> 
-                <th>Data de criaçãoo:</th> 
+                <th>Data de criaï¿½ï¿½oo:</th> 
                 <?php    
                     $data = simple_query("date_creation", "project", "id_project = $id_project");    
                 ?>    
@@ -894,7 +894,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
             </tr> 
             <tr> 
-                <th>Descriçãoo:</th> 
+                <th>Descriï¿½ï¿½oo:</th> 
                 <td CLASS="Estilo"><?=nl2br(simple_query("description", "project", "id_project = $id_project"))?></td> 
             </tr> 
         </table> 
@@ -919,7 +919,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
         <br> 
         <table ALIGN=CENTER> 
             <tr> 
-                <th>Você é um administrador deste projeto:</th> 
+                <th>Vocï¿½ ï¿½ um administrador deste projeto:</th> 
 
 <?php    
 
@@ -946,10 +946,10 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
             </TR>
             
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="add_usuario.php();">Adicionar usuário (não cadastrado) neste projeto</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="add_usuario.php();">Adicionar usuï¿½rio (nï¿½o cadastrado) neste projeto</a></td> 
             </TR> 
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="relation_user_project();">Adicionar usuários já existentes neste projeto</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="relation_user_project();">Adicionar usuï¿½rios jï¿½ existentes neste projeto</a></td> 
             </TR>   
             
             <TR> 
@@ -957,17 +957,17 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
             </TR> 
             
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoCenario();">Verificar pedidos de alteração de Cenários</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="pedidoCenario();">Verificar pedidos de alteraï¿½ï¿½o de Cenï¿½rios</a></td> 
             </TR> 
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoLexico();">Verificar pedidos de alteraçaode termos do Léxico</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="pedidoLexico();">Verificar pedidos de alteraï¿½aode termos do Lï¿½xico</a></td> 
             </TR>
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoConceito();">Verificar pedidos de alteração de Conceitos</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="pedidoConceito();">Verificar pedidos de alteraï¿½ï¿½o de Conceitos</a></td> 
             </TR> 
             
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoRelacao();">Verificar pedidos de alteração de Relações</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="pedidoRelacao();">Verificar pedidos de alteraï¿½ï¿½o de Relaï¿½ï¿½es</a></td> 
             </TR>
    
        
@@ -995,7 +995,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><a href="#" onClick="geraDAML();">Gerar DAML da ontologia do projeto</a></td> 
             </TR> 
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="recuperaDAML();">Histórico em DAML da ontologia do projeto</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="recuperaDAML();">Histï¿½rico em DAML da ontologia do projeto</a></td> 
             </TR>           
             <TR> 
                 <td CLASS="Estilo"><a href="http://www.daml.org/validator/" target="new">*Validador de Ontologias na Web</a></td> 
@@ -1010,7 +1010,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><font size="1">*Para usar Ontologias Geradas pelo C&L: </font></td>               
             </TR>
             <TR> 
-                <td CLASS="Estilo">   <font size="1">Histórico em DAML da ontologia do projeto -> Botao Direito do Mouse -> Copiar Atalho</font></td>             
+                <td CLASS="Estilo">   <font size="1">Histï¿½rico em DAML da ontologia do projeto -> Botao Direito do Mouse -> Copiar Atalho</font></td>             
             </TR>
 		</table>
 
@@ -1022,7 +1022,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 	<br>
 	<table ALIGN=CENTER> 
             <tr> 
-                <th>Você não é um administrador deste projeto:</th> 	
+                <th>Vocï¿½ nï¿½o ï¿½ um administrador deste projeto:</th> 	
 			</tr>	
 			<tr> 
                 <td CLASS="Estilo"><a href="#" onClick="geraGrafo();" >Gerar grafo deste projeto</a></td>
@@ -1038,7 +1038,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 <?php    
 }    
 ?>    
-<i><a href="showSource.php?file=main.php">Veja o código fonte!</a></i> 
+<i><a href="showSource.php?file=main.php">Veja o cï¿½digo fonte!</a></i> 
     </body> 
 
 </html> 

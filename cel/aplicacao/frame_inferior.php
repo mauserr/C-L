@@ -2,7 +2,7 @@
 
     //session_start(); 
     require_once '/Functions/check_User.php';
-    include("Functions/recarrega.php");
+    include("Functions/reload_Page.php");
     //include("funcoes_genericas.php"); 
 
     check_User("index.php");        // Cenario: controle de acesso 
