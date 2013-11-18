@@ -71,10 +71,20 @@ self.close();
                     $record = $select->gofirst () ;
                     
                     while($record != 'LAST_RECORD_REACHED'){
+                        
                             $id_usuario = $record['id_usuario'] ;
                             $id_pedido = $record['id_pedido'] ;
                             $tipo_pedido = $record['tipo_pedido'] ;
                             $aprovado = $record['aprovado'] ;
+                            
+                            assert($id_usuario != NULL);
+                            assert($id_pedido != NULL);
+                            assert($tipo_pedido != NULL);
+                            assert($aprovado != NULL); 
+                           
+                            assert(is_int($id_usuario));
+                            assert(is_int($id_pedido));
+                            
                             $select2->execute("SELECT * FROM usuario WHERE id_usuario = $id_usuario") ;
                             $usuario = $select2->gofirst () ;
                             if(strcasecmp($tipo_pedido,'remover')){?>
