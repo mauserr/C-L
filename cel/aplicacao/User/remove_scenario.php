@@ -7,6 +7,7 @@ session_start();
 
 include("funcoes_genericas.php");
 require_once '/Functions/check_User.php';
+require_once '/Functions/scenario_Functions.php';
 include("httprequest.inc");
 check_User("index.php");      
 
@@ -39,7 +40,7 @@ opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION[
 
 </script>
 
-<h4>Operaï¿½ï¿½o efetuada com sucesso!</h4>
+<h4>Operação efetuada com sucesso!</h4>
 
 <script language="javascript1.3">
 

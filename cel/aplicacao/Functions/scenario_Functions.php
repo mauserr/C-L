@@ -16,14 +16,14 @@ if (!(function_exists("include_Scenario"))) {
     	assert(is_string($objective));
     	assert(is_string($context));
     	assert(is_string($actors));
-    	assert(is_string($resources));
+    	assert(is_string($resource));
     	assert(is_string($exception));
     	assert($id_project !=NULL);
     	assert( $title!=NULL);
     	assert($objective !=NULL);
     	assert($context !=NULL);
     	assert($actors !=NULL);
-    	assert($resources !=NULL);
+    	assert($resource !=NULL);
     	assert($exception !=NULL);
     	assert($episodes !=NULL);
     	
@@ -82,7 +82,7 @@ if (!(function_exists("adiciona_cenario")))
         assert(is_string($objective));
         assert(is_string($context));
         assert(is_string($actors));
-        assert(is_string($resources));
+        assert(is_string($resource));
         assert(is_string($exception));
         
         // Conecta ao SGBD
@@ -461,7 +461,7 @@ function checkExistingScenario($project, $title)
     $naoexiste = false;
     
     $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-    $q = "SELECT * FROM scenario WHERE id_project = $projeto AND title = '$titulo'";
+    $q = "SELECT * FROM scenario WHERE id_project = $project AND title = '$title'";
     $qr = mysql_query($q) or die("Erro ao enviar a query de select no cenario<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
     $resultArray = mysql_fetch_array($qr);
     
@@ -637,8 +637,8 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
 # Arquivos que utilizam essa funcao:
 # rmv_cenario.php
 ###################################################################
-if (!(function_exists("inserirPedidoRemoverCenario"))) {
-    function inserirPedidoRemoverCenario($id_project, $id_scenario, $id_user) {
+if (!(function_exists("insertRequestRemoveScenario"))) {
+    function insertRequestRemoveScenario($id_project, $id_scenario, $id_user) {
       
         assert($id_project != NULL);
         assert($id_scenario != NULL);

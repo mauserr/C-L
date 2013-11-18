@@ -9,11 +9,12 @@
 session_start();
 
 include("funcoes_genericas.php");
-require_once '/Functions/lexicon_Functions';
+require_once '/Functions/lexicon_functions.php';
+require_once '/Functions/check_User.php';
 include("httprequest.inc");
 
 // Checa se o usuario foi autenticado
-chkUser("index.php");
+check_User("index.php");
 $submit = null;
 $orders = null;
 $remove = null;

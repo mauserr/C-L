@@ -40,7 +40,7 @@ self.close();
 
 <html>
     <head>
-        <title>Selecione os usuï¿½rios</title>
+        <title>Selecione os usuários</title>
         <script language="javascript1.3" src="MSelect.js"></script>
         <script language="javascript1.3">
 
@@ -150,7 +150,7 @@ self.close();
             </tr>
         </table>
         </form>
-        <br><i><a href="showSource.php?file=rel_usuario.php">Veja o cï¿½digo fonte!</a></i>
+        <br><i><a href="showSource.php?file=rel_usuario.php">Veja o código fonte!</a></i>
     </body>
 </html>
 
