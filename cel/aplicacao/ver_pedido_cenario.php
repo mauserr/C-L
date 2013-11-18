@@ -49,7 +49,7 @@ if (isset($submit)) {
     <script language="javascript1.3">
 
         opener.parent.frames['code'].location.reload();
-        opener.parent.frames['text'].location.replace('main.php?id_projeto=' + '<?= $_SESSION['current_id_project'] ?>');
+        opener.parent.frames['text'].location.replace('main.php?id_project=' + '<?= $_SESSION['current_id_project'] ?>');
 
     </script>
 
@@ -94,7 +94,7 @@ if (isset($submit)) {
     $DB = new PGDB ();
     $select = new QUERY($DB);
     $select2 = new QUERY($DB);
-    $select->execute("SELECT * FROM request_scenario WHERE id_project = $id_project");
+    $select->execute("SELECT * FROM request_scenario WHERE id_project = '$id_project'");
     
     
     if ($select->getntuples() == 0) {
@@ -121,7 +121,7 @@ if (isset($submit)) {
 
                             <br>
                             <h3>O usuário <a  href="mailto:<?= $user['email'] ?>" ><?= $user['name'] ?></a> pede para <?= $order_type ?> o cenário <font color="#ff0000"><?= $record['title'] ?></font> <? if (!strcasecmp($order_type, 'alter')) {
-                    echo"para cenï¿½rio abaixo:</h3>";
+                    echo"para cenário abaixo:</h3>";
                     
                 } else {
                     

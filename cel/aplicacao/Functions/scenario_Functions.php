@@ -761,7 +761,7 @@ if (!(function_exists("tratarPedidoCenario"))) {
         $select = new QUERY ($DB) ;
         $delete = new QUERY ($DB) ;
         //print("<BR>SELECT * FROM pedidocen WHERE id_pedido = $id_pedido");
-        $select->execute("SELECT * FROM pedidocen WHERE id_pedido = $id_request") ;
+        $select->execute("SELECT * FROM request_scenario WHERE id_request = $id_request") ;
         
         if ($select->getntuples() == 0){
             echo "<BR> [ERRO]Pedido invalido." ;
@@ -770,22 +770,22 @@ if (!(function_exists("tratarPedidoCenario"))) {
             $type_request = $record['tipo_pedido'] ;
             
             if(!strcasecmp($type_request,'remover')){
-                $id_scenario = $record['id_cenario'] ;
-                $id_project = $record['id_projeto'] ;
+                $id_scenario = $record['id_scenario'] ;
+                $id_project = $record['id_project'] ;
                 removeCenario($id_project,$id_scenario) ;
                 //$delete->execute ("DELETE FROM pedidocen WHERE id_cenario = $id_cenario") ;
             }else{     
-                $id_project = $record['id_projeto'] ;
-                $title     = $record['titulo'] ;
-                $objective   = $record['objetivo'] ;
-                $context   = $record['contexto'] ;
-                $actors     = $record['atores'] ;
-                $resources   = $record['recursos'] ;
-                $exception    = $record['excecao'] ;
-                $episodes  = $record['episodios'] ;
+                $id_project = $record['id_project'] ;
+                $title     = $record['title'] ;
+                $objective   = $record['objective'] ;
+                $context   = $record['context'] ;
+                $actors     = $record['actos'] ;
+                $resources   = $record['resources'] ;
+                $exception    = $record['exception'] ;
+                $episodes  = $record['episodes'] ;
                 
-                if(!strcasecmp($type_request,'alterar')){
-                	$id_scenario = $record['id_cenario'] ;
+                if(!strcasecmp($type_request,'alter')){
+                	$id_scenario = $record['id_scenario'] ;
                     removeCenario($id_project, $id_scenario) ;
                     //$delete->execute ("DELETE FROM pedidocen WHERE id_cenario = $id_cenario") ;
                 }

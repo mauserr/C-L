@@ -18,7 +18,7 @@ check_User("index.php");
 $submit = null;
 $orders = null;
 $remove = null;
-$id_projeto = null;
+$id_project = null;
 
 if (isset($submit)) {
 
@@ -30,14 +30,14 @@ if (isset($submit)) {
     
     for ($count = 0; $count < sizeof($orders); $count++) {
         
-        $update->execute("update pedidolex set aprovado= 1 where id_pedido = $orders[$count]");
+        $update->execute("update request_lexicon set aproved= 1 where id_request = '$orders[$count]'");
         tratarPedidoLexico($orders[$count]);
     }
     
     for ($count = 0; $count < sizeof($remove); $count++) {
         
-        $delete->execute("delete from pedidolex where id_pedido  = $remove[$count]");
-        $delete->execute("delete from sinonimo where id_pedidolex = $remove[$count]");
+        $delete->execute("delete from pedidolex where id_pedido  = '$remove[$count]'");
+        $delete->execute("delete from sinonimo where id_pedidolex = '$remove[$count]'");
     }
     ?>
 
@@ -45,7 +45,7 @@ if (isset($submit)) {
         opener.parent.frames['code'].location.reload();
         opener.parent.frames['text'].location.replace("main.php");
     </script>
-    <h4>Operaï¿½ï¿½o efetuada com sucesso!</h4>
+    <h4>Operação efetuada com sucesso!</h4>
     <script language="javascript1.2">
         self.close();
     </script>
@@ -54,11 +54,11 @@ if (isset($submit)) {
     ?>
     <html>
         <head>
-            <title>Pedido Lï¿½xico</title>
+            <title>Pedido Léxico</title>
         </head>
         <body>
-            <h2>Pedidos de Alteraï¿½ï¿½o no Lï¿½xico</h2>
-            <form action="?id_projeto=<?= $id_projeto ?>" method="post">
+            <h2>Pedidos de Alteração no Léxico</h2>
+            <form action="?id_project=<?= $id_project ?>" method="post">
 
     <?php
 // Scenario - Verify alteration orders of the lexicon terms
@@ -82,7 +82,7 @@ if (isset($submit)) {
     $select2 = new QUERY($DB);
     $select3 = new QUERY($DB);
     
-    $select->execute("SELECT * FROM pedidolex where id_projeto = $id_projeto");
+    $select->execute("SELECT * FROM request_lexicon where id_project = '$id_project'");
     
     if ($select->getntuples() == 0) {
        
@@ -95,41 +95,41 @@ if (isset($submit)) {
         $record = $select->gofirst();
         while ($record != 'LAST_RECORD_REACHED') {
             
-            $id_usuario = $record['id_usuario'];
-            $id_pedido = $record['id_pedido'];
-            $order_type = $record['tipo_pedido'];
-            $aprovado = $record['aprovado'];
+            $id_user = $record['id_user'];
+            $id_request = $record['id_request'];
+            $order_type = $record['type_request'];
+            $aproved = $record['aproved'];
 
             //Catches the synonyms
-            $select3->execute("SELECT nome FROM sinonimo WHERE id_pedidolex = $id_pedido");
+            $select3->execute("SELECT name FROM synonym WHERE id_request_lexicon = '$id_request'");
 
-            $select2->execute("SELECT * FROM usuario WHERE id_usuario = $id_usuario");
+            $select2->execute("SELECT * FROM user WHERE id_user = '$id_user'");
             $user = $select2->gofirst();
             
             if (strcasecmp($order_type, 'remover')) {
                 ?>
-                            <h3>O usuï¿½rio <a  href="mailto:<?= $user['email'] ?>" ><?= $user['nome'] ?></a> pede para <?= $order_type ?> o lï¿½xico <font color="#ff0000"><?= $record['nome'] ?></font> <? if (!strcasecmp($order_type, 'alterar')) {
-                    echo"para lï¿½xico abaixo:</h3>";
+                            <h3>O usuáio <a  href="mailto:<?= $user['email'] ?>" ><?= $user['name'] ?></a> pede para <?= $order_type ?> o lï¿½xico <font color="#ff0000"><?= $record['name'] ?></font> <? if (!strcasecmp($order_type, 'alter')) {
+                    echo"para léxico abaixo:</h3>";
                 } else {
                     echo"</h3>";
                 } ?>
                                 <table>
                                     <td><b>Nome:</b></td>
-                                    <td><?= $record['nome'] ?></td>
+                                    <td><?= $record['name'] ?></td>
 
                                     <tr>
 
-                                        <td><b>Noï¿½ï¿½o:</b></td>
-                                        <td><?= $record['nocao'] ?></td>
+                                        <td><b>Noção:</b></td>
+                                        <td><?= $record['notion'] ?></td>
                                     </tr>
                                     <tr>
                                         <td><b>Impacto:</b></td>
-                                        <td><?= $record['impacto'] ?></td>
+                                        <td><?= $record['impact'] ?></td>
                                     </tr>
 
 
                                     <tr>
-                                        <td><b>Sinï¿½nimos:</b></td>
+                                        <td><b>Sinônimos:</b></td>
                                         <td>
                                             <?php
                                             $sinonimo = $select3->gofirst();
@@ -148,21 +148,21 @@ if (isset($submit)) {
 
                                     <tr>
                                         <td><b>Justificativa:</b></td>
-                                        <td><textarea name="justificativa" cols="48" rows="2"><?= $record['justificativa'] ?></textarea></td>
+                                        <td><textarea name="justificativa" cols="48" rows="2"><?= $record['justificative'] ?></textarea></td>
                                     </tr>
                                 </table>
                                 <?php } else {
                                 ?>
-                                <h3>O usuï¿½rio <a  href="mailto:<?= $user['email'] ?>" ><?= $user['nome'] ?></a> pede para <?= $order_type ?> o lï¿½xico <font color="#ff0000"><?= $record['nome'] ?></font></h3>
+                                <h3>O usuï¿½rio <a  href="mailto:<?= $user['email'] ?>" ><?= $user['name'] ?></a> pede para <?= $order_type ?> o léxico <font color="#ff0000"><?= $record['name'] ?></font></h3>
                             <?php
                             }
-                            if ($aprovado == 1) {
+                            if ($aproved == 1) {
                                 echo "[<font color=\"#ff0000\"><STRONG>Aprovado</STRONG></font>]<BR>";
                             } else {
-                                echo "[<input type=\"checkbox\" name=\"pedidos[]\" value=\"$id_pedido\"> <STRONG>Aprovar</STRONG>]<BR>  ";
+                                echo "[<input type=\"checkbox\" name=\"pedidos[]\" value=\"$id_request\"> <STRONG>Aprovar</STRONG>]<BR>  ";
 //                     echo "Rejeitar<input type=\"checkbox\" name=\"remover[]\" value=\"$id_pedido\">" ;
                             }
-                            echo "[<input type=\"checkbox\" name=\"remover[]\" value=\"$id_pedido\"> <STRONG>Remover da lista</STRONG>]";
+                            echo "[<input type=\"checkbox\" name=\"remover[]\" value=\"$id_request\"> <STRONG>Remover da lista</STRONG>]";
                             print( "<br>\n<hr color=\"#000000\"><br>\n");
                             $record = $select->gonext();
                         }
@@ -170,7 +170,7 @@ if (isset($submit)) {
                     ?>
                     <input name="submit" type="submit" value="Processar">
                     </form>
-                    <br><i><a href="showSource.php?file=ver_pedido_lexico.php">Veja o cï¿½digo fonte!</a></i>
+                    <br><i><a href="showSource.php?file=ver_pedido_lexico.php">Veja o código fonte!</a></i>
                     </body>
                     </html>
 

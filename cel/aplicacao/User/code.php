@@ -297,7 +297,7 @@ while ($row = mysql_fetch_row($query_check_erro_concept)){  // for each projects
 
         // RELAï¿½ï¿½ES 
         // ++ submenu 
-            mo.addItem("Relaï¿½ï¿½es");
+            mo.addItem("Relações");
             var mor = null;
             mor = new MTMenu();
 
