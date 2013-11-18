@@ -18,7 +18,7 @@ chkUser("index.php");
 $submit = null;
 $orders = null;
 $remove = null;
-$id_projeto = null;
+$id_project = null;
 $aproved = null;
 $id_request = null;
 
@@ -28,11 +28,11 @@ if (isset($submit)) {
     $update = new QUERY($DB);
     $delete = new QUERY($DB);
     for ($count = 0; $count < sizeof($orders); $count++) {
-        $update->execute("update pedidocon set aprovado= 1 where id_pedido = $orders[$count]");
+        $update->execute("update pedidocon set aproved= 1 where id_request = $orders[$count]");
         treat_request_concept($orders[$count]);
     }
     for ($count = 0; $count < sizeof($remove); $count++) {
-        $delete->execute("delete from pedidocon where id_pedido = $remove[$count]");
+        $delete->execute("delete from pedidocon where id_request = $remove[$count]");
     }
     ?>
 
@@ -58,7 +58,7 @@ if (isset($submit)) {
         </head>
         <body>
             <h2>Pedidos de Altera��o no Conjunto de Conceitos</h2>
-            <form action="?id_projeto=<?= $id_projeto ?>" method="post">
+            <form action="?id_project=<?= $id_project ?>" method="post">
 
     <?php
     
@@ -82,7 +82,7 @@ if (isset($submit)) {
     $DB = new PGDB ();
     $select = new QUERY($DB);
     $select2 = new QUERY($DB);
-    $select->execute("SELECT * FROM pedidocon WHERE id_projeto = $id_projeto");
+    $select->execute("SELECT * FROM pedidocon WHERE id_project = $id_project");
     if ($select->getntuples() == 0) {
         
         echo "<BR>Nenhum pedido.<BR>";
@@ -95,10 +95,20 @@ if (isset($submit)) {
         
         while ($record != 'LAST_RECORD_REACHED') {
             
-            $id_user = $record['id_usuario'];
-            $id_request = $record['id_pedido'];
-            $order_type = $record['tipo_pedido'];
-            $aproved = $record['aprovado'];
+            $id_user = $record['id_user'];
+            $id_request = $record['id_request'];
+            $order_type = $record['order_type'];
+            $aproved = $record['aproved'];
+            
+            assert($id_user != NULL);
+            assert($id_request != NULL);
+            assert($order_type != NULL);
+            assert($aproved != NULL);
+            
+            assert(is_int($id_user));
+            assert(is_int($id_request));
+            
+            
             $select2->execute("SELECT * FROM user WHERE id_user = $id_user");
             $user = $select2->gofirst();
             
