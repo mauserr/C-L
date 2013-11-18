@@ -100,7 +100,7 @@ self.close();
             </tr>
         </table>
 <?php    }else{?>
-            <h3>O usu�rio <a  href="mailto:<?=$usuario['email']?>" ><?=$usuario['nome']?></a> pede para <?=$tipo_request?> a rela��o <font color="#ff0000"><?=$record['nome']?></font></h3>
+            <h3>O usu�rio <a  href="mailto:<?=$usuario['email']?>" ><?=$usuario['nome']?></a> pede para <?=$order_type?> a rela��o <font color="#ff0000"><?=$record['nome']?></font></h3>
 <?php }
 				if ($aproved == 1)
                 {
