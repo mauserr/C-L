@@ -5,8 +5,11 @@ include_once("coloca_links.php");
 
 
 
-function monta_relacoes($id_projeto)
+function monta_relacoes($id_project)
 {
+	
+	assert($id_project != NULL);
+	
 	// Apaga todas as relações existentes das tabelas centocen, centolex e lextolex
 	
 	$DB = new PGDB () ;
@@ -23,8 +26,8 @@ function monta_relacoes($id_projeto)
 	//seleciona todos os cenarios
 	
 	$q = "SELECT *
-	          FROM cenario
-	          WHERE id_projeto = $id_projeto
+	          FROM scenario
+	          WHERE id_project = $id_project
 	          ORDER BY CHAR_LENGTH(titulo) DESC";
 	$qrr = mysql_query($q) or die("Erro ao enviar a query");   
 	
@@ -34,11 +37,11 @@ function monta_relacoes($id_projeto)
 		
 		// Monta vetor com titulo dos cenarios
 		
-		$vetor_cenarios = carrega_vetor_cenario( $id_projeto, $id_cenario_atual );
+		$vetor_cenarios = carrega_vetor_cenario( $id_project, $id_cenario_atual );
 		
 		// Monta vetor com nome e sinonimos de todos os lexicos
 		
-		$vetor_lexicos = carrega_vetor_todos ( $id_projeto );
+		$vetor_lexicos = carrega_vetor_todos ($id_project);
 		
 		// Ordena o vetor de lexico pela quantidade de palavaras do nome ou sinonimo
 		
@@ -105,7 +108,7 @@ function monta_relacoes($id_projeto)
 		
 		// Monta vetor com nomes e sinonimos de todos os lexicos menos o lexico atual
 		
-		$vetor_lexicos = carrega_vetor( $id_projeto, $id_lexico_atual );
+		$vetor_lexicos = carrega_vetor($id_project, $id_lexico_atual );
 		
 		// Ordena o vetor de lexicos pela quantidade de palavaras do nome ou sinonimo
 		quicksort( $vetor_lexicos, 0, count($vetor_lexicos)-1,'lexico' );
@@ -128,7 +131,13 @@ function monta_relacoes($id_projeto)
 
 function lexico_para_lexico($id_lexico, $texto, $vetor_lexicos)
 {
+	
+	assert($id_lexico != NULL);
+	assert($texto != NULL);
+	assert($vetor_lexicos != NULL);
+	
 	$i=0;
+	
     while( $i < count( $vetor_lexicos ) )
     {
         $regex = "/(\s|\b)(" . $vetor_lexicos[$i]->nome . ")(\s|\b)/i";
@@ -147,7 +156,13 @@ function lexico_para_lexico($id_lexico, $texto, $vetor_lexicos)
 
 function cenario_para_lexico($id_cenario, $texto, $vetor_lexicos )
 {
+    
+    assert($id_cenario != NULL);
+    assert($texto != NULL);
+	assert($vetor_lexicos != NULL);
+    
     $i=0;
+    
     while( $i < count( $vetor_lexicos ) )
     {
      	$regex = "/(\s|\b)(" . $vetor_lexicos[$i]->nome . ")(\s|\b)/i";
@@ -167,7 +182,13 @@ function cenario_para_lexico($id_cenario, $texto, $vetor_lexicos )
 	
 function cenario_para_cenario($id_cenario, $texto, $vetor_cenarios )
 {
+    
+    assert($id_cenario != NULL);
+    assert($texto != NULL);
+	assert($vetor_cenarios != NULL);
+    
     $i=0;
+    
     while( $i < count( $vetor_cenarios ) )
     {
      	$regex = "/(\s|\b)(" . $vetor_cenarios[$i]->titulo . ")(\s|\b)/i";
@@ -186,9 +207,16 @@ function cenario_para_cenario($id_cenario, $texto, $vetor_cenarios )
 
 function cenario_para_lexico_cenario_para_cenario( $id_cenario,$texto, $vetor_lexicos, $vetor_cenarios )
 {
+    
+    assert($id_cenario != NULL);
+    assert($texto != NULL);
+    assert($vetor_lexicos != NULL);
+	assert($vetor_cenarios != NULL);
+	
     $i=0;
     $j=0;
     $k=0;
+    
     $total = count( $vetor_lexicos) + count( $vetor_cenarios);
     while( $k < $total )
     {
@@ -221,6 +249,11 @@ function cenario_para_lexico_cenario_para_cenario( $id_cenario,$texto, $vetor_le
 
 function adiciona_relacionamento( $id_from, $tipo_from, $texto )
 {
+    
+    assert($id_from != NULL);
+    assert($tipo_from != NULL);
+    assert($texto != NULL);
+    
     $i = 0; // indice do texto com marcadores
     $parser = 0; // verifica quando devem ser adicionadas as tags
     
