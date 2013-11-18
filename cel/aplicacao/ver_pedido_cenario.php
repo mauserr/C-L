@@ -112,6 +112,12 @@ if (isset($submit)) {
             $id_order = $record['id_request'];
             $type_request = $record['type_request'];
             $aproved = $record['aproved'];
+            
+             assert($id_user !=NULL);
+            assert($id_order !=NULL);
+            assert($type_request !=NULL);
+            assert($aproved !=NULL);
+            
             $select2->execute("SELECT * FROM user WHERE id_user = $id_user");
             $user = $select2->gofirst();
             

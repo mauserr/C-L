@@ -100,6 +100,11 @@ if (isset($submit)) {
             $order_type = $record['type_request'];
             $aproved = $record['aproved'];
 
+            assert($id_user !=NULL);
+            assert($id_request !=NULL);
+            assert($order_type !=NULL);
+            assert($aproved !=NULL);
+            
             //Catches the synonyms
             $select3->execute("SELECT name FROM synonym WHERE id_request_lexicon = '$id_request'");
 
@@ -108,7 +113,7 @@ if (isset($submit)) {
             
             if (strcasecmp($order_type, 'remover')) {
                 ?>
-                            <h3>O usuáio <a  href="mailto:<?= $user['email'] ?>" ><?= $user['name'] ?></a> pede para <?= $order_type ?> o lï¿½xico <font color="#ff0000"><?= $record['name'] ?></font> <? if (!strcasecmp($order_type, 'alter')) {
+                            <h3>O usuáio <a  href="mailto:<?= $user['email'] ?>" ><?= $user['name'] ?></a> pede para <?= $order_type ?> o léxico <font color="#ff0000"><?= $record['name'] ?></font> <? if (!strcasecmp($order_type, 'alter')) {
                     echo"para léxico abaixo:</h3>";
                 } else {
                     echo"</h3>";
