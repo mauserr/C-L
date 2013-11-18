@@ -5,6 +5,7 @@ session_start();
 include("funcoes_genericas.php");
 require_once '/Functions/check_User.php';
 require_once'/Functions/project_Functions.php';
+require_once '/Functions/verifyManager.php';
 
 
 check_User("index.php");        
