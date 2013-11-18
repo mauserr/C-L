@@ -46,6 +46,7 @@ else
    
    $new_password_cript = md5($new_password);
    
+   assert(is_string($new_password_cript));
    
    $query_update_sql = "update user set password = '$new_password_cript' where login = '$login'";
    $query_resutl_upadate_sql = mysql_query($qUp) or die("Erro ao executar a query de update na tabela usuario");
