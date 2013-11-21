@@ -13,12 +13,19 @@ class verifyManagerTest extends PHPUnit_Framework_TestCase{
 	
 public function testverifyManagerCorret(){
 	
-	$id_project = include_project('Projetonlos',' ');
-	$returnvalue = verifyManager($_SESSION['current_id_user'], $id_project['id_project']);
+	$insert_sql = "INSERT INTO participates (id_user, id_project)
+	VALUES ('100, " . '20' . ")";
+	$update_sql = "UPDATE participates
+	SET manager = 1
+	WHERE id_user= 100 AND id_project = 20 ";
+	mysql_query($insert_sql);
+	mysql_query($update_sql);
+	
+	$returnvalue = verifyManager(100, 20);
 
-	$this->assertEquals('1',$returnvalue);
+	$this->assertEquals('0',$returnvalue);
 
-	removeProject($id_project);
+	$remove_sql = "DELETE FROM participates WHERE id_user = 100";
 	
 }
 
@@ -29,7 +36,6 @@ public function testverifyManagerIncorret(){
 
 	$this->assertEquals('0',$returnvalue);
 
-	removeProject($id_project);
 
 }
 

@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__).'/../Functions/lexicon_functions.php';
-class lexicon_functionsTest extends PHPUnit_Framework_TestCase {
+require_once dirname(__FILE__).'/../Functions/lexicon_Functions.php';
+class lexicon_FunctionsTest extends PHPUnit_Framework_TestCase {
 
     protected $idProjeto;
     protected $nome;

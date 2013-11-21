@@ -1,5 +1,5 @@
 <?php
-require_once'../Functions/lexicon_functions.php';
+require_once'../Functions/lexicon_Functions.php';
 include("funcoes_genericas.php");
 require_once '/Functions/check_User.php';
 include("httprequest.inc");

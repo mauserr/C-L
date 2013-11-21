@@ -1,7 +1,7 @@
 <?php
 include("bd.inc");
 include("httprequest.inc");
-include("/Function/create_Random_String.php");
+require_once "/Functions/create_Random_String.php";
 
 // Scenario - remenber password
 //Objetivo:	Allows an registered user, how forgot the password, receive that for email
@@ -49,7 +49,7 @@ else
    assert(is_string($new_password_cript));
    
    $query_update_sql = "update user set password = '$new_password_cript' where login = '$login'";
-   $query_resutl_upadate_sql = mysql_query($qUp) or die("Erro ao executar a query de update na tabela usuario");
+   $query_resutl_upadate_sql = mysql_query($query_update_sql) or die("Erro ao executar a query de update na tabela usuario");
    
    $body_email = "Caro $name,\n Como solicitado, estamos enviando sua nova senha para acesso ao sistema C&L.\n\n login: $login \n senha: $new_password \n\n Para evitar futuros transtornos altere sua senha o mais breve poss�vel. \n Obrigado! \n Equipe de Suporte do C&L.";
    $headers = "";
