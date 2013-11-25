@@ -62,7 +62,7 @@ include("funcoes_genericas.php");
 
             <tr>
 
-                <th height="29" width="140"><a href="mostrarProjeto.php?id_project=<?= $id_project ?>&version=<?= $version ?>"><?= $name_project ?></a></th>
+                <th height="29" width="140"><a href="show_Project.php?id_project=<?= $id_project ?>&version=<?= $version ?>"><?= $name_project ?></a></th>
                 <th height="29" width="140">Data: <?= $date ?></th>
                 <th height="29" width="100">Versão: <?= $version ?></th>
 

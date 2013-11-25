@@ -576,7 +576,7 @@ if( isset( $_SESSION["tipos"] )){
 	mysql_close($link);
 			?>
 	<script>
-	document.location = "algoritmo_inicio.php";
+	document.location = "initial_Algorithm.php";
 	</script>
 	<?php
 }

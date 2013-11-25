@@ -1,6 +1,6 @@
 <?php
 /*************************************************************
- * File: teste_daml.php
+ * File: test_Daml.php
  * purpose: A single test to create a DAML file
  * 
  ************************************************************/

@@ -718,7 +718,7 @@ if (isset($_SESSION["job"])){
                         
                         
                         ?>
-                        <form method="POST" action="algoritmo_inicio.php">
+                        <form method="POST" action="initial_Algorithm.php">
                             <p>
                                 <font size="4">Carregar Ontologia?</font></p>
                             <p>

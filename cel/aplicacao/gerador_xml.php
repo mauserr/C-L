@@ -3,7 +3,7 @@
 session_start();
 
 include("funcoes_genericas.php");
-include_once("coloca_links.php");
+include_once("puts_Links.php");
 include("Functions/reload_Page.php");
 include("httprequest.inc");
 include_once("bd.inc");
