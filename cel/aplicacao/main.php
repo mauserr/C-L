@@ -323,13 +323,13 @@ if (!isset  ( $_SESSION['current_id_project'] ))
                      if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'ver_pedido_relacao.php?id_projeto=' + '<?=$id_project?>'; 
+						var url = 'see_Relation_Request.php?id_projeto=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
                      {    
                      ?>    
-						var url = 'ver_pedido_relacao.php?' 
+						var url = 'see_Relation_Request.php?' 
                      <?php    
                      }    
 
