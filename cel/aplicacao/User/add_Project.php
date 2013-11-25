@@ -31,12 +31,7 @@ check_User("index.php");
  * Exception:	    If a project name already exists and belongs or have the participation
  *                  of this user, the system shows an error message.
  * */
-// Called thru the button 'submit'
-/*
-$submit = null;
-$name = null;
-$description = null;
-*/
+
 if (isset($_POST['submit'])) {
         $name = $_POST['name'];
         $description = $_POST['description'];
@@ -57,7 +52,8 @@ if (isset($_POST['submit'])) {
         $manager = 1;
         
         $current_id_user= $_SESSION['current_id_user'];
-        $query_add_sql = "INSERT INTO participates (id_user, id_project, manager) VALUES ($current_id_user, $id_included_project, $manager  )";
+        $query_add_sql = "INSERT INTO participates (id_user, id_project, manager) VALUES
+        	($current_id_user, $id_included_project, $manager  )";
         mysql_query($query_add_sql) or die("Erro ao inserir na tabela participa");
         
     } else {
@@ -67,7 +63,7 @@ if (isset($_POST['submit'])) {
             <html>
             <title>Erro</title>
             <body>
-                <p style="color: red; font-weight: bold; text-align: center">Nome de projeto jï¿½ existente!</p>
+                <p style="color: red; font-weight: bold; text-align: center">Nome de projeto já existente!</p>
             <center><a href="JavaScript:window.history.go(-1)">Voltar</a></center>
         </body>
         </html>   
@@ -101,7 +97,7 @@ if (isset($_POST['submit'])) {
                         nOK = padrao.exec(document.forms[0].name.value);
                         if (nOK)
                         {
-                            window.alert("O nome do projeto nï¿½o pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
+                            window.alert("O nome do projeto não pode conter nenhum dos seguintes caracteres:  / \\ : ? \" < > |");
                             document.forms[0].name.focus();
                             return false;
                         }
@@ -121,14 +117,15 @@ if (isset($_POST['submit'])) {
                         <td><input maxlength="128" name="name" size="48" type="text"></td>
                     </tr>
                     <tr>
-                        <td>Descriï¿½ï¿½o:</td>
+                        <td>Descrição:</td>
                         <td><textarea cols="48" name="description" rows="4"></textarea></td>
                     <tr>
-                        <td align="center" colspan="2" height="60"><input name="submit" type="submit" value="Adicionar Projeto"></td>
+                        <td align="center" colspan="2" height="60"><input name="submit" 
+                        type="submit" value="Adicionar Projeto"></td>
                     </tr>
                 </table>
             </form>
-            <br><i><a href="showSource.php?file=add_project.php">Veja o cï¿½digo fonte!</a></i>
+            <br><i><a href="showSource.php?file=add_project.php">Veja o código fonte!</a></i>
         </body>
     </html>
 

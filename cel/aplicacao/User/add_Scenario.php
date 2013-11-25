@@ -47,7 +47,7 @@ if ( !isset( $sucess ) )
 $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 
 if (isset($_POST['submit'])) {
-	$title = $_POST['titulo'];
+	$title = $_POST['title'];
 	
 	$confirm = checkExistingScenario($_SESSION['current_id_project'],$title);
 	?>
@@ -61,12 +61,12 @@ if (isset($_POST['submit'])) {
 <?PHP
 
 
-$objective = $_POST['objetivo'];
-$context = $_POST['contexto'];
-$actors = $_POST['atores'];
-$resource = $_POST['recursos'];
-$exception = $_POST['excecao'];
-$episodes = $_POST['episodios'];
+$objective = $_POST['objective'];
+$context = $_POST['context'];
+$actors = $_POST['actors'];
+$resource = $_POST['resources'];
+$exception = $_POST['exception'];
+$episodes = $_POST['episodes'];
 
 if ($confirm == true)
 {
@@ -119,7 +119,7 @@ return;
 opener.parent.frames['code'].location.reload(); 
 opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['current_id_project']?>');
 //self.close();
-//location.href = "http://<?php print( CELConfig_ReadVar("HTTPD_ip") . "/" . CELConfig_ReadVar("CEL_dir_relativo") ); ?>add_cenario.php?id_projeto=<?=$id_project?>&sucesso=s" ;
+//location.href = "http://<?php print( CELConfig_ReadVar("HTTPD_ip") . "/" . CELConfig_ReadVar("CEL_dir_relativo") ); ?>add_Scenario.php?id_project=<?=$id_project?>&sucess=s" ;
 
 
 location.href = "add_scenario.php?id_project=<?=$id_project?>&sucesso=s";
@@ -147,7 +147,7 @@ context   = form.context.value;
 
   if ((title == ""))
     { 
-		alert ("Por favor, digite o titulo do cenï¿½rio.")
+		alert ("Por favor, digite o titulo do cenário.")
 		form.title.focus()
 		return false;
 	}else{
@@ -155,19 +155,19 @@ context   = form.context.value;
 		OK = padrao.exec(title);
 		if (OK)
 		{
-			window.alert ("O tï¿½tulo do cenï¿½rio nï¿½o pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
+			window.alert ("O título do cenï¿½rio nï¿½o pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
 			form.title.focus();
 			return false;
 		} 
 	}
       
   if ((objective == ""))
-    { alert ("Por favor, digite o objetivo do cenï¿½rio.")
+    { alert ("Por favor, digite o objetivo do cenário.")
       form.objective.focus()
       return false;}    
       
    if ((context == ""))
-    { alert ("Por favor, digite o contexto do cenï¿½rio.")
+    { alert ("Por favor, digite o contexto do cenário.")
       form.context.focus()
       return false;}        
 }
@@ -232,7 +232,7 @@ context   = form.context.value;
 			<tr>
 				<td align="center" colspan="2" height="60"><input name="submit"
 					type="submit" onClick="return TestarBranco(this.form);"
-					value="Adicionar Cenï¿½rio"></td>
+					value="Adicionar Cenário"></td>
 			</tr>
 		</table>
 	</form>
@@ -240,7 +240,7 @@ context   = form.context.value;
 		<a href="javascript:self.close();">Fechar</a>
 	</center>
 	<br>
-	<i><a href="showSource.php?file=add_scenario.php">Veja o cï¿½digo fonte!</a>
+	<i><a href="showSource.php?file=add_Scenario.php">Veja o código fonte!</a>
 	</i>
 </body>
 </html>
