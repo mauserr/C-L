@@ -18,27 +18,6 @@ include("/Functions/reload_Page.php");
 #
 ###################################################################
 
-
-if (!(function_exists("recarrega"))) 
-{
-    function recarrega($url) 
-    {
-            assert(is_string($url));
-            assert($url !=NULL);
-		?>
-		
-		<script language="javascript1.3">
-		
-		location.replace('<?=$url?>');
-		
-		</script>
-		
-		<?php
-    }
-}
-
-
-
 if (!(function_exists("simple_query")))
 {
     funcTion simple_query($field, $table, $where)
