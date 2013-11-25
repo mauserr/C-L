@@ -184,7 +184,7 @@ function obter_termo_do_lexico($lexicon){
 }
 
 /*
-function zera_tipos()
+function resets_Types()
 {
 $query = "update lexico set tipo =  NULL;";
 $result = mysql_query($query) or die("A consulta � BD falhou : " . mysql_error() . __LINE__);
