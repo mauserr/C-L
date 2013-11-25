@@ -48,11 +48,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
     <head> 
         <LINK rel="stylesheet" type="text/css" href="style.css"> 
         <script language="javascript1.3"> 
-
-        // Funcoes que serao usadas quando o script for chamado atraves dele proprio ou da arvore 
-        function reCarrega(URL) { 
-            document.location.replace(URL); 
-        } 
+ 
 
 <?php    
 
