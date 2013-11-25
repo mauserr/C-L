@@ -117,7 +117,7 @@ self.close();
 ?>
 <input name="submit" type="submit" value="Processar">
 </form>
-<br><i><a href="showSource.php?file=ver_pedido_cenario.php">Veja o c�digo fonte!</a></i>
+<br><i><a href="showSource.php?file=see_Scenario_Request.php">Veja o c�digo fonte!</a></i>
 </body>
 </html>
 <?php

@@ -220,13 +220,13 @@ if (!isset  ( $_SESSION['current_id_project'] ))
              if (isset($id_project))    
              {    
              ?>    
-				var url = 'ver_pedido_cenario.php?id_project=' + '<?=$id_project?>'; 
+				var url = 'see_Scenario_Request.php?id_project=' + '<?=$id_project?>'; 
              <?php    
              }    
              else    
              {    
              ?>    
-				var url = 'ver_pedido_cenario.php'; 
+				var url = 'see_Scenario_Request.php'; 
              <?php    
              }    
 
@@ -300,13 +300,13 @@ if (!isset  ( $_SESSION['current_id_project'] ))
                      if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'ver_pedido_conceito.php?id_projeto=' + '<?=$id_project?>'; 
+						var url = 'see_Concept_Request.php?id_projeto=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
                      {    
                      ?>    
-						var url = 'ver_pedido_conceito.php?' 
+						var url = 'see_Concept_Request.php?' 
                      <?php    
                      }    
 

@@ -53,7 +53,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
         // Funcoes que serao usadas quando o script
         // for chamado atraves da heading.php
         function pedidoCenario() {
-            var url = 'ver_pedido_cenario.php?id_project=' + '<?=$id_project?>';
+            var url = 'see_Scenario_Request.php?id_project=' + '<?=$id_project?>';
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);

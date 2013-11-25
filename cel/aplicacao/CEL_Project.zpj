@@ -67,8 +67,8 @@
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\showSource.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\teste_daml.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\updUser.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\ver_pedido_cenario.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\ver_pedido_conceito.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\see_Scenario_Request.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\see_Concept_Request.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\see_Lexicon_Request.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\see_Relation_Request.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\VertBar.htm"/>
