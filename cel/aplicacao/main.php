@@ -16,7 +16,7 @@ $_SESSION['diretorio'] = CELConfig_ReadVar("DAML_dir_relativo_ao_CEL") ;
 include("funcoes_genericas.php");    
 require_once '/Functions/check_User.php';
 include("httprequest.inc");
-include_once("coloca_links.php");
+include_once("puts_Links.php");
 
 
 // Checa se o usuï¿½rio foi autenticado
@@ -216,13 +216,13 @@ if (!isset  ( $_SESSION['current_id_project'] ))
              if (isset($id_project))    
              {    
              ?>    
-				var url = 'ver_pedido_cenario.php?id_project=' + '<?=$id_project?>'; 
+				var url = 'see_Scenario_Request.php?id_project=' + '<?=$id_project?>'; 
              <?php    
              }    
              else    
              {    
              ?>    
-				var url = 'ver_pedido_cenario.php'; 
+				var url = 'see_Scenario_Request.php'; 
              <?php    
              }    
 
@@ -256,13 +256,13 @@ if (!isset  ( $_SESSION['current_id_project'] ))
                      if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'ver_pedido_lexico.php?id_projeto=' + '<?=$id_project?>'; 
+						var url = 'see_Lexicon_Request.php?id_projeto=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
                      {    
                      ?>    
-						var url = 'ver_pedido_lexico.php?' 
+						var url = 'see_Lexicon_Request.php?' 
                      <?php    
                      }    
 
@@ -296,13 +296,13 @@ if (!isset  ( $_SESSION['current_id_project'] ))
                      if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'ver_pedido_conceito.php?id_projeto=' + '<?=$id_project?>'; 
+						var url = 'see_Concept_Request.php?id_projeto=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
                      {    
                      ?>    
-						var url = 'ver_pedido_conceito.php?' 
+						var url = 'see_Concept_Request.php?' 
                      <?php    
                      }    
 
@@ -319,13 +319,13 @@ if (!isset  ( $_SESSION['current_id_project'] ))
                      if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'ver_pedido_relacao.php?id_projeto=' + '<?=$id_project?>'; 
+						var url = 'see_Relation_Request.php?id_projeto=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
                      {    
                      ?>    
-						var url = 'ver_pedido_relacao.php?' 
+						var url = 'see_Relation_Request.php?' 
                      <?php    
                      }    
 
@@ -603,7 +603,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
 
 
-<!-- CENï¿½RIO --> 
+<!-- CENÁRIO --> 
 
 <?php   
     
@@ -618,50 +618,50 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
         
 		$c_id_projeto = $result['id_project'];
 		
-		$vetorDeCenarios = carrega_vetor_cenario( $c_id_projeto, $id, true ); // carrega vetor de cenario
+		$vetorDeCenarios = carrega_vetor_cenario( $c_id_project, $id, true ); // carrega vetor de cenario
         quicksort( $vetorDeCenarios, 0, count($vetorDeCenarios)-1,'scenario' );
       
-	    $vetorDeLexicos = carrega_vetor_lexicos( $c_id_projeto, 0, false ); // carrega vetor de lï¿½xicos 
+	    $vetorDeLexicos = carrega_vetor_lexicos( $c_id_project, 0, false ); // carrega vetor de léxicos 
         quicksort( $vetorDeLexicos, 0, count($vetorDeLexicos)-1,'lexicon' );
     		
 ?>    
 
             <tr> 
                 <th>Titulo:</th><td CLASS="Estilo">
-        <?php echo nl2br(monta_links( $result['titulo'], $vetorDeLexicos, $vetorVazio)) ;?>
+        <?php echo nl2br(monta_links( $result['title'], $vetorDeLexicos, $vetorVazio)) ;?>
                 </td> 
 
             </tr> 
             <tr> 
                 <th>Objetivo:</th><td CLASS="Estilo">
-		<?php echo nl2br(monta_links( $result['objetivo'], $vetorDeLexicos, $vetorVazio )) ; ?>
+		<?php echo nl2br(monta_links( $result['objective'], $vetorDeLexicos, $vetorVazio )) ; ?>
 				</td> 
             </tr> 
             <tr> 
                 <th>Contexto:</th><td CLASS="Estilo">
 		<?php
-    	    echo nl2br(monta_links( $result['contexto'], $vetorDeLexicos, $vetorDeCenarios ) ); ?>		 
+    	    echo nl2br(monta_links( $result['context'], $vetorDeLexicos, $vetorDeCenarios ) ); ?>		 
 				</td> 
             </tr> 
             <tr> 
                 <th>Atores:</th><td CLASS="Estilo">
-		<?php echo nl2br(monta_links( $result['atores'], $vetorDeLexicos, $vetorVazio) ) ; ?>
+		<?php echo nl2br(monta_links( $result['actors'], $vetorDeLexicos, $vetorVazio) ) ; ?>
                 </td>  
             </tr> 
             <tr> 
                 <th>Recursos:</th><td CLASS="Estilo">
-		<?php echo nl2br(monta_links( $result['recursos'], $vetorDeLexicos, $vetorVazio ) ) ; ?>
+		<?php echo nl2br(monta_links( $result['resource'], $vetorDeLexicos, $vetorVazio ) ) ; ?>
                 </td> 
             </tr> 
             <tr> 
-                <th>Exceï¿½ï¿½o:</th><td CLASS="Estilo">
-		<?php echo nl2br(monta_links( $result['excecao'], $vetorDeLexicos, $vetorVazio) ) ; ?>
+                <th>Exceção:</th><td CLASS="Estilo">
+		<?php echo nl2br(monta_links( $result['exception'], $vetorDeLexicos, $vetorVazio) ) ; ?>
                 </td> 
             </tr> 
             <tr> 
-                <th>Episï¿½dios:</th><td CLASS="Estilo">
+                <th>Episódios:</th><td CLASS="Estilo">
 		<?php 
-	  		echo nl2br(monta_links( $result['episodios'], $vetorDeLexicos, $vetorDeCenarios ) ); ?>
+	  		echo nl2br(monta_links( $result['episodes'], $vetorDeLexicos, $vetorDeCenarios ) ); ?>
 	  	
                 </td> 
             </tr> 
@@ -670,10 +670,10 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
         <TABLE> 
             <tr> 
                  <td CLASS="Estilo" height="40" valign=MIDDLE> 
-                    <a href="#" onClick="altCenario(<?=$result['id_cenario']?>);">Alterar Cenï¿½rio</a> 
+                    <a href="#" onClick="altCenario(<?=$result['id_scenario']?>);">Alterar Cenário</a> 
                 </th> 
                 <td CLASS="Estilo"  valign=MIDDLE> 
-                    <a href="#" onClick="rmvCenario(<?=$result['id_cenario']?>);">Remover Cenï¿½rio</a> 
+                    <a href="#" onClick="rmvCenario(<?=$result['id_scenario']?>);">Remover Cenário</a> 
                 </th> 
             </tr> 
 
@@ -683,38 +683,38 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 <?php    
     } elseif ($t == "l") {
               
-        $q = "SELECT id_lexico, nome, nocao, impacto, tipo, id_projeto    
-              FROM lexico    
-              WHERE id_lexico = $id";    
+        $q = "SELECT id_lexicon, name, notion, impact, type, id_project   
+              FROM lexicon    
+              WHERE id_lexicon = $id";    
       
 		$qrr = mysql_query($q) or die("Erro ao enviar a query de selecao !!". mysql_error());    
         $result = mysql_fetch_array($qrr);
         
-        $l_id_projeto = $result['id_project'];
+        $l_id_project = $result['id_project'];
         
-        $vetorDeLexicos = carrega_vetor_lexicos( $l_id_projeto, $id, true );  
+        $vetorDeLexicos = carrega_vetor_lexicos( $l_id_project, $id, true );  
 		
-        quicksort( $vetorDeLexicos, 0, count( $vetorDeLexicos )-1,'lexico' );
+        quicksort( $vetorDeLexicos, 0, count( $vetorDeLexicos )-1,'lexicon' );
  
 ?>    
             <tr> 
-                <th>Nome:</th><td CLASS="Estilo"><?php echo $result['nome']; ?>
+                <th>Nome:</th><td CLASS="Estilo"><?php echo $result['name']; ?>
 				</td> 
             </tr> 
             <tr> 
-                <th>Noï¿½ï¿½o:</th><td CLASS="Estilo"><?php echo nl2br( monta_links( $result['nocao'], $vetorDeLexicos, $vetorVazio ) ); ?>
+                <th>Noï¿½ï¿½o:</th><td CLASS="Estilo"><?php echo nl2br( monta_links( $result['notion'], $vetorDeLexicos, $vetorVazio ) ); ?>
 				</td> 
             </tr> 
             <tr> 
-                <th>Classificaï¿½ï¿½o:</th><td CLASS="Estilo"><?=nl2br( $result['tipo'] ) ?>
+                <th>Classificaï¿½ï¿½o:</th><td CLASS="Estilo"><?=nl2br( $result['type'] ) ?>
 				</td> 
             </tr> 
             <tr> 
-                <th>Impacto(s):</th><td CLASS="Estilo"><?php echo nl2br( monta_links( $result['impacto'], $vetorDeLexicos, $vetorVazio ) ); ?> 
+                <th>Impacto(s):</th><td CLASS="Estilo"><?php echo nl2br( monta_links( $result['impact'], $vetorDeLexicos, $vetorVazio ) ); ?> 
 				</td>
             </tr> 
             <tr> 
-            <th>Sinï¿½nimo(s):</th> 
+            <th>Sinônimo(s):</th> 
 
 			<?php //sinonimos 
                  $id_project = $_SESSION['current_id_project'];    

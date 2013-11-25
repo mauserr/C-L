@@ -1,5 +1,5 @@
 <?php
-// ver_pedido_lexico.php: This script shows the orders refered to the lexicon.
+// see_Lexicon_Request.php: This script shows the orders refered to the lexicon.
 // The manager has the option to see all the orders already validated.
 // The manager will also be able to validate and process the orders.
 // The manager has a third option, to remove a validated order
@@ -175,7 +175,7 @@ if (isset($submit)) {
                     ?>
                     <input name="submit" type="submit" value="Processar">
                     </form>
-                    <br><i><a href="showSource.php?file=ver_pedido_lexico.php">Veja o código fonte!</a></i>
+                    <br><i><a href="showSource.php?file=see_Lexicon_Request.php">Veja o código fonte!</a></i>
                     </body>
                     </html>
 

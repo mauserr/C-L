@@ -1,6 +1,6 @@
 <?php
 include_once("monta_relacoes.php");
-include_once("coloca_links.php");
+include_once("puts_Links.php");
 
 // Riding the relations used int side menu
 

@@ -1,6 +1,6 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-// ver_pedido_cenario.php: This script shows all the orders refered to the scenario.
+// see_Scenario_Request.php: This script shows all the orders refered to the scenario.
 // The manager has the option to see the orders already validated.
 // The manager can also validate and process the orders.
 // The manager will have a third option, to remove the order
@@ -184,7 +184,7 @@ if (isset($submit)) {
                     ?>
                     <input name="submit" type="submit" value="Processar">
                     </form>
-                    <br><i><a href="showSource.php?file=ver_pedido_cenario.php">Veja o código fonte!</a></i>
+                    <br><i><a href="showSource.php?file=see_Scenario_Request.php">Veja o código fonte!</a></i>
                     </body>
                     </html>
                     <?php

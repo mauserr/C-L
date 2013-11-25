@@ -1,6 +1,6 @@
 <?php
 /*************************************************************
- * File: zera_tipos.php
+ * File: resets_types.php
  * purpose: create a Mysql query that update Lexico´s type
  * 
  ************************************************************/

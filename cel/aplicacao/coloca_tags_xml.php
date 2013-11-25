@@ -4,7 +4,7 @@
 /*********************************************************/ 
 
 
-include ("coloca_links.php");
+include ("puts_Links.php");
 
 function put_tag_xml($string) 
 { 
