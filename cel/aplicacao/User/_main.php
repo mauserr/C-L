@@ -60,7 +60,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
         }
 
         function pedidoLexico() {
-            var url = 'ver_pedido_lexico.php?id_project=' + '<?=$id_project?>';
+            var url = 'see_Lexicon_Request.php?id_project=' + '<?=$id_project?>';
             var where = '_blank';
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec);

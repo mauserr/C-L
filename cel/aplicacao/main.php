@@ -260,13 +260,13 @@ if (!isset  ( $_SESSION['current_id_project'] ))
                      if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'ver_pedido_lexico.php?id_projeto=' + '<?=$id_project?>'; 
+						var url = 'see_Lexicon_Request.php?id_projeto=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
                      {    
                      ?>    
-						var url = 'ver_pedido_lexico.php?' 
+						var url = 'see_Lexicon_Request.php?' 
                      <?php    
                      }    
 
