@@ -47,7 +47,7 @@ if ( !isset( $sucess ) )
 $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 
 if (isset($_POST['submit'])) {
-	$title = $_POST['title'];
+	$title = $_POST['titulo'];
 	
 	$confirm = checkExistingScenario($_SESSION['current_id_project'],$title);
 	?>
@@ -61,12 +61,12 @@ if (isset($_POST['submit'])) {
 <?PHP
 
 
-$objective = $_POST['objective'];
-$context = $_POST['context'];
-$actors = $_POST['actors'];
-$resource = $_POST['resources'];
-$exception = $_POST['exception'];
-$episodes = $_POST['episodes'];
+$objective = $_POST['objetivo'];
+$context = $_POST['contexto'];
+$actors = $_POST['atores'];
+$resource = $_POST['recursos'];
+$exception = $_POST['excecao'];
+$episodes = $_POST['episodios'];
 
 if ($confirm == true)
 {

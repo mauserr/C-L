@@ -82,7 +82,7 @@ if (!(function_exists("adiciona_cenario")))
         assert(is_string($objective));
         assert(is_string($context));
         assert(is_string($actors));
-        assert(is_string($resource));
+        assert(is_string($resources));
         assert(is_string($exception));
         
         // Conecta ao SGBD
@@ -95,7 +95,7 @@ if (!(function_exists("adiciona_cenario")))
               WHERE id_project = $id_project
               AND id_scenario != $id_incluido
               ORDER BY CHAR_LENGTH(title) DESC";
-        $qrr = mysql_query($q) or die("Erro ao enviar a query de SELECT<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+        $qrr = mysql_query($query_sql) or die("Erro ao enviar a query de SELECT<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
         ### PREENCHIMENTO DAS TABELAS LEXTOLEX E CENTOCEN PARA MONTAGEM DO MENU LATERAL
         
@@ -169,7 +169,7 @@ if (!(function_exists("adiciona_cenario")))
         // contexto, atores, recursos, episodios e excecao do cenario incluido
       	//Sinonimos
                 
-        $query_sql_synonyms = "SELECT name, id_lexicon FROM synonym WHERE id_project = $id_project AND id_request_lexicon = 0 ";
+        $query_sql_synonyms = "SELECT name, id_lexicon FROM synonym WHERE id_project = $id_project AND id_pedidolex = 0 ";
         
         $query_result_sql_synonyms = mysql_query($query_sql_synonyms) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
@@ -541,7 +541,7 @@ if (!(function_exists("insertRequestAddScenario"))) {
                 $select->execute("SELECT * FROM user WHERE id_user = $id");
                 $record = $select->gofirst();
                 $mailGerente = $record['email'];
-                mail("$mailGerente", "Pedido de Inclusï¿½o Cenï¿½rio", "O usuario do sistema $nome\nPede para inserir o cenario $titulo \nObrigado!","From: $nome\r\n"."Reply-To: $email\r\n");
+                mail("$mailGerente", "Pedido de Inclusão Cenário", "O usuario do sistema $name\nPede para inserir o cenario $title \nObrigado!","From: $name\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
             }
         }
