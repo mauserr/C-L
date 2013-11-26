@@ -1,6 +1,6 @@
 <?php
 include 'structures.php';
-include_once 'auxiliar_algoritmo.php';
+include_once 'auxiliary_Algorithm.php';
 session_start();
 ?>
 
@@ -196,7 +196,7 @@ session_start();
                                         }
                                     }
 
-                                    $ind_rel = existe_relacao($_SESSION['nome1'], $_SESSION['conceito']->relacoes);
+                                    $ind_rel = exist_relation($_SESSION['nome1'], $_SESSION['conceito']->relacoes);
                                     if ($ind_rel != -1) {
                                         if (array_search($concept, $_SESSION["conceito"]->relacoes[$ind_rel]->predicados) === false)
                                             $_SESSION["conceito"]->relacoes[$ind_rel]->predicados[] = $concept;
@@ -212,7 +212,7 @@ session_start();
 
                                     $_SESSION["predicados_selecionados"][] = $concept;
 
-                                    $ind_rel = existe_relacao($_SESSION['nome1'], $_SESSION['conceito']->relacoes);
+                                    $ind_rel = exist_relation($_SESSION['nome1'], $_SESSION['conceito']->relacoes);
                                     if ($ind_rel != -1) {
                                         if (array_search($concept, $_SESSION["conceito"]->relacoes[$ind_rel]->predicados) === false)
                                             $_SESSION["conceito"]->relacoes[$ind_rel]->predicados[] = $concept;
