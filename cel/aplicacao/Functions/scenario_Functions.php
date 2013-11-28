@@ -99,7 +99,7 @@ if (!(function_exists("adiciona_cenario")))
         
         ### PREENCHIMENTO DAS TABELAS LEXTOLEX E CENTOCEN PARA MONTAGEM DO MENU LATERAL
         
-        // Verifica ocorrï¿½ncias do titulo do cenario incluido no contexto 
+        // Verifica ocorrências do titulo do cenario incluido no contexto 
         // e nos episodios de todos os outros cenarios e adiciona os relacionamentos,
         // caso possua, na tabela centocen
         
