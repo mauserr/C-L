@@ -36,13 +36,16 @@ $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 if ( isset($_POST['submit'])) 
 {        
 	
-	assert($_POSt['password'] != NULL);
+	assert($_POST['password'] != NULL);
 	
 	$password_cript = md5($_POST['password']);
 
 	assert($password_cript != NULL);
+	// Add slashes to avoid SQL INJECTION
+	$password_cript_escape =  addslashes($password_cript);
+	$login_escape =  addslashes($login);
 	
-	$query_select_sql = "SELECT id_user FROM user WHERE login='$login' AND password='$password_cript'";
+	$query_select_sql = "SELECT id_user FROM user WHERE login='$login_escape' AND password='$password_cript_escape'";
     
 	assert(query_select_sql != NULL);
 	
