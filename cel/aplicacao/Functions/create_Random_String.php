@@ -5,14 +5,15 @@
  * keys, returns the random String.
  */
 
-function create_Randon_String($n)
-	{	
+function create_Randon_String($n){	
+    
                 assert($n !=NULL);    
 		//$String = aracteres Aceitaveis
+                
                 $string = "ABCDEFGHIJKLMNOPQRSTUVXYWZabcdefghijklmnopqrstuvxywz0123456789";
 		$cod = "";
-		for($a = 0;$a < $n;$a++)
-		{		
+		for($a = 0;$a < $n;$a++){
+                    
 			$rand = rand(0,61);
 			$cod .= substr($string,$rand,1);
 		}	

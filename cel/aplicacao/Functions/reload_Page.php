@@ -5,10 +5,10 @@
  * 
  */
 
-if (!(function_exists("reload_Page"))) 
-{
-    function reload_Page($url) 
-    {
+if (!(function_exists("reload_Page"))){
+    
+    function reload_Page($url) {
+        
             assert(is_string($url));
             assert($url !=NULL);
 		?>
