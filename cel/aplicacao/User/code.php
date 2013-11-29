@@ -134,7 +134,7 @@ $search = "'<[\/\!]*?[^<>]*?>'si";
 $replace = "";
 
 
-while ($row = mysql_fetch_row($query_check_error)) {    // For each projects scenario 
+while ($row = mysql_fetch_row($query_check_error)){    // For each projects scenario 
     
     $row[1] = preg_replace($search, $replace, $row[1]);
     ?>
@@ -297,7 +297,7 @@ while ($row = mysql_fetch_row($query_check_erro_concept)){  // for each projects
 
         // RELAï¿½ï¿½ES 
         // ++ submenu 
-            mo.addItem("Relações");
+            mo.addItem("Relaï¿½ï¿½es");
             var mor = null;
             mor = new MTMenu();
 

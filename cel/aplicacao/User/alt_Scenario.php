@@ -32,7 +32,8 @@ check_User("index.php");
 
 $connect_bd = bd_connect() or die("Erro ao conectar ao SGBD");
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])){
+    
         $id_scenario = $_POST['id_scenario'];
 	insertRequestAddScenario($_SESSION['current_id_project'],
 			$_POST['id_scenario'],
@@ -63,7 +64,7 @@ self.close();
 </script>
 
 <?php
-} else { // Script chamado atraves do link no scenario corrente
+}else{ // Script chamado atraves do link no scenario corrente
 
 	$project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
 

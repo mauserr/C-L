@@ -12,7 +12,7 @@ check_User("index.php");
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
 $users = null;
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])){
 
 	$query_delete_sql = "DELETE FROM participates
 	WHERE id_user != " . $_SESSION['current_id_user'] . "
@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
 
 	$number_of_selected_users = count($users);
 	 
-	for ($i = 0; $i < $number_of_selected_users; $i++) {
+	for ($i = 0; $i < $number_of_selected_users; $i++){
 
 		$query_insert_sql = "INSERT INTO participates (id_user, id_project)
 		VALUES (" . $users[$i] . ", " . $_SESSION['current_id_project'] . ")";
@@ -40,7 +40,7 @@ self.close();
 
 <html>
     <head>
-        <title>Selecione os usuários</title>
+        <title>Selecione os usuï¿½rios</title>
         <script language="javascript1.3" src="MSelect.js"></script>
         <script language="javascript1.3">
 
@@ -69,7 +69,7 @@ self.close();
         </style>
     </head>
     <body onLoad="createMSelect();">
-        <h4>Selecione os usuários para participar do projeto "<span style="color: orange"><?=simple_query("nome", "projeto", "id_project = " . $_SESSION['current_id_project'])?></span>":</h4>
+        <h4>Selecione os usuï¿½rios para participar do projeto "<span style="color: orange"><?=simple_query("nome", "projeto", "id_project = " . $_SESSION['current_id_project'])?></span>":</h4>
         <p style="color: red">Mantenha <strong>CTRL</strong> pressionado para selecionar mï¿½ltiplas opï¿½ï¿½es</p>
         <form action="" method="post" onSubmit="selAll();">
         <table cellspacing="8" width="100%">
@@ -113,20 +113,26 @@ self.close();
                     <select  multiple name="usuarios_r" size="6">
 
 <?php
-    $alternative_query_select_sql = "SELECT id_user FROM participates where participates.id_project =".$_SESSION['current_id_project'];
-	$alternative_query_result_sql = mysql_query($alternative_query_select_sql) or die("Erro ao enviar a subquery");
-	$alternative_sub_query_result_sql = "(0)";
-		if($alternative_sub_query_result_sql != 0)
-		{
+                $alternative_query_select_sql = "SELECT id_user FROM participates where participates.id_project =".$_SESSION['current_id_project'];
+                $alternative_query_result_sql = mysql_query($alternative_query_select_sql) or die("Erro ao enviar a subquery");
+                $alternative_sub_query_result_sql = "(0)";
+                
+		if($alternative_sub_query_result_sql != 0){
+                    
 			$row = mysql_fetch_row($alternative_query_result_sql);
 			$alternative_sub_query_result = "( $row[0]";
-			while($row = mysql_fetch_row($alternative_query_result_sql))
+                        
+			while($row = mysql_fetch_row($alternative_query_result_sql)){
 				$alternative_sub_query_result = "$alternative_sub_query_result, $row[0]";
+                        }
+                        
 			$alternative_sub_query_result = "$alternative_sub_query_result )";
 		}
+                
 		$query_select_sql = "SELECT user.id_user, user.login FROM user where user.id_user not in ".$resultadosubq;
 
 		echo($query_select_sql);
+                
 		$query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query");
 		while ($result = mysql_fetch_array($query_result_sql))
   
@@ -150,7 +156,7 @@ self.close();
             </tr>
         </table>
         </form>
-        <br><i><a href="showSource.php?file=rel_usuario.php">Veja o código fonte!</a></i>
+        <br><i><a href="showSource.php?file=rel_usuario.php">Veja o cï¿½digo fonte!</a></i>
     </body>
 </html>
 

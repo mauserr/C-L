@@ -20,21 +20,24 @@ check_User("index.php");
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
 $synonymList = null;
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])){
 
-    if (!isset($synonymList))
+    if (!isset($synonymList)){
         $synonymList = array();
-
+    }
+    
     //removes synonymous if there is a void.
     $count = count($synonymList);
-    for ($i = 0; $i < $count; $i++) {
-        if ($synonymList[$i] == "") {
+    for ($i = 0; $i < $count; $i++){
+        
+        if ($synonymList[$i] == ""){
             $synonymList = null;
         }
+        
     }
     //$count = count($listSinonimo);
 
-    foreach ($synonymList as $key => $synonymList) {
+    foreach ($synonymList as $key => $synonymList){
         $synonymList[$key] = str_replace(">", " ", str_replace("<", " ", $synonym));
     }
 
@@ -72,11 +75,11 @@ if (isset($_POST['submit'])) {
             </script>
 
             <?php
-        } else {
+        }else{
             $project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
             $query = "SELECT * FROM lexicon WHERE id_lexicon = id_lexicon";
             $query_result_sql = mysql_query($query) or die(" Erro ao executar a consulta");
-           $result = mysql_fetch_array($query_result_sql);
+            $result = mysql_fetch_array($query_result_sql);
 
             //synonym
             // $DB = new PGDB () ;
@@ -93,19 +96,18 @@ if (isset($_POST['submit'])) {
             <body>
                 <script language="JavaScript">
                     <!--
-                    function TestEmpty(form)
-                    {
+                    function TestEmpty(form){
+                        
                         notion = form.notion.value;
         	
-                        if( notion == "" )
-                        { alert (" Por favor, forneca o NOME do lexicon.\n O campo NOME é obrigatorio.");
+                        if( notion == "" ){ 
+                            alert (" Por favor, forneca o NOME do lexicon.\n O campo NOME é obrigatorio.");
                             form.notion.focus();
                             return false;
                         }
 
                     }
-                    function addSynonym()
-                    {
+                    function addSynonym(){
                         synonymList = document.forms[0].elements['synonymList[]']; 
         	
                         if(document.forms[0].synonym.value == "")
@@ -119,25 +121,25 @@ if (isset($_POST['submit'])) {
 
                     }
 
-                    function deleteSynonym()
-                    {
+                    function deleteSynonym(){
                         synonymList = document.forms[0].elements['synonymList[]']; 
         	
-                        if(synonymList.selectedIndex == -1)
+                        if(synonymList.selectedIndex == -1){
                             return;
-                        else
+                        }else{
                             synonymList.options[synonymList.selectedIndex] = null;
-        	
+                        }
+                        
                         deleteSynonym();
                     }
 
-                    function doSubmit()
-                    {
+                    function doSubmit(){
                         synonymList = document.forms[0].elements['synonymList[]']; 
         	
-                        for(var i = 0; i < synonymList.length; i++) 
+                        for(var i = 0; i < synonymList.length; i++){
                             synonymList.options[i].selected = true;
-        	
+                        }
+                        
                         return true;
                     }
 
