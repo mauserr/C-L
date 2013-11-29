@@ -14,10 +14,10 @@ require_once '/../bd_class.php';
 ###################################################################
 
 
-if (!(function_exists("include_lexicon"))) 
-{
-    function include_lexicon($id_project, $name, $notion, $impact, $synonymous, $classification)
-    {      
+if (!(function_exists("include_lexicon"))){
+    
+    function include_lexicon($id_project, $name, $notion, $impact, $synonymous, $classification){
+        
         assert($id_project != NULL);
 	assert($name != NULL);
         assert(is_int($id_project));
@@ -37,14 +37,15 @@ if (!(function_exists("include_lexicon")))
         $newLexId = mysql_insert_id($connect);
         
         
-        if( ! is_array($synonymous) )
-        $synonymous = array();
+        if( ! is_array($synonymous)){
+            $synonymous = array();
+        }
         
-        foreach($synonymous as $novoSin)
-        {
+        foreach($synonymous as $novoSin){
+            
        		$query_sql = "INSERT INTO synonym (id_lexicon, name, id_project)
                 VALUES ($newLexId, '" . data_prepare(strtolower($novoSin)) . "', $id_project)";
-            mysql_query($query_sql, $connect) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+                mysql_query($query_sql, $connect) or die("Erro ao enviar a query<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         }
         
         $query_sql = "SELECT max(id_lexicon) FROM lexicon";
@@ -70,8 +71,8 @@ if (!(function_exists("include_lexicon")))
 # no projeto (1.2)
 # retorna true caso nao exista ou false caso exista (1.3)
 ###################################################################
-function checkExistingLexicon($project, $name)
-{
+function checkExistingLexicon($project, $name){
+    
 	assert(is_string($project, $name));
 	assertNotNull($project, $name);
 
@@ -82,8 +83,8 @@ function checkExistingLexicon($project, $name)
 	$query_sql = "SELECT * FROM lexicon WHERE id_project = $project AND name = '$name' ";
 	$query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 	$resultArray = mysql_fetch_array($query_result_sql);
-	if ( $resultArray == false )
-	{
+        
+	if ( $resultArray == false ){
 		$doenstexist = true;
 	}
 
@@ -91,8 +92,7 @@ function checkExistingLexicon($project, $name)
 	$query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 	$resultArray = mysql_fetch_array($qr);
 
-	if ( $resultArray != false )
-	{
+	if ( $resultArray != false ){
 		$doenstexist = false;
 	}
 
@@ -120,10 +120,10 @@ function checkExistingLexicon($project, $name)
 //      3.4. Se achar alguma ocorrencia:
 //              3.4.1. Incluir entrada na table 'lextolex';
 
-if (!(function_exists("adicionar_lexico"))) 
-{
-    function adicionar_lexico($id_project, $name, $notion, $impact, $synonymous, $classification)
-    {
+if (!(function_exists("adicionar_lexico"))){
+    
+    function adicionar_lexico($id_project, $name, $notion, $impact, $synonymous, $classification){
+        
         assert(is_int($id_project));
         assert(is_string($name, $notion, $impact, $synonymous, $classification));
         assertNotNull($id_project, $name, $notion, $impact, $synonymous, $classification);
@@ -139,8 +139,8 @@ if (!(function_exists("adicionar_lexico")))
         
         $qrr = mysql_query($qr) or die("Erro ao enviar a query de SELECT 1<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
-        while ($result = mysql_fetch_array($qrr)) 
-        {    // 2  - Para todos os cenarios
+        while ($result = mysql_fetch_array($qrr)){
+            // 2  - Para todos os cenarios
         
            $nomeEscapado = escape_metacharacter($name);
 		   $regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
@@ -150,8 +150,9 @@ if (!(function_exists("adicionar_lexico")))
                 (preg_match($regex, $result['atores']) != 0)   ||
                 (preg_match($regex, $result['recursos']) != 0) ||
                 (preg_match($regex, $result['excecao']) != 0)  ||
-                (preg_match($regex, $result['episodios']) != 0) )
-            { //2.2
+                (preg_match($regex, $result['episodios']) != 0) ){
+                
+            //2.2
         
                 $q = "INSERT INTO centolex (id_cenario, id_lexico)
                      VALUES (" . $result['id_cenario'] . ", $id_incluido)"; //2.2.1
@@ -164,12 +165,10 @@ if (!(function_exists("adicionar_lexico")))
         
         //sinonimos do novo lexico
         $count = count($synonymous);
-        for ($i = 0; $i < $count; $i++)
-        {
+        for ($i = 0; $i < $count; $i++){
             
             $qrr = mysql_query($qr) or die("Erro ao enviar a query de SELECT 2<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-            while ($result2 = mysql_fetch_array($qrr))
-            {
+            while ($result2 = mysql_fetch_array($qrr)){
                 
                 $nomeSinonimoEscapado = escape_metacharacter( $synonymous[$i] );
 				$regex = "/(\s|\b)(" . $nomeSinonimoEscapado . ")(\s|\b)/i";
@@ -179,15 +178,14 @@ if (!(function_exists("adicionar_lexico")))
                     (preg_match($regex, $result2['atores']) != 0)   ||
                     (preg_match($regex, $result2['recursos']) != 0) ||
                     (preg_match($regex, $result2['excecao']) != 0)  ||
-                    (preg_match($regex, $result2['episodios']) != 0) )
-                { 
+                    (preg_match($regex, $result2['episodios']) != 0) ){ 
+                    
                             
                     $qLex = "SELECT * FROM centolex WHERE id_cenario = " . $result2['id_cenario'] . " AND id_lexico = $id_incluido ";
                     $qrLex = mysql_query($qLex) or die("Erro ao enviar a query de select no centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
                     $resultArraylex = mysql_fetch_array($qrLex);
                 
-                    if ( $resultArraylex == false )
-                    {
+                    if ( $resultArraylex == false ){
                     
                         $q = "INSERT INTO centolex (id_cenario, id_lexico)
                              VALUES (" . $result2['id_cenario'] . ", $id_incluido)";                   
@@ -207,22 +205,22 @@ if (!(function_exists("adicionar_lexico")))
         //pega todos os outros lexicos
         $qrr = mysql_query($qlo) or die("Erro ao enviar a query de SELECT no LEXICO<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
-        while ($result = mysql_fetch_array($qrr)) 
-        {    // (3)
+        while ($result = mysql_fetch_array($qrr)){
+            // (3)
         
             $nomeEscapado = escape_metacharacter($name);
             $regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
             
             if ( (preg_match($regex, $result['nocao']) != 0 ) ||
-                 (preg_match($regex, $result['impacto'])!= 0) )
-            {
+                 (preg_match($regex, $result['impacto'])!= 0) ) {
+                
                 
                 $qLex = "SELECT * FROM lextolex WHERE id_lexico_from = " . $result['id_lexico'] . " AND id_lexico_to = $id_incluido";
                 $qrLex = mysql_query($qLex) or die("Erro ao enviar a query de select no lextolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
                 $resultArraylex = mysql_fetch_array($qrLex);
       
-                if ( $resultArraylex == false )
-                {
+                if ( $resultArraylex == false ){
+                    
                     $q = "INSERT INTO lextolex (id_lexico_from, id_lexico_to)
                           VALUES (" . $result['id_lexico'] . ", $id_incluido)";
                     
@@ -234,8 +232,8 @@ if (!(function_exists("adicionar_lexico")))
             $regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
          
             if((preg_match($regex, $notion) != 0) ||
-               (preg_match($regex, $impact) != 0) )
-            {   // (3.3)        
+               (preg_match($regex, $impact) != 0) ){
+                // (3.3)        
         
                 $q = "INSERT INTO lextolex (id_lexico_from, id_lexico_to) VALUES ($id_incluido, " . $result['id_lexico'] . ")"; 
         
@@ -257,23 +255,22 @@ if (!(function_exists("adicionar_lexico")))
         $qrr = mysql_query($ql) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
         $count = count($synonymous);
-        for ($i = 0; $i < $count; $i++)
-        {
-            while ($resultl = mysql_fetch_array($qrr)) {
+        for ($i = 0; $i < $count; $i++){
+            
+            while ($resultl = mysql_fetch_array($qrr)){
                                
-				$nomeSinonimoEscapado = escape_metacharacter( $synonymous[$i] );
+                           $nomeSinonimoEscapado = escape_metacharacter( $synonymous[$i] );
 			   $regex = "/(\s|\b)(" . $nomeSinonimoEscapado . ")(\s|\b)/i";
                 
                 if ( (preg_match($regex, $resultl['nocao']) != 0)  ||
-                     (preg_match($regex, $resultl['impacto']) != 0))
-                {
+                     (preg_match($regex, $resultl['impacto']) != 0)){
+                    
                                     
                     $qLex = "SELECT * FROM lextolex WHERE id_lexico_from = " . $resultl['id_lexico'] . " AND id_lexico_to = $id_incluido";
                     $qrLex = mysql_query($qLex) or die("Erro ao enviar a query de select no lextolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
                     $resultArraylex = mysql_fetch_array($qrLex);
                     
-                    if ( $resultArraylex == false )
-                    {
+                    if ( $resultArraylex == false ){
                         
                         $q = "INSERT INTO lextolex (id_lexico_from, id_lexico_to)
                          VALUES (" . $resultl['id_lexico'] . ", $id_incluido)";            
@@ -294,8 +291,7 @@ if (!(function_exists("adicionar_lexico")))
         
         $id_lexicoSinonimo = array();
         
-        while($rowSinonimo = mysql_fetch_array($qrrSinonimos))
-        {
+        while($rowSinonimo = mysql_fetch_array($qrrSinonimos)){
             
             $nomesSinonimos[]     = $rowSinonimo["nome"];
             $id_lexicoSinonimo[]  = $rowSinonimo["id_lexico"];
@@ -316,7 +312,8 @@ if (!(function_exists("adicionar_lexico")))
 # Arquivos que utilizam essa funcao:
 # add_lexico.php
 ###################################################################
-if (!(function_exists("inserirPedidoAdicionarLexico"))) {
+if (!(function_exists("inserirPedidoAdicionarLexico"))){
+    
     function inserirPedidoAdicionarLexico($id_project,$name,$notion,$impact,$id_user,$synonymous, $classification){
         assert(is_int($id_project, $id_user));
         assert(is_string($name, $notion, $impact, $synonymous, $classification));
@@ -333,8 +330,7 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
         $resultArray = mysql_fetch_array($qr);
         
         
-        if ( $resultArray == false ) //nao e gerente
-        {
+        if ( $resultArray == false){
             
             $insere->execute("INSERT INTO pedidolex (id_projeto,nome,nocao,impacto,tipo,id_usuario,tipo_pedido,aprovado) VALUES ($id_project,'$name','$notion','$impact','$classification',$id_user,'inserir',0)") ;
             
@@ -347,10 +343,10 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
             
             //insere sinonimos
             
-            foreach($synonymous as $sin)
-			{
-				$insere->execute("INSERT INTO sinonimo (id_pedidolex, nome, id_projeto) 
-				VALUES ($newId, '".data_prepare(strtolower($sin))."', $id_project)");
+            foreach($synonymous as $sin){
+                
+                $insere->execute("INSERT INTO sinonimo (id_pedidolex, nome, id_projeto) 
+		VALUES ($newId, '".data_prepare(strtolower($sin))."', $id_project)");
             }
             //fim da insercao dos sinonimos
             
@@ -362,6 +358,7 @@ if (!(function_exists("inserirPedidoAdicionarLexico"))) {
                 $name2 = $record['nome'] ;
                 $email = $record['email'] ;
                 $record2 = $select2->gofirst ();
+                
                 while($record2 != 'LAST_RECORD_REACHED'){
                     $id = $record2['id_usuario'] ;
                     $select->execute("SELECT * FROM usuario WHERE id_usuario = $id") ;
@@ -453,8 +450,8 @@ if (!(function_exists("inserirPedidoRemoverLexico"))) {
         $qr = mysql_query($q) or die("Erro ao enviar a query de select no participa<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $resultArray = mysql_fetch_array($qr);
         
-        if ( $resultArray == false ) //nao e gerente
-        {
+        if ( $resultArray == false ){ //nao e gerente
+        
         
 	        $select->execute("SELECT * FROM lexico WHERE id_lexico = $id_lexicon") ;
 	        $lexicon = $select->gofirst ();
@@ -471,6 +468,7 @@ if (!(function_exists("inserirPedidoRemoverLexico"))) {
 	            $name = $record['nome'] ;
 	            $email = $record['email'] ;
 	            $record2 = $select2->gofirst ();
+                    
 	            while($record2 != 'LAST_RECORD_REACHED'){
 	                $id = $record2['id_usuario'] ;
 	                $select->execute("SELECT * FROM usuario WHERE id_usuario = $id") ;
@@ -495,7 +493,8 @@ if (!(function_exists("inserirPedidoRemoverLexico"))) {
 # Se for para alterar: Devemos (re)mover o lexico e inserir o novo.
 # Se for para inserir: chamamos a funcao insert();
 ###################################################################
-if (!(function_exists("tratarPedidoLexico"))) {
+if (!(function_exists("tratarPedidoLexico"))){
+    
     function tratarPedidoLexico($id_request){
         assert(is_int($id_request));
         assertNotNull($id_request);
@@ -506,15 +505,18 @@ if (!(function_exists("tratarPedidoLexico"))) {
         $delete = new QUERY ($DB);
         $selectSin = new QUERY ($DB);
         $select->execute("SELECT * FROM pedidolex WHERE id_pedido = $id_request") ;
+        
         if ($select->getntuples() == 0){
             echo "<BR> [ERRO]Pedido invalido." ;
         }else{
             $record = $select->gofirst () ;
             $type_request = $record['tipo_pedido'] ;
+            
             if(!strcasecmp($type_request,'remover')){
                 $id_lexicon = $record['id_lexico'] ;
                 $id_project = $record['id_projeto'] ;
                 removeLexico($id_project,$id_lexicon, null) ;
+                
             }else{
                 $id_project = $record['id_projeto'] ;
                 $name = $record['nome'] ;
@@ -527,20 +529,21 @@ if (!(function_exists("tratarPedidoLexico"))) {
                 $synonymous = array();
                 $selectSin->execute("SELECT nome FROM sinonimo WHERE id_pedidolex = $id_request");
                 $synonymous = $selectSin->gofirst();
-                if ($selectSin->getntuples() != 0)
-		{
-               	    while($synonymous != 'LAST_RECORD_REACHED')
-               	    {
+                
+                if ($selectSin->getntuples() != 0){
+               	    while($synonymous != 'LAST_RECORD_REACHED'){
+                        
                         $synonymous[] = $synonymous["nome"];
                         $synonymous = $selectSin->gonext();
                     }
                 }
                 
                 if(!strcasecmp($type_request,'alterar')){
+                    
                     $id_lexicon = $record['id_lexico'] ;
                     alteraLexico($id_project, $id_lexicon, $name, $notion, $impact, $synonymous, $classification);
-                }else if(($idLexicoConflitante = adicionar_lexico($id_project, $name, $notion, $impact, $synonymous, $classification)) <= 0)
-                {
+                }else if(($idLexicoConflitante = adicionar_lexico($id_project, $name, $notion, $impact, $synonymous, $classification)) <= 0){
+                    
                     $idLexicoConflitante = -1 * $idLexicoConflitante;
                     
                     $selectLexConflitante->execute("SELECT nome FROM lexico WHERE id_lexico = " . $idLexicoConflitante);
@@ -565,7 +568,8 @@ if (!(function_exists("tratarPedidoLexico"))) {
 # Arquivos que utilizam essa funcao:
 # alt_lexico.php
 ###################################################################
-if (!(function_exists("insertRequestAlterLexicon"))) {
+if (!(function_exists("insertRequestAlterLexicon"))){
+    
 	function insertRequestAlterLexicon($id_project,$id_lexicon,$name,$notion,$impact,$justification,$id_user, $synonym, $classification){
 		assert(is_int($id_lexicon, $id_project, $id_user));
 		assert(is_string($name,$notion,$impact,$justificative,$synonym, $classification));
@@ -581,16 +585,15 @@ if (!(function_exists("insertRequestAlterLexicon"))) {
 		$resultArray = mysql_fetch_array($qr);
 
 
-		if ( $resultArray == false ) //nao e gerente
-		{
-
+		if ( $resultArray == false ){ //nao e gerente
+		
 			$insere->execute("INSERT INTO request_lexicon(id_project,id_lexicon,name,notion,impact,id_user,type_request,aproved,justification, type) VALUES ($id_project,$id_lexico,'$name','$notion','$impact',$id_user,'alter',0,'$justification', '$classification')") ;
 
 			$newPedidoId = $insere->getLastId();
 
 			//sinonimos
-			foreach($synonym as $sin)
-			{
+			foreach($synonym as $sin){
+                            
 				$insere->execute("INSERT INTO synonym (id_request_lexicon,name,id_project)
 						VALUES ($newPedidoId,'".data_prepare(strtolower($sin))."', $id_project)") ;
 			}
@@ -606,6 +609,7 @@ if (!(function_exists("insertRequestAlterLexicon"))) {
 				$nome2 = $record['name'] ;
 				$email = $record['email'] ;
 				$record2 = $select2->gofirst ();
+                                
 				while($record2 != 'LAST_RECORD_REACHED'){
 					$id = $record2['id_user'] ;
 					$select->execute("SELECT * FROM user WHERE id_user = $id") ;

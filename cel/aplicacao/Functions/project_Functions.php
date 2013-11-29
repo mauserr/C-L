@@ -16,10 +16,9 @@ require_once'/../security.php';
 # Return id_cproject. (1.4)
 ###################################################################
 
-if (!(function_exists("include_project")))
-{
-	function include_project($name, $description)
-		{
+if (!(function_exists("include_project"))){
+    
+	function include_project($name, $description){
 			
 		assert($name != NULL);
 		assert($description != NULL);	
@@ -34,8 +33,7 @@ if (!(function_exists("include_project")))
 		$resultArray = mysql_fetch_array($query_result_sql);
 
 
-		if ( $resultArray != false )
-		{
+		if ( $resultArray != false ){
 		
 			$id_project_repetead = $resultArray['id_project'];
 
@@ -47,8 +45,7 @@ if (!(function_exists("include_project")))
 
 			$resultArray = mysql_fetch_row($query_result_repeated_sql);
 
-			if ($resultArray[0] != null )
-			{
+			if ($resultArray[0] != null ){
 				return -1;
 			}
 
@@ -58,14 +55,12 @@ if (!(function_exists("include_project")))
 		$query_resutl_max_sql = mysql_query($query_select_max_sql) or die("Erro ao enviar a query de MAX ID<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 		$result = mysql_fetch_row($query_resutl_max_sql);
 
-		if ( $result[0] == false )
-		{
+		if ( $result[0] == false ){
 			$result[0] = 1;
-		}
-		else
-		{
+		}else{
 			$result[0]++;
 		}
+                
 		$date = date("Y-m-d");
 
 		$query_insert_sql = "INSERT INTO project (id_project, name, date_creation, description)
@@ -78,9 +73,9 @@ if (!(function_exists("include_project")))
 }
 
 // Retorna TRUE ssse $id_usuario tem permissao sobre $id_projeto
-if (!(function_exists("check_project_permanent"))) {
-	function check_project_permanent($id_user, $id_project)
-	{
+if (!(function_exists("check_project_permanent"))){
+    
+	function check_project_permanent($id_user, $id_project){
 		assert($id_user != NULL);
 		assert($id_project != NULL);
 		assert($id_user > 0);
@@ -125,8 +120,7 @@ if (!(function_exists("check_project_permanent"))) {
 #
 ###################################################################
 
-function removeProject($id_project)
-{
+function removeProject($id_project){
 	assert($id_project != NULL);
 	assert($id_project > 0);
 	
@@ -144,8 +138,8 @@ function removeProject($id_project)
 	$qv = "SELECT * FROM lexicon WHERE id_project = '$id_project' ";
 	$qvr = mysql_query($qv) or die("Erro ao enviar a query de select no lexico<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 
-	while ($result = mysql_fetch_array($qvr))
-	{
+	while ($result = mysql_fetch_array($qvr)){
+            
 		$id_lexico = $result['id_lexicon']; //seleciona um lexico
 
 		$qv = "Delete FROM lextolex WHERE id_lexico_from = '$id_lexico' OR id_lexicon_to = '$id_lexico' ";
@@ -170,8 +164,8 @@ function removeProject($id_project)
 	$qvr = mysql_query($qv) or die("Erro ao enviar a query de select no cenario<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 	$resultArrayCenario = mysql_fetch_array($qvr);
 
-	while ($result = mysql_fetch_array($qvr))
-	{
+	while ($result = mysql_fetch_array($qvr)){
+            
 		$id_lexico = $result['id_scenario']; //seleciona um lexico
 
 		$qv = "Delete FROM scenario_to_scennario WHERE id_scenario_from = '$id_scenario' OR id_scenario_to = '$id_scenario' ";

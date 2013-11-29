@@ -11,7 +11,7 @@ include_once("bd.inc");
 
 session_start();
 $sucess = null;
-if (!isset($sucess)) {
+if (!isset($sucess)){
     $sucess = 'n';
 }
 
@@ -24,20 +24,24 @@ $connect_db = db_connect() or die("Erro ao conectar ao SGBD");
 $synonymList = null;
 $id_project;
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])){
     $name = $_POST['name'];
     
     
     $ret = checkExistingLexicon($_SESSION['current_id_project'], $name);
-    if (!isset($synonymList))
+    
+    if (!isset($synonymList)){
         $synonymList = array();
-
+    }
+    
     $retSin = checkSynonym($_SESSION['current_id_project'], $synonymList);
 
-    if (($ret == true) AND ($retSin == true )) {
+    if (($ret == true) AND ($retSin == true )){
+        
         $current_id_user = $_SESSION['current_id_user'];
         insertRequestAddLexicon($id_project,$_POST['name'],$_POST['notion'],$_POST['impact'],$current_id_user, $synonymList,$_POST['classification']);
-    } else {
+    
+    }else{
         ?>
         <html>
             <head>
@@ -67,7 +71,8 @@ if (isset($_POST['submit'])) {
     </script>
     <?php
 // Script chamado atrav�s do menu superior
-} else {
+}else{
+    
     $query_sql = "SELECT nome FROM projeto WHERE id_projeto = $id_project";
     $query_result_sql = mysql_query($query_sql) or die(" Erro ao executar a consulta");
     $result = mysql_fetch_array($query_result_sql);
@@ -81,46 +86,45 @@ if (isset($_POST['submit'])) {
         <body>
             <script language="JavaScript">
                 <!--
-                function TestEmpty(form)
-                {
+                function TestEmpty(form){
+                    
                     name  = form.name.value;
                     notion = form.notion.value;
 
-                    if( name == "" )
-                    { 
+                    if( name == "" ){ 
                         alert (" Por favor, forneca o NOME do lexico.\n O campo NOME é obrigatorio.");
                         form.name.focus();
                         return false;
                     }else{
                         pattern = /[\\\/\?"<>:|]/;
                         nOK = pattern.exec(name);
-                        if (nOK)
-                        {
+                        if (nOK){
                             window.alert (" O NOME do lexico não pode conter os seguintes caracteres:  / \\ : ? \" < > |");
                             form.nome.focus();
                             return false;
                         } 
                     }
             
-                    if( notion == "" )
-                    { alert (" Por favor, forneca o NOME do lexico.\n O campo NOME deve ser preenchido.");
+                    if( notion == "" ){ 
+                        alert (" Por favor, forneca o NOME do lexico.\n O campo NOME deve ser preenchido.");
                         form.nocao.focus();
                         return false;
                     }
 
                 }
-                function addSynonym()
-                {
+                function addSynonym(){
+                    
                     synonymList = document.forms[0].elements['synonymList[]']; 
 
-                    if(document.forms[0].synonym.value == "")
+                    if(document.forms[0].synonym.value == ""){
                         return;
-
+                    }
+                    
                     synonym = document.forms[0].synonym.value;
                     pattern = /[\\\/\?"<>:|]/;
                     nOK = pattern.exec(synonym);
-                    if (nOK)
-                    {
+                    
+                    if (nOK){
                         window.alert ("O sinonimo do lexico não pode conter os seguintes caracteres:  / \\ : ? \" < > |");
                         document.forms[0].synonym.focus();
                         return;
@@ -134,25 +138,26 @@ if (isset($_POST['submit'])) {
 
                 }
 
-                function deleteSynonym()
-                {
+                function deleteSynonym(){
+                    
                     synonymList = document.forms[0].elements['synonymList[]']; 
 
-                    if(synonymList.selectedIndex == -1)
+                    if(synonymList.selectedIndex == -1){
                         return;
-                    else
+                    }else{
                         synonymList.options[synonymList.selectedIndex] = null;
-
+                    }
                     deleteSynonym();
                 }
 
-                function doSubmit()
-                {
+                function doSubmit(){
+                    
                     synonymList = document.forms[0].elements['synonymList[]']; 
 
-                    for(var i = 0; i < synonymList.length; i++) 
+                    for(var i = 0; i < synonymList.length; i++) {
                         synonymList.options[i].selected = true;
-
+                    }
+                    
                     return true;
                 }
 
@@ -181,7 +186,7 @@ if (isset($_POST['submit'])) {
             <h4>Adicionar Simbolo</h4>
             <br>
             <?php
-            if ($sucess == "s") {
+            if ($sucess == "s"){
                 ?>
                 <p style="color: blue; font-weight: bold; text-align: center">Simbolo
                     inserido com sucesso!</p>

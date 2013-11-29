@@ -5,7 +5,8 @@
 # Purpose: Recieve a the a project id, and removes all
 # links and relatioships existents.
 ###################################################################
-if (!(function_exists("remove_relation"))) {
+if (!(function_exists("remove_relation"))){
+    
     function remove_relation($id_project, $id_relation){
         assert($id_project !=NULL);
         assert($id_relation !=NULL);

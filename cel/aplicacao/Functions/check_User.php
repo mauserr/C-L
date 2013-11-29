@@ -5,14 +5,12 @@
  * the program. Otherwise, it will force a logon window.
  * 
  ************************************************************/
-if (!(function_exists("check_User"))) 
-{
-    function check_User($url)
-    {   
+if (!(function_exists("check_User"))) {
+    function check_User($url){
+        
         assert(is_string($url));
         assert($url !=NULL);
-        if(!(isset($_SESSION['current_id_user'])))
-        {
+        if(!(isset($_SESSION['current_id_user']))){
 			?>
 			
 			<script language="javascript1.3">

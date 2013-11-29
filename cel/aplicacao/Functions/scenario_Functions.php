@@ -8,9 +8,10 @@
  * 
  ************************************************************/
 
-if (!(function_exists("include_Scenario"))) {
-    function include_Scenario($id_project, $title, $objective, $context, $actors, $resource, $exception, $episodes)
-    {
+if (!(function_exists("include_Scenario"))){
+    
+    function include_Scenario($id_project, $title, $objective, $context, $actors, $resource, $exception, $episodes){
+        
     	assert(is_string($episodes));
     	assert(is_string($title));
     	assert(is_string($objective));
@@ -69,10 +70,9 @@ if (!(function_exists("include_Scenario"))) {
 //      3.2. Para os campos em que forem encontradas ocorrencias:
 //          3.2.1. Incluir entrada na tabela 'centolex';
 
-if (!(function_exists("adiciona_cenario")))
-{
-    function adiciona_cenario($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes)
-    {
+if (!(function_exists("adiciona_cenario"))){
+    function adiciona_cenario($id_project, $title, $objective, $context, $actors, $resources, $exception, $episodes){
+        
         assert($id_project != NULL);
         assert($title != NULL);
         assert($objective != NULL);
@@ -103,27 +103,24 @@ if (!(function_exists("adiciona_cenario")))
         // e nos episodios de todos os outros cenarios e adiciona os relacionamentos,
         // caso possua, na tabela centocen
         
-        while ($result = mysql_fetch_array($qrr)) 
-        {    // Para todos os cenarios
+        while ($result = mysql_fetch_array($qrr)){    // Para todos os cenarios
         
         	$tituloEscapado = escape_metacharacter( $title );
 			$regex = "/(\s|\b)(" . $tituloEscapado . ")(\s|\b)/i"; 
 	                
 	        if((preg_match($regex, $result['context']) != 0) ||
-	           (preg_match($regex, $result['episodes']) != 0) ) 
-	        {   // (2.2)
+	           (preg_match($regex, $result['episodes']) != 0) ){   // (2.2)
 	         
 		        $q = "INSERT INTO scenario_to_scenario (id_scenario_from, id_scenario_to)
 		                      VALUES (" . $result['id_scenario'] . ", $id_incluido)"; // (2.2.1)
 		        mysql_query($q) or die("Erro ao enviar a query de INSERT<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);  
 	        }
 
-			$tituloEscapado = escape_metacharacter( $result['title'] );
+		$tituloEscapado = escape_metacharacter( $result['title'] );
         	$regex = "/(\s|\b)(" . $tituloEscapado . ")(\s|\b)/i";        
       
         	if((preg_match($regex, $context) != 0) ||
-         		(preg_match($regex, $episodes) != 0) ) 
-         	{   // (2.3)        
+         		(preg_match($regex, $episodes) != 0)){   // (2.3)        
         
         		$query_sql = "INSERT INTO scenario_to_scenario (id_scenario_from, id_scenario_to) VALUES ($id_incluido, " . $result['id_scenario'] . ")"; //(2.4.1)
         
@@ -137,8 +134,8 @@ if (!(function_exists("adiciona_cenario")))
       
         $query_sql = "SELECT id_lexicon, name FROM lexicon WHERE id_project = $id_project";
         $query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query de SELECT 3<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        while ($result2 = mysql_fetch_array($query_result_sql)) 
-        {    // (3)
+        
+        while ($result2 = mysql_fetch_array($query_result_sql)){    // (3)
         
         $nomeEscapado = escape_metacharacter( $result2['nome']);
 		$regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
@@ -149,15 +146,14 @@ if (!(function_exists("adiciona_cenario")))
 	            (preg_match($regex, $actors) != 0) ||
 	            (preg_match($regex, $resources) != 0) ||
 	            (preg_match($regex, $episodes) != 0) ||
-	            (preg_match($regex, $exception) != 0) ) 
-	        {   // (3.2)
+	            (preg_match($regex, $exception) != 0) ){   // (3.2)
 	                
 		        $query_sql_scenario = "SELECT * FROM scenario_to_lexicon WHERE id_scenario = $id_incluido AND id_lexicon = " . $result2['id_lexicon'];
 		        $query_result_sql_scenario = mysql_query($query_sql_scenario) or die("Erro ao enviar a query de select no centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 		        $resultArrayCen = mysql_fetch_array($query_result_sql_scenario);
 	        
-		        if ($resultArrayCen == false)
-		        {
+		        if ($resultArrayCen == false){
+                            
 		            $query_sql = "INSERT INTO centolex (id_scenario, id_lexicon) VALUES ($id_incluido, " . $result2['id_lexicon'] . ")";
 		            mysql_query($query_sql) or die("Erro ao enviar a query de INSERT 3<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);  // (3.3.1)
 		        }
@@ -177,8 +173,7 @@ if (!(function_exists("adiciona_cenario")))
         
         $id_lexicon_synonyms = array();
         
-        while($row_synonyms = mysql_fetch_array($query_result_sql_synonyms))
-        {
+        while($row_synonyms = mysql_fetch_array($query_result_sql_synonyms)){
             
             $synonyms_names[]     = $row_synonyms["name"];
             $id_lexicon_synonyms[]  = $row_synonyms["id_lexicon"];
@@ -190,13 +185,12 @@ if (!(function_exists("adiciona_cenario")))
               WHERE id_project = $id_project
               AND id_scenario = $id_incluido";
         $count = count($synonyms_names);
-        for ($i = 0; $i < $count; $i++)
-        {
+        for ($i = 0; $i < $count; $i++){
             
             $query_result_sql = mysql_query($qlc) or die("Erro ao enviar a query de busca<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-            // verifica sinonimos dos outros lexicos no cenario incluï¿½do
-            while ($result = mysql_fetch_array($query_result_sql)) 
-            {    
+            
+        // verifica sinonimos dos outros lexicos no cenario incluï¿½do
+            while ($result = mysql_fetch_array($query_result_sql)){    
             
 	            $nomeSinonimoEscapado = escape_metacharacter( $nomesSinonimos[$i] );
 				$regex = "/(\s|\b)(" . $nomeSinonimoEscapado . ")(\s|\b)/i";
@@ -206,15 +200,13 @@ if (!(function_exists("adiciona_cenario")))
 	             	(preg_match($regex, $actors) != 0) ||
 	            	(preg_match($regex, $resources) != 0) ||
 	            	(preg_match($regex, $episodes) != 0) ||
-	            	(preg_match($regex, $exception) != 0) ) 
-	            {
+	            	(preg_match($regex, $exception) != 0) ){
 		            
 		            $query_sql_scenario = "SELECT * FROM centolex WHERE id_cenario = $id_incluido AND id_lexico = $id_lexicoSinonimo[$i] ";
 		            $query_result_sql_scenario = mysql_query($query_sql_scenario) or die("Erro ao enviar a query de select no centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 		            $resultArrayCen = mysql_fetch_array($query_result_sql_scenario);
 		            
-		            if ($resultArrayCen == false)
-		            {
+		            if ($resultArrayCen == false){
 		                $query_sql = "INSERT INTO centolex (id_cenario, id_lexico) VALUES ($id_incluido, $id_lexicon_synonyms[$i])";
 		                mysql_query($query_sql) or die("Erro ao enviar a query de insert no centolex 2<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);  // (3.3.1)
 		            }
@@ -232,7 +224,8 @@ if (!(function_exists("adiciona_cenario")))
 # Essa funcao recebe um id de cenario e remove todos os seus
 # links e relacionamentos existentes.
 ###################################################################
-if (!(function_exists("removeCenario"))) {
+if (!(function_exists("removeCenario"))){
+    
     function removeScenario($id_project,$id_scenario){
         
         assert($id_project != NULL);
@@ -265,10 +258,10 @@ if (!(function_exists("removeCenario"))) {
 # Essa funcao recebe um id de cenario e remove todos os seus
 # links e relacionamentos existentes.
 ###################################################################
-if (!(function_exists("alteraCenario"))) 
-{
-    function alteraCenario($id_project, $id_scenario, $title, $objective, $context, $actors, $resources, $exception, $episodes)
-    {       
+if (!(function_exists("alteraCenario"))){
+    
+    function alteraCenario($id_project, $id_scenario, $title, $objective, $context, $actors, $resources, $exception, $episodes){
+        
         assert($id_project != NULL);
         assert($id_scenario != NULL);
         assert($title != NULL);
@@ -324,26 +317,24 @@ if (!(function_exists("alteraCenario")))
               ORDER BY CHAR_LENGTH(title) DESC";
         $qrr = mysql_query($q) or die("Erro ao enviar a query de SELECT<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
-        while ($result = mysql_fetch_array($qrr)) 
-        {    // Para todos os cenarios
+        while ($result = mysql_fetch_array($qrr)){    // Para todos os cenarios
         	
-			$tituloEscapado = escape_metacharacter( $title );
+		$tituloEscapado = escape_metacharacter( $title );
 	       	$regex = "/(\s|\b)(" . $tituloEscapado . ")(\s|\b)/i"; 
 	                
 	       	if((preg_match($regex, $result['context']) != 0) ||
-	           (preg_match($regex, $result['episodes']) != 0) ) 
-           	{   // (2.2)
+	           (preg_match($regex, $result['episodes']) != 0) ){   // (2.2)
 	         
 	        	$q = "INSERT INTO centocen (id_scenario_from, id_scenario_to)
 	                      VALUES (" . $result['id_scenario'] . ", $id_scenario)"; // (2.2.1)
 	        	mysql_query($q) or die("Erro ao enviar a query de INSERT<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);  
 	        }
-			$tituloEscapado = escape_metacharacter( $result['title'] );
+                
+		$tituloEscapado = escape_metacharacter( $result['title'] );
         	$regex = "/(\s|\b)(" . $tituloEscapado . ")(\s|\b)/i";        
       
 	        if((preg_match($regex, $context) != 0) ||
-	        	(preg_match($regex, $episodes) != 0) ) 
-         	{   // (2.3)        
+	        	(preg_match($regex, $episodes) != 0) ){   // (2.3)        
         
         		$q = "INSERT INTO centocen (id_scenario_from, id_scenario_to) VALUES ($id_scenario, " . $result['id_scenario'] . ")"; //(2.4.1)
         
@@ -355,10 +346,9 @@ if (!(function_exists("alteraCenario")))
       
         $q = "SELECT id_lexico, nome FROM lexico WHERE id_projeto = $id_project";
         $qrr = mysql_query($q) or die("Erro ao enviar a query de SELECT 3<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        while ($result2 = mysql_fetch_array($qrr)) 
-        {    // (3)
+        while ($result2 = mysql_fetch_array($qrr)){    // (3)
 
-			$nomeEscapado = escape_metacharacter( $result2['name'] );
+		$nomeEscapado = escape_metacharacter( $result2['name'] );
         	$regex = "/(\s|\b)(" . $nomeEscapado . ")(\s|\b)/i";
          
          	if((preg_match($regex, $title) != 0) ||
@@ -367,17 +357,16 @@ if (!(function_exists("alteraCenario")))
             	(preg_match($regex, $actors) != 0) ||
             	(preg_match($regex, $resources) != 0) ||
             	(preg_match($regex, $episodes) != 0) ||
-            	(preg_match($regex, $exception) != 0) ) 
-        	{   // (3.2)
+            	(preg_match($regex, $exception) != 0) ){   // (3.2)
                 
-        	$qCen = "SELECT * FROM centolex WHERE id_scenario = $id_scenario AND id_lexico = " . $result2['id_lexicon'];
-        	$qrCen = mysql_query($qCen) or die("Erro ao enviar a query de select no centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        	$resultArrayCen = mysql_fetch_array($qrCen);
+                    $qCen = "SELECT * FROM centolex WHERE id_scenario = $id_scenario AND id_lexico = " . $result2['id_lexicon'];
+                    $qrCen = mysql_query($qCen) or die("Erro ao enviar a query de select no centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
+                    $resultArrayCen = mysql_fetch_array($qrCen);
         
-	        	if ($resultArrayCen == false)
-	        	{
-	            	$q = "INSERT INTO centolex (id_cenario, id_lexico) VALUES ($id_scenario, " . $result2['id_lexicon'] . ")";
-	            	mysql_query($q) or die("Erro ao enviar a query de INSERT 3<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);  // (3.3.1)
+	        	if ($resultArrayCen == false){
+                            
+                            $q = "INSERT INTO centolex (id_cenario, id_lexico) VALUES ($id_scenario, " . $result2['id_lexicon'] . ")";
+                            mysql_query($q) or die("Erro ao enviar a query de INSERT 3<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);  // (3.3.1)
 	        	}
         	}   // if
       
@@ -394,8 +383,7 @@ if (!(function_exists("alteraCenario")))
         
         $id_lexicoSinonimo = array();
         
-        while($rowSinonimo = mysql_fetch_array($qrrSinonimos))
-        {
+        while($rowSinonimo = mysql_fetch_array($qrrSinonimos)){
             
             $nomesSinonimos[]     = $rowSinonimo["nome"];
             $id_lexicoSinonimo[]  = $rowSinonimo["id_lexico"];
@@ -407,30 +395,28 @@ if (!(function_exists("alteraCenario")))
               WHERE id_project = $id_project
               AND id_scenario = $id_scenario";
         $count = count($nomesSinonimos);
-        for ($i = 0; $i < $count; $i++)
-        {
+        
+        for ($i = 0; $i < $count; $i++){
             
             $qrr = mysql_query($qlc) or die("Erro ao enviar a query de busca<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-            while ($result = mysql_fetch_array($qrr)) 
-            {    // verifica sinonimos dos lexicos no cenario incluï¿½do
+            while ($result = mysql_fetch_array($qrr)){    // verifica sinonimos dos lexicos no cenario incluï¿½do
             
-			$nomeSinonimoEscapado = escape_metacharacter( $nomesSinonimos[$i] );
-            $regex = "/(\s|\b)(" . $nomeSinonimoEscapado . ")(\s|\b)/i";
+		$nomeSinonimoEscapado = escape_metacharacter( $nomesSinonimos[$i] );
+                $regex = "/(\s|\b)(" . $nomeSinonimoEscapado . ")(\s|\b)/i";
             
 		        if ((preg_match($regex, $objective) != 0) ||
 		             (preg_match($regex, $context) != 0) ||
 		             (preg_match($regex, $actors) != 0) ||
 		             (preg_match($regex, $resources) != 0) ||
 		             (preg_match($regex, $episodes) != 0) ||
-		             (preg_match($regex, $exception) != 0) ) 
-		        {
+		             (preg_match($regex, $exception) != 0) ){
 		            
 		            $qCen = "SELECT * FROM centolex WHERE id_cenario = $id_scenario AND id_lexico = $id_lexicoSinonimo[$i] ";
 		            $qrCen = mysql_query($qCen) or die("Erro ao enviar a query de select no centolex<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
 		            $resultArrayCen = mysql_fetch_array($qrCen);
 		            
-		            if ($resultArrayCen == false)
-		            {
+		            if ($resultArrayCen == false){
+                                
 		                $q = "INSERT INTO centolex (id_scenario, id_lexicon) VALUES ($id_scenario, $id_lexicoSinonimo[$i])";
 		                mysql_query($q) or die("Erro ao enviar a query de insert no centolex 2<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);  // (3.3.1)
 		            }
@@ -450,8 +436,8 @@ if (!(function_exists("alteraCenario")))
 # no projeto (1.2)
 # retorna true caso nao exista ou false caso exista (1.3)
 ###################################################################
-function checkExistingScenario($project, $title)
-{    
+function checkExistingScenario($project, $title){
+    
     assert($project != NULL);
     assert($title != NULL);
     
@@ -465,8 +451,7 @@ function checkExistingScenario($project, $title)
     $qr = mysql_query($q) or die("Erro ao enviar a query de select no cenario<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
     $resultArray = mysql_fetch_array($qr);
     
-    if ( $resultArray != null )
-    {
+    if ( $resultArray != null ){
         $naoexiste = false;
     }else{
         $naoexiste = true;
@@ -486,9 +471,8 @@ function checkExistingScenario($project, $title)
 # Arquivos que utilizam essa funcao:
 # add_cenario.php
 ###################################################################
-if (!(function_exists("insertRequestAddScenario"))) {
-    function insertRequestAddScenario($id_project, $title,$objective,$context,$actors,$resource,$exception,$episodes, $id_user)
-    {
+if (!(function_exists("insertRequestAddScenario"))){
+    function insertRequestAddScenario($id_project, $title,$objective,$context,$actors,$resource,$exception,$episodes, $id_user){
         assert(is_string($episodes));
         assert(is_string($title));
         assert(is_string($objective));
@@ -518,11 +502,11 @@ if (!(function_exists("insertRequestAddScenario"))) {
         $resultArray = mysql_fetch_array($query_result_sql);
         
         
-        if ( $resultArray == false ) //nao e gerente
-        {
+        if ( $resultArray == false ){ //nao e gerente
+        
             $insere->execute("INSERT INTO request_scenario (id_project, title, objective, context, actors, resource, exception, episodes, id_user, type_request, aproved) VALUES 
-            ($id_project, 
-            $title,
+                        ($id_project, 
+                        $title,
 			$objective,
 			$context,
 			$actors,
@@ -536,18 +520,20 @@ if (!(function_exists("insertRequestAddScenario"))) {
             $nome = $record['name'];
             $email = $record['email'];
             $record2 = $select2->gofirst();
-            while($record2 != 'LAST_RECORD_REACHED') {
+            
+            while($record2 != 'LAST_RECORD_REACHED'){
+                
                 $id = $record2['id_user'];
                 $select->execute("SELECT * FROM user WHERE id_user = $id");
                 $record = $select->gofirst();
                 $mailGerente = $record['email'];
-                mail("$mailGerente", "Pedido de Inclusão Cenário", "O usuario do sistema $name\nPede para inserir o cenario $title \nObrigado!","From: $name\r\n"."Reply-To: $email\r\n");
+                mail("$mailGerente", "Pedido de Inclusï¿½o Cenï¿½rio", "O usuario do sistema $name\nPede para inserir o cenario $title \nObrigado!","From: $name\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
             }
-        }
-        else{ //Eh gerente
+            
+        }else{ //Eh gerente
         adiciona_cenario($id_project, 
-            $title,
+                        $title,
 			$objective,
 			$context,
 			$actors,
@@ -567,7 +553,8 @@ if (!(function_exists("insertRequestAddScenario"))) {
 # Arquivos que utilizam essa funcao:
 # alt_cenario.php
 ###################################################################
-if (!(function_exists("inserirPedidoAlterarCenario"))) {
+if (!(function_exists("inserirPedidoAlterarCenario"))){
+    
     function inserirPedidoAlterarCenario($id_project, $id_scenario, $title, $objective, $context, $actors, $resources, $exception, $episodes, $justification, $id_user) {
        
         assert($id_project != NULL);
@@ -601,8 +588,7 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
         $resultArray = mysql_fetch_array($qr);
         
         
-        if ( $resultArray == false ) //nao e gerente
-        {
+        if ( $resultArray == false ){ //nao e gerente
             
             $insere->execute("INSERT INTO request_scenario (id_project, id_scenario, title, objective, context, actors, resources, exception, episodes, id_user, typo_request, aproved, justification) VALUES ($id_project, $id_scenario, '$title', '$objective', '$context', '$actors', '$resources', '$exception', '$episodes', $id_user, 'alterar', 0, '$justification')");
             $select->execute("SELECT * FROM user WHERE id_user = $id_user");
@@ -611,16 +597,19 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
             $name = $record['nome'];
             $email = $record['email'];
             $record2 = $select2->gofirst();
-            while($record2 != 'LAST_RECORD_REACHED') {
+            
+            while($record2 != 'LAST_RECORD_REACHED'){
+                
                 $id = $record2['id_usuario'];
                 $select->execute("SELECT * FROM user WHERE id_user = $id");
                 $record = $select->gofirst();
                 $mailGerente = $record['email'];
                 mail("$mailGerente", "Pedido de Alteraï¿½ï¿½o Cenï¿½rio", "O usuario do sistema $name\nPede para alterar o cenario $title \nObrigado!","From: $name\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
+                
             }
-        }
-        else{ //Eh gerente
+            
+        }else{ //Eh gerente
         
         alteraCenario($id_project, $id_scenario, $title, $objective, $context, $actors, $resources, $exception, $episodes) ;
         
@@ -637,8 +626,9 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
 # Arquivos que utilizam essa funcao:
 # rmv_cenario.php
 ###################################################################
-if (!(function_exists("insertRequestRemoveScenario"))) {
-    function insertRequestRemoveScenario($id_project, $id_scenario, $id_user) {
+if (!(function_exists("insertRequestRemoveScenario"))){
+    
+    function insertRequestRemoveScenario($id_project, $id_scenario, $id_user){
       
         assert($id_project != NULL);
         assert($id_scenario != NULL);
@@ -653,27 +643,29 @@ if (!(function_exists("insertRequestRemoveScenario"))) {
 		$qr = mysql_query($q) or die ("Erro ao enviar a query de select no participa<br>".mysql_error()."<br>".__FILE__.__LINE__);
 		$resultArray = mysql_fetch_array($qr);
 		
-		if( $resultArray == false ) //Nao e gerente
-		{
-			$select->execute("SELECT * FROM cenario WHERE id_cenario = $id_scenario");
-	        $scenario = $select->gofirst();
-	        $title = $scenario['titulo'];
-	        $insere->execute("INSERT INTO pedidocen (id_project, id_scenario, title, id_user, request_type, aprove) VALUES ($id_project, $id_scenario, '$title', $id_user, 'remover', 0)");
-	        $select->execute("SELECT * FROM usuario WHERE id_usuario = $id_user");
-	        $select2->execute("SELECT * FROM participa WHERE gerente = 1 AND id_projeto = $id_project");
-	        $record = $select->gofirst();
-	        $name = $record['nome'];
-	        $email = $record['email'];
-	        $record2 = $select2->gofirst();
-	        while($record2 != 'LAST_RECORD_REACHED') 
-			{
-	            $id = $record2['id_user'];
-	            $select->execute("SELECT * FROM usuario WHERE id_usuario = $id");
-	            $record = $select->gofirst();
-	            $mailGerente = $record['email'];
-	            mail("$mailGerente", "Pedido de Remover Cenï¿½rio", "O usuario do sistema $name\nPede para remover o cenario $id_scenario \nObrigado!", "From: $name\r\n" . "Reply-To: $email\r\n");
-	            $record2 = $select2->gonext();
-	        }
+		if( $resultArray == false ){ //Nao e gerente
+		
+                    $select->execute("SELECT * FROM cenario WHERE id_cenario = $id_scenario");
+                    $scenario = $select->gofirst();
+                    $title = $scenario['titulo'];
+                    $insere->execute("INSERT INTO pedidocen (id_project, id_scenario, title, id_user, request_type, aprove) VALUES ($id_project, $id_scenario, '$title', $id_user, 'remover', 0)");
+                    $select->execute("SELECT * FROM usuario WHERE id_usuario = $id_user");
+                    $select2->execute("SELECT * FROM participa WHERE gerente = 1 AND id_projeto = $id_project");
+                    $record = $select->gofirst();
+                    $name = $record['nome'];
+                    $email = $record['email'];
+                    $record2 = $select2->gofirst();
+                    
+                    while($record2 != 'LAST_RECORD_REACHED'){
+                        
+                        $id = $record2['id_user'];
+                        $select->execute("SELECT * FROM usuario WHERE id_usuario = $id");
+                        $record = $select->gofirst();
+                        $mailGerente = $record['email'];
+                        mail("$mailGerente", "Pedido de Remover Cenï¿½rio", "O usuario do sistema $name\nPede para remover o cenario $id_scenario \nObrigado!", "From: $name\r\n" . "Reply-To: $email\r\n");
+                        $record2 = $select2->gonext();
+                    }
+                    
 		}else{
 			removeCenario($id_project,$id_scenario);
 		}
@@ -689,7 +681,8 @@ if (!(function_exists("insertRequestRemoveScenario"))) {
 # Arquivos que utilizam essa funcao:
 # alt_cenario.php
 ###################################################################
-if (!(function_exists("inserirPedidoAlterarCenario"))) {
+if (!(function_exists("inserirPedidoAlterarCenario"))){
+    
     function insert_request_alter_concept($id_project, $id_concept, $name, $description, $namespace, $justification, $id_user) {
      
         assert($id_project != NULL);
@@ -715,9 +708,8 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
         $resultArray = mysql_fetch_array($query_result_sql);
         
         
-        if ( $resultArray == false ) //nao e gerente
-        {
-            
+        if ( $resultArray == false ){ //nao e gerente
+                   
             $insere->execute("INSERT INTO request_concept (id_project, id_concept, name, description, namespace, id_user, type_request, aprove, justification) VALUES ($id_project, $id_concept, '$name', '$description', '$namespace', $id_user, 'alter', 0, '$justification')");
             $select->execute("SELECT * FROM user WHERE id_user = $id_user");
             $select2->execute("SELECT * FROM participates WHERE manager = 1 AND id_project = $id_project");
@@ -725,7 +717,9 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
             $name_user = $record['name'];
             $email = $record['email'];
             $record2 = $select2->gofirst();
-            while($record2 != 'LAST_RECORD_REACHED') {
+            
+            while($record2 != 'LAST_RECORD_REACHED'){
+                
                 $id = $record2['id_user'];
                 $select->execute("SELECT * FROM user WHERE id_user = $id");
                 $record = $select->gofirst();
@@ -733,8 +727,8 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
                 mail("$mail_manager", "Pedido de Alteraï¿½ï¿½o Conceito", "O usuario do sistema $name_user\nPede para alterar o conceito $name \nObrigado!","From: $name_user\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
             }
-        }
-        else{ //Eh gerente
+            
+        }else{ //Eh gerente
         
         remove_concept($id_project, $id_concept) ;
         add_concept($id_project, $name, $description, $namespace) ;
@@ -752,7 +746,8 @@ if (!(function_exists("inserirPedidoAlterarCenario"))) {
 # Se for para alterar: Devemos (re)mover o cenario e inserir o novo.
 # Se for para inserir: chamamos a funcao insert();
 ###################################################################
-if (!(function_exists("tratarPedidoCenario"))) {
+if (!(function_exists("tratarPedidoCenario"))){
+    
     function tratarPedidoCenario($id_request){
         
         assert($id_request != NULL);

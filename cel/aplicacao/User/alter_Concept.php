@@ -22,16 +22,17 @@ check_User("index.php");
 $connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
 // Script called thru the forms submit
-if (isset($_POST['submit'])) {     
+if (isset($_POST['submit'])){
+    
     $id_concept = $_POST['id_concept'];
     inserirPedidoAlterarConceito($_SESSION['current_id_project'], 
 			
-    		$_POST['id_concept'], 
-            $_POST['name'], 
-            $_POST['description'], 
-            $_POST['namespace'], 
-            $_POST['justification'], 
-            $_SESSION['current_id_user']);
+    $_POST['id_concept'], 
+    $_POST['name'], 
+    $_POST['description'], 
+    $_POST['namespace'], 
+    $_POST['justification'], 
+    $_SESSION['current_id_user']);
     
     
     ?>
@@ -52,7 +53,7 @@ if (isset($_POST['submit'])) {
     </script>
 
     <?php
-} else { // Script chamado atraves do link no cenario corrente
+}else{ // Script chamado atraves do link no cenario corrente
     $project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
 
     $query_select = "SELECT * FROM concept WHERE id_concept = $id_concept";

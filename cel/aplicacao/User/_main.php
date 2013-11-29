@@ -94,15 +94,15 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 
 	include("frame_inferior.php");
 
-	if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU PELA ARVORE)
+	if (isset($id) && isset($t)){      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU PELA ARVORE)
 
-		if ($t == "c") {
+		if ($t == "c"){
 			?>
 
 	<h3>Informa��es sobre o cen�rio</h3>
 
 	<?php
-		} else {
+		}else{
 			?>
 
 	<h3>Informa��es sobre o l�xico</h3>
@@ -116,12 +116,14 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 		<?php
 		$c = bd_connect() or die("Erro ao conectar ao SGBD");
 
-		if ($t == "c") {        // if its a scenario
+		if ($t == "c"){        // if its a scenario
+                    
 			$query = "SELECT id_scenario, title, objective, context, actors, resources, episodes
 			FROM scenario
 			WHERE id_scenario = $id";
 			$query_result = mysql_query($query) or die("Erro ao enviar a query de selecao");
 			$result = mysql_fetch_array($query_result);
+                        
 			?>
 
 		<tr>
@@ -158,12 +160,15 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 		</tr>
 
 		<?php
-		} else {
+                
+		}else{
+                    
 			$query = "SELECT id_lexicon, name, notion, impact
 			FROM lexicon
 			WHERE id_lexicon = $id";
 			$query_result = mysql_query($query) or die("Erro ao enviar a query de selecao");
 			$result = mysql_fetch_array($query_result);
+                        
 			?>
 
 		<tr>
@@ -197,13 +202,13 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 	<br>
 
 	<?php
-	if ($t == "c") {
+	if ($t == "c"){
 		?>
 
 	<h3>Cen�rios que referenciam este cen�rio</h3>
 
 	<?php
-	} else {
+	}else{
 		?>
 
 	<h3>Cen�rios e termos do l�xico que referenciam este termo</h3>
@@ -213,7 +218,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 
 	frame_inferior($c, $t, $id);
 
-	} elseif (isset($id_project)) {         // SCRIPT CHAMADO PELO HEADING.PHP
+	} elseif (isset($id_project)){         // SCRIPT CHAMADO PELO HEADING.PHP
 
 		// Foi passada uma variavel $id_project. Esta variavel deve conter o id de um
 		// projeto que o usuario esteja cadastrado. Entretanto, como a passagem eh
@@ -246,7 +251,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 	<?php
 
 	// Verifica se o usuario eh administrador deste projeto
-	if (is_admin($_SESSION['current_id_user'], $id_project)) {
+	if (is_admin($_SESSION['current_id_user'], $id_project)){
 		?>
 
 	<br>
@@ -275,7 +280,7 @@ check_User("index.php");        // Checa se o usuario foi autenticado
 
 	<?php
 	}
-	} else {        // SCRIPT CHAMADO PELO INDEX.PHP
+	}else{        // SCRIPT CHAMADO PELO INDEX.PHP
 		?>
 
 	<p>Selecione um projeto acima, ou crie um novo projeto.</p>

@@ -126,8 +126,8 @@ if (!(function_exists("remove_concept"))) {
         $query_sql = "SELECT * FROM concept WHERE id_project = $id_project AND id_concept != $id_concept";
         //echo($qr)."          ";
         $query_result_sql = mysql_query($query_sql) or die("Erro ao enviar a query de SELECT<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
-        while ($result = mysql_fetch_array($query_result_sql))
-        {
+        while ($result = mysql_fetch_array($query_result_sql)){
+            
             # Percorre todos os cenarios tirando as tag do conceito
             # a ser removido
             //$record = $sql->gofirst ();

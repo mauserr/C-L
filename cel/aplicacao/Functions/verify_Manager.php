@@ -9,8 +9,9 @@
 ###################################################################
 
 if (!(function_exists('verifyManager'))){
-	function verifyManager($id_user, $id_project)
-	{
+    
+	function verifyManager($id_user, $id_project){
+            
 		assert($id_user !=NULL);
 		assert($id_project !=NULL);
 
@@ -24,7 +25,6 @@ if (!(function_exists('verifyManager'))){
 		//x	assert($resultArray != NULL);
 
 		if ( $resultArray != false ){
-
 			$return_value = 1;
 		}
 		return $return_value;

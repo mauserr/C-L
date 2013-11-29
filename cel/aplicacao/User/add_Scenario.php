@@ -39,16 +39,16 @@ require_once '/../Functions/check_User.php';
 check_User("index.php");
 
 $sucess = "";
-if ( !isset( $sucess ) )
-{
+
+if ( !isset($sucess)){
 	$sucess = "n" ;
 }
 
 $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])){
+    
 	$title = $_POST['titulo'];
-	
 	$confirm = checkExistingScenario($_SESSION['current_id_project'],$title);
 	?>
 	
@@ -58,19 +58,18 @@ if (isset($_POST['submit'])) {
         $sucesso        = <?=$sucess?><BR>
        _GET["sucesso"] = <?=$_GET["sucesso"]?><BR>   
         -->
-<?PHP
+    <?PHP
 
 
-$objective = $_POST['objetivo'];
-$context = $_POST['contexto'];
-$actors = $_POST['atores'];
-$resource = $_POST['recursos'];
-$exception = $_POST['excecao'];
-$episodes = $_POST['episodios'];
+    $objective = $_POST['objetivo'];
+    $context = $_POST['contexto'];
+    $actors = $_POST['atores'];
+    $resource = $_POST['recursos'];
+    $exception = $_POST['excecao'];
+    $episodes = $_POST['episodios'];
 
-if ($confirm == true)
-{
-	print("<!-- Tentando Inserir Cenario --><BR>");
+    if ($confirm == true){
+        print("<!-- Tentando Inserir Cenario --><BR>");
 
 	$title     = str_replace( ">" , " " , str_replace ( "<" , " " , $title     ) ) ;
 	$objective   = str_replace( ">" , " " , str_replace ( "<" , " " , $objective   ) ) ;
@@ -91,83 +90,80 @@ if ($confirm == true)
 			$episodes,
 			$_SESSION['current_id_user']);
 	print("<!-- Cenario Inserido Com Sucesso! --><BR>");
-}
-else
-{
+    }else{
+        
 	?>
-<html>
-<head>
-<title>Projeto</title>
-</head>
-<body bgcolor="#FFFFFF">
+    <html>
+    <head>
+    <title>Projeto</title>
+    </head>
+    <body bgcolor="#FFFFFF">
 	<p style="color: red; font-weight: bold; text-align: center">Este
 		cenario ja existe!</p>
 	<br>
 	<br>
-	<center>
-		<a href="JavaScript:window.history.go(-1)">Voltar</a>
-	</center>
-</body>
-</html>
-<?php
-return;
-}
-?>
+    	<center>
+    		<a href="JavaScript:window.history.go(-1)">Voltar</a>
+    	</center>
+    </body>
+    </html>
+    <?php
+        return;
+    }
+    ?>
 
-<script language="javascript1.2">
+    <script language="javascript1.2">
 
-opener.parent.frames['code'].location.reload(); 
-opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['current_id_project']?>');
-//self.close();
-//location.href = "http://<?php print( CELConfig_ReadVar("HTTPD_ip") . "/" . CELConfig_ReadVar("CEL_dir_relativo") ); ?>add_Scenario.php?id_project=<?=$id_project?>&sucess=s" ;
+    opener.parent.frames['code'].location.reload(); 
+    opener.parent.frames['text'].location.replace('main.php?id_projeto=<?=$_SESSION['current_id_project']?>');
+    //self.close();
+    //location.href = "http://<?php print( CELConfig_ReadVar("HTTPD_ip") . "/" . CELConfig_ReadVar("CEL_dir_relativo") ); ?>add_Scenario.php?id_project=<?=$id_project?>&sucess=s" ;
 
 
-location.href = "add_scenario.php?id_project=<?=$id_project?>&sucesso=s";
+    location.href = "add_scenario.php?id_project=<?=$id_project?>&sucesso=s";
 
-</script>
+    </script>
 
-<?php
+    <?php
 
-} else {    // Script chamado atraves do menu superior
+}else{    // Script chamado atraves do menu superior
 	$project_name = simple_query("name", "project", "id_project = " . $_SESSION['current_id_project']);
 	?>
 
-<html>
-<head>
-<title>Adicionar Cenario</title>
-</head>
-<body>
-	<script language="JavaScript">
+    <html>
+    <head>
+    <title>Adicionar Cenario</title>
+    </head>
+    <body>
+    	<script language="JavaScript">
 <!--
-function TestEmpty(form)
-{
+function TestEmpty(form){
 title     = form.title.value;
 objective = form.objective.value;
 context   = form.context.value;
 
-  if ((title == ""))
-    { 
-		alert ("Por favor, digite o titulo do cenário.")
+  if ((title == "")){ 
+		alert ("Por favor, digite o titulo do cenï¿½rio.")
 		form.title.focus()
 		return false;
 	}else{
 		pattern = "/[\\\/\?<>:|]/";
 		OK = padrao.exec(title);
-		if (OK)
-		{
-			window.alert ("O título do cenï¿½rio nï¿½o pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
+		if (OK){
+			window.alert ("O tï¿½tulo do cenï¿½rio nï¿½o pode conter nenhum dos seguintes caracteres:   / \\ : ? \" < > |");
 			form.title.focus();
 			return false;
 		} 
 	}
       
-  if ((objective == ""))
-    { alert ("Por favor, digite o objetivo do cenário.")
+  if ((objective == "")){
+      
+            alert ("Por favor, digite o objetivo do cenï¿½rio.")
       form.objective.focus()
       return false;}    
       
-   if ((context == ""))
-    { alert ("Por favor, digite o contexto do cenário.")
+   if ((context == "")){ 
+       alert ("Por favor, digite o contexto do cenï¿½rio.")
       form.context.focus()
       return false;}        
 }
@@ -182,10 +178,9 @@ context   = form.context.value;
 	<h4>Adicionar Cenario</h4>
 	<br>
 	<?php
-	if ( $sucess == "s" )
-	{
+	if ( $sucess == "s" ){
 		?>
-	<p style="color: blue; font-weight: bold; text-align: center">Cenário
+	<p style="color: blue; font-weight: bold; text-align: center">Cenï¿½rio
 		inserido com sucesso!</p>
 	<?php    
 	}
@@ -232,7 +227,7 @@ context   = form.context.value;
 			<tr>
 				<td align="center" colspan="2" height="60"><input name="submit"
 					type="submit" onClick="return TestarBranco(this.form);"
-					value="Adicionar Cenário"></td>
+					value="Adicionar Cenï¿½rio"></td>
 			</tr>
 		</table>
 	</form>
@@ -240,7 +235,7 @@ context   = form.context.value;
 		<a href="javascript:self.close();">Fechar</a>
 	</center>
 	<br>
-	<i><a href="showSource.php?file=add_Scenario.php">Veja o código fonte!</a>
+	<i><a href="showSource.php?file=add_Scenario.php">Veja o cï¿½digo fonte!</a>
 	</i>
 </body>
 </html>

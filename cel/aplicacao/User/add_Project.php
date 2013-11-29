@@ -32,25 +32,25 @@ check_User("index.php");
  *                  of this user, the system shows an error message.
  * */
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])){
 		
-		$name = $_POST['name'];
-        $description = $_POST['description'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
 	
-	assert($submit != NULL);
-	assert($id_user != NULL);
-	assert($id_project != NULL);
-	assert($id_user < 0);
-	assert($id_project < 0);
-	assert ($name != NULL);
-	assert ($description != NULL);
+    assert($submit != NULL);
+    assert($id_user != NULL);
+    assert($id_project != NULL);
+    assert($id_user < 0);
+    assert($id_project < 0);
+    assert ($name != NULL);
+    assert ($description != NULL);
 	
 	
-	$id_included_project = include_project($name, $description);
+    $id_included_project = include_project($name, $description);
 	
 
    
-    if ($id_included_project != -1) {
+    if ($id_included_project != -1){
 
         $connect = bd_connect() or die("Erro ao conectar ao SGBD");
         $manager = 1;
@@ -67,14 +67,14 @@ if (isset($_POST['submit'])) {
         	($current_id_user_escape, $id_included_project_escape, $manager_escape  )";
         mysql_query($query_add_sql) or die("Erro ao inserir na tabela participa");
         
-    } else {
+    }else{
         
         ?>
         
             <html>
             <title>Erro</title>
             <body>
-                <p style="color: red; font-weight: bold; text-align: center">Nome de projeto já existente!</p>
+                <p style="color: red; font-weight: bold; text-align: center">Nome de projeto jï¿½ existente!</p>
             <center><a href="JavaScript:window.history.go(-1)">Voltar</a></center>
         </body>
         </html>   
@@ -90,7 +90,7 @@ if (isset($_POST['submit'])) {
     </script>
 
     <?php
-} else {
+}else{
     ?>
 
     <html>
@@ -98,17 +98,17 @@ if (isset($_POST['submit'])) {
             <title>Adicionar Projeto</title>
             <script language="javascript1.3">
 
-                function checkFormsValues() {
-                    if (document.forms[0].name.value == "") {
+                function checkFormsValues(){
+                    
+                    if (document.forms[0].name.value == ""){
                         alert('Preencha o campo "Nome"');
                         document.forms[0].name.focus();
                         return false;
-                    } else {
+                    }else{
                         padrao = /[\\\/\?"<>:|]/;
                         nOK = padrao.exec(document.forms[0].name.value);
-                        if (nOK)
-                        {
-                            window.alert("O nome do projeto não pode conter nenhum dos seguintes caracteres:  / \\ : ? \" < > |");
+                        if (nOK){
+                            window.alert("O nome do projeto nï¿½o pode conter nenhum dos seguintes caracteres:  / \\ : ? \" < > |");
                             document.forms[0].name.focus();
                             return false;
                         }
@@ -128,7 +128,7 @@ if (isset($_POST['submit'])) {
                         <td><input maxlength="128" name="name" size="48" type="text"></td>
                     </tr>
                     <tr>
-                        <td>Descrição:</td>
+                        <td>Descriï¿½ï¿½o:</td>
                         <td><textarea cols="48" name="description" rows="4"></textarea></td>
                     <tr>
                         <td align="center" colspan="2" height="60"><input name="submit" 
@@ -136,7 +136,7 @@ if (isset($_POST['submit'])) {
                     </tr>
                 </table>
             </form>
-            <br><i><a href="showSource.php?file=add_project.php">Veja o código fonte!</a></i>
+            <br><i><a href="showSource.php?file=add_project.php">Veja o cï¿½digo fonte!</a></i>
         </body>
     </html>
 
