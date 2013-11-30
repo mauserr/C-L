@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 
 
 if (isset($_GET['id_project'])) {
@@ -9,7 +9,7 @@ if (isset($_GET['id_project'])) {
 
 
 require_once '/Functions/check_User.php';
-require_once'../Functions/project_Functions.php';
+require_once'/Functions/project_Functions.php';
 include_once("bd.inc");
 
 check_User("index.php");        // Checks if the user was authenticated 

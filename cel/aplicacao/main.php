@@ -4,6 +4,7 @@ session_start();
 include_once("CELConfig/CELConfig.inc");
 require_once'/Functions/project_Functions.php';
 include("Functions/reload_Page.php");
+require_once '/User/code.php';
 
 
 /* URL do diretorio contendo os arquivos de DAML */
@@ -66,7 +67,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function altCenario(cenario) { 
-            var url = 'alt_scenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_scenario=' + cenario; 
+            var url = 'alter_Scenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_scenario=' + cenario; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=660,width=550,resizable,scrollbars,titlebar';
             open(url, where, window_spec); 
@@ -87,8 +88,8 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 
 ?>    
 
-        function rmvCenario(cenario) { 
-            var url = 'rmv_cenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_cenario=' + cenario; 
+        function rmvCenario(scenario) { 
+            var url = '../User/remove_Scenario.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_scenario=' + scenario; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar'; 
             open(url, where, window_spec); 
@@ -110,7 +111,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function altLexico(lexico) { 
-            var url = 'alt_lexico.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_lexico=' + lexico; 
+            var url = 'alter_Lexicon.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_lexico=' + lexico; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=573,width=570,resizable,scrollbars,titlebar';
             open(url, where, window_spec); 
@@ -157,7 +158,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function altConceito(conceito) { 
-            var url = 'alt_conceito.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_conceito=' + conceito; 
+            var url = 'alte_Concept.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_concept=' + conceito; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar'; 
             open(url, where, window_spec); 
@@ -179,7 +180,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function rmvConceito(conceito) { 
-            var url = 'rmv_conceito.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_conceito=' + conceito; 
+            var url = 'remove_Concept.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_concept=' + conceito; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar'; 
             open(url, where, window_spec); 
@@ -187,7 +188,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
         
         function rmvRelacao(relacao) { 
             
-            var url = 'rmv_relacao.php?id_projeto=' + '<?=$_SESSION['current_id_project']?>' + '&id_relacao=' + relacao; 
+            var url = 'remove_relation.php?id_project=' + '<?=$_SESSION['current_id_project']?>' + '&id_relation=' + relacao; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=300,width=550,resizable,scrollbars,titlebar'; 
             open(url, where, window_spec); 
@@ -256,7 +257,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
                      if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'see_Lexicon_Request.php?id_projeto=' + '<?=$id_project?>'; 
+						var url = 'see_Lexicon_Request.php?id_project=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
@@ -296,7 +297,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
                      if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'see_Concept_Request.php?id_projeto=' + '<?=$id_project?>'; 
+						var url = 'see_Concept_Request.php?id_project=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
@@ -319,7 +320,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
                      if (isset($id_project))    
                      {    
                      ?>    
-						var url = 'see_Relation_Request.php?id_projeto=' + '<?=$id_project?>'; 
+						var url = 'see_Relation_Request.php?id_project=' + '<?=$id_project?>'; 
                      <?php    
                      }    
                      else    
