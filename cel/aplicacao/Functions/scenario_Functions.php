@@ -241,8 +241,8 @@ if (!(function_exists("removeCenario"))){
                
         # Remove o relacionamento entre o cenario a ser removido
         # e outros cenarios que o referenciam
-        $sql1->execute ("DELETE FROM centocen WHERE id_scenario_from = $id_cenario") ;
-        $sql2->execute ("DELETE FROM centocen WHERE id_scenario_to = $id_cenario") ;
+        $sql1->execute ("DELETE FROM scenario_to_scenario WHERE id_scenario_from = $id_cenario") ;
+        $sql2->execute ("DELETE FROM scenario_to_scenario WHERE id_scenario_to = $id_cenario") ;
         # Remove o relacionamento entre o cenario a ser removido
         # e o seu lexico
         $sql3->execute ("DELETE FROM centolex WHERE id_scenario = $id_cenario") ;

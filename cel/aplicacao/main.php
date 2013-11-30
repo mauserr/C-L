@@ -377,7 +377,7 @@ if (!isset  ( $_SESSION['current_id_project'] ))
 ?>    
 
         function relUsuario() { 
-            var url = 'rel_usuario.php'; 
+            var url = 'relation_User.php'; 
             var where = '_blank'; 
             var window_spec = 'dependent,height=380,width=550,resizable,scrollbars,titlebar'; 
             open(url, where, window_spec); 
@@ -576,7 +576,7 @@ include("frame_inferior.php");
 
 if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU PELA ARVORE) 
     $vetorVazio = array();
-    if ($t == "c")        { print "<h3>Informaï¿½ï¿½es sobre o cenï¿½rio</h3>";   
+    if ($t == "c")        { print "<h3>Informações sobre o cenï¿½rio</h3>";   
 
     } elseif ($t == "l")  { print "<h3>Informaï¿½ï¿½es sobre o sï¿½mbolo</h3>";   
 
@@ -670,10 +670,10 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
         <TABLE> 
             <tr> 
                  <td CLASS="Estilo" height="40" valign=MIDDLE> 
-                    <a href="#" onClick="altCenario(<?=$result['id_scenario']?>);">Alterar Cenário</a> 
+                    <a href="#" onClick="alter_Scenario(<?=$result['id_scenario']?>);">Alterar Cenário</a> 
                 </th> 
                 <td CLASS="Estilo"  valign=MIDDLE> 
-                    <a href="#" onClick="rmvCenario(<?=$result['id_scenario']?>);">Remover Cenário</a> 
+                    <a href="#" onClick="remove_Scenario(<?=$result['id_scenario']?>);">Remover Cenário</a> 
                 </th> 
             </tr> 
 
@@ -702,7 +702,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 				</td> 
             </tr> 
             <tr> 
-                <th>Noï¿½ï¿½o:</th><td CLASS="Estilo"><?php echo nl2br( monta_links( $result['notion'], $vetorDeLexicos, $vetorVazio ) ); ?>
+                <th>Noçãoo:</th><td CLASS="Estilo"><?php echo nl2br( monta_links( $result['notion'], $vetorDeLexicos, $vetorVazio ) ); ?>
 				</td> 
             </tr> 
             <tr> 
@@ -718,7 +718,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
 			<?php //sinonimos 
                  $id_project = $_SESSION['current_id_project'];    
-                 $qSinonimo = "SELECT * FROM sinonimo WHERE id_lexico = $id";    
+                 $qSinonimo = "SELECT * FROM synonym WHERE id_lexicon = $id";    
                  $qrr = mysql_query($qSinonimo) or die("Erro ao enviar a query de Sinonimos". mysql_error());    
 
                  $tempS = array();
@@ -757,10 +757,10 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
         <TABLE> 
             <tr> 
                 <td CLASS="Estilo" height="40" valign="middle"> 
-                    <a href="#" onClick="altLexico(<?=$result['id_lexico']?>);">Alterar Sï¿½mbolo</a> 
+                    <a href="#" onClick="altLexico(<?=$result['id_lexicon']?>);">Alterar Sï¿½mbolo</a> 
                 </th> 
                 <td CLASS="Estilo" valign="middle"> 
-                    <a href="#" onClick="rmvLexico(<?=$result['id_lexico']?>);">Remover Sï¿½mbolo</a> 
+                    <a href="#" onClick="rmvLexico(<?=$result['id_lexicon']?>);">Remover Sï¿½mbolo</a> 
                 </th> 
             </tr> 
 
@@ -881,7 +881,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><?=simple_query("name", "project", "id_project = $id_project")?></td> 
             </tr> 
             <tr> 
-                <th>Data de criaï¿½ï¿½oo:</th> 
+                <th>Data de criação:</th> 
                 <?php    
                     $data = simple_query("date_creation", "project", "id_project = $id_project");    
                 ?>    
@@ -890,7 +890,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 
             </tr> 
             <tr> 
-                <th>Descriï¿½ï¿½oo:</th> 
+                <th>Descrição:</th> 
                 <td CLASS="Estilo"><?=nl2br(simple_query("description", "project", "id_project = $id_project"))?></td> 
             </tr> 
         </table> 
@@ -915,7 +915,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
         <br> 
         <table ALIGN=CENTER> 
             <tr> 
-                <th>Vocï¿½ ï¿½ um administrador deste projeto:</th> 
+                <th>Você é um administrador deste projeto:</th> 
 
 <?php    
 
