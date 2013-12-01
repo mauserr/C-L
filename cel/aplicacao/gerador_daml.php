@@ -24,7 +24,7 @@ else
 }  
 
 // Recupera nome do projeto 
-   $sql_project = "select nome from projeto where id_projeto='". $_SESSION['current_id_project'] . "';";  
+   $sql_project = "select name from project where id_project='". $_SESSION['current_id_project'] . "';";  
    $query_project = mysql_query($sql_project) or die("Erro ao verificar usu�rio!". mysql_error());    
    $result = mysql_fetch_array($query_project);   
    $project = $result[0];  
