@@ -8,6 +8,9 @@
  * 
  ************************************************************/
 
+require_once '/../bd.inc';
+require_once'/../security.php';
+ 
 if (!(function_exists("include_Scenario"))){
     
     function include_Scenario($id_project, $title, $objective, $context, $actors, $resource, $exception, $episodes){
@@ -527,7 +530,7 @@ if (!(function_exists("insertRequestAddScenario"))){
                 $select->execute("SELECT * FROM user WHERE id_user = $id");
                 $record = $select->gofirst();
                 $mailGerente = $record['email'];
-                mail("$mailGerente", "Pedido de Inclusï¿½o Cenï¿½rio", "O usuario do sistema $name\nPede para inserir o cenario $title \nObrigado!","From: $name\r\n"."Reply-To: $email\r\n");
+                mail("$mailGerente", "Pedido de Inclusão Cenário", "O usuario do sistema $name\nPede para inserir o cenario $title \nObrigado!","From: $name\r\n"."Reply-To: $email\r\n");
                 $record2 = $select2->gonext();
             }
             

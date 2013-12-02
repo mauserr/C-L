@@ -25,12 +25,11 @@ class scenario_FunctionsTest extends PHPUnit_Framework_TestCase{
 
 	}
 	public function tearDown(){
-
-		$DB = new PGDB ();
-		$sql1 = new QUERY ($DB);
+		
 		$id_project = '3';
 
-		$sql1->execute ("DELETE FROM scenario WHERE id_project = $id_project") ;
+		$query = "DELETE FROM scenario WHERE id_project = $id_project";
+		$result_query = mysql_query($query);
 
 	}
 
@@ -71,6 +70,21 @@ class scenario_FunctionsTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals(TRUE, $naoexiste);		
 	}
 
+	public function testeInsertRequestAddScenario(){
+		
+		$request = insertRequestAddScenario($_POST['id_project'] = '3',
+				$_POST['title'] = 'teste',
+				$_POST['objective'] = 'objective',
+				$_POST['context'] = 'context',
+				$_POST['actors'] = 'objective',
+				$_POST['resource'] = 'resouce',
+				$_POST['epidoses'] = 'epi',
+				$_POST['exception'] = 'excep',
+				$_POST['id_user'] = '20');
+		
+		$this->assertNotNull(TRUE, $request);
+	}
+	
 	/*
 	public function testremoveScenario(){
 
