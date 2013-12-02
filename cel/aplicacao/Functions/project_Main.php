@@ -1,6 +1,6 @@
 <?php
 /* * ***********************************************************
- * File: projetos.php
+ * File: project_Main.php
  * purpose: Main file for loading project data
  * 
  * ********************************************************** */
@@ -64,7 +64,7 @@ include("funcoes_genericas.php");
 
                 <th height="29" width="140"><a href="show_Project.php?id_project=<?= $id_project ?>&version=<?= $version ?>"><?= $name_project ?></a></th>
                 <th height="29" width="140">Data: <?= $date ?></th>
-                <th height="29" width="100">Versão: <?= $version ?></th>
+                <th height="29" width="100">Versï¿½o: <?= $version ?></th>
 
             </tr>
 

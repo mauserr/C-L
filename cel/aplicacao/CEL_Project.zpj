@@ -50,7 +50,7 @@
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\menu_empty.htm"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\show_Project.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\mostraXML.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\projetos.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\Function\project_Main.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\recuperaDAML.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\recuperarXML.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\RegrasLAL.html"/>
