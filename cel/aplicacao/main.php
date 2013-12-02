@@ -707,7 +707,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
 				</td> 
             </tr> 
             <tr> 
-                <th>Classificaï¿½ï¿½o:</th><td CLASS="Estilo"><?=nl2br( $result['type'] ) ?>
+                <th>Classificação:</th><td CLASS="Estilo"><?=nl2br( $result['type'] ) ?>
 				</td> 
             </tr> 
             <tr> 
@@ -946,7 +946,7 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
                 <td CLASS="Estilo"><a href="#" onClick="add_usuario.php();">Adicionar usuï¿½rio (nï¿½o cadastrado) neste projeto</a></td> 
             </TR> 
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="relation_user_project();">Adicionar usuï¿½rios jï¿½ existentes neste projeto</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="relation_User_Project();">Adicionar usuï¿½rios jï¿½ existentes neste projeto</a></td> 
             </TR>   
             
             <TR> 
@@ -954,17 +954,17 @@ if (isset($id) && isset($t)) {      // SCRIPT CHAMADO PELO PROPRIO MAIN.PHP (OU 
             </TR> 
             
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoCenario();">Verificar pedidos de alteraï¿½ï¿½o de Cenï¿½rios</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="request_Scenario();">Verificar pedidos de alteraï¿½ï¿½o de Cenï¿½rios</a></td> 
             </TR> 
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoLexico();">Verificar pedidos de alteraï¿½aode termos do Lï¿½xico</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="request_Lexicon();">Verificar pedidos de alteraï¿½aode termos do Lï¿½xico</a></td> 
             </TR>
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoConceito();">Verificar pedidos de alteraï¿½ï¿½o de Conceitos</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="request_Concept();">Verificar pedidos de alteraï¿½ï¿½o de Conceitos</a></td> 
             </TR> 
             
             <TR> 
-                <td CLASS="Estilo"><a href="#" onClick="pedidoRelacao();">Verificar pedidos de alteraï¿½ï¿½o de Relaï¿½ï¿½es</a></td> 
+                <td CLASS="Estilo"><a href="#" onClick="request_Relation();">Verificar pedidos de alteraï¿½ï¿½o de Relaï¿½ï¿½es</a></td> 
             </TR>
    
        
