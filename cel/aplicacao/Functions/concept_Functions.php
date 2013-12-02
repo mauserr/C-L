@@ -1,14 +1,13 @@
 <?php
 
-###################################################################
-# Funcao faz um insert na tabela de pedido.
-# Para remover um conceito ela deve receber
-# o id do conceito e id projeto.(1.1)
-# Ao final ela manda um e-mail para o gerente do projeto
-# referente a este conceito.(2.1)
-# Arquivos que utilizam essa funcao:
-# rmv_conceito.php
-###################################################################
+// Function does an insert in the request table.
+// To remove a concept she should receive
+// The id of the project concept and id. (1.1)
+// At the end she sends an email to the project manager
+// Referring to this concept. (2.1)
+// Files that use this function:
+// rmv_conceito.php
+
 if (!(function_exists("insert_request_remove_concept"))) {
     function insert_request_remove_concept($id_project,$id_concept,$id_user){
 
@@ -28,7 +27,7 @@ if (!(function_exists("insert_request_remove_concept"))) {
         $select->execute("SELECT * FROM user WHERE id_user = $id_user") ;
         $select2->execute("SELECT * FROM participates WHERE manager = 1 and id_project = $id_project") ;
         
-        if ($select->getntuples() == 0&&$select2->getntuples() == 0){
+        if (($select->getntuples() == 0) && ($select2->getntuples() == 0)){
             echo "<BR> [ERRO]Pedido nao foi comunicado por e-mail." ;
         }else{
             $record = $select->gofirst ();
@@ -47,15 +46,14 @@ if (!(function_exists("insert_request_remove_concept"))) {
     }
 }
 
-###################################################################
-# Processa um pedido identificado pelo seu id.
-# Recebe o id do pedido.(1.1)
-# Faz um select para pegar o pedido usando o id recebido.(1.2)
-# Pega o campo tipo_pedido.(1.3)
-# Se for para remover: Chamamos a funcao remove();(1.4)
-# Se for para alterar: Devemos (re)mover o cenario e inserir o novo.
-# Se for para inserir: chamamos a funcao insert();
-###################################################################
+// Function does an insert in the request table.
+// To remove a concept she should receive
+// The id of the project concept and id. (1.1)
+// At the end she sends an email to the project manager
+// Referring to this concept. (2.1)
+// Files that use this function:
+// rmv_conceito.php
+
 if (!(function_exists("treat_concept_request"))) {
     function treat_concept_request($id_request){
         assertNotNull($id_request);
@@ -90,10 +88,9 @@ if (!(function_exists("treat_concept_request"))) {
     }
 }
 
-###################################################################
-# Essa funcao recebe um id de conceito e remove todos os seus
-# links e relacionamentos existentes.
-###################################################################
+// This function receives an id of concept and removes all its
+// Links and existing relationships.
+
 if (!(function_exists("remove_concept"))) {
     function remove_concept($id_project, $id_concept){
         assertNotNull($id_project, $id_concept);
@@ -160,7 +157,7 @@ if (!(function_exists("remove_concept"))) {
             //$record = $sql->gonext() ;
             // }
         }
-        # Remove o conceito escolhido
+        // Removes the selected concept
         $sql6->execute ("DELETE FROM concept WHERE id_concept = $id_concept") ;
         $sql6->execute ("DELETE FROM relation_concept WHERE id_concept = $id_concept") ;   
     }   

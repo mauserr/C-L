@@ -18,7 +18,7 @@ class concept_FunctionsTeste extends PHPUnit_Framework_TestCase{
         $this->description = "Description Test";
         $this->namespace = "Namespace Test";
         $this->justification = "Synonymous Test";
-        $this->current_id_user = "CLassification Test";
+        $this->current_id_user = "Classification Test";
        	
 	}
             
