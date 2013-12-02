@@ -12,9 +12,10 @@ session_start();
 include("funcoes_genericas.php");
 include("httprequest.inc");
 require_once '/Functions/concept_Functions.php';
+require_once '/Functions/check_User.php';
 
+check_User("index.php");
 
-chkUser("index.php");
 $submit = null;
 $orders = null;
 $remove = null;

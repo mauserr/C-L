@@ -5,7 +5,7 @@ session_start();
 include("funcoes_genericas.php");
 include("httprequest.inc");
 
-chkUser("index.php");        // Checa se o usuario foi autenticado
+check_User("index.php");
 
 $XML = "";
 
@@ -19,32 +19,31 @@ $XML = "";
 
 <?php
 
-//Cen�rio -  Gerar Grafo 
-
-//Objetivo:   Permitir ao administrador gerar o grafo de um projeto
-//Contexto:   Gerente deseja gerar um grafo para uma das vers�es de XML
-//Atores:     Administrador
-//Recursos:   Sistema, XML, dados cadastrados do projeto, banco de dados.
-//Epis�dios:  Restri��o: Possuir um XML gerado do projeto
+// Scenario - Generate Graph
+// Purpose: Allow the administrator to generate the graph of a project
+// Context: Manager to generate a graph for one of the versions of XML
+// Actors: Administrator
+// Resource: System, XML, registered design data, database.
+// Episdios: restriction: Owning a generated XML project
 
 $bd_recupera = bd_connect() or die("Erro ao conectar ao SGBD");
-$q = "SELECT * FROM publication WHERE id_project = '$id_projeto'";
+$q = "SELECT * FROM publication WHERE id_project = '$id_project'";
 $qrr = mysql_query($q) or die("Erro ao enviar a query");
 ?>
 <h2>Gerar Grafo</h2><br>
 <?php
 while ( $result = mysql_fetch_row($qrr) )
 {
-   $data   = $result[1];
-   $versao = $result[2];
+   $date   = $result[1];
+   $version = $result[2];
    $XML    = $result[3];	
 	?>
 	<table>
 	   <tr>
-			<th>Vers�o:</th><td><?=$versao?></td>
-			<th>Data:</th><td><?=$data?></td>
-			<th><a href="mostraXML.php?id_projeto=<?=$id_projeto?>&versao=<?=$versao?>">XML</a></th>
-			<th><a href="grafo\mostraGrafo.php?versao=<?=$versao?>&id_projeto=<?=$id_projeto?>">Gerar Grafo</a></th>
+			<th>Vers�o:</th><td><?=$version?></td>
+			<th>Data:</th><td><?=$date?></td>
+			<th><a href="mostraXML.php?id_projeto=<?=$id_project?>&versao=<?=$versao?>">XML</a></th>
+			<th><a href="grafo\show_Graph.php?versao=<?=$version?>&id_projeto=<?=$id_project?>">Gerar Grafo</a></th>
 	                
 	   </tr>
 	</table>
