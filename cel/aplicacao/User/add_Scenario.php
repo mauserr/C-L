@@ -40,6 +40,8 @@ $sucess = "";
 
 if (!isset($sucess)) {
     $sucess = "n";
+}else{
+    //nothing to do
 }
 
 $connect_db = bd_connect() or die("Erro ao conectar ao SGBD");
@@ -145,12 +147,18 @@ if (isset($_POST['submit'])) {
                     if ((objective == "")){
                         alert ("Por favor, digite o objetivo do cen�rio.")
                         form.objective.focus()
-                        return false;}    
+                        return false;
+                    }else{
+                        //nothing to do
+                    }
           
                     if ((context == "")){ 
                         alert ("Por favor, digite o contexto do cen�rio.")
                         form.context.focus()
-                        return false;}        
+                        return false;
+                    }else{
+                        //nothing to do
+                    }        
                 }
                 //-->
 

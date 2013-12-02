@@ -13,6 +13,8 @@ session_start();
 $sucess = null;
 if (!isset($sucess)){
     $sucess = 'n';
+}else{
+    //nothing to do
 }
 
 check_User("index.php");
@@ -32,6 +34,8 @@ if (isset($_POST['submit'])){
     
     if (!isset($synonymList)){
         $synonymList = array();
+    }else{
+        //nothing to do
     }
     
     $retSin = checkSynonym($_SESSION['current_id_project'], $synonymList);
@@ -109,6 +113,8 @@ if (isset($_POST['submit'])){
                         alert (" Por favor, forneca o NOME do lexico.\n O campo NOME deve ser preenchido.");
                         form.nocao.focus();
                         return false;
+                    }else{
+                        //nothing to do
                     }
 
                 }
@@ -118,6 +124,8 @@ if (isset($_POST['submit'])){
 
                     if(document.forms[0].synonym.value == ""){
                         return;
+                    }else{
+                        //nothing to do
                     }
                     
                     synonym = document.forms[0].synonym.value;
@@ -128,6 +136,8 @@ if (isset($_POST['submit'])){
                         window.alert ("O sinonimo do lexico não pode conter os seguintes caracteres:  / \\ : ? \" < > |");
                         document.forms[0].synonym.focus();
                         return;
+                    }else{
+                        //nothing to do
                     } 
         	
                     synonymList.options[synonymList.length] = new Option(document.forms[0].synonym.value, document.forms[0].synonym.value);

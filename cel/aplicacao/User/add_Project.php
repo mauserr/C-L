@@ -111,6 +111,8 @@ if (isset($_POST['submit'])){
                             window.alert("O nome do projeto n�o pode conter nenhum dos seguintes caracteres:  / \\ : ? \" < > |");
                             document.forms[0].name.focus();
                             return false;
+                        }else{
+                            //nothing to do
                         }
                     }
                     return true;
