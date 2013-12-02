@@ -45,7 +45,6 @@ if (isset($_POST['submit'])) {
             $p_text = "Senhas diferentes. Favor preencher novamente as senhas.";
             reload_Page("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&login=$login&novo=$novo");
         
-            
         } else {
 
             // ** Scenario "Independente Independent user inclusion" **
@@ -123,6 +122,7 @@ if (isset($_POST['submit'])) {
 
     
     // Came from the initial loggin screen
+    
     if ($novo == "true") {      
         // ** Scenario "Independente Independent user inclusion" **
         // The user have just registered to the system, now he must be

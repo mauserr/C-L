@@ -5,7 +5,6 @@ include_once("bd.inc");
 
 session_start();    
 
-
 $link = bd_connect();   
 
 ?>    
@@ -72,22 +71,6 @@ if( isset($_SESSION['lista_de_conceitos'])){
 	$arv = array();
 }
 
-//$arv = get_lista_de_conceitos();   
-
-
-/*    N�veis da arvore 
-        conceito 
-                Verbo 
-                    Predicado 
-*/   
-
-/* 
-    echo "menu.addItem(\"Teste\");\n"; 
-    echo "menu.addItem(\"Teste2\");\n"; 
-
-*/  
-
-
 // Concepts 
 foreach($arv as $conc){   
     
@@ -103,26 +86,20 @@ foreach($arv as $conc){
         echo " mC.addItem(\"$relacao->verbo\",\"\");\n";   
         echo " var mV = new MTMenu();\n"; 
  
-        //Predicados 
-        foreach($relacao->predicados as $predicado) {
-            
-            echo " mV.addItem(\"$predicado\",\"blank.html\",\"enganaarvore\");\n";
-            
+        //Predicates
+        foreach($relacao->predicados as $predicado) {  
+            echo " mV.addItem(\"$predicado\",\"blank.html\",\"enganaarvore\");\n";   
         } 
-  
         echo " mC.makeLastSubmenu(mV);\n";    
     }   
 
-
 }  
-
 
 mysql_close($link);   
 
 ?>
 
 </script>
-
 
 </head>
 <body onload="MTMStartMenu(true);" bgcolor="#FFFFFF" text="#ffffcc" link="yellow" vlink="lime" alink="red">
