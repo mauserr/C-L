@@ -73,7 +73,7 @@ if (isset($_POST['submit'])){
 // Script chamado atrav�s do menu superior
 }else{
     
-    $query_sql = "SELECT nome FROM projeto WHERE id_projeto = $id_project";
+    $query_sql = "SELECT name FROM project WHERE id_project = $id_project";
     $query_result_sql = mysql_query($query_sql) or die(" Erro ao executar a consulta");
     $result = mysql_fetch_array($query_result_sql);
     $project_name = $result['name'];

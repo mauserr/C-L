@@ -94,9 +94,9 @@ if (!(function_exists("alteraLexico")))
  	    
  	    # Verifica se h� alguma ocorrencia do titulo do lexico nos cenarios existentes no banco
        
-        $qr = "SELECT id_cenario, titulo, objetivo, contexto, atores, recursos, excecao, episodios
-              FROM cenario
-              WHERE id_projeto = $id_projeto";
+        $qr = "SELECT id_scenario, title, objective, context, actors, resources, exception, episodes
+              FROM scenario
+              WHERE id_project = $id_projeto";
         
         $qrr = mysql_query($qr) or die("Erro ao enviar a query de SELECT 1<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
@@ -167,10 +167,10 @@ if (!(function_exists("alteraLexico")))
         # Verifica a ocorrencia do titulo dos outros lexicos no lexico alterado
         
         //select para pegar todos os outros lexicos
-        $qlo = "SELECT id_lexico, nome, nocao, impacto, tipo
-               FROM lexico
-               WHERE id_projeto = $id_projeto
-               AND id_lexico <> $id_lexico";
+        $qlo = "SELECT id_lexicon, name, notion, impact, type
+               FROM lexicon
+               WHERE id_project = $id_projeto
+               AND id_lexicon <> $id_lexico";
                      
         $qrr = mysql_query($qlo) or die("Erro ao enviar a query de SELECT no LEXICO<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
@@ -210,10 +210,10 @@ if (!(function_exists("alteraLexico")))
         
         # Fim da verificao por titulo
         
-        $ql = "SELECT id_lexico, nome, nocao, impacto
-              FROM lexico
-              WHERE id_projeto = $id_projeto
-              AND id_lexico <> $id_lexico";                                                                     
+        $ql = "SELECT id_lexicon, name, notion, impact
+              FROM lexicon
+              WHERE id_project = $id_projeto
+              AND id_lexicon <> $id_lexico";                                                                     
         
         # Verifica a ocorrencia dos sinonimos do lexico alterado nos outros lexicos
        
@@ -250,10 +250,10 @@ if (!(function_exists("alteraLexico")))
     	
     	# Verifica a ocorrencia dos sinonimos dos outros lexicos no lexico alterado
         
-        $qSinonimos = "SELECT nome, id_lexico 
-        		FROM sinonimo 
-        		WHERE id_projeto = $id_projeto 
-        		AND id_lexico <> $id_lexico 
+        $qSinonimos = "SELECT name, id_lexicon 
+        		FROM synonym 
+        		WHERE id_project = $id_projeto 
+        		AND id_lexicon <> $id_lexico 
         		AND id_pedidolex = 0";
         
         $qrrSinonimos = mysql_query($qSinonimos) or die("Erro ao enviar a query de select no sinonimo<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -326,7 +326,7 @@ function checarSinonimo($project, $listSinonimo)
     
     foreach($listSinonimo as $sinonimo){
         
-        $q = "SELECT * FROM sinonimo WHERE id_projeto = $project AND nome = '$sinonimo' ";
+        $q = "SELECT * FROM synonym WHERE id_project = $project AND name = '$sinonimo' ";
         $qr = mysql_query($q) or die("Erro ao enviar a query de select no sinonimo<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $resultArray = mysql_fetch_array($qr);
         if ( $resultArray != false )
@@ -335,7 +335,7 @@ function checarSinonimo($project, $listSinonimo)
             return $naoexiste;
         }
         
-        $q = "SELECT * FROM lexico WHERE id_projeto = $project AND nome = '$sinonimo' ";
+        $q = "SELECT * FROM lexicon WHERE id_project = $project AND name = '$sinonimo' ";
         $qr = mysql_query($q) or die("Erro ao enviar a query de select no sinonimo<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $resultArray = mysql_fetch_array($qr);
         if ( $resultArray != false )

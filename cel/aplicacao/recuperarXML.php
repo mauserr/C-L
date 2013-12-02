@@ -36,11 +36,11 @@ if (isset($erase))
 {
 	if ( $erase )
 	{
-		$query_delete_sql = "DELETE FROM publicacao WHERE id_projeto = '$id_project' AND versao = '$version' ";
+		$query_delete_sql = "DELETE FROM publication WHERE id_project = '$id_project' AND version = '$version' ";
 		$query_erase_result_sql = mysql_query($query_delete_sql);	
 	}
 }
-$query_select_sql = "SELECT * FROM publicacao WHERE id_projeto = '$id_project'";
+$query_select_sql = "SELECT * FROM publication WHERE id_project = '$id_project'";
 $query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query");
 
 ?>

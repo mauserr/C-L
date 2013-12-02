@@ -99,7 +99,7 @@ if (!(function_exists("adiciona_cenario"))){
         
         ### PREENCHIMENTO DAS TABELAS LEXTOLEX E CENTOCEN PARA MONTAGEM DO MENU LATERAL
         
-        // Verifica ocorrências do titulo do cenario incluido no contexto 
+        // Verifica ocorrï¿½ncias do titulo do cenario incluido no contexto 
         // e nos episodios de todos os outros cenarios e adiciona os relacionamentos,
         // caso possua, na tabela centocen
         
@@ -344,7 +344,7 @@ if (!(function_exists("alteraCenario"))){
         }   // while
         
       
-        $q = "SELECT id_lexico, nome FROM lexico WHERE id_projeto = $id_project";
+        $q = "SELECT id_lexicon, name FROM lexicon WHERE id_project = $id_project";
         $qrr = mysql_query($q) or die("Erro ao enviar a query de SELECT 3<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         while ($result2 = mysql_fetch_array($qrr)){    // (3)
 

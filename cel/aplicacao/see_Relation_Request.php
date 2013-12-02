@@ -62,7 +62,7 @@ self.close();
                 $DB = new PGDB () ;
                 $select = new QUERY ($DB) ;
                 $select2 = new QUERY ($DB) ;
-                $select->execute("SELECT * FROM pedidorel WHERE id_projeto = $id_project") ;
+                $select->execute("SELECT * FROM request_relation WHERE id_project = $id_project") ;
                 if ($select->getntuples() == 0){
                       echo "<BR>Nenhum pedido.<BR>" ;
                 }else{

@@ -133,9 +133,9 @@ if (!(function_exists("adicionar_lexico"))){
         
         $id_incluido = include_lexicon($id_project, $name, $notion, $impact, $synonymous, $classification); // (1)
         
-        $qr = "SELECT id_cenario, titulo, objetivo, contexto, atores, recursos, excecao, episodios
-              FROM cenario
-              WHERE id_projeto = $id_projeto";
+        $qr = "SELECT id_scenario, title, objective, context, actors, resources, exception, episodes
+              FROM scenario
+              WHERE id_project = $id_projeto";
         
         $qrr = mysql_query($qr) or die("Erro ao enviar a query de SELECT 1<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
@@ -197,10 +197,10 @@ if (!(function_exists("adicionar_lexico"))){
         } //for
         
         
-        $qlo = "SELECT id_lexico, nome, nocao, impacto, tipo
-               FROM lexico
-               WHERE id_projeto = $id_projeto
-               AND id_lexico != $id_incluido";
+        $qlo = "SELECT id_lexicon, name, notion, impact, type
+               FROM lexicon
+               WHERE id_project = $id_projeto
+               AND id_lexicon != $id_incluido";
                      
         //pega todos os outros lexicos
         $qrr = mysql_query($qlo) or die("Erro ao enviar a query de SELECT no LEXICO<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
@@ -245,10 +245,10 @@ if (!(function_exists("adicionar_lexico"))){
         
         //lexico para lexico
         
-        $ql = "SELECT id_lexico, nome, nocao, impacto
-              FROM lexico
-              WHERE id_projeto = $id_projeto
-              AND id_lexico != $id_incluido";                                                                     
+        $ql = "SELECT id_lexicon, name, notion, impact
+              FROM lexicon
+              WHERE id_project = $id_projeto
+              AND id_lexicon != $id_incluido";                                                                     
         
         //sinonimos dos outros lexicos no texto do inserido
         
@@ -283,7 +283,7 @@ if (!(function_exists("adicionar_lexico"))){
         
         //sinonimos ja existentes
         
-        $qSinonimos = "SELECT nome, id_lexico FROM sinonimo WHERE id_projeto = $id_projeto AND id_lexico != $id_incluido AND id_pedidolex = 0";
+        $qSinonimos = "SELECT name, id_lexicon FROM synonym WHERE id_project = $id_projeto AND id_lexicon != $id_incluido AND id_pedidolex = 0";
         
         $qrrSinonimos = mysql_query($qSinonimos) or die("Erro ao enviar a query de select no sinonimo<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         
