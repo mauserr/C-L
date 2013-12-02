@@ -21,7 +21,12 @@ if (!(function_exists("include_lexicon"))){
         assert($id_project != NULL);
 	assert($name != NULL);
         assert(is_int($id_project));
-        assert(is_string($name, $notion, $impact, $synonymous, $classification));
+        assert(is_string($name));
+        assert(is_string($notion));
+        assert(is_string($impact));
+        assert(is_string($synonymous));
+        assert(is_string($classification));
+    
         
         $connect = bd_connect() or die("Erro ao conectar ao SGBD<br>" . mysql_error() . "<br>" . __FILE__ . __LINE__);
         $data = date("Y-m-d");
