@@ -11,10 +11,11 @@ function bd_connect()
 
 	$connect = mysql_pconnect( $ipValor , "root" , "" ) or die( "Erro na conectar ao BD : " . mysql_error() ) ;
 	
-	if( $connect && mysql_select_db($BDdatabase) )
+	if($connect && mysql_select_db($BDdatabase)){
 		return($connect);
-        else
+        }else{
 		return(FALSE);
+        }
 }
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 /*
 ##   Simple PostgreSQL Abstraction Layer v1.0
-##   by Cem ÇEVÝK <cemc@linux.org.tr>
+##   by Cem ï¿½EVï¿½K <cemc@linux.org.tr>
 ##   Sturday, January 06, 2001
 ##
 ##   Easy way to access database and store fetched results.
@@ -32,7 +32,7 @@
 ##          $DB->close ();
 */
 
-/* Atenção!!!
+/* Atenï¿½ï¿½o!!!
  *
  * Este script foi adaptado para o MySQL!!!
  *
@@ -93,7 +93,7 @@ class PGDB extends Abstract_DB
 
         function open($dbname, $user, $passwd, $host, $port)
         {
-                $this->db_linkid = bd_connect() or die("Erro na conexão à BD : " . mysql_error()) ;
+                $this->db_linkid = bd_connect() or die("Erro na conexï¿½o ï¿½ BD : " . mysql_error()) ;
 
 //              if( $this->db_linkid && mysql_select_db(CELConfig_ReadVar("BD_database") . "" ) )
                 if( $this->db_linkid )
@@ -128,8 +128,11 @@ class QUERY
 
         function QUERY($pdbobject)
         {
-                if ($pdbobject)
+                if ($pdbobject){
                         $this->associate($pdbobject);
+                }else{
+                    //nothing to do
+                }
         }
 
          function associate($pdbobject)
@@ -185,9 +188,9 @@ class QUERY
                 if ($this->currentrow < $this->getntuples()) {
                         $this->resultset = $this->readrow();
                         return $this->resultset;
-                }
-                else
+                }else{
                         return "LAST_RECORD_REACHED";
+                }
         }
 
         function goprevious()
@@ -196,29 +199,32 @@ class QUERY
                 if ($this->currentrow >= 0) {
                         $this->resultset = $this->readrow();
                         return $this->resultset;
-                }
-                else
+                }else{
                         return "FIRST_RECORD_REACHED";
+                }
         }
 
         function beginTransaction()
         {
-                if (!$this->execute("BEGIN"))
+                if (!$this->execute("BEGIN")){
                         return false;
+                }
                 return true;
         }
 
         function commitTransaction()
         {
-                if (!$this->execute("COMMIT"))
+                if (!$this->execute("COMMIT")){
                         return false;
+                }
                 return true;
         }
 
         function rollbackTransaction()
         {
-                if (!$this->execute("ROLLBACK"))
+                if (!$this->execute("ROLLBACK")){
                         return false;
+                }
                 return true;
         }
 
