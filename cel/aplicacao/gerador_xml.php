@@ -2,6 +2,7 @@
 
 session_start();
 
+require_once '/Functions/check_User.php';
 include("funcoes_genericas.php");
 include_once("puts_Links.php");
 include("Functions/reload_Page.php");
@@ -9,7 +10,7 @@ include("httprequest.inc");
 include_once("bd.inc");
 include_once("seguranca.php");
 
-chkUser("index.php");        // Checa se o usuario foi autenticado
+check_User("index.php");
       
 
 if( isset( $_POST['flag']))
