@@ -226,7 +226,7 @@ if (!(function_exists("adiciona_cenario"))){
 ###################################################################
 if (!(function_exists("removeCenario"))){
     
-    function removeScenario($id_project,$id_scenario){
+    function removeCenario($id_project,$id_scenario){
         
         assert($id_project != NULL);
         assert($id_project < 0);
