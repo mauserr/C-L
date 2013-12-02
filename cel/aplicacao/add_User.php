@@ -95,7 +95,7 @@ if (isset($_POST['submit'])) {
                 //            saying that the login already exists
                 ?>
                 <script language="JavaScript">
-                    alert("Login já existente no sistema. Favor escolher outro login.")
+                    alert("Login jï¿½ existente no sistema. Favor escolher outro login.")
                 </script>
 
                 <?php
@@ -149,7 +149,7 @@ if (isset($_POST['submit'])) {
 
         // Redireciona o usuario para a parte de inclusao de projetos
             opener.location.replace('index.php');
-            open('add_projeto.php', '', 'dependent,height=300,width=550,resizable,scrollbars,titlebar');
+            open('\User\add_Project.php', '', 'dependent,height=300,width=550,resizable,scrollbars,titlebar');
             self.close();
 
 
@@ -206,7 +206,7 @@ if (isset($_POST['submit'])) {
 
     <html>
         <head>
-            <title>Cadastro de Usuário</title>
+            <title>Cadastro de Usuï¿½rio</title>
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
         </head>
         <body>
