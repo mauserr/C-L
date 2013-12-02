@@ -30,13 +30,12 @@ if (isset($_POST['submit'])) {
     // The system checks if all the fields are filled. If some isn't, the
     // system warns the user that all the fields must be filled.
 
-    if ($name == "" || $email == "" || $login == "" || $password == "" || $psw_conf == "") {
+    if (($name == "") || ($email == "") || ($login == "") || ($password == "") || ($psw_conf == "")) {
         
         $p_style = "color: red; font-weight: bold";
         $p_text = "Por favor, preencha todos os campos.";
         reload_Page("?p_style=$p_style&p_text=$p_text&name=$name&email=$email&login=$login&password=$password&senha_conf=$psw_conf&novo=$novo");
     
-        
     } else {
 
         // Test if both passwords provided by the user are the same.
@@ -193,6 +192,8 @@ if (isset($_POST['submit'])) {
     if (empty($p_style)) {
         $p_style = "color: green; font-weight: bold";
         $p_text = "Favor preencher os dados abaixo:";
+    }else{
+        //nothing to do
     }
 
     if (true) {
@@ -201,6 +202,8 @@ if (isset($_POST['submit'])) {
         $name = "";
         $password = "";
         $psw_conf = "";
+    }else{
+        //nothing to do
     }
     ?>
 
@@ -222,6 +225,8 @@ if (isset($_POST['submit'])) {
                     {
                         alert('Aten��o: o E-mail digitado n�o � v�lido.');
                         return false;
+                    }else{
+                        //nothing to do
                     }
                 }
 
@@ -231,6 +236,8 @@ if (isset($_POST['submit'])) {
                         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value))
                         {
                             return (true)
+                        }else{
+                            //nothing to do
                         }
                         alert("Aten��o: o E-mail digitado não é válido.");
                         email.focus();

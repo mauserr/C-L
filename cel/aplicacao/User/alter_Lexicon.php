@@ -24,6 +24,8 @@ if (isset($_POST['submit'])){
 
     if (!isset($synonymList)){
         $synonymList = array();
+    }else{
+        //nothing to do
     }
     
     //removes synonymous if there is a void.
@@ -32,6 +34,8 @@ if (isset($_POST['submit'])){
         
         if ($synonymList[$i] == ""){
             $synonymList = null;
+        }else{
+            //nothing to do
         }
         
     }
@@ -104,14 +108,19 @@ if (isset($_POST['submit'])){
                             alert (" Por favor, forneca o NOME do lexicon.\n O campo NOME é obrigatorio.");
                             form.notion.focus();
                             return false;
+                        }else{
+                            //nothing to do
                         }
 
                     }
                     function addSynonym(){
                         synonymList = document.forms[0].elements['synonymList[]']; 
         	
-                        if(document.forms[0].synonym.value == "")
+                        if(document.forms[0].synonym.value == ""){
                             return;
+                        }else{
+                            //nothing to do
+                        }
         	
                         synonymList.options[synonymList.length] = new Option(document.forms[0].synonym.value, document.forms[0].synonym.value);
         	
