@@ -3,49 +3,50 @@
 session_start();
 
 include("funcoes_genericas.php");
+require_once '/Functions/check_User.php';
+require_once'/Functions/project_Functions.php';
+require_once '/Functions/verifyManager.php';
 
 
-chkUser("index.php");        // Cenario: controle de acesso
+check_User("index.php");        
 
-// Cenário - Usuário escolhe Projeto
+// Scenario - User chooses project
 
-// Objetivo:  Permitir ao Usuário escolher um projeto.
-// Contexto:  O usuário deseja escoher um projeto.
-//            Pré-Condições: Login
-// Atores:    Usuário
-// Recursos:  Projetos
-// Episódios: O Usuário seleciona da lista de projetos um projeto da qual ele não seja 
-//            administrador. 
-//            O usuário poderá:
-//              - Atualizar cenário:
-//              - Atualizar léxico.
+// Objective:  Allows a user to choose a project
+// Context:    User wants to choose a project
+// Actors:     User
+// Episodes:   User select from the list a project that he isn't a administrator 
+//             The user can
+//               - Update scenario:
+//               - Update lexicon.
 
-if( isset( $_GET['id_projeto']))
+if( isset( $_GET['id_project']))
 {
-	$id_projeto = $_GET['id_projeto'];
+	//$id_project = null;
+	$id_project = $_GET['id_project'];
 }
 
 ?>
 
 <script language="javascript1.3">
 
-function getIDPrj() {
-    var select = document.forms[0].id_projeto; // combo-box de projeto
-    var indice = select.selectedIndex; // indice selecionado
-    var id_projeto = select.options[indice].value; // id_projeto correspondente ao indice
-    return id_projeto;
+function getIDProject() {
+    var select = document.forms[0].id_project; 
+    var index = select.selectedIndex; 
+    var id_project = select.options[index].value;
+    return id_project;
 
 }
 
-function atualizaMenu() {   // carrega o menu correspondente ao projeto
-    // Para nao fazer nada se selecionarem o "-- Selecione um Projeto --"
-    if (!(document.forms[0].id_projeto.options[0].selected))
+function updateMenu() {   
+   
+    if (!(document.forms[0].id_project.options[0].selected))
     {
-          top.frames['code'].location.replace('code.php?id_projeto=' + getIDPrj());
-          top.frames['text'].location.replace('main.php?id_projeto=' + getIDPrj());
+          top.frames['code'].location.replace('C-L/cel/aplicacao/User/code.php?id_project=' + getIDProject());
+          top.frames['text'].location.replace('main.php?id_project=' + getIDProject());
 
 
-          location.replace('heading.php?id_projeto=' + getIDPrj());
+          location.replace('heading.php?id_project=' + getIDProject());
     } else {
 
         location.reload();
@@ -54,17 +55,16 @@ function atualizaMenu() {   // carrega o menu correspondente ao projeto
 }
 
 <?php
-if (isset($id_projeto)) {   // $id_projeto soh nao estara setada caso seja a primeira
-                            // vez que o usuario esteja acessando o sistema
+if (isset($id_project)) {   
 
-    // Checagem de seguranca, pois $id_projeto eh passado atraves de JavaScript (cliente)
-    check_proj_perm($_SESSION['id_usuario_corrente'], $id_projeto) or die("Permissao negada");
+    //Do a check of security,because of the data passed throug javascript
+    check_project_permanent($_SESSION['current_id_user'], $id_project) or die("Permissao negada");
 ?>
 
-function setPrjSelected() {
-    var select = document.forms[0].id_projeto;
+function setProjectSelected() {
+    var select = document.forms[0].id_project;
     for (var i = 0; i < select.length; i++) {
-        if (select.options[i].value == <?=$id_projeto?>) {
+        if (select.options[i].value == <?=$id_project?>) {
             select.options[i].selected = true;
             i = select.length;
         }
@@ -75,30 +75,26 @@ function setPrjSelected() {
 }
 ?>
 
-function novoCenario() {
+function newScenario() {
  <?php
 
-// Cenário - Atualizar Cenário 
+// Scenario - Update Scenario
 
-//Objetivo:	Permitir Inclusão, Alteração e Exclusão de um Cenário por um usuário
-//Contexto:	Usuário deseja incluir um cenário ainda não cadastrado, alterar e/ou excluir
-//              um cenário previamente cadastrados.
-//              Pré-Condição: Login
-//Atores:	Usuário, Gerente do projeto
-//Recursos:	Sistema, menu superior, objeto a ser modificado
-//Episódios:	O usuário clica no menu superior na opção:
-//                Se usuário clica em Incluir então INCLUIR CENÁRIO
+//Objective:	Allows inclusion, alteration and exclusion of a scenario by a user
+//Actors:	User, Project Manager
+//Episodes:	User click on the button on the option:
+//                If user clicks on "Incluir", so include a new Scenario
 
-				             if (isset($id_projeto))
+				             if (isset($id_project))
 				             {
 				             ?>
-				               var url = 'add_cenario.php?id_projeto=' + '<?=$id_projeto?>';
+				               var url = 'User/add_scenario.php?id_project=' + '<?=$id_project?>';
 				             <?php
 				             }
 				             else
 				             {
 				             ?>
-				              var url = 'add_cenario.php?'
+				              var url = 'User/add_scenario.php?'
 				             <?php
 				             }
 
@@ -113,27 +109,22 @@ function novoCenario() {
 function novoLexico() {
  <?php
 
-//Cenários -  Atualizar Léxico
+//Scenarios-  Update Lexicon
 
-//Objetivo:	Permitir Inclusão, Alteração e Exclusão de um Léxico por um usuário
-//Contexto:	Usuário deseja incluir um léxico ainda não cadastrado, alterar e/ou 
-//              excluir um cenário/léxico previamente cadastrados.
-//              Pré-Condição: Login
-//Atores:	Usuário, Gerente do projeto
-//Recursos:	Sistema, menu superior, objeto a ser modificado
-//Episódios:	O usuário clica no menu superior na opção:
-//                Se usuário clica em Incluir então INCLUIR LÉXICO
-
-				             if (isset($id_projeto))
+//Objective:	Allows inclusion, alteration and exclusion of a lexicon by a user
+//Actors: User, Project Manager
+//Episodes:	User click on the button on the option:
+//                If user clicks on "Incluir", so include a new Lexicon
+				             if (isset($id_project))
 				             {
 				             ?>
-				                var url = 'add_lexico.php?id_projeto=' + '<?=$id_projeto?>';
+				                var url = 'add_lexicon.php?id_project=' + '<?=$id_project?>';
 				             <?php
 				             }
 				             else
 				             {
 				             ?>
-				               var url = 'add_lexico.php';
+				               var url = 'add_lexicon.php';
 				             <?php
 				             }
 
@@ -144,8 +135,8 @@ function novoLexico() {
     open(url, where, window_spec);
 }
 
-function prjInfo(idprojeto) {
-    top.frames['text'].location.replace('main.php?id_projeto=' + idprojeto);
+function projectInfo(idprojeto) {
+    top.frames['text'].location.replace('main.php?id_project=' + idprojeto);
 }
 
 </script>
@@ -167,7 +158,7 @@ function prjInfo(idprojeto) {
         text-decoration: none
     }
     </style>
-    <body bgcolor="#ffffff" text="#000000" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" <?=(isset($id_projeto)) ? "onLoad=\"setPrjSelected();\"" : ""?>>
+    <body bgcolor="#ffffff" text="#000000" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" <?=(isset($id_project)) ? "onLoad=\"setProjectSelected();\"" : ""?>>
         <form onSubmit="return atualizaMenu();">
             <table width="100%" cellspacing="0" cellpadding="0">
                 <tr bgcolor="#E0FFFF">
@@ -178,11 +169,11 @@ function prjInfo(idprojeto) {
                             <tr>
                                 <td align="right" valign="top"> <?php 
 
-   if (isset($id_projeto)){
+   if (isset($id_project)){
    	
-   	$id_usuario = $_SESSION['id_usuario_corrente'];
+   	$id_user = $_SESSION['current_id_user'];
    	
-   	$ret = verificaGerente($id_usuario, $id_projeto);
+   	$ret = verifyManager($id_user, $id_project);
    	  
         if ( $ret != 0 ){
 	
@@ -209,33 +200,33 @@ function prjInfo(idprojeto) {
     }     
 ?>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Projeto:&nbsp;&nbsp;
                                 
-                                    <select name="id_projeto" size="1" onChange="atualizaMenu();">
+                                    <select name="id_project" size="1" onChange="updateMenu();">
                                         <option>-- Selecione um Projeto --</option>
                                                                                 
 
 <?php
 
-// ** Cenario "Login" **
-// O sistema dá ao usuário a opção de cadastrar um novo projeto
-// ou utilizar um projeto em que ele faça parte.
+// Scenario: Login
+//Actors: User
+// Episodes: The system shows user a option of register a new project 		
+// or uptade a existing one
 
-// conecta ao SGBD
-$r = bd_connect() or die("Erro ao conectar ao SGBD");
 
-// define a consulta
-$q = "SELECT p.id_projeto, p.nome, pa.gerente
-      FROM usuario u, participa pa, projeto p
-      WHERE u.id_usuario = pa.id_usuario
-      AND pa.id_projeto = p.id_projeto
-      AND pa.id_usuario = " . $_SESSION["id_usuario_corrente"] . "
-      ORDER BY p.nome";
+$connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
-// executa a consulta
-$qrr = mysql_query($q) or die("Erro ao executar query");
 
-while ($result = mysql_fetch_array($qrr)) {    // enquanto houver projetos
+$query_select_sql = "SELECT p.id_project, p.name, pa.manager
+      FROM user u, participates pa, project p
+      WHERE u.id_user = pa.id_user
+      AND pa.id_project = p.id_project
+      AND pa.id_user = " . $_SESSION["current_id_user"] . "
+      ORDER BY p.name";
+
+$query_result_sql = mysql_query($query_select_sql) or die("Erro ao executar query");
+
+while ($result = mysql_fetch_array($query_result_sql)) {   
 ?>
-<option value="<?=$result['id_projeto']?>"><?=($result['gerente'] == 1) ? "*" : ""?>  <?=$result['nome']?></option>
+<option value="<?=$result['id_project']?>"><?=($result['manager'] == 1) ? "*" : ""?>  <?=$result['name']?></option>
 
 <?php
 }
@@ -250,91 +241,61 @@ while ($result = mysql_fetch_array($qrr)) {    // enquanto houver projetos
                             <tr bgcolor="#E0FFFF" height="30">
                                 
             <td align="right" valign=MIDDLE> <?php
-if (isset($id_projeto)) {    // Se o usuario ja tiver escolhido um projeto,
-                             // entao podemos mostrar os links de adicionar cen/lex
-                             // e de informacoes (pagina principal) do projeto
+if (isset($id_project)) {   
 
 
-// Cenário - Administrador escolhe Projeto
+// Scenario - Administrador choose project
 
-// Objetivo:  Permitir ao Administrador escolher um projeto.
-// Contexto:  O Administrador deseja escolher um projeto.
-//            Pré-Condições: Login, Ser administrador do projeto selecionado.
-// Atores:    Administrador
-// Recursos:  Projetos doAdministrador
-// Episódios: Aparecendo no menu as opções de: 
-//            -Adicionar Cenário (ver Adicionar Cenário); 
-//            -Adicionar Léxico (ver Adicionar Léxico); 
+// Objective: Allows the administrator to choose a project
+// Context:   O Administrator wants to choose a project
+// Actors:    Administrator
+// Episodes: Shows the menus of: 
+//            -Add Scenario; 
+//            -Add Lexicon; 
 //            -Info; 
-//            -Adicionar Projeto; 
-//            -Alterar Cadastro.
+//            -Add Project; 
+//            -Alter cadastre.
 
 
-?> <a href="#" onClick="novoCenario();">Adicionar Cenário</a>&nbsp;&nbsp;&nbsp; 
-              <a href="#" onClick="novoLexico();">Adicionar Símbolo</a>&nbsp;&nbsp;&nbsp; 
-              <a href="#" title="Informações sobre o Projeto" onClick="prjInfo(<?=$id_projeto?>);">Info</a>&nbsp;&nbsp;&nbsp; 
+?> <a href="#" onClick="newScenario();">Adicionar Cenario</a>&nbsp;&nbsp;&nbsp; 
+              <a href="#" onClick="novoLexico();">Adicionar Simbolo</a>&nbsp;&nbsp;&nbsp; 
+              <a href="#" title="Informaï¿½ï¿½es sobre o Projeto" onClick="projectInfo(<?=$id_project?>);">Info</a>&nbsp;&nbsp;&nbsp; 
               <?php
 }
 ?> <?php
 
-//Cenário  -  Cadastrar Novo Projeto 
+//Scenario  -  Register a new Project
 
-//Objetivo:    Permitir ao usuário cadastrar um novo projeto
-//Contexto:    Usuário deseja incluir um novo projeto na base de dados
-//             Pré-Condição: Login
-//Atores:      Usuário
-//Recursos:    Sistema, dados do projeto, base de dados
-//Episódios:   O Usuário clica na opção “adicionar projeto” encontrada no menu superior.
+//Objective:    Allows a user include a new project
+//Context:    User wants to include a new project
+//Actors:      User
+//Episï¿½dios:   User clicks on add project, on the top of the screen
 
-?> <a href="#" onClick="window.open('add_projeto.php', '_blank', 'dependent,height=313,width=550,resizable,scrollbars,titlebar');">Adicionar 
+?> <a href="#" onClick="window.open('User/add_project.php', '_blank', 'dependent,height=313,width=550,resizable,scrollbars,titlebar');">Adicionar 
               Projeto</a>&nbsp;&nbsp;&nbsp; <?php
 
 
-//Cenário  -   Remover Novo Projeto 
+//Scenario  -   Remove new project
 
-//Objetivo:    Permitir ao Administrador do projeto remover um projeto
-//Contexto:    Um Administrador de projeto deseja remover um determinado projeto da base de dados
-//             Pré-Condição: Login, Ser administrador do projeto selecionado.
-//Atores:      Administrador
-//Recursos:    Sistema, dados do projeto, base de dados
-//Episódios:   O Administrador clica na opção “remover projeto” encontrada no menu superior.
+//Objetivo:    Allows the administrator remove a new project
+//Context:     Administrator wants to remove a project of the data base
+//Actors:      Administrator
+//Episodes:    The administrator clicks on "remover projeto" on the top of the screen
 
 
- if (isset($id_projeto)){
+ if (isset($id_project)){
    	
-   	$id_usuario = $_SESSION['id_usuario_corrente'];
+   	$id_user = $_SESSION['current_id_user'];
    	
-   	$ret = verificaGerente($id_usuario, $id_projeto);
+   	$ret = verifyManager($id_user, $id_project);
    	  
         if ( $ret != 0 ){
-?> <a href="#" onClick="window.open('remove_projeto.php', '_blank', 'dependent,height=300,width=550,resizable,scrollbars,titlebar');">Remover 
+?> <a href="#" onClick="window.open('remove_project.php', '_blank', 'dependent,height=300,width=550,resizable,scrollbars,titlebar');">Remover 
               Projeto</a>&nbsp;&nbsp;&nbsp; <?php
         }
  }       
 
-// Cenário - Logar no sistema
 
-// Objetivo:  Permitir ao usuário entrar no sistema e escolher um projeto que ele esteja 
-//              cadastrado, ou cadastrar novo projeto	
-// Contexto:  Sistema está aberto Usuário na tela de login do sistema. 
-//            Usuário sabe a sua senha Usuário deseja entrar no sistema com seu perfil 
-//            Pré-Condição: Usuário ter acessado ao sistema	
-// Atores:	  Usuário, Sistema	
-// Recursos:  Banco de Dados	
-// Episódios: O sistema dá ao usuário as opções:
-//             - ALTERAR CADASTRO, no qual o usuário terá a possibilidade de realizar 
-//               alterações nos seus dados cadastrais
-
-
-// Cenário - Alterar cadastro
-//
-//Objetivo:  Permitir ao usuário realizar alteração nos seus dados cadastrais	
-//Contexto:  Sistema aberto, Usuário ter acessado ao sistema e logado 
-//           Usuário deseja alterar seus dados cadastrais 
-//           Pré-Condição: Usuário ter acessado ao sistema	
-//Atores:    Usuário, Sistema.	
-//Recursos:  Interface	
-//Episódios: O usuário clica na opção de alterar cadastro da interface
 
 ?> <a href="#" onClick="window.open('Call_UpdUser.php', '_blank', 'dependent,height=300,width=550,resizable,scrollbars,titlebar');">Alterar 
               Cadastro</a>&nbsp;&nbsp;&nbsp; 
@@ -345,33 +306,6 @@ if (isset($id_projeto)) {    // Se o usuario ja tiver escolhido um projeto,
 
 
               <?php
-
-
-// Cenário - Logar no sistema
-
-// Objetivo:  Permitir ao usuário entrar no sistema e escolher um projeto que ele esteja 
-//              cadastrado, ou cadastrar novo projeto	
-// Contexto:  Sistema está aberto Usuário na tela de login do sistema. 
-//            Usuário sabe a sua senha Usuário deseja entrar no sistema com seu perfil 
-//            Pré-Condição: Usuário ter acessado ao sistema	
-// Atores:    Usuário, Sistema	
-// Recursos:  Banco de Dados	
-// Episódios: O sistema dá ao usuário as opções:
-//             - REALIZAR LOGOUT, no qual o usuário terá a possibilidade de sair da 
-//               sessão e se logar novamente
-
-
-// Cenário - Realizar logout
-
-// Objetivo:  Permitir ao usuário realizar o logout, mantendo a integridade do que foi 
-//            realizado,  e retorna a tela de login	
-// Contexto:  Sistema aberto. Usuário ter acessado ao sistema. 
-//            Usuário deseja sair da aplicação e manter a integridade do que foi 
-//            realizado 
-//            Pré-Condição: Usuário ter acessado ao sistema	
-// Atores:	  Usuário, Sistema.	
-// Recursos:  Interface	
-// Episódios: O usuário clica na opção de logout
 
 ?> <a href="logout.php" target="_parent");">Sair</a>&nbsp;&nbsp;&nbsp; <a href="ajuda.htm" target="_blank"> 
               Ajuda</a></td>

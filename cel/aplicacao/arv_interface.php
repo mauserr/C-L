@@ -5,7 +5,6 @@ include_once("bd.inc");
 
 session_start();    
 
-
 $link = bd_connect();   
 
 ?>    
@@ -66,60 +65,41 @@ menu = new MTMenu();
 <?php   
 //Arvore de Conceitos 
 
-if( isset($_SESSION['lista_de_conceitos']))
+if( isset($_SESSION['lista_de_conceitos'])){
 	$arv = $_SESSION['lista_de_conceitos'];
-else 
+}else{ 
 	$arv = array();
-//$arv = get_lista_de_conceitos();   
+}
 
-
-/*    Níveis da arvore 
-        conceito 
-                Verbo 
-                    Predicado 
-*/   
-
-/* 
-    echo "menu.addItem(\"Teste\");\n"; 
-    echo "menu.addItem(\"Teste2\");\n"; 
-
-*/  
-
-
-// Conceitos 
-foreach($arv as $conc)   
-{   
+// Concepts 
+foreach($arv as $conc){   
+    
     echo "\nmenu.addItem(\"$conc->nome\");\n";   
     echo " var mC = null;\n";   
     echo " mC = new MTMenu();\n";   
     echo "menu.makeLastSubmenu(mC);\n";         
 
-    //Relações 
-    //Verbos 
-    foreach($conc->relacoes as $relacao)   
-    {   
+    //Relations 
+    //Verbs
+    foreach($conc->relacoes as $relacao) {  
+        
         echo " mC.addItem(\"$relacao->verbo\",\"\");\n";   
         echo " var mV = new MTMenu();\n"; 
  
-        //Predicados 
-        foreach($relacao->predicados as $predicado) 
-        {
-            echo " mV.addItem(\"$predicado\",\"blank.html\",\"enganaarvore\");\n";
+        //Predicates
+        foreach($relacao->predicados as $predicado) {  
+            echo " mV.addItem(\"$predicado\",\"blank.html\",\"enganaarvore\");\n";   
         } 
-  
         echo " mC.makeLastSubmenu(mV);\n";    
     }   
 
-
 }  
-
 
 mysql_close($link);   
 
 ?>
 
 </script>
-
 
 </head>
 <body onload="MTMStartMenu(true);" bgcolor="#FFFFFF" text="#ffffcc" link="yellow" vlink="lime" alink="red">

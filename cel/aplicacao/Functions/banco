@@ -1,0 +1,498 @@
+-- phpMyAdmin SQL Dump
+-- version 2.8.1
+-- http://www.phpmyadmin.net
+-- 
+-- Host: localhost
+-- Generation Time: Jun 19, 2007 at 01:58 PM
+-- Server version: 4.1.20
+-- PHP Version: 4.3.9
+-- 
+-- Database: `cel`
+-- 
+CREATE DATABASE `cel` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `cel`;
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `algorithm`
+-- 
+
+DROP TABLE IF EXISTS `algorithm`;
+CREATE TABLE `algorithm` (
+  `id_variable` int(11) NOT NULL auto_increment,
+  `name` varchar(250) NOT NULL default '',
+  `id_project` varchar(100) NOT NULL default '',
+  `value` varchar(250) NOT NULL default '',
+  PRIMARY KEY  (`id_variable`),
+  UNIQUE KEY `name` (`name`,`id_project`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `algorithm`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `axiom`
+-- 
+
+DROP TABLE IF EXISTS `axiom`;
+CREATE TABLE `axiom` (
+  `id_axiom` int(11) NOT NULL auto_increment,
+  `axiom` varchar(250) NOT NULL default '',
+  `id_project` int(11) default '30',
+  PRIMARY KEY  (`id_axiom`),
+  UNIQUE KEY `axiom` (`axiom`,`id_project`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `axiom`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `scenario`
+-- 
+
+DROP TABLE IF EXISTS `scenario`;
+CREATE TABLE `scenario` (
+  `id_scenario` int(11) NOT NULL auto_increment,
+  `id_project` int(11) NOT NULL default '0',
+  `data` date NOT NULL default '0000-00-00',
+  `title` varchar(255) NOT NULL default '',
+  `objective` text NOT NULL,
+  `context` text NOT NULL,
+  `actors` text NOT NULL,
+  `resource` text NOT NULL,
+  `episodes` text NOT NULL,
+  `exception` text,
+  PRIMARY KEY  (`id_scenario`,`data`),
+  UNIQUE KEY `IDX_scenario_2` (`id_project`,`title`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `scenario`
+-- 
+
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `scenario_to_scenario`
+-- 
+
+DROP TABLE IF EXISTS `scenario_to_scenario`;
+CREATE TABLE `scenario_to_scenario` (
+  `id_scenario_from` int(11) NOT NULL default '0',
+  `id_scenario_to` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id_scenario_from`,`id_scenario_to`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `scenario_to_scenario`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `scenario_to_lexicon`
+-- 
+
+DROP TABLE IF EXISTS `scenario_to_lexicon`;
+CREATE TABLE `scenario_to_lexicon` (
+  `id_scenario` int(11) NOT NULL default '0',
+  `id_lexicon` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id_scenario`,`id_lexicon`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `scenario_to_lexicon`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `concept`
+-- 
+
+DROP TABLE IF EXISTS `concept`;
+CREATE TABLE `concept` (
+  `id_concept` int(11) NOT NULL auto_increment,
+  `name` varchar(250) NOT NULL default '',
+  `description` varchar(250) NOT NULL default '',
+  `namespace` varchar(250) default NULL,
+  `id_project` int(11) NOT NULL default '30',
+  PRIMARY KEY  (`id_concept`),
+  UNIQUE KEY `name` (`name`,`id_project`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `concept`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `hierarchy`
+-- 
+
+DROP TABLE IF EXISTS `hierarchy`;
+CREATE TABLE `hierarchy` (
+  `id_hierarquia` int(11) NOT NULL auto_increment,
+  `id_project` int(11) NOT NULL default '0',
+  `id_concept` int(11) NOT NULL default '0',
+  `id_subconcept` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id_hierarquia`,`id_project`,`id_concept`,`id_subconcept`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `hierarchy`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `impact`
+-- 
+
+DROP TABLE IF EXISTS `impact`;
+CREATE TABLE `impact` (
+  `id_impact` int(11) NOT NULL auto_increment,
+  `id_lexicon` int(11) NOT NULL default '0',
+  `impact` varchar(100) NOT NULL default '',
+  PRIMARY KEY  (`id_impact`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `impact`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `lexicon`
+-- 
+
+DROP TABLE IF EXISTS `lexicon`;
+CREATE TABLE `lexicon` (
+  `id_lexicon` int(11) NOT NULL auto_increment,
+  `id_project` int(11) NOT NULL default '0',
+  `data` date NOT NULL default '0000-00-00',
+  `name` varchar(64) NOT NULL default '',
+  `type` varchar(15) default NULL,
+  `notion` text NOT NULL,
+  `impact` text,
+  PRIMARY KEY  (`id_lexicon`,`data`),
+  UNIQUE KEY `IDX_lexico_2` (`id_project`,`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `lexicon`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `lexicon_to_lexicon`
+-- 
+
+DROP TABLE IF EXISTS `lexicon_to_lexicon`;
+CREATE TABLE `lexicon_to_lexicon` (
+  `id_lexicon_from` int(11) NOT NULL default '0',
+  `id_lexicon_to` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id_lexicon_from`,`id_lexicon_to`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `lexicon_to_lexicon`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `participates`
+-- 
+
+DROP TABLE IF EXISTS `participates`;
+CREATE TABLE `participates` (
+  `id_user` int(11) NOT NULL default '0',
+  `id_project` int(11) NOT NULL default '0',
+  `manager` int(1) NOT NULL default '0',
+  PRIMARY KEY  (`id_user`,`id_project`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `participates`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `request_scenario`
+-- 
+
+DROP TABLE IF EXISTS `request_scenario`;
+CREATE TABLE `request_scenario` (
+  `id_request_scenario` int(11) NOT NULL auto_increment,
+  `id_user` int(11) NOT NULL default '0',
+  `id_project` int(11) NOT NULL default '0',
+  `type_request` varchar(7) NOT NULL default '',
+  `aproved` int(1) NOT NULL default '0',
+  `id_scenario` int(11) default NULL,
+  `title` varchar(255) NOT NULL default '',
+  `objective` text NOT NULL,
+  `context` text NOT NULL,
+  `actors` text NOT NULL,
+  `resource` text NOT NULL,
+  `episodes` text,
+  `justification` text,
+  `id_status` int(1) default NULL,
+  `exception` text,
+  PRIMARY KEY  (`id_request_scenario`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `request_scenario`
+-- 
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `request_concept`
+-- 
+
+DROP TABLE IF EXISTS `request_concept`;
+CREATE TABLE `request_concept` (
+  `id_request_concept` int(11) NOT NULL auto_increment,
+  `id_user` int(11) NOT NULL default '0',
+  `id_project` int(11) NOT NULL default '0',
+  `type_request` varchar(7) NOT NULL default '',
+  `aproved` int(1) NOT NULL default '0',
+  `id_concept` int(11) default NULL,
+  `name` varchar(255) NOT NULL default '',
+  `description` text NOT NULL,
+  `namespace` text NOT NULL,
+  `justification` text,
+  `id_status` int(1) default NULL,
+  PRIMARY KEY  (`id_request_concept`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `request_concept`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `request_lexicon`
+-- 
+
+DROP TABLE IF EXISTS `request_lexicon`;
+CREATE TABLE `request_lexicon` (
+  `id_request_lexicon` int(11) NOT NULL auto_increment,
+  `id_user` int(11) NOT NULL default '0',
+  `id_project` int(11) NOT NULL default '0',
+  `type_request` varchar(7) NOT NULL default '',
+  `aproved` int(1) NOT NULL default '0',
+  `id_lexicon` int(11) NOT NULL default '0',
+  `name` varchar(64) NOT NULL default '',
+  `notion` text NOT NULL,
+  `impact` text NOT NULL,
+  `justification` text,
+  `id_status` int(1) default NULL,
+  `type` varchar(20) default NULL,
+  PRIMARY KEY  (`id_request_lexicon`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `request_lexicon`
+-- 
+
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `request_relation`
+-- 
+
+DROP TABLE IF EXISTS `request_relation`;
+CREATE TABLE `request_relation` (
+  `id_request_relation` int(11) NOT NULL auto_increment,
+  `id_user` int(11) NOT NULL default '0',
+  `id_project` int(11) NOT NULL default '0',
+  `type_request` varchar(7) NOT NULL default '',
+  `aproved` int(1) NOT NULL default '0',
+  `id_relation` int(11) default NULL,
+  `name` varchar(255) NOT NULL default '',
+  `justification` text,
+  `id_status` int(1) default NULL,
+  PRIMARY KEY  (`id_request_relation`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `request_relation`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `project`
+-- 
+
+DROP TABLE IF EXISTS `project`;
+CREATE TABLE `project` (
+  `id_project` int(11) NOT NULL default '0',
+  `name` varchar(128) NOT NULL default '',
+  `date_creation` date NOT NULL default '0000-00-00',
+  `description` text NOT NULL,
+  `id_status` int(50) default NULL,
+  PRIMARY KEY  (`id_project`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `project`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `publication`
+-- 
+
+DROP TABLE IF EXISTS `publication`;
+CREATE TABLE `publication` (
+  `id_project` int(11) NOT NULL default '0',
+  `date_publication` date NOT NULL default '0000-00-00',
+  `version` varchar(15) NOT NULL default '',
+  `XML` longtext NOT NULL,
+  PRIMARY KEY  (`id_project`,`version`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `publication`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `relation`
+-- 
+
+DROP TABLE IF EXISTS `relation`;
+CREATE TABLE `relation` (
+  `id_relation` int(11) NOT NULL auto_increment,
+  `name` varchar(250) NOT NULL default '',
+  `id_project` int(11) default '30',
+  PRIMARY KEY  (`id_relation`),
+  UNIQUE KEY `name` (`name`,`id_project`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `relation`
+-- 
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `relation_concept`
+-- 
+
+DROP TABLE IF EXISTS `relation_concept`;
+CREATE TABLE `relation_concept` (
+  `id_concept` int(11) NOT NULL default '0',
+  `id_relation` int(11) NOT NULL default '0',
+  `predicate` varchar(250) NOT NULL default '',
+  `id_project` int(11) NOT NULL default '30',
+  PRIMARY KEY  (`id_concept`,`id_relation`,`predicate`,`id_project`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `relation_concept`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `synonym`
+-- 
+
+DROP TABLE IF EXISTS `synonym`;
+CREATE TABLE `synonym` (
+  `id_synonym` int(50) NOT NULL auto_increment,
+  `id_lexicon` int(50) NOT NULL default '0',
+  `id_pedidolex` int(50) NOT NULL default '0',
+  `name` varchar(50) NOT NULL default '',
+  `id_project` int(50) default NULL,
+  PRIMARY KEY  (`id_synonym`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `synonym`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `status`
+-- 
+
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE `status` (
+  `id_status` int(2) NOT NULL auto_increment,
+  `description` varchar(50) NOT NULL default '',
+  PRIMARY KEY  (`id_status`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `status`
+-- 
+
+INSERT INTO `status` (`id_status`, `Description`) VALUES (1, 'Pending'),
+(2, 'Aproved'),
+(3, 'Rejected'),
+(4, 'Publicated'),
+(5, 'Private');
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `user`
+-- 
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id_user` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `email` varchar(64) NOT NULL default '',
+  `login` varchar(32) NOT NULL default '',
+  `password` varchar(32) NOT NULL default '',
+  PRIMARY KEY  (`id_user`),
+  UNIQUE KEY `IDX_usuario_2` (`login`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 
+-- Dumping data for table `user`
+-- 
+
+INSERT INTO `user` (`id_user`, `name`, `email`, `login`, `password`) VALUES (1, 'user', 'user@teste.com.br', 'user', '1234');

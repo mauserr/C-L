@@ -4,8 +4,8 @@ include_once("bd.inc");
 
 $link = bd_connect();
 
-$query = "show tables" ;
-$result = mysql_query($query) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+$query_sql = "show tables" ;
+$query_result_sql = mysql_query($query) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
 
 
     print "<font color=#7c75b2 face=arial><h3>TABELAS e seus ATRIBUTOS<h3></font>";
@@ -13,9 +13,9 @@ $result = mysql_query($query) or die("A consulta à BD falhou : " . mysql_error()
 while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
 { 
     print "<table border=1><tr><td bgcolor=#7c75b2 width=120><font color=white>". $line[0] . "</font></td>";
-    $tabela = "describe " . $line[0] ;
-    $atributos = mysql_query($tabela) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
-    while ($linha = mysql_fetch_array($atributos, MYSQL_BOTH)) 
+    $table = "describe " . $line[0] ;
+    $atributes = mysql_query($table) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+    while ($line = mysql_fetch_array($atributes, MYSQL_BOTH)) 
     {  
        print  "<td>" . $linha[0] . " </td>";
     }
@@ -23,22 +23,7 @@ while ($line = mysql_fetch_array($result, MYSQL_BOTH))
 } 
 
 
-
-
-/* PROJETO que está sendo traduzido pelo Jerônimo (Adm_Imoveis)*/
-
-$projetos = "select * from projeto where nome='Adm_Imoveis' order by id_projeto" ;
-$resultado = mysql_query($projetos) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
-  print "<br><br><font color=#7c75b2 face=arial><h3>Projeto que está sendo traduzido pelo Jerônimo<h3></font>";
-  print "<table border=1>";
-  print "<tr><td bgcolor=#7c75b2 width=120><font color=white>id_projeto</font></td> 
-                  <td bgcolor=#7c75b2 width=120><font color=white>nome</font></td>
-                  <td bgcolor=#7c75b2 width=120><font color=white>data da criação</font></td>
-                  <td bgcolor=#7c75b2 width=120><font color=white>descrição</font></td>
-                  <td bgcolor=#7c75b2 width=120><font color=white>id_status</font></td>
-           </tr>";
-
-  while ($line = mysql_fetch_array($resultado, MYSQL_BOTH)) 
+  while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
   {  
      print "<tr><td>". $line[0] . "</td><td>". $line[1] . "</td><td>" . $line[2] . "</td><td>" . $line[3] . "</td><td>". $line[4] . "</td><td>". $line[5] . "</td><td>";
   }
@@ -46,8 +31,8 @@ $resultado = mysql_query($projetos) or die("A consulta à BD falhou : " . mysql_e
 
   /* PEDIDOREL */
 
-$resultados = "select * from pedidorel order by nome" ;
-$resultado = mysql_query($resultados) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+$results = "select * from request_relation order by name" ;
+$result = mysql_query($results) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
   print "<br><br><font color=#7c75b2 face=arial><h3>PedidoRel<h3></font>";
   print "<table border=1>";
   print "<tr><td bgcolor=#7c75b2 width=120><font color=white>id_pedido</font></td> 
@@ -62,7 +47,7 @@ $resultado = mysql_query($resultados) or die("A consulta à BD falhou : " . mysql
   
            </tr>";
 
-  while ($line = mysql_fetch_array($resultado, MYSQL_BOTH)) 
+  while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
   {  
      print "<tr><td>". $line[0] . "</td><td>". $line[1] . "</td><td>" . $line[2] . "</td><td>" . $line[3] . "</td><td>" . $line[4] . "</td><td>" . $line[5] . "</td><td>" . $line[6] . "</td><td>" . $line[7] . "</td><td>" . $line[8] . "</td><td>";
   }
@@ -70,8 +55,8 @@ $resultado = mysql_query($resultados) or die("A consulta à BD falhou : " . mysql
 
 /* LEXICO */
 
-$resultados = "select * from lexico order by nome" ;
-$resultado = mysql_query($resultados) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+$results = "select * from lexicon order by name" ;
+$result = mysql_query($results) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
   print "<br><br><font color=#7c75b2 face=arial><h3>Lexico<h3></font>";
   print "<table border=1>";
   print "<tr><td bgcolor=#7c75b2 width=120><font color=white>id_lexico</font></td> 
@@ -84,7 +69,7 @@ $resultado = mysql_query($resultados) or die("A consulta à BD falhou : " . mysql
   
            </tr>";
 
-  while ($line = mysql_fetch_array($resultado, MYSQL_BOTH)) 
+  while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
   {  
      print "<tr><td>". $line[0] . "</td><td>". $line[1] . "</td><td>" . $line[2] . "</td><td>" . $line[3] . "</td><td>" . $line[4] . "</td><td>" . $line[5] . "</td><td>" . $line[6] . "</td><td>" . $line[7] . "</td><td>";
   }
@@ -93,8 +78,8 @@ $resultado = mysql_query($resultados) or die("A consulta à BD falhou : " . mysql
   
 /* ALGORITMO */
 
-$resultados = "select * from algoritmo" ;
-$resultado = mysql_query($resultados) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+$results = "select * from algorithm" ;
+$result = mysql_query($results) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
   print "<br><br><font color=#7c75b2 face=arial><h3>Algoritmo<h3></font>";
   print "<table border=1>";
   print "<tr><td bgcolor=#7c75b2 width=120><font color=white>id_variavel</font></td> 
@@ -103,7 +88,7 @@ $resultado = mysql_query($resultados) or die("A consulta à BD falhou : " . mysql
                   <td bgcolor=#7c75b2 width=120><font color=white>valor</font></td>                  
            </tr>";
 
-  while ($line = mysql_fetch_array($resultado, MYSQL_BOTH)) 
+  while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
   {  
      print "<tr><td>". $line[0] . "</td><td>". $line[1] . "</td><td>" . $line[2] . "</td><td>" . $line[3] . "</td><td>";
   }
@@ -111,8 +96,8 @@ $resultado = mysql_query($resultados) or die("A consulta à BD falhou : " . mysql
 
 /* CONCEITOS */
 
-$conceitos = "select * from conceito order by nome asc" ;
-$resultado = mysql_query($conceitos) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+$concept = "select * from conceito order by nome asc" ;
+$result = mysql_query($concept) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
   print "<br><br><font color=#7c75b2 face=arial><h3>Conceitos<h3></font>";
   print "<table border=1>";
   print "<tr><td bgcolor=#7c75b2 width=120><font color=white>id_conceito</font></td> 
@@ -122,7 +107,7 @@ $resultado = mysql_query($conceitos) or die("A consulta à BD falhou : " . mysql_
                   <td bgcolor=#7c75b2 width=120><font color=white>pai</font></td>
            </tr>";
 
-  while ($line = mysql_fetch_array($resultado, MYSQL_BOTH)) 
+  while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
   {  
      print "<tr><td>". $line[0] . "</td><td>". $line[1] . "</td><td>" . $line[2] . "</td><td>" . $line[3] . "</td><td>". $line[4] . "</td><td>". $line[5] . "</td><td>";
   }
@@ -133,8 +118,8 @@ $resultado = mysql_query($conceitos) or die("A consulta à BD falhou : " . mysql_
 
 /* RELAÇÕES */
 
-$relacoes = "select * from relacao order by id_relacao" ;
-$resultado = mysql_query($relacoes) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+$relations = "select * from relation order by id_relation" ;
+$result = mysql_query($relations) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
   print "<br><br><font color=#7c75b2 face=arial><h3>Relações<h3></font>";
   print "<table border=1>";
   print "<tr><td bgcolor=#7c75b2 width=120><font color=white>id_relacao</font></td> 
@@ -142,7 +127,7 @@ $resultado = mysql_query($relacoes) or die("A consulta à BD falhou : " . mysql_e
              <td bgcolor=#7c75b2 width=120><font color=white>id_projeto</font></td>
          </tr>";
 
-  while ($line = mysql_fetch_array($resultado, MYSQL_BOTH)) 
+  while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
   {  
      print "<tr><td>". $line[0] . "</td><td>". $line[1] . "</td><td>" . $line[2] . "</td><td>";
   }
@@ -151,8 +136,8 @@ $resultado = mysql_query($relacoes) or die("A consulta à BD falhou : " . mysql_e
 
 /* HIERARQUIA */
 
-$hierarquia = "select * from hierarquia" ;
-$resultado = mysql_query($hierarquia) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+$hierarchy = "select * from hierarchy" ;
+$result = mysql_query($hierarchy) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
   print "<br><br><font color=#7c75b2 face=arial><h3>Hierarquia<h3></font>";
   print "<table border=1>";
   print "<tr><td bgcolor=#7c75b2 width=120><font color=white>id_hierarquia</font></td> 
@@ -161,7 +146,7 @@ $resultado = mysql_query($hierarquia) or die("A consulta à BD falhou : " . mysql
 			 <td bgcolor=#7c75b2 width=120><font color=white>id_subconceito</font></td>
          </tr>";
 
-  while ($line = mysql_fetch_array($resultado, MYSQL_BOTH)) 
+  while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
   {  
      print "<tr><td>". $line[0] . "</td><td>". $line[1] . "</td><td>" . $line[2] . "</td><td>" . $line[3] . "</td><td>";
   }
@@ -171,8 +156,8 @@ $resultado = mysql_query($hierarquia) or die("A consulta à BD falhou : " . mysql
 
 /* RELAÇÕES ENTRE CONCEITOS */
 
-$rc = "select c.nome, r.nome, rc.predicado, rc.id_projeto from relacao_conceito rc, relacao r, conceito c WHERE c.id_conceito = rc.id_conceito AND rc.id_relacao = r.id_relacao ORDER BY c.nome, r.nome ASC;" ;
-$resultado = mysql_query($rc) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+$result_concept = "select c.nome, r.nome, rc.predicado, rc.id_projeto from relacao_conceito rc, relacao r, conceito c WHERE c.id_conceito = rc.id_conceito AND rc.id_relacao = r.id_relacao ORDER BY c.nome, r.nome ASC;" ;
+$result = mysql_query($result_concept) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
   print "<br><br><font color=#7c75b2 face=arial><h3>Relação entre conceitos<h3></font>";
   print "<table border=1>";
   print "<tr><td bgcolor=#7c75b2 width=120><font color=white>conceito</font></td> 
@@ -181,7 +166,7 @@ $resultado = mysql_query($rc) or die("A consulta à BD falhou : " . mysql_error()
              <td bgcolor=#7c75b2 width=120><font color=white>id_projeto</font></td>
          </tr>";
 
-  while ($line = mysql_fetch_array($resultado, MYSQL_BOTH)) 
+  while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
   {  
      print "<tr><td>". $line[0] . "</td><td>". $line[1] . "</td><td>" . $line[2] . "</td><td>" . $line[3] . "</td><td>";
   }
@@ -192,8 +177,8 @@ $resultado = mysql_query($rc) or die("A consulta à BD falhou : " . mysql_error()
 
 /* AXIOMAS */
 
-$axiomas = "select * from axioma order by id_axioma" ;
-$resultado = mysql_query($axiomas) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+$axioms = "select * from axiom order by id_axiom" ;
+$result = mysql_query($axioms) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
   print "<br><br><font color=#7c75b2 face=arial><h3>Axiomas<h3></font>";
   print "<table border=1>";
   print "<tr><td bgcolor=#7c75b2 width=120><font color=white>id_axioma</font></td> 
@@ -201,7 +186,7 @@ $resultado = mysql_query($axiomas) or die("A consulta à BD falhou : " . mysql_er
              <td bgcolor=#7c75b2 width=120><font color=white>id_projeto</font></td>
          </tr>";
 
-  while ($line = mysql_fetch_array($resultado, MYSQL_BOTH)) 
+  while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
   {  
      print "<tr><td>". $line[0] . "</td><td>". $line[1] . "</td><td>" . $line[2] . "</td><td>";
   }
@@ -210,8 +195,8 @@ $resultado = mysql_query($axiomas) or die("A consulta à BD falhou : " . mysql_er
 
 /* USUÁRIOS */
 
-$usuarios = "select * from usuario order by id_usuario" ;
-$resultado = mysql_query($usuarios) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+$users = "select * from user order by id_user" ;
+$result = mysql_query($users) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
   print "<br><br><font color=#7c75b2 face=arial><h3>Usuários<h3></font>";
   print "<table border=1>";
   print "<tr><td bgcolor=#7c75b2 width=120><font color=white>id_usuario</font></td> 
@@ -221,7 +206,7 @@ $resultado = mysql_query($usuarios) or die("A consulta à BD falhou : " . mysql_e
              <td bgcolor=#7c75b2 width=120><font color=white>senha</font></td>
          </tr>";
 
-  while ($line = mysql_fetch_array($resultado, MYSQL_BOTH)) 
+  while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
   {  
      print "<tr><td>". $line[0] . "</td><td>". $line[1] . "</td><td>" . $line[2] . "</td><td>" .  $line[3] . "</td><td>" . $line[4] . "</td><td>";
   }
@@ -230,8 +215,8 @@ $resultado = mysql_query($usuarios) or die("A consulta à BD falhou : " . mysql_e
 
 /* PARTICIPA */
 
-$participa = "select * from participa order by id_projeto" ;
-$resultado = mysql_query($participa) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
+$participates = "select * from participates order by id_project" ;
+$result = mysql_query($participates) or die("A consulta à BD falhou : " . mysql_error() . __LINE__); 
   print "<br><br><font color=#7c75b2 face=arial><h3>Participa<h3></font>";
   print "<table border=1>";
   print "<tr><td bgcolor=#7c75b2 width=120><font color=white>id_usuario</font></td> 
@@ -239,7 +224,7 @@ $resultado = mysql_query($participa) or die("A consulta à BD falhou : " . mysql_
              <td bgcolor=#7c75b2 width=120><font color=white>gerente</font></td>
          </tr>";
 
-  while ($line = mysql_fetch_array($resultado, MYSQL_BOTH)) 
+  while ($line = mysql_fetch_array($result, MYSQL_BOTH)) 
   {  
      print "<tr><td>". $line[0] . "</td><td>". $line[1] . "</td><td>" . $line[2] . "</td><td>" ;
   }

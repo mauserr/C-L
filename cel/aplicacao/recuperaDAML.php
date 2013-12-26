@@ -15,47 +15,47 @@
         Comentário: Este programa lista todos os arquivos DAML    gerados    em $_SESSION['diretorio'] 
     */ 
      
-    function extrair_data( $nome_arquivo ) 
+    function extract_date ($name_file ) 
     { 
-        list($projeto, $resto) = split("__", $nome_arquivo);
-        list($dia, $mes, $ano, $hora, $minuto, $segundo, $extensao) = split('[_-.]', $resto); 
+        list($project, $rest) = split("__", $name_file);
+        list($day, $month, $year, $hour, $minute, $second, $extension) = split('[_-.]', $rest); 
          
-        if( !is_numeric($dia) || !is_numeric($mes) || !is_numeric($ano) || !is_numeric($hora) || !is_numeric($minuto) || !is_numeric($segundo) ) 
+        if( !is_numeric($day) || !is_numeric($month) || !is_numeric($year) || !is_numeric($hour) || !is_numeric($minute) || !is_numeric($second) ) 
             return "-"; 
          
-        $mes_por_extenso = "-"; 
-        switch( $mes ) 
+        $months_spelled = "-"; 
+        switch( $month ) 
         { 
-            case 1: $mes_por_extenso = "janeiro"; break; 
-            case 2: $mes_por_extenso = "fevereiro"; break; 
-            case 3: $mes_por_extenso = "março"; break; 
-            case 4: $mes_por_extenso = "abril"; break; 
-            case 5: $mes_por_extenso = "maio"; break; 
-            case 6: $mes_por_extenso = "junho"; break; 
-            case 7: $mes_por_extenso = "julho"; break; 
-            case 8: $mes_por_extenso = "agosto"; break; 
-            case 9: $mes_por_extenso = "setembro"; break; 
-            case 10: $mes_por_extenso = "outubro"; break; 
-            case 11: $mes_por_extenso = "novembro"; break; 
-            case 12: $mes_por_extenso = "dezembro"; break; 
+            case 1: $months_spelled = "janeiro"; break; 
+            case 2: $months_spelled = "fevereiro"; break; 
+            case 3: $months_spelled = "março"; break; 
+            case 4: $months_spelled = "abril"; break; 
+            case 5: $months_spelled = "maio"; break; 
+            case 6: $months_spelled = "junho"; break; 
+            case 7: $months_spelled = "julho"; break; 
+            case 8: $months_spelled = "agosto"; break; 
+            case 9: $months_spelled = "setembro"; break; 
+            case 10: $months_spelled = "outubro"; break; 
+            case 11: $months_spelled = "novembro"; break; 
+            case 12: $months_spelled = "dezembro"; break; 
         }         
          
-        return $dia . " de " . $mes_por_extenso . " de " . $ano . " às " . $hora . ":" . $minuto . "." . $segundo . "\n"; 
+        return $day . " de " . $months_spelled . " de " . $year . " às " . $hour . ":" . $minute . "." . $second . "\n"; 
     } 
      
-    function extrair_projeto( $nome_arquivo ) 
+    function extract_project( $nome_arquivo ) 
     { 
-        list($projeto) = split("__", $nome_arquivo); 
-        return $projeto; 
+        list($project) = split("__", $name_file); 
+        return $project; 
     }     
 
-    $diretorio = $_SESSION['diretorio']; 
+    $directory = $_SESSION['diretorio']; 
     $site = $_SESSION['site']; 
      
-    if( $diretorio == "" )
+    if( $directory == "" )
     {
-    //    $diretorio = "teste"; 
-          $diretorio = CELConfig_ReadVar("DAML_dir_relativo_ao_CEL") ;
+    //    $directory = "teste"; 
+          $directory = CELConfig_ReadVar("DAML_dir_relativo_ao_CEL") ;
     }
 
     if( $site == "" ) 
@@ -71,16 +71,16 @@
     /* Monta a tabela    de arquivos    DAML */ 
     print( "<CENTER><TABLE WIDTH=\"80%\">\n") ; 
     print( "<TR>\n\t<Th><STRONG>Projeto</STRONG></Th>\n\t<Th><STRONG>Gerado em</STRONG></Th>\n</TR>\n" ); 
-    if ( $dir_handle = @opendir( $diretorio )    ) 
+    if ( $dir_handle = @opendir( $directory )    ) 
     { 
-        while ( ( $arquivo = readdir($dir_handle) ) !== false ) 
+        while ( ( $file = read_directory($dir_handle) ) !== false ) 
         { 
-            if ( is_file( $diretorio . "/" . $arquivo ) && $arquivo != "." && $arquivo != ".." ) 
+            if ( is_file( $directory . "/" . $file ) && $file != "." && $file != ".." ) 
             { 
                 print( "<TR>\n" ); 
-                print( "\t<TD WIDTH=\"25%\" CLASS=\"Estilo\"><B>" . extrair_projeto( $arquivo ) . "</B></TD>\n" ); 
-                print( "\t<TD WIDTH=\"55%\" CLASS=\"Estilo\">" . extrair_data( $arquivo ) . "</TD>\n" ); 
-                print( "\t<TD WIDTH=\"10%\" >[<A HREF=\"" . $site . $arquivo . "\">Abrir</A>]</TD>\n" ); 
+                print( "\t<TD WIDTH=\"25%\" CLASS=\"Estilo\"><B>" . extract_project( $file ) . "</B></TD>\n" ); 
+                print( "\t<TD WIDTH=\"55%\" CLASS=\"Estilo\">" . extract_date( $file) . "</TD>\n" ); 
+                print( "\t<TD WIDTH=\"10%\" >[<A HREF=\"" . $site . $file . "\">Abrir</A>]</TD>\n" ); 
                 print( "</TR>\n" ); 
             } 
         } 

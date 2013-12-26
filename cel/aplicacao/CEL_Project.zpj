@@ -14,7 +14,7 @@
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\add_usuario.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\ajuda.htm"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\algoritmo.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\algoritmo_inicio.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\initial_Algorithm.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\alt_cenario.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\alt_conceito.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\alt_lexico.php"/>
@@ -27,12 +27,12 @@
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\bd_class.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\Call_UpdUser.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\code.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\create.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\Function\create.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\daml.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\enviar_senha.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\esqueciSenha.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\estado_bd.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\estruturas.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\structures.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\form_daml.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\form_xml.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\frame_inferior.php"/>
@@ -48,9 +48,9 @@
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\logout.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\main.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\menu_empty.htm"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\mostrarProjeto.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\show_Project.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\mostraXML.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\projetos.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\Function\project_Main.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\recuperaDAML.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\recuperarXML.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\RegrasLAL.html"/>
@@ -65,14 +65,14 @@
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\script_bd.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\script_bd2.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\showSource.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\teste_daml.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\test_Daml.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\updUser.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\ver_pedido_cenario.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\ver_pedido_conceito.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\ver_pedido_lexico.php"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\ver_pedido_relacao.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\see_Scenario_Request.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\see_Concept_Request.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\see_Lexicon_Request.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\see_Relation_Request.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\VertBar.htm"/>
-		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\zera_tipos.php"/>
+		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\resets_Types.php"/>
 		<vfile name="F:\Apache\Apache2\htdocs\cel_vf\aplicacao\CELConfig\CELConfig.inc"/>
 	</project_entity>
 	<project_entity ID="bookmarks"/>

@@ -3,9 +3,10 @@
 session_start();
 
 include("funcoes_genericas.php");
+require_once '/Functions/check_User.php';
 include("httprequest.inc");
 
-chkUser("index.php");        // Checa se o usuario foi autenticado
+check_User("index.php");     
 
 $XML = "";
 
@@ -19,43 +20,48 @@ $XML = "";
 
 <?php
 
-//Cenário -  Gerar Relatórios XML 
+//Scenario - generate XML report 
 
-//Objetivo:   Permitir ao administrador gerar relatórios em formato XML de um projeto,
-//             identificados por data.
-//Contexto:   Gerente deseja gerar um relatório para um dos projetos da qual é administrador.
-//              Pré-Condição: Login, projeto cadastrado.
-//Atores:     Administrador
-//Recursos:   Sistema, dados do relatório, dados cadastrados do projeto, banco de dados.
-//Episódios:  Restrição: Recuperar os dados em XML do Banco de dados e os transformar
-//                       por uma XSL para a exibição.
+//Objetivo: Allows the administrator generate a report of a project in XML format, identified by date 
+//Contexto: The manager wants to generate a repot for a project of his administration
+//Atores:     Administrator
+
 
 $bd_recupera = bd_connect() or die("Erro ao conectar ao SGBD");
-if (isset($apaga))
+
+$erase = null;
+$id_project = null;
+$version = null;
+if (isset($erase))
 {
-	if ( $apaga )
+	if ( $erase )
 	{
-		$qApaga = "DELETE FROM publicacao WHERE id_projeto = '$id_projeto' AND versao = '$versao' ";
-		$qrrApaga = mysql_query($qApaga);	
+		$query_delete_sql = "DELETE FROM publication WHERE id_project = '$id_project' AND version = '$version' ";
+		$query_erase_result_sql = mysql_query($query_delete_sql);	
 	}
 }
-$q = "SELECT * FROM publicacao WHERE id_projeto = '$id_projeto'";
-$qrr = mysql_query($q) or die("Erro ao enviar a query");
+$query_select_sql = "SELECT * FROM publication WHERE id_project = '$id_project'";
+$query_result_sql = mysql_query($query_select_sql) or die("Erro ao enviar a query");
+
 ?>
+
 <h2>Recupera XML/XSL</h2><br>
+
 <?php
-while ( $result = mysql_fetch_row($qrr) )
+
+while ( $result = mysql_fetch_row($query_result_sql) )
 {
-   $data   = $result[1];
-   $versao = $result[2];
+   $date  = $result[1];
+   $version = $result[2];
    $XML    = $result[3];	
 ?>
+
 <table>
    <tr>
-                <th>Versão:</th><td><?=$versao?></td>
-                <th>Data:</th><td><?=$data?></td>
-                <th><a href="mostraXML.php?id_projeto=<?=$id_projeto?>&versao=<?=$versao?>">XML</a></th>
-                <th><a href="recuperarXML.php?id_projeto=<?=$id_projeto?>&versao=<?=$versao?>&apaga=true">Apaga XML</a></th>
+                <th>Versï¿½o:</th><td><?=$version?></td>
+                <th>Data:</th><td><?=$date?></td>
+                <th><a href="mostraXML.php?id_projeto=<?=$id_projeto?>&versao=<?=$version?>">XML</a></th>
+                <th><a href="recuperarXML.php?id_projeto=<?=$id_projeto?>&versao=<?=$version?>&erase=true">Apaga XML</a></th>
                 
    </tr>
 
@@ -67,7 +73,7 @@ while ( $result = mysql_fetch_row($qrr) )
 
 ?>
 
-<br><i><a href="showSource.php?file=recuperarXML.php">Veja o código fonte!</a></i>
+<br><i><a href="showSource.php?file=recuperarXML.php">Veja o cï¿½digo fonte!</a></i>
     
     </body>
 

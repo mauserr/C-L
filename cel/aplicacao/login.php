@@ -1,18 +1,16 @@
 <?php
 
 /**
-@Titulo: Acessar o sistema
+@Title: Login
 
-@Objetivo: Permitir que o usuário acesse a Aplicação de Edição de Léxicos e de Edição de Cenários, cadastre-se no sistema ou requisite sua senha no caso de tê-la esquecido.
+@Objective: Allows the user to enter in the aplication. 
 
-@Contexto: A página da aplicação é acessada. Na página de abertura ../cel/aplicacao/login.php o usuário insere login ou senha incorretos - $wrong=true.
+@Actors: user, aplication
 
-@Atores: usuário, aplicação
-
-@Recursos: URL de acesso ao sistema,  login, senha, bd.inc, httprequest.inc, $wrong, $url, showSource.php?file=login.php, esqueciSenha.php, add_usuario.php?novo=true 
+@Resources: URL to acess the system ,  login, passwrod, bd.inc, httprequest.inc, $wrong, $url, showSource.php?file=login.php, esqueciSenha.php, add_usuario.php?novo=true 
 **/
 
-/** @Episodio 1: Iniciar sessão **/
+/** @Episode 1: Start session **/
 session_start();
 
 include("bd.inc");
@@ -20,26 +18,41 @@ include("bd.inc");
 $url = '';
 $submit = '';
 $login = '';
-$senha = '';
+$password = '';
 $wrong = "false";
 
 include("httprequest.inc");
 
 /** @Episodio 2: Conectar o SGBD **/
-/** @Restrição: a função bd_connect definida em bd.inc é utilizada **/
-/** @Exceção: Erro ao conectar banco de dados **/
+/** @Restriï¿½ï¿½o: a funï¿½ï¿½o bd_connect definida em bd.inc ï¿½ utilizada **/
+/** @Exceï¿½ï¿½o: Erro ao conectar banco de dados **/
 
-$r = bd_connect() or die("Erro ao conectar ao SGBD");
+$connect = bd_connect() or die("Erro ao conectar ao SGBD");
 
-/** @Episodio 9: Se o formulário tiver sido submetido então verificar se o login e senha estão corretos. **/
-if ( $submit == 'Entrar') 
+/** @Episodio 9: Se o formulï¿½rio tiver sido submetido entï¿½o verificar se o login e senha estï¿½o corretos. **/
+
+
+
+if ( isset($_POST['submit'])) 
 {        
-	$senha_cript = md5($senha);
-	$q = "SELECT id_usuario FROM usuario WHERE login='$login' AND senha='$senha_cript'";
-    $qrr = mysql_query($q) or die("Erro ao executar a query");
+	
+	assert($_POST['password'] != NULL);
+	
+	$password_cript = md5($_POST['password']);
+
+	assert($password_cript != NULL);
+	// Add slashes to avoid SQL INJECTION
+	$password_cript_escape =  addslashes($password_cript);
+	$login_escape =  addslashes($login);
+	
+	$query_select_sql = "SELECT id_user FROM user WHERE login='$login_escape' AND password='$password_cript_escape'";
+    
+	assert(query_select_sql != NULL);
+	
+	$query_result_sql = mysql_query($query_select_sql) or die("Erro ao executar a query");
   
-	/** @Episodio 10: Se o login e/ou senha estiverem incorretos então retornar a página de login com wrong=true na URL. **/
-	if ( !mysql_num_rows($qrr) ) {        
+	/** @Episodio 10: Se o login e/ou senha estiverem incorretos entï¿½o retornar a pï¿½gina de login com wrong=true na URL. **/
+	if ( !mysql_num_rows($query_result_sql) ) {        
 
 ?>
 		<script language="javascript1.3">
@@ -48,17 +61,23 @@ if ( $submit == 'Entrar')
 
 <?php
 
-		$wrong = $_get["wrong"];
+		$wrong = $_GET["wrong"];
+		assert ($wrong != NULL);
+
     } 
 
-	/** @Episodio 11: Se o login e senha estiverem corretos então registrar sessão para o usuário, fechar login.php e abrir aplicação . **/
+	/** @Episodio 11: Se o login e senha estiverem corretos entï¿½oo registrar sessï¿½o para o usuï¿½rio, fechar login.php e abrir aplicaï¿½ï¿½o . **/
 	else {
 
-        $row = mysql_fetch_row($qrr);
+        $row = mysql_fetch_row($query_result_sql);
+        
+        assert($row[0] != NULL); 
         $id_usuario_corrente = $row[0];
 
-        session_register("id_usuario_corrente");
-?>
+       
+        
+        $_SESSION['current_id_user'] = "$row[0]";
+?>  
 		<script language="javascript1.3">
 			opener.document.location.replace('<?=$url?>');
 			self.close();
@@ -68,7 +87,7 @@ if ( $submit == 'Entrar')
     }
 } 
 
-/** @Episodio 3: Mostrar o formulário de login para usuário. **/
+/** @Episodio 3: Mostrar o formulï¿½rio de login para usuï¿½rio. **/
 else {    
 ?>
 
@@ -80,7 +99,7 @@ else {
 
 <?php
 
-	/** @Episodio 4: Se wrong = true então mostrar a mensagem Login ou Senha incorreto . **/
+	/** @Episodio 4: Se wrong = true entao mostrar a mensagem Login ou Senha incorreto . **/
 	if ($wrong=="true") {
 		?>
 
@@ -105,22 +124,22 @@ else {
 	<form action="?url=<?=$url?>" method="post">
     <div align="center">
     <table cellpadding="5">
-      <tr><td>Login:</td><td><input maxlength="32" name="login" size="24" type="text"></td></tr>
-      <tr><td>Senha:</td><td><input maxlength="32" name="senha" size="24" type="password"></td></tr>
+      <tr><td>Login:</td><td><input maxlength="32" name="login" size="24" type="text" ></td></tr>
+      <tr><td>Senha:</td><td><input maxlength="32" name="password" size="24" type="password" ></td></tr>
       <tr><td height="10"></td></tr>
       <tr><td align="center" colspan="2"><input name="submit" type="submit" value="Entrar"></td></tr>
     </table>
 
-<?php 		/** @Episodio 6: [CADASTRAR NOVO USUÁRIO] **/ ?>
+<?php 		/** @Episodio 6: [REGISTER NEW USER] **/ ?>
             <p><a href="add_usuario.php?novo=true">Cadastrar-se</a>&nbsp;&nbsp;
 
-<?php 	    /** @Episodio 7: [LEMBRAR SENHA] **/ ?>
-            <a href="esqueciSenha.php">Esqueci senha</a></p>
+<?php 	    /** @Episodio 7: [REMEMBER PASSWORD] **/ ?>
+            <a href="forgot_password.php">Esqueci senha</a></p>
         </div>
         </form>
     </body>
 
-<?php		/** @Episodio 8: [MOSTRAR O CÓDIGO FONTE] **/ ?>
+<?php		/** @Episodio 8: [SHOW SOURCE CODE] **/ ?>
 
 	<i><a href="showSource.php?file=login.php">Veja o código fonte!</a></i>    
 </html>
